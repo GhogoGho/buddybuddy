@@ -172,7 +172,7 @@
                     </a>
                     <a class="class-menu" href="#">
                         어쩌구 저쩌구 클래스 들어주라
-                    </a>
+                    </a><br>
                     <a class="class-menu" href="#">
                         35,000원
                     </a>
@@ -187,7 +187,7 @@
                     </a>
                     <a class="class-menu" href="#">
                         어쩌구 저쩌구 클래스 들어주라
-                    </a>
+                    </a><br>
                     <a class="class-menu" href="#">
                         35,000원
                     </a>
@@ -201,7 +201,7 @@
                     </a>
                     <a class="class-menu" href="#">
                         어쩌구 저쩌구 클래스 들어주라
-                    </a>
+                    </a><br>
                     <a class="class-menu" href="#">
                         35,000원
                     </a>
@@ -215,7 +215,7 @@
                     </a>
                     <a class="class-menu" href="#">
                         어쩌구 저쩌구 클래스 들어주라
-                    </a>
+                    </a><br>
                     <a class="class-menu" href="#">
                         35,000원
                     </a>
@@ -244,7 +244,7 @@
                     </a>
                     <a class="class-menu" href="#">
                         어쩌구 저쩌구 클래스 들어주라
-                    </a>
+                    </a><br>
                     <a class="class-menu" href="#">
                         35,000원
                     </a>
@@ -259,7 +259,7 @@
                     </a>
                     <a class="class-menu" href="#">
                         어쩌구 저쩌구 클래스 들어주라
-                    </a>
+                    </a><br>
                     <a class="class-menu" href="#">
                         35,000원
                     </a>
@@ -273,7 +273,7 @@
                     </a>
                     <a class="class-menu" href="#">
                         어쩌구 저쩌구 클래스 들어주라
-                    </a>
+                    </a><br>
                     <a class="class-menu" href="#">
                         35,000원
                     </a>
@@ -287,7 +287,7 @@
                     </a>
                     <a class="class-menu" href="#">
                         어쩌구 저쩌구 클래스 들어주라
-                    </a>
+                    </a><br>
                     <a class="class-menu" href="#">
                         35,000원
                     </a>

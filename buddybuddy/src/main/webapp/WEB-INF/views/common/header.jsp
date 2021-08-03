@@ -17,7 +17,17 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+<!-- Bootstrap core JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+	crossorigin="anonymous"></script>
 
+<!-- sweetalert API 추가 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <style>
 
@@ -130,7 +140,7 @@
                             <a href="#">오프라인 클래스 </a>
                         </li>
                         <li>
-                            <a href="#" tabindex="-1">Login</a>
+                            <a href="${contextPath}/member/login" tabindex="-1">Login</a>
                         </li>
                     </ul>
                 </div>
@@ -138,7 +148,67 @@
             </div>
         </nav>
     </header>
+    
+    <%-- 로그인 실패와 같은 메세지가 서버로부터 전달되어 온 경우 출력 --%>
+	<c:if test="${!empty title}">
+		<script>
+			swal({
+				"icon" : "${icon}",
+				"title" : "${title}",
+				"text" : "${text}"
+			});
+		</script>
 
+	</c:if>
+
+	<script>
+		// 로그인 수행 시 아이디 / 비밀번호가 작성되었는지 확인하는 유효성 검사 
+		function loginValidate() {
+			// Validate : 유효한지 확인하다 
+
+			// 아이디가 입력되지 않았을 경우
+			// "아이디를 입력해주세요" 경고창을 띄우고 로그인 수행 X
+			if ($("#memberId").val().trim().length == 0) {
+				//$("#memberId") : 아이디 속성값이 memberId인 input 태그 선택
+				// .val() : input 태그에 작성된 값을 얻어옴
+				// .trim() : 얻어온 값 양쪽에 작성된 공백문자를 제거
+				// .length: 공백 제거 후 값의 길이 
+
+				swal({
+					"icon" : "warning",
+					"title" : "아이디를 입력해주세요"
+				}).then(function() {
+					// 아이디 입력창으로 포커스 이동
+					$("#memberId").focus();
+				});
+
+				return false;
+			}
+
+			// 비밀번호가 입력되지 않았을 경우
+			// "비밀번호를 입력해주세요" 경고창을 띄우고 로그인 수행 X
+
+			// return false; -> submit 기본 이벤트 제거
+			// return true; 또는 아무것도 반환하지 않으면 submit 수행 
+
+			if ($("#memberPw").val().trim().length == 0) {
+				//$("#memberId") : 아이디 속성값이 memberId인 input 태그 선택
+				// .val() : input 태그에 작성된 값을 얻어옴
+				// .trim() : 얻어온 값 양쪽에 작성된 공백문자를 제거
+				// .length: 공백 제거 후 값의 길이 
+
+				swal({
+					"icon" : "warning",
+					"title" : "비밀번호를 입력해주세요"
+				}).then(function() {
+					// 비밀번호 입력창으로 포커스 이동
+					$("#memberPw").focus();
+				});
+
+				return false;
+			}
+		}
+	</script>
 </body>
 
 </html>
