@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import edu.kh.bubby.online.model.service.ClassService;
+import edu.kh.bubby.online.model.service.OnlineService;
 
 @Controller
 @RequestMapping("/class/*")
@@ -16,7 +16,7 @@ public class OnlineController {
 
 	
 	@Autowired
-	private ClassService service;
+	private OnlineService service;
 	
 	// 클래스 목록 조회
 	@RequestMapping("{classType}/list")
