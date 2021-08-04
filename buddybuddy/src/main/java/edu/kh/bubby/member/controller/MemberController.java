@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.bubby.member.model.service.MemberService;
@@ -75,9 +77,6 @@ public class MemberController {
 						HttpServletResponse response, RedirectAttributes ra, 
 						@RequestParam(value="save", required = false) String save ) {
 		
-		System.out.println("memberEmail : " + inputMember.getMemberEmail());
-		System.out.println("memberPw : " + inputMember.getMemberPw());
-		System.out.println("save : " + save);
 		
 		Member loginMember = service.login(inputMember);
 		
@@ -115,7 +114,22 @@ public class MemberController {
 	}
 	
 	
+//	로그아웃
+	@RequestMapping(value="logout", method = RequestMethod.GET)
+	public String logout(SessionStatus status, @RequestHeader("referer") String referer) {
+		
+		status.setComplete();
+		
+		return "redirect:" + referer;
+	}
 	
+	
+//	회원가입 화면 전환용 Controller
+	@RequestMapping(value="myPage", method=RequestMethod.GET)
+	public String myPage() {
+		
+		return "member/myPage";
+	}
 	
 	
 	

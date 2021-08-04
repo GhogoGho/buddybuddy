@@ -247,10 +247,10 @@ a:hover {
 			<div class="container">
 
 				<div>
-					<a class="navbar-brand" href="#"><b>B</b>uddy</a>
+					<a class="navbar-brand" href="${contextPath}/main"><b>B</b>uddy</a>
 
 					<ul class="nav justify-content-center">
-						<li class="active"><a class="nav-menu" href="#">Home</a></li>
+						<li class="active"><a class="nav-menu" href="${contextPath}/main">Home</a></li>
 						<li><a href="#">온라인 클래스</a></li>
 						<li><a href="#">오프라인 클래스 </a></li>
 						<li><a href="#" tabindex="-1">Login</a></li>
