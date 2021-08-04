@@ -65,22 +65,28 @@
 			<!-- 카테고리 -->
 			<div class="row my-5 ms-5">
 				<div class="col-md-3">
-					<div
-						class="online-category col-md-2 col-md-offset-1 rounded-circle">
-						공예</div>
+					<div class="online-category col-md-2 col-md-offset-1 rounded-circle">
+					
+						공예
+					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="online-category col-md-2 col-md-offset-1 rounded-1">
-						미술</div>
+					
+						미술
+					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="online-category col-md-2 col-md-offset-1 rounded-1">
-						요리</div>
+					
+						요리
+					</div>
 				</div>
 				<div class="col-md-3">
-					<div
-						class="online-category col-md-2 col-md-offset-1 rounded-circle">
-						플라워</div>
+					<div class="online-category col-md-2 col-md-offset-1 rounded-circle">
+					
+						플라워
+					</div>
 				</div>
 			</div>
 
@@ -99,8 +105,8 @@
 							<select>
 								<option selected>최신순</option>
 								<option value="1">인기순</option>
-								<option value="2">떡튀순</option>
-								<option value="3">죽순</option>
+								<option value="2">행복은</option>
+								<option value="3">성적순</option>
 							</select>
 						</div>
 						<span class="icon is-large is-left"> 
@@ -224,29 +230,31 @@
 			
 			<!-- 검색부분 -->
 			<div class="row mt-1">
-				<div class="col-md-3 offset-md-9">
+				<form action="list" method="GET" id="searchForm">
+					<div class="col-md-3 offset-md-9">
 
-					<div class="control has-icons-left mb-1">
-						<div class="select">
-							<select>
-								<option selected>제목</option>
-								<option value="1">카테고리</option>
-								<option value="2">버디버디</option>
-								<option value="3">검색범위</option>
-							</select>
+						<div class="control has-icons-left mb-1">
+							<div class="select">
+								<select name="sk">
+									<option value="all" selected>검색조건</option>
+									<option value="title">제목</option>
+									<option value="content">내용</option>
+									<option value="titcont">제목+내용</option>
+									<option value="creater">크리에이터</option>
+								</select>
+							</div>
+							<span class="icon is-large is-left"> <i
+								class="fas fa-th-list"></i>
+							</span>
 						</div>
-						<span class="icon is-large is-left"> <i
-							class="fas fa-th-list"></i>
-						</span>
+	
+						<div class="d-flex">
+							<input name="sv" class="form-control me-1" type="search" placeholder="클래스 검색" aria-label="Search">
+							<button class="btn btn-danger" type="submit">Search</button>
+						</div>
+						
 					</div>
-
-					<form class="d-flex">
-						<input class="form-control me-1" type="search"
-							placeholder="클래스 검색" aria-label="Search">
-						<button class="btn btn-danger" type="submit">Search</button>
-					</form>
-
-				</div>
+				</form>
 
 			</div>
 

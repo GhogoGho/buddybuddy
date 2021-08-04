@@ -47,6 +47,12 @@
 	<!-- ======================================================================== -->
 	<!-- ======================================================================== -->
 	
+	<!-- 특정 클래스의 모든 이미지 정보 조회 -->
+	<select id="selectAttachment" parameterType="_int" resultMap="attachment_rm">
+		SELECT * FROM ATTACHMENT
+		WHERE CLASS_NO = ${classNo}
+		ORDER BY FILE_LEVEL
+	</select>
 	
 	<!-- 온라인 클래스 목록 조회 -->
 	<select id="selectOnlineList" parameterType="_int" resultMap="online_rm">
@@ -56,12 +62,52 @@
 		ORDER BY CLASS_NO DESC
 	</select>
 	
-	<!-- 특정 클래스의 모든 이미지 정보 조회 -->
-	<select id="selectAttachment" parameterType="_int" resultMap="attachment_rm">
-		SELECT * FROM ATTACHMENT
-		WHERE CLASS_NO = ${classNo}
-		ORDER BY FILE_LEVEL
+	<!-- 온라인 클래스 목록 조회(검색) -->
+	<select id="selectSearchList" parameterType="OnSearch" resultMap="online_rm">
+		SELECT * FROM ONLINE_LIST
+		WHERE CLASS_STATUS = 'Y'
+		AND CLASS_TYPE_NO = #{classType}
+		
+		<if test="sv != null">
+			AND
+
+			<bind name="val" value="'%' + sv + '%'" />
+
+			<choose>
+
+				<when test="sk == 'all' ">
+					( CLASS_TITLE LIKE #{val} OR CLASS_CONTENT LIKE #{val} OR MEMBER_NICKNAME LIKE #{val})
+				</when>
+				<when test="sk == 'title' ">
+					CLASS_TITLE LIKE #{val}
+				</when>
+				<when test="sk == 'content' ">
+					CLASS_CONTENT LIKE #{val}
+				</when>
+				<when test="sk == 'titcont' ">
+					( CLASS_TITLE LIKE #{val} OR CLASS_CONTENT LIKE #{val} )
+				</when>
+				<when test="sk == 'creater' ">
+					MEMBER_NICKNAME LIKE #{val}
+				</when>
+
+			</choose>
+		</if>
+		
+		<!-- 카테고리 조건으로 추가되어 있는 경우 -->
+		<if test="ct != null">
+			AND CATEGORY_NO IN
+
+			<foreach collection="ct" item="code" open="(" close=")"
+				separator=",">
+				#{code}
+			</foreach>
+
+		</if>
+		
+		ORDER BY CLASS_NO DESC
 	</select>
+	
 	
 	<!-- 특정 클래스 전체 클래스 수 + 클래스 이름 조회 -->
 	<select id="getListCount" parameterType="_int" resultMap="pg_rm">
@@ -72,6 +118,53 @@
 		WHERE CLASS_TYPE_NO = #{classType} AND CLASS_STATUS = 'Y')
 	</select>
 	
+	<!-- 특정 클래스 검색 클래스 수 + 클래스 이름 조회 -->
+	<select id="getSearchListCount" parameterType="OnSearch" resultMap="pg_rm">
+		SELECT
+		CNT, (SELECT CLASS_TYPE_NAME FROM CLASS_TYPE WHERE CLASS_TYPE_NO = #{classType}) CLASS_TYPE_NAME
+		FROM (SELECT COUNT(*) CNT
+		FROM ONLINE_LIST
+		WHERE CLASS_TYPE_NO = #{classType} AND CLASS_STATUS = 'Y'
+		
+		<if test="sv != null">
+			AND
+
+			<bind name="val" value="'%' + sv + '%'" />
+
+			<choose>
+			
+				<when test="sk == 'all' ">
+					( CLASS_TITLE LIKE #{val} OR CLASS_CONTENT LIKE #{val} OR MEMBER_NICKNAME LIKE #{val})
+				</when>
+				<when test="sk == 'title' ">
+					CLASS_TITLE LIKE #{val}
+				</when>
+				<when test="sk == 'content' ">
+					CLASS_CONTENT LIKE #{val}
+				</when>
+				<when test="sk == 'titcont' ">
+					( CLASS_TITLE LIKE #{val} OR CLASS_CONTENT LIKE #{val} )
+				</when>
+				<when test="sk == 'creater' ">
+					MEMBER_NICKNAME LIKE #{val}
+				</when>
+
+			</choose>
+		</if>
+
+		<!-- 카테고리 조건으로 추가되어 있는 경우 -->
+		<if test="ct != null">
+			AND CATEGORY_NO IN
+
+			<foreach collection="ct" item="code" open="(" close=")"
+				separator=",">
+				#{code}
+			</foreach>
+
+		</if>
+		
+		)
+	</select>
 
 	
 	<!-- 조회 수 증가 -->

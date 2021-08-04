@@ -17,21 +17,20 @@ public class OnlineServiceImpl implements OnlineService{
 	private OnlineDAO dao;
 	
 	
-	// 전체 게시글 수 + 클래스 이름 조회
+	// 전체 클래스 수 + 클래스 이름 조회
 	@Override
 	public Pagination getPagination(Pagination pg) {
 		Pagination selectPg = dao.getListCount(pg.getClassType()); 
-	
 //		System.out.println(selectPg);
-		
 		return new Pagination(pg.getCurrentPage(), selectPg.getListCount(), 
 				pg.getClassType(), selectPg.getClassName());
 	}
 	
-	// 전체 게시글 수 + 클래스 이름 조회(검색)
+	// 전체 클래스 수 + 클래스 이름 조회(검색)
 	@Override
 	public Pagination getPagination(Search search, Pagination pg) {
 		Pagination selectPg = dao.getSearchListCount(search);
+//		System.out.println("selectPg : "+selectPg);
 		return new Pagination(pg.getCurrentPage(), selectPg.getListCount(), 
 				pg.getClassType(), selectPg.getClassName());
 	}
