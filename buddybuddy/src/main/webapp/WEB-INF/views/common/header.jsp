@@ -134,7 +134,7 @@ a:hover {
 
 					<ul class="nav justify-content-center">
 						<li class="active"><a class="nav-menu" href="${contextPath}/main">Home</a></li>
-						<li><a href="#">온라인 클래스</a></li>
+						<li><a href="${contextPath}/class/1/list">온라인 클래스</a></li>
 						<li><a href="#">오프라인 클래스 </a></li>
 
 						<%-- 로그인을 했는지, 안 했는지 구분하는 방법 == session에 loginMember 유무 --%>
