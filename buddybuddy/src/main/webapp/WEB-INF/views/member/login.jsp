@@ -28,15 +28,12 @@
 	.navbar>.container-xxl {
 	display: block;
 }
-
 ul.navbar-nav li.active a {
 	text-decoration: none;
 }
-
 ul.navbar-nav li a {
 	text-decoration: none;
 }
-
 .header-section {
 	display: block;
 	width: 100%;
@@ -45,14 +42,12 @@ ul.navbar-nav li a {
 	transition: all 1s;
 	background: #fff;
 }
-
 .header-section .navbar .navbar-brand {
 	font-size: 30px;
 	font-weight: 540;
 	text-transform: uppercase;
 	color: #555252;
 }
-
 header.header-section.fixed {
 	position: fixed;
 	display: block;
@@ -64,11 +59,9 @@ header.header-section.fixed {
 	padding: 10px 0;
 	transition: all 1s;
 }
-
 .header-section .navbar .navbar-brand b {
 	color: #1abc9c;
 }
-
 ul.navbar-nav {
 	background: transparent;
 	margin: 0 auto;
@@ -76,33 +69,27 @@ ul.navbar-nav {
 	display: inline-block;
 	float: none;
 }
-
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
 	text-align: center;
 	padding: 0 !important;
 	background: transparent !important;
 }
-
 .nav-menu {
 	color: #1abc9c;
 	font-weight: bolder;
 }
-
 .nav-menu:hover {
 	color: #515151;
 }
-
 a {
 	color: #555252;
 	text-decoration: none;
 	padding: 10px;
 	font-weight: bold;
 }
-
 a:hover {
 	color: #70c5c0;
 }
-
 .footer {
 	display: block;
 	text-align: center;
@@ -110,7 +97,6 @@ a:hover {
 	padding: 20px 0;
 	color: rgb(0, 0, 0);
 }
-
 .footer p {
 	padding: 0;
 	margin: 0;
@@ -119,29 +105,24 @@ a:hover {
 	color: rgb(0, 0, 0);
 	text-align: center;
 }
-
 /* 로그인 섹션 */
 .form-control {
 	border-color: #eee;
 	min-height: 41px;
 	box-shadow: none !important;
 }
-
 .form-control:focus {
 	border-color: #50b8b3;
 }
-
 .form-control, .btn {
 	border-radius: 3px;
 }
-
 .login-form {
 	width: 400px;
 	margin: 0 auto;
 	padding: 30px 0;
 	margin-bottom: 20px;
 }
-
 .login-form h2 {
 	color: #333;
 	margin: 0 0 30px 0;
@@ -149,7 +130,6 @@ a:hover {
 	padding: 0 30px 10px 0;
 	border-bottom: 3px solid #50b8b3;
 }
-
 .login-form form {
 	color: rgb(148, 148, 148);
 	border-radius: 3px;
@@ -157,21 +137,17 @@ a:hover {
 	background: #fff;
 	padding: 30px;
 }
-
 .login-form .form-group {
 	margin-bottom: 20px;
 }
-
 .login-form label {
 	font-weight: normal;
 	font-size: 13px;
 	line-height: 40px;
 }
-
 .login-form input[type="checkbox"] {
 	margin-top: 2px;
 }
-
 .login-form .btn {
 	font-size: 16px;
 	font-weight: bold;
@@ -181,58 +157,46 @@ a:hover {
 	min-width: 180px;
 	margin-left: 80px;
 }
-
 .login-form .btn:hover, .login-form .btn:focus {
 	background: #50b8b3;
 	outline: none !important;
 }
-
 .login-form-form a {
 	color: #50b8b3;
 	text-decoration: none;
 }
-
 .login-form a:hover {
 	text-decoration: none;
 }
-
 .login-form form a {
 	color: #50b8b3;
 	font-weight: bold;
 	text-decoration: none;
 	margin-top: 20px;
 }
-
 .login-form form a:hover {
 	text-decoration: none;
 }
-
 .text-center a {
 	color: rgb(148, 148, 148);
 }
-
 .text-center a:hover {
 	color: #50b8b3;
 }
-
 .mem-signUp {
 	text-align: left;
 }
-
 .cre-signUp {
 	text-align: right;
 }
-
 .findId {
 	color: rgb(148, 148, 148);
 	font-size: 15px;
 }
-
 .findPw {
 	color: rgb(148, 148, 148);
 	font-size: 15px;
 }
-
 #kakaoimg {
 	margin-left: 53px;
 }
@@ -265,7 +229,7 @@ a:hover {
 
 	<!-- 로그인 -->
 	<div class="login-form">
-		<form action="/examples/actions/confirmation.php" method="post"
+		<form action="${contextPath}/member/login" method="POST" onsubmit="return loginValidate();"
 			class="form-horizontal">
 			<div class="col-xs-8 col-xs-offset-4">
 				<h2>Login</h2>
@@ -274,13 +238,13 @@ a:hover {
 			<div class="form-group">
 				<label class="control-label col-xs-4">ID</label>
 				<div class="col-xs-8">
-					<input type="id" class="form-control" name="id" required="required">
+					<input type="id" class="form-control" name="memberEmail" required="required">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-xs-4">Password</label>
 				<div class="col-xs-8">
-					<input type="password" class="form-control" name="password"
+					<input type="password" class="form-control" name="memberPw"
 						required="required">
 				</div>
 			</div>
@@ -332,6 +296,59 @@ a:hover {
 		</div>
 
 	</footer>
+	
+	<%-- 로그인 실패와 같은 메세지가 서버로부터 전달되어 온 경우 출력 --%>
+	<c:if test="${!empty title}">
+		<script>
+			swal({
+				"icon" : "${icon}",
+				"title" : "${title}",
+				"text" : "${text}"
+			});
+		</script>
+
+	</c:if>
+
+	<script>
+		// 로그인 수행 시 아이디 / 비밀번호가 작성되었는지 확인하는 유효성 검사 
+		function loginValidate() {
+			// Validate : 유효한지 확인하다 
+			// 아이디가 입력되지 않았을 경우
+			// "아이디를 입력해주세요" 경고창을 띄우고 로그인 수행 X
+			if ($("#memberEmail").val().trim().length == 0) {
+				//$("#memberId") : 아이디 속성값이 memberId인 input 태그 선택
+				// .val() : input 태그에 작성된 값을 얻어옴
+				// .trim() : 얻어온 값 양쪽에 작성된 공백문자를 제거
+				// .length: 공백 제거 후 값의 길이 
+				swal({
+					"icon" : "warning",
+					"title" : "이메일을 입력해주세요"
+				}).then(function() {
+					// 아이디 입력창으로 포커스 이동
+					$("#memberEmail").focus();
+				});
+				return false;
+			}
+			// 비밀번호가 입력되지 않았을 경우
+			// "비밀번호를 입력해주세요" 경고창을 띄우고 로그인 수행 X
+			// return false; -> submit 기본 이벤트 제거
+			// return true; 또는 아무것도 반환하지 않으면 submit 수행 
+			if ($("#memberPw").val().trim().length == 0) {
+				//$("#memberId") : 아이디 속성값이 memberId인 input 태그 선택
+				// .val() : input 태그에 작성된 값을 얻어옴
+				// .trim() : 얻어온 값 양쪽에 작성된 공백문자를 제거
+				// .length: 공백 제거 후 값의 길이 
+				swal({
+					"icon" : "warning",
+					"title" : "비밀번호를 입력해주세요"
+				}).then(function() {
+					// 비밀번호 입력창으로 포커스 이동
+					$("#memberPw").focus();
+				});
+				return false;
+			}
+		}
+	</script>
 </body>
 
 </html>
