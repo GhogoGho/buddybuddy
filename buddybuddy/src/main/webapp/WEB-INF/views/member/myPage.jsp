@@ -204,7 +204,7 @@
             <!-- 마이페이지 회원 정보-->
             <div class="row">
                 <div class="avatar"></div>
-                <p class="nick-nm text-center">${loginMember.memberNickname }</p>
+                <p class="nick-nm text-center">${loginMember.memberNickname}</p>
                 <p class="mem-grade text-center">일반 회원</p>
             </div>
 
