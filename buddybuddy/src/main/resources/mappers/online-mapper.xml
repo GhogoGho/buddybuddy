@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="onlineMapper">
+	
+	<!-- 파일 정보 조회용 resultMap -->
+	<resultMap type="Attachment" id="attachment_rm">
+		<id property="fileNo" column="FILE_NO" />
+
+		<result property="filePath" column="FILE_PATH" />
+		<result property="fileName" column="FILE_NM" />
+		<result property="fileLevel" column="FILE_LEVEL" />
+		<result property="classNo" column="CLASS_NO" />
+	</resultMap>
+	
+	<!-- Pagination용 resultMap -->
+	<resultMap type="Pagination" id="pg_rm">
+		<result property="listCount" column="CNT"/>
+		<result property="className" column="CLASS_TYPE_NAME"/>
+	</resultMap>
+	
+	<!-- 클래스 목록, 상세조회용 resultMap -->	
+	<resultMap type="Class" id="class_rm">
+		<id property="classNo" column="CLASS_NO"/>
+	
+		<result property="classTitle" column="CLASS_TITLE"/>
+		<result property="memberName" column="MEMBER_NICKNAME"/>
+		<result property="categoryName" column="CATEGORY_NAME"/>
+		<result property="classReadCount" column="CLASS_READ_COUNT"/>
+		<result property="classCreateDate" column="CLASS_CREATE_DT"/>
+		
+		<result property="classContent" column="CLASS_CONTENT"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		 
+		<collection property="atList" column="CLASS_NO" 
+			javaType="java.util.ArrayList" ofType="Attachment" select="selectAttachment"/>
+	</resultMap>
+	
+	<!-- 카테고리 목록 resultMap -->
+	<resultMap type="Category" id="category_rm">
+		<id property="categoryNo" column="CATEGORY_NO" />
+		<result property="categoryName" column="CATEGORY_NAME" />
+	</resultMap>
+	
+	
+	<!-- ======================================================================== -->
+	<!-- ======================================================================== -->
+	<!-- ======================================================================== -->
+	<!-- ======================================================================== -->
+	
+	
+	<!-- 온라인 클래스 목록 조회 -->
+	<select id="selectClassList" parameterType="_int" resultMap="class_rm">
+		SELECT * FROM CLASS_LIST
+		WHERE CLASS_STATUS = 'Y'
+		AND CLASS_TYPE_NO = #{classType}
+		ORDER BY CLASS_NO DESC
+	</select>
+	
+	<!-- 특정 클래스의 모든 이미지 정보 조회 -->
+	<select id="selectAttachment" parameterType="_int"
+		resultMap="attachment_rm">
+		SELECT * FROM ATTACHMENT
+		WHERE CLASS_NO = ${classNo}
+		ORDER BY
+		FILE_LEVEL
+	</select>
+	
+	<!-- 특정 클래스 전체 클래스 수 + 클래스 이름 조회 -->
+	<select id="getListCount" parameterType="_int" resultMap="pg_rm">
+		SELECT
+		CNT, (SELECT CLASS_TYPE_NAME FROM CLASS_TYPE WHERE CLASS_TYPE_NO =
+		#{classType}) CLASS_TYPE_NAME
+		FROM (SELECT COUNT(*) CNT
+		FROM ONLINE_LIST
+		WHERE CLASS_TYPE_NO = #{classType} AND CLASS_STATUS = 'Y')
+	</select>
+	
+	
+	
+
+	
+	<!-- 조회 수 증가 -->
+	<update id="increaseReadCount" parameterType="_int">
+		UPDATE CLASS_PAGE SET
+		CLASS_READ_COUNT = CLASS_READ_COUNT + 1
+		WHERE CLASS_NO = #{classNo}
+	</update>
+	
+	<!-- 카테고리 목록 조회 -->
+	<select id="selectCategory" resultMap="category_rm">
+		SELECT * FROM CATEGORY
+	</select>
+	
+</mapper>
