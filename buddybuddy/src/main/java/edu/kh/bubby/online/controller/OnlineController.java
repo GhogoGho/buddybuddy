@@ -15,8 +15,9 @@ import edu.kh.bubby.online.model.service.OnlineService;
 public class OnlineController {
 
 	
-	@Autowired
-	private OnlineService service;
+	/*
+	 * @Autowired private OnlineService service;
+	 */
 	
 	// 클래스 목록 조회
 	@RequestMapping("{classType}/list")
