@@ -41,10 +41,10 @@ public class MemberServiceImpl implements MemberService {
 	public Member login(Member inputMember) {
 		
 		System.out.println(inputMember);
-		System.out.println("변경 전 비밀번호 : " + inputMember.getMemberPw());
+
 		
 		String encPw = bCryptPasswordEncoder.encode(inputMember.getMemberPw());
-		System.out.println("변경 후 비밀번호 : " + encPw);
+		
 		
 		Member loginMember = dao.login(inputMember.getMemberEmail());
 		
