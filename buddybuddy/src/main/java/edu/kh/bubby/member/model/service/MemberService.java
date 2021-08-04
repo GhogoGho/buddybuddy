@@ -15,8 +15,15 @@ public interface MemberService {
 
 	/** id 중복검사용 Service
 	 * @param id
-	 * @return
+	 * @return result
 	 */
 	public abstract int idDupCheck(String id);
+
+	/** 로그인 Service
+	 * @param inputMember
+	 * @return
+	 */
+	public abstract Member login(Member inputMember);
+
 
 }
