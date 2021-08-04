@@ -265,7 +265,7 @@ a:hover {
 
 	<!-- 로그인 -->
 	<div class="login-form">
-		<form action="/examples/actions/confirmation.php" method="post"
+		<form action="${contextPath}/member/login" method="POST" onsubmit="return loginValidate();"
 			class="form-horizontal">
 			<div class="col-xs-8 col-xs-offset-4">
 				<h2>Login</h2>
@@ -274,13 +274,13 @@ a:hover {
 			<div class="form-group">
 				<label class="control-label col-xs-4">ID</label>
 				<div class="col-xs-8">
-					<input type="id" class="form-control" name="id" required="required">
+					<input type="id" class="form-control" name="memberEmail" required="required">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-xs-4">Password</label>
 				<div class="col-xs-8">
-					<input type="password" class="form-control" name="password"
+					<input type="password" class="form-control" name="memberPw"
 						required="required">
 				</div>
 			</div>
@@ -332,6 +332,67 @@ a:hover {
 		</div>
 
 	</footer>
+	
+	<%-- 로그인 실패와 같은 메세지가 서버로부터 전달되어 온 경우 출력 --%>
+	<c:if test="${!empty title}">
+		<script>
+			swal({
+				"icon" : "${icon}",
+				"title" : "${title}",
+				"text" : "${text}"
+			});
+		</script>
+
+	</c:if>
+
+	<script>
+		// 로그인 수행 시 아이디 / 비밀번호가 작성되었는지 확인하는 유효성 검사 
+		function loginValidate() {
+			// Validate : 유효한지 확인하다 
+
+			// 아이디가 입력되지 않았을 경우
+			// "아이디를 입력해주세요" 경고창을 띄우고 로그인 수행 X
+			if ($("#memberEmail").val().trim().length == 0) {
+				//$("#memberId") : 아이디 속성값이 memberId인 input 태그 선택
+				// .val() : input 태그에 작성된 값을 얻어옴
+				// .trim() : 얻어온 값 양쪽에 작성된 공백문자를 제거
+				// .length: 공백 제거 후 값의 길이 
+
+				swal({
+					"icon" : "warning",
+					"title" : "이메일을 입력해주세요"
+				}).then(function() {
+					// 아이디 입력창으로 포커스 이동
+					$("#memberEmail").focus();
+				});
+
+				return false;
+			}
+
+			// 비밀번호가 입력되지 않았을 경우
+			// "비밀번호를 입력해주세요" 경고창을 띄우고 로그인 수행 X
+
+			// return false; -> submit 기본 이벤트 제거
+			// return true; 또는 아무것도 반환하지 않으면 submit 수행 
+
+			if ($("#memberPw").val().trim().length == 0) {
+				//$("#memberId") : 아이디 속성값이 memberId인 input 태그 선택
+				// .val() : input 태그에 작성된 값을 얻어옴
+				// .trim() : 얻어온 값 양쪽에 작성된 공백문자를 제거
+				// .length: 공백 제거 후 값의 길이 
+
+				swal({
+					"icon" : "warning",
+					"title" : "비밀번호를 입력해주세요"
+				}).then(function() {
+					// 비밀번호 입력창으로 포커스 이동
+					$("#memberPw").focus();
+				});
+
+				return false;
+			}
+		}
+	</script>
 </body>
 
 </html>

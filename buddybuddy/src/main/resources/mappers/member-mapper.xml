@@ -30,5 +30,11 @@
   		AND MEMBER_EMAIL = #{id}
 	</select>
 	
+	<!-- 로그인 -->
+	<select id="login" parameterType="string" resultMap="member_rm">
+		SELECT * FROM MEMBER
+		WHERE MEMBER_STATUS = 'Y'
+		AND MEMBER_EMAIL = #{memberEmail}
+	</select>
   
 </mapper>

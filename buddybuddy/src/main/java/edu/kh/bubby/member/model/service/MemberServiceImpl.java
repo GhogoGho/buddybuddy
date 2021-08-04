@@ -35,6 +35,36 @@ public class MemberServiceImpl implements MemberService {
 		
 		return dao.idDupCheck(id);
 	}
+
+//	로그인 Service
+	@Override
+	public Member login(Member inputMember) {
+		
+		System.out.println(inputMember);
+		System.out.println("변경 전 비밀번호 : " + inputMember.getMemberPw());
+		
+		String encPw = bCryptPasswordEncoder.encode(inputMember.getMemberPw());
+		System.out.println("변경 후 비밀번호 : " + encPw);
+		
+		Member loginMember = dao.login(inputMember.getMemberEmail());
+		
+		System.out.println(loginMember);
+		
+		if(loginMember != null ) {
+			
+			if(!bCryptPasswordEncoder.matches(inputMember.getMemberPw(), loginMember.getMemberPw())) {
+				
+				loginMember = null;
+				
+			} else {
+				
+				loginMember.setMemberPw(null);
+				
+			}
+		}
+		
+		return loginMember;
+	}
 	
 	
 
