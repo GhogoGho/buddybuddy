@@ -39,12 +39,15 @@
 	.navbar>.container-xxl {
 	display: block;
 }
+
 ul.navbar-nav li.active a {
 	text-decoration: none;
 }
+
 ul.navbar-nav li a {
 	text-decoration: none;
 }
+
 .header-section {
 	display: block;
 	width: 100%;
@@ -53,12 +56,14 @@ ul.navbar-nav li a {
 	transition: all 1s;
 	background: #fff;
 }
+
 .header-section .navbar .navbar-brand {
 	font-size: 30px;
 	font-weight: 540;
 	text-transform: uppercase;
 	color: #555252;
 }
+
 header.header-section.fixed {
 	position: fixed;
 	display: block;
@@ -70,9 +75,11 @@ header.header-section.fixed {
 	padding: 10px 0;
 	transition: all 1s;
 }
+
 .header-section .navbar .navbar-brand b {
 	color: #1abc9c;
 }
+
 ul.navbar-nav {
 	background: transparent;
 	margin: 0 auto;
@@ -80,27 +87,33 @@ ul.navbar-nav {
 	display: inline-block;
 	float: none;
 }
+
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
 	text-align: center;
 	padding: 0 !important;
 	background: transparent !important;
 }
+
 .nav-menu {
 	color: #1abc9c;
 	font-weight: bolder;
 }
+
 .nav-menu:hover {
 	color: #515151;
 }
+
 a {
 	color: #555252;
 	text-decoration: none;
 	padding: 10px;
 	font-weight: bold;
 }
+
 a:hover {
 	color: #70c5c0;
 }
+
 .mem {
 	color: #1abc9c;
 	font-weight : bolder;
@@ -162,6 +175,7 @@ a:hover {
 		// 로그인 수행 시 아이디 / 비밀번호가 작성되었는지 확인하는 유효성 검사 
 		function loginValidate() {
 			// Validate : 유효한지 확인하다 
+
 			// 아이디가 입력되지 않았을 경우
 			// "아이디를 입력해주세요" 경고창을 띄우고 로그인 수행 X
 			if ($("#memberId").val().trim().length == 0) {
@@ -169,6 +183,7 @@ a:hover {
 				// .val() : input 태그에 작성된 값을 얻어옴
 				// .trim() : 얻어온 값 양쪽에 작성된 공백문자를 제거
 				// .length: 공백 제거 후 값의 길이 
+
 				swal({
 					"icon" : "warning",
 					"title" : "아이디를 입력해주세요"
@@ -176,17 +191,22 @@ a:hover {
 					// 아이디 입력창으로 포커스 이동
 					$("#memberId").focus();
 				});
+
 				return false;
 			}
+
 			// 비밀번호가 입력되지 않았을 경우
 			// "비밀번호를 입력해주세요" 경고창을 띄우고 로그인 수행 X
+
 			// return false; -> submit 기본 이벤트 제거
 			// return true; 또는 아무것도 반환하지 않으면 submit 수행 
+
 			if ($("#memberPw").val().trim().length == 0) {
 				//$("#memberId") : 아이디 속성값이 memberId인 input 태그 선택
 				// .val() : input 태그에 작성된 값을 얻어옴
 				// .trim() : 얻어온 값 양쪽에 작성된 공백문자를 제거
 				// .length: 공백 제거 후 값의 길이 
+
 				swal({
 					"icon" : "warning",
 					"title" : "비밀번호를 입력해주세요"
@@ -194,6 +214,7 @@ a:hover {
 					// 비밀번호 입력창으로 포커스 이동
 					$("#memberPw").focus();
 				});
+
 				return false;
 			}
 		}

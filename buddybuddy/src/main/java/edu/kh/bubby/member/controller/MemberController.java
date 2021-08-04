@@ -106,7 +106,7 @@ public class MemberController {
 			
 			ra.addFlashAttribute("icon", "error");
 			ra.addFlashAttribute("title", "로그인 실패");
-			ra.addFlashAttribute("text", "로그인에 실패하였습니다. 다시 시도해주세요.");
+			ra.addFlashAttribute("text", "로그인에 실패하였습니다<br> 다시 시도해주세요.");
 		}
 		
 		
