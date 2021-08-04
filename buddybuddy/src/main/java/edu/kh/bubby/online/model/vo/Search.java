@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Search {
 	private String sk;
 	private String sv;
-	private int boardType;
+	private int classType;
 	private int[] ct;
 	
 	public Search() {}
@@ -26,12 +26,12 @@ public class Search {
 		this.sv = sv;
 	}
 
-	public int getBoardType() {
-		return boardType;
+	public int getClassType() {
+		return classType;
 	}
 
-	public void setBoardType(int boardType) {
-		this.boardType = boardType;
+	public void setClassType(int classType) {
+		this.classType = classType;
 	}
 
 	public int[] getCt() {
@@ -44,7 +44,7 @@ public class Search {
 
 	@Override
 	public String toString() {
-		return "Search [sk=" + sk + ", sv=" + sv + ", boardType=" + boardType + ", ct=" + Arrays.toString(ct) + "]";
+		return "Search [sk=" + sk + ", sv=" + sv + ", classType=" + classType + ", ct=" + Arrays.toString(ct) + "]";
 	}
 	
 	

@@ -50,7 +50,6 @@ public class OnlineDAO {
 	 */
 	public List<Online> selectSearchList(Search search, Pagination pagination) {
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
-
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 		return sqlSession.selectList("onlineMapper.selectSearchList", search, rowBounds);
 	}
