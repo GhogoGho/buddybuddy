@@ -262,7 +262,11 @@
 				</form>
 
 			</div>
-
+		
+		<div class="row">
+			<a href="insert">클래스 작성</a>
+		</div>
+		
 		</div>
 
 

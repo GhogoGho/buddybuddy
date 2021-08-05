@@ -109,6 +109,10 @@
               <div class="row">
                 <button type="button" class="btn btn-success btn-lg">수강신청</button>
               </div>
+              <div class="row">
+								<%-- <a href="${contextPath}/class/video">수강하기 임시</a> --%>
+								<a href="${online.classNo}?cp=${pagination.currentPage}${searchStr}/video">수강하기 임시</a>
+							</div>
             </div>
           </div>
         </div>

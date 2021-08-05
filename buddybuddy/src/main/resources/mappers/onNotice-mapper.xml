@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="onNoticeMapper">
+
+	<resultMap type="OnNotice" id="notice_rm">
+		<id property="noticeNo" column="NOTI_NO"/>
+		
+		<result property="noticeTitle" column="NOTI_TITLE"/>
+		<result property="noticeContent" column="NOTI_CONTENT"/>
+		<result property="noticeCount" column="NOTI_READ_COUNT"/>
+		<result property="noticeDate" column="NOTI_CREATE_DT"/>
+		<result property="classNo" column="CLASS_NO"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="boardType" column="BOARD_TYPE_NO"/>
+		
+	</resultMap>
+	
+	
+	
+	
+	<!-- =================================================== -->
+	<!-- =================================================== -->
+	<!-- =================================================== -->
+	
+	<!-- 공지사항 목록 조회 -->
+	<select id="selectNoticeList" parameterType="_int" resultMap="notice_rm">
+		SELECT NOTI_NO, NOTI_TITLE, NOTI_CONTENT, NOTI_CREATE_DT, CLASS_NO, MEM.MEMBER_NO
+		FROM NOTI_BOARD
+    JOIN CLASS_TYPE ON BOARD_TYPE_NO = CLASS_TYPE_NO
+    JOIN CLASS_PAGE CP USING(CLASS_TYPE_NO)
+		JOIN MEMBER MEM ON MEM.MEMBER_NO = CP.MEMBER_NO
+		WHERE NOTI_STATUS = 'Y'
+		AND CLASS_NO = #{classNo}
+	</select>
+	
+	
+</mapper>
