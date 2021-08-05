@@ -2,8 +2,11 @@
 	pageEncoding="UTF-8"%>
 	
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="contextPath"
-	value="${pageContext.servletContext.contextPath}" scope="application" />
+
+<%-- 배포된 웹 애플리케이션의 최상위 주소를 간단히 얻어올 수 있도록 
+     application 범위로 변수를 하나 생성 --%>
+<c:set var="contextPath" scope="application"
+	value="${pageContext.servletContext.contextPath}" />
 		
 <!DOCTYPE html>
 <html lang="ko">
@@ -236,6 +239,12 @@ a:hover {
 #kakaoimg {
 	margin-left: 53px;
 }
+
+.mem {
+	color: #1abc9c;
+	font-weight : bolder;
+	font-size : 20px;
+}
 </style>
 
 
@@ -251,9 +260,28 @@ a:hover {
 
 					<ul class="nav justify-content-center">
 						<li class="active"><a class="nav-menu" href="${contextPath}/main">Home</a></li>
-						<li><a href="#">온라인 클래스</a></li>
+						<li><a href="${contextPath}/class/1/list">온라인 클래스</a></li>
 						<li><a href="#">오프라인 클래스 </a></li>
-						<li><a href="#" tabindex="-1">Login</a></li>
+						 <li>
+                            <a href="${contextPath}/member/myPage">마이페이지 </a>
+                        </li>
+
+						<%-- 로그인을 했는지, 안 했는지 구분하는 방법 == session에 loginMember 유무 --%>
+						<c:choose>
+
+							<c:when test="${ empty loginMember}">
+								<li><a href="${contextPath}/member/login" tabindex="-1">Login</a>
+								</li>
+
+							</c:when>
+							
+							<c:otherwise>
+							<%-- 로그인이 되었을 때 --%>
+							<li><a class="mem" href="${contextPath}/member/info">${loginMember.memberNickname }</a></li>
+							<li><a 	href="${contextPath}/member/logout">로그아웃</a></li>
+						</c:otherwise> 
+					</c:choose>
+					
 					</ul>
 				</div>
 

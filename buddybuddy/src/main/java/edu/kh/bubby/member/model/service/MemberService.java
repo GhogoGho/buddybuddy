@@ -1,6 +1,7 @@
 package edu.kh.bubby.member.model.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.bubby.member.model.vo.Member;
 
@@ -25,5 +26,16 @@ public interface MemberService {
 	 */
 	public abstract Member login(Member inputMember);
 
+	/** 회원정보 수정 Service
+	 * @param savePath 
+	 * @param inputMember 
+	 * @param currentPwd 
+	 * @param formFile
+	 * @param fileNameString 
+	 * @return result1
+	 */
+	public abstract int updateInfo(String currentPwd, Member inputMember, String savePath, MultipartFile formFile, String fileName);
 
+
+	public abstract String rename(String fileName);
 }

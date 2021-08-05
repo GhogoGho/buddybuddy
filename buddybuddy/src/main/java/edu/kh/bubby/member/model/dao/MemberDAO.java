@@ -42,4 +42,34 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.login", memberEmail);
 	}
 
+
+	/** 비밀번호 수정용 DAO(일치 조건 확인용)
+	 * @param memberNo
+	 * @return result
+	 */
+	public String selectPassword(int memberNo) {
+		
+		return sqlSession.selectOne("memberMapper.selectPassword", memberNo);
+	}
+
+
+	/** 비밀번호 수정 DAO 
+	 * @param loginMember
+	 * @return result
+	 */
+	public int changePwd(Member loginMember) {
+		
+		return sqlSession.update("memberMapper.changePwd", loginMember);
+	}
+
+
+	/** 회원정보 수정 DAO
+	 * @param inputMember
+	 * @return	result1
+	 */
+	public int updateInfo(Member inputMember) {
+		
+		return sqlSession.update("memberMapper.updateInfo", inputMember);
+	}
+
 }
