@@ -13,12 +13,27 @@
 	<typeAliases>
 		<typeAlias type="edu.kh.bubby.member.model.vo.Member" alias="Member" /> 
 		
+		<!-- 온라인 클래스 -->
+		<typeAlias type="edu.kh.bubby.online.model.vo.Attachment" alias="OnAttachment" /> 
+		<typeAlias type="edu.kh.bubby.online.model.vo.Category" alias="OnCategory" /> 
+		<typeAlias type="edu.kh.bubby.online.model.vo.Online" alias="Online" /> 
+		<typeAlias type="edu.kh.bubby.online.model.vo.Pagination" alias="OnPagination" /> 
+		<typeAlias type="edu.kh.bubby.online.model.vo.Search" alias="OnSearch" /> 
+		
+		<!-- 오프라인 클래스 -->
+		<typeAlias type="edu.kh.bubby.offline.model.vo.OffPagination" alias="OffPage"/>
+		<typeAlias type="edu.kh.bubby.offline.model.vo.OffAttachment" alias="OffAttachment"/>
+		<typeAlias type="edu.kh.bubby.offline.model.vo.OffCategory" alias="OffCategory"/>
+		<typeAlias type="edu.kh.bubby.offline.model.vo.OfflineClass" alias="OfflineClass"/>
+		<typeAlias type="edu.kh.bubby.offline.model.vo.OffSearch" alias="OffSearch"/>
+		
 	</typeAliases>
 	
 	<!-- mapper 파일(SQL 작성되는파일) 위치 등록 부분 -->
 	<mappers>
 		<mapper resource="/mappers/member-mapper.xml" />  
-		<!-- <mapper resource="/mappers/online-mapper.xml" /> -->  
+	  <mapper resource="/mappers/online-mapper.xml" />
+	  <mapper resource="/mappers/offline-mapper.xml" />
 	</mappers>
 
 </configuration>
