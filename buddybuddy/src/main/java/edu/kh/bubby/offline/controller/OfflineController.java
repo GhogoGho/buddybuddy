@@ -40,4 +40,9 @@ public class OfflineController {
 		return "offclass/OffClassMain";
 	}
 	
+	@RequestMapping("{classType}/{classNo}")
+	public String offlineClassView(){
+		return "offclass/OffClassView";
+	}
+	
 }
