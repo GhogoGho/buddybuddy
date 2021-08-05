@@ -62,4 +62,12 @@ public class OnlineDAO {
 		return sqlSession.selectOne("onlineMapper.selectOnline", classNo);
 	}
 
+	/** 조회수 증가(인기순 정렬용)
+	 * @param classNo
+	 * @return result
+	 */
+	public int increaseReadCount(int classNo) {
+		return sqlSession.update("onlineMapper.increaseReadCount", classNo);
+	}
+
 }
