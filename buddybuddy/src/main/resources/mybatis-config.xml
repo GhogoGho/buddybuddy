@@ -20,12 +20,20 @@
 		<typeAlias type="edu.kh.bubby.online.model.vo.Pagination" alias="OnPagination" /> 
 		<typeAlias type="edu.kh.bubby.online.model.vo.Search" alias="OnSearch" /> 
 		
+		<!-- 온라인 클래스 -->
+		<typeAlias type="edu.kh.bubby.offline.model.vo.Attachment" alias="OffAttachment" /> 
+		<typeAlias type="edu.kh.bubby.offline.model.vo.Category" alias="OffCategory" /> 
+		<typeAlias type="edu.kh.bubby.offline.model.vo.OfflineClass" alias="OfflineClass" /> 
+		<typeAlias type="edu.kh.bubby.offline.model.vo.Pagination" alias="OffPagination" /> 
+		<typeAlias type="edu.kh.bubby.offline.model.vo.Search" alias="OffSearch" /> 
+		
 	</typeAliases>
 	
 	<!-- mapper 파일(SQL 작성되는파일) 위치 등록 부분 -->
 	<mappers>
 		<mapper resource="/mappers/member-mapper.xml" />  
 	  <mapper resource="/mappers/online-mapper.xml" />
+	  <mapper resource="/mappers/offline-mapper.xml" />
 	</mappers>
 
 </configuration>
