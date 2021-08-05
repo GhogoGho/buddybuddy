@@ -23,7 +23,7 @@ import edu.kh.bubby.online.model.vo.Search;
 @Controller
 @RequestMapping("/class/*")
 @SessionAttributes({"loginMember"})
-public class OnlineController {
+public class OnlineControllerBackup {
 
 	
 	 @Autowired 
