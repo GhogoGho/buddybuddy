@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.kh.bubby.member.controller.MemberController;
 import edu.kh.bubby.online.model.service.OnlineService;
 import edu.kh.bubby.online.model.vo.Online;
 import edu.kh.bubby.online.model.vo.Pagination;
@@ -34,7 +36,7 @@ public class OnlineController {
 		pg.setClassType(classType);
 		pg.setCurrentPage(cp);
 		
-		System.out.println("search : "+search);
+//		System.out.println("search : "+search);
 		
 		Pagination pagination = null;
 		List<Online> onlineList = null;
@@ -47,13 +49,10 @@ public class OnlineController {
 			pagination = service.getPagination(search, pg);
 			onlineList = service.selectOnlineList(search, pagination);
 		}
-		
-		
 		/*
 		for(Online a : onlineList) {
 			System.out.println("a : "+a);
 		}*/
-		
 		model.addAttribute("onlineList", onlineList);
 		model.addAttribute("pagination", pagination);
 		
@@ -65,13 +64,17 @@ public class OnlineController {
 	public String onlineView(@PathVariable("classType") int classType,
 							@PathVariable("classNo") int classNo,
 							@RequestParam(value="cp", required=false, defaultValue = "1") int cp,
-							Model model) {
+							Model model, RedirectAttributes ra) {
 		
 		Online online = service.selectOnline(classNo);
 		
-		model.addAttribute("online", online);
-		
-		return "onlineClass/onlineView";
+		if(online != null) { // 인기순 정렬용 조회수 증가
+			model.addAttribute("online", online);
+			return "onlineClass/onlineView";
+		}else {
+			MemberController.swalSetMessage(ra, "error", "클래스 조회 실패", "해당 클래스가 존재하지 않습니다.");
+			return "redirect:list";
+		}
 	}
 	
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.bubby.online.model.dao.OnlineDAO;
 import edu.kh.bubby.online.model.vo.Online;
@@ -48,9 +49,22 @@ public class OnlineServiceImpl implements OnlineService{
 	}
 	
 	// 클래스 상세 조회
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Online selectOnline(int classNo) {
-		return dao.selectOnline(classNo);
+		
+		Online online = dao.selectOnline(classNo);
+		
+		
+		if(online != null) {
+			// 인기순 정렬을 위한 조회수 증가
+			dao.increaseReadCount(classNo);
+			online.setClassReadCount( online.getClassReadCount()+1 );
+		}
+		
+		
+		
+		return online;
 	}
 	
 	
