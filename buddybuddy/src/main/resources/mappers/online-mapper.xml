@@ -179,4 +179,15 @@
 		SELECT * FROM CATEGORY
 	</select>
 	
+	<!-- 클래스 상세 조회 + 해당 클래스에 첨부된 이미지 및 동영상 목록 조회 -->
+	<select id="selectOnline" parameterType="_int" resultMap="online_rm">
+		SELECT CLASS_NO, CATEGORY_NAME, CLASS_TITLE, CLASS_CONTENT,
+		MEMBER_NO, MEMBER_NICKNAME, CLASS_READ_COUNT, CLASS_CREATE_DT, CLASS_TYPE_NO
+		FROM CLASS_PAGE
+		JOIN CATEGORY USING(CATEGORY_NO)
+		JOIN MEMBER USING(MEMBER_NO)
+		WHERE CLASS_NO = #{classNo}
+		AND CLASS_STATUS = 'Y'
+	</select>
+	
 </mapper>

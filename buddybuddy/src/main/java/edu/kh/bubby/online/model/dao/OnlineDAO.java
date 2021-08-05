@@ -54,4 +54,12 @@ public class OnlineDAO {
 		return sqlSession.selectList("onlineMapper.selectSearchList", search, rowBounds);
 	}
 
+	/** 클래스 상세 조회
+	 * @param classNo
+	 * @return online
+	 */
+	public Online selectOnline(int classNo) {
+		return sqlSession.selectOne("onlineMapper.selectOnline", classNo);
+	}
+
 }

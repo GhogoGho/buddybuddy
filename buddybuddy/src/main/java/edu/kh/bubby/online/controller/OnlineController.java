@@ -59,4 +59,19 @@ public class OnlineController {
 		
 		return "onlineClass/onlineMain";
 	}
+	
+	// 클래스 상세 조회
+	@RequestMapping("{classType}/{classNo}")
+	public String onlineView(@PathVariable("classType") int classType,
+							@PathVariable("classNo") int classNo,
+							@RequestParam(value="cp", required=false, defaultValue = "1") int cp,
+							Model model) {
+		
+		Online online = service.selectOnline(classNo);
+		
+		model.addAttribute("online", online);
+		
+		return "onlineClass/onlineView";
+	}
+	
 }

@@ -34,5 +34,11 @@ public interface OnlineService {
 	 */
 	List<Online> selectOnlineList(Search search, Pagination pagination);
 
+	/** 클래스 상세 조회
+	 * @param classNo
+	 * @return online
+	 */
+	Online selectOnline(int classNo);
+
 
 }
