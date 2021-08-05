@@ -20,12 +20,12 @@
 		<typeAlias type="edu.kh.bubby.online.model.vo.Pagination" alias="OnPagination" /> 
 		<typeAlias type="edu.kh.bubby.online.model.vo.Search" alias="OnSearch" /> 
 		
-		<!-- 온라인 클래스 -->
-		<typeAlias type="edu.kh.bubby.offline.model.vo.Attachment" alias="OffAttachment" /> 
-		<typeAlias type="edu.kh.bubby.offline.model.vo.Category" alias="OffCategory" /> 
-		<typeAlias type="edu.kh.bubby.offline.model.vo.OfflineClass" alias="OfflineClass" /> 
-		<typeAlias type="edu.kh.bubby.offline.model.vo.Pagination" alias="OffPagination" /> 
-		<typeAlias type="edu.kh.bubby.offline.model.vo.Search" alias="OffSearch" /> 
+		<!-- 오프라인 클래스 -->
+		<typeAlias type="edu.kh.bubby.offline.model.vo.OffPagination" alias="OffPage"/>
+		<typeAlias type="edu.kh.bubby.offline.model.vo.OffAttachment" alias="OffAttachment"/>
+		<typeAlias type="edu.kh.bubby.offline.model.vo.OffCategory" alias="OffCategory"/>
+		<typeAlias type="edu.kh.bubby.offline.model.vo.OfflineClass" alias="OfflineClass"/>
+		<typeAlias type="edu.kh.bubby.offline.model.vo.OffSearch" alias="OffSearch"/>
 		
 	</typeAliases>
 	

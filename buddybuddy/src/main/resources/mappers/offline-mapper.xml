@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="offlineMapper">
-  
+	<!-- Pagination용 resultMap -->
+	<resultMap type="OffPage" id="pg_rm">
+		<result property="listCount" column="CNT" />
+	</resultMap>
+	<!-- 오프라인 전체 게시글 조회 -->
+	<select id="getPagination" parameterType="_int" resultMap="pg_rm">
+		SELECT COUNT(*) CNT FROM CLASS_PAGE WHERE CLASS_TYPE_NO = #{classType}
+	</select>
+	<!-- offMain 조회용 -->
+	<resultMap type="OfflineClass" id="offMain_rm">
+		<id property="classNo" column="CLASS_NO"/>
+		<result property="categoryName" column="CATEGORY_NAME"/>
+		<result property="classTitle" column="CLASS_TITLE"/>
+	</resultMap>
+	<!-- 게시글목록조회 -->
+	<select id="selectOfflinList" parameterType="OffPage" resultMap="offMain_rm">
+		SELECT CLASS_NO,CATEGORY_NAME, CLASS_TITLE FROM
+		CLASS_PAGE
+        LEFT JOIN CATEGORY USING(CATEGORY_NO)
+		WHERE CLASS_TYPE_NO =#{classType}
+		ORDER BY CLASS_NO DESC
+	</select>
 </mapper>

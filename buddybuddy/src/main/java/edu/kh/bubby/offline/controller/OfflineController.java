@@ -1,5 +1,7 @@
 package edu.kh.bubby.offline.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.kh.bubby.offline.model.service.OfflineService;
-import edu.kh.bubby.online.model.vo.Pagination;
+import edu.kh.bubby.offline.model.vo.OffPagination;
+import edu.kh.bubby.offline.model.vo.OfflineClass;
+
 
 
 @Controller
@@ -21,12 +25,18 @@ public class OfflineController {
 	@RequestMapping("{classType}/list")
 	public String offlineClassList(@PathVariable("classType") int classType,
 			@RequestParam(value="cp", required=false, defaultValue = "1" ) int cp,
-			Model model, Pagination pg
+			Model model, OffPagination pg
 			) {
 		pg.setClassType(classType);
 		pg.setCurrentPage(cp);
 		
-		Pagination pagination = service.getPagination(pg);
+		OffPagination pagination = service.getPagination(pg);
+		System.out.println(pagination);
+		List<OfflineClass> offList = service.selectOfflinList(pagination);
+		System.out.println(offList);
+		model.addAttribute("pagination",pagination);
+		model.addAttribute("offList",offList);
+		
 		return "offclass/OffClassMain";
 	}
 	
