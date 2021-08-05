@@ -1,6 +1,9 @@
 package edu.kh.bubby.offline.model.service;
 
-import edu.kh.bubby.online.model.vo.Pagination;
+import java.util.List;
+
+import edu.kh.bubby.offline.model.vo.OffPagination;
+import edu.kh.bubby.offline.model.vo.OfflineClass;
 
 public interface OfflineService {
 
@@ -8,6 +11,12 @@ public interface OfflineService {
 	 * @param pg
 	 * @return
 	 */
-	Pagination getPagination(Pagination pg);
+	OffPagination getPagination(OffPagination pg);
+
+	/** 전체 게시글 목록 죄회
+	 * @param pagination
+	 * @return 
+	 */
+	List<OfflineClass> selectOfflinList(OffPagination pagination);
 
 }

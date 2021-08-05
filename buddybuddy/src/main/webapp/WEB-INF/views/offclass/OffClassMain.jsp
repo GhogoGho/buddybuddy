@@ -83,8 +83,9 @@
 						</c:when>
 						<c:otherwise>
 							<c:forEach items="${offList}" var="list">
-								<a href="">
-									<div class="col-md-3" style="margin-bottom: 50px;">
+
+								<div class="col-md-3" style="margin-bottom: 50px;">
+									<a href="${contextPath}/offclass/2/${list.classNo}">
 										<div class="card">
 											<c:choose>
 												<c:when
@@ -105,8 +106,8 @@
 												별점 :
 											</div>
 										</div>
-									</div>
-								</a>
+									</a>
+								</div>
 							</c:forEach>
 
 						</c:otherwise>

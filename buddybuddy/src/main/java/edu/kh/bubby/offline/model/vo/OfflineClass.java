@@ -18,11 +18,20 @@ public class OfflineClass {
 	private int classType; // CLASS_TYPE_NO 클래스 분류 번호 (1:온라인, 2:오프라인)
 	private int categoryCode; // CATEGORY_NO 카테고리 번호 (1:요리, 2:공예, 3:미술, 4:플라워)
 	private String categoryName;
+	private int reviewRatings;
 	
 	
 	
 	public OfflineClass() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public int getReviewRatings() {
+		return reviewRatings;
+	}
+
+	public void setReviewRatings(int reviewRatings) {
+		this.reviewRatings = reviewRatings;
 	}
 
 	public int getClassNo() {
@@ -115,11 +124,13 @@ public class OfflineClass {
 
 	@Override
 	public String toString() {
-		return "Online [classNo=" + classNo + ", classTitle=" + classTitle + ", classContent=" + classContent
+		return "OfflineClass [classNo=" + classNo + ", classTitle=" + classTitle + ", classContent=" + classContent
 				+ ", classCreateDate=" + classCreateDate + ", classReadCount=" + classReadCount + ", memberNo="
 				+ memberNo + ", memberNickName=" + memberNickName + ", atList=" + atList + ", classType=" + classType
-				+ ", categoryCode=" + categoryCode + ", categoryName=" + categoryName + "]";
+				+ ", categoryCode=" + categoryCode + ", categoryName=" + categoryName + ", reviewRatings="
+				+ reviewRatings + "]";
 	}
+
 
 
 	
