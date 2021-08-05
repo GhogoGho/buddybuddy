@@ -417,7 +417,7 @@ a:hover {
 	</footer>
 
 
-	<script src="${contextPath}/resources/js/member.js"></script>
+	<script src="${contextPath}/resources/js/info.js"></script>
 
 
 </body>

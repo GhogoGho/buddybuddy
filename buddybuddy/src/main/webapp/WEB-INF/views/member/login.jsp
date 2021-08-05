@@ -302,7 +302,7 @@ a:hover {
 			<div class="form-group">
 				<label class="control-label col-xs-4">ID</label>
 				<div class="col-xs-8">
-					<input type="id" class="form-control" name="memberEmail" required="required">
+					<input type="id" class="form-control" name="memberEmail" required="required" value="${cookie.saveId.value}">
 				</div>
 			</div>
 			<div class="form-group">
@@ -315,10 +315,15 @@ a:hover {
 
 			<div class="form-group">
 				<div class="col-xs-8 col-xs-offset-4">
-					<p>
-						<label class="checkbox-inline"><input type="checkbox"
-							required="required"> ID 저장하기</label>
-					</p>
+					
+					<%-- 이전에 저장해둔 아이디가 존재한다면 --%>
+						<c:if test="${!empty cookie.saveId.value }">
+							<c:set var="checked" value="checked" />
+						</c:if>
+					
+						<label class="checkbox-inline">
+						<input type="checkbox" name="save" id="save" ${checked}> ID 저장하기</label>
+					
 					<button type="submit" class="btn btn-primary btn-lg">Login</button>
 					<div class="login_kakao">
 						<!--  <a href="#"><img src="resources/images/kakao_login_medium_narrow.png"

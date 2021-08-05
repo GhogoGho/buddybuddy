@@ -33,15 +33,12 @@
 	.navbar>.container-xxl {
 	display: block;
 }
-
 ul.navbar-nav li.active a {
 	text-decoration: none;
 }
-
 ul.navbar-nav li a {
 	text-decoration: none;
 }
-
 /*
     HEADER SECTION
  */
@@ -53,7 +50,6 @@ ul.navbar-nav li a {
 	transition: all 1s;
 	background: #fff;
 }
-
 header.header-section.fixed {
 	position: fixed;
 	display: block;
@@ -65,7 +61,6 @@ header.header-section.fixed {
 	padding: 10px 0;
 	transition: all 1s;
 }
-
 .header-section .navbar {
 	height: auto;
 	min-height: none;
@@ -74,24 +69,20 @@ header.header-section.fixed {
 	border: none;
 	background: transparent !important
 }
-
 .header-section .navbar .navbar-brand {
 	font-size: 30px;
 	font-weight: 540;
 	text-transform: uppercase;
 	color: #555252;
 }
-
 .header-section .navbar .navbar-brand b {
 	color: #1abc9c;
 }
-
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
 	text-align: center;
 	padding: 0 !important;
 	background: transparent !important;
 }
-
 ul.navbar-nav {
 	background: transparent;
 	margin: 0 auto;
@@ -99,11 +90,9 @@ ul.navbar-nav {
 	display: inline-block;
 	float: none;
 }
-
 ul.navbar-nav li {
 	
 }
-
 ul.navbar-nav li a {
 	font-size: 14px;
 	font-weight: 700;
@@ -111,70 +100,57 @@ ul.navbar-nav li a {
 	background: transparent !important;
 	text-transform: uppercase;
 }
-
 ul.navbar-nav li.active a, ul.navbar-nav li a:hover {
 	color: #1abc9c !important;
 }
-
 ul.navbar-nav.cart-menu li a {
 	padding-right: 0;
 	color: #0f0101;
 	font-weight: 700;
 }
-
 ul.navbar-nav.cart-menu li a .fa-search {
 	margin-top: 6px;
 	display: block;
 }
-
 /**/
 body {
 	color: #fff;
 }
-
 .form-control {
 	min-height: 41px;
 	background: #fff;
 	box-shadow: none !important;
 	border-color: #e3e3e3;
 }
-
 .form-control-id {
 	min-height: 41px;
 	background: #fff;
 	border-color: #e3e3e3;
 	width: 70%;
 }
-
 .form-control-id:focus {
 	border-color: #70c5c0;
 }
-
 .form-control-id, .btn {
 	border-radius: 2px;
 }
-
 .form-control:focus {
 	border-color: #70c5c0;
 }
-
 .form-control, .btn {
 	border-radius: 2px;
 }
-
 .form-profile {
 	text-align: center;
 	margin-left: 50px;
 	margin-top: 30px;
 }
-
 .signup-form {
 	width: 350px;
 	margin: 0 auto;
 	padding: 100px 0 30px;
 	font-family: 'ELAND_Choice_M';
 }
-
 .signup-form form {
 	color: #7a7a7a;
 	border-radius: 2px;
@@ -185,12 +161,10 @@ body {
 	padding: 30px;
 	position: relative;
 }
-
 .signup-form h2 {
 	font-size: 22px;
 	margin: 35px 0 25px;
 }
-
 .signup-form .avatar {
 	position: absolute;
 	margin: 0 auto;
@@ -205,15 +179,12 @@ body {
 	padding: 15px;
 	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
 }
-
 .signup-form .avatar img {
 	width: 100%;
 }
-
 .signup-form input[type="checkbox"] {
 	margin-top: 2px;
 }
-
 .signup-form .btn {
 	font-size: 16px;
 	font-weight: bold;
@@ -221,50 +192,40 @@ body {
 	border: none;
 	margin-top: 50px;
 }
-
 .signup-form .btn:hover, .signup-form .btn:focus {
 	background: #50b8b3;
 	outline: none !important;
 }
-
 .signup-form a {
 	color: #fff;
 	text-decoration: underline;
 }
-
 .signup-form a:hover {
 	text-decoration: none;
 }
-
 .signup-form form a {
 	color: #7a7a7a;
 	text-decoration: none;
 }
-
 .signup-form form a:hover {
 	text-decoration: underline;
 }
-
 .signup-form .clearfix {
 	margin-bottom: 10px;
 }
-
 .signup-form .clearfix-signUp a {
 	color: #50b8b3;
 	font-weight: bold;
 	font-size: 15px;
 }
-
 .signup-form .clearfix-signUp a:hover {
 	color: black;
 	text-decoration: none;
 }
-
 .signup-form .form-profile {
 	margin-top: 50px;
 	margin-left: 50px;
 }
-
 @font-face {
 	font-family: 'ELAND_Choice_M';
 	src:
@@ -273,64 +234,52 @@ body {
 	font-weight: normal;
 	font-style: normal;
 }
-
 /* 회원가입 약관 CSS */
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box
 }
-
 body {
 	background-color: #f7f7f7;
 }
-
 ul>li {
 	list-style: none
 }
-
 a {
 	text-decoration: none;
 }
-
 .clearfix::after {
 	content: "";
 	display: block;
 	clear: both;
 }
-
 #joinForm {
 	width: auto;
 	margin: 0 auto;
 }
-
 ul.join_box {
 	border: 1px solid #ddd;
 	background-color: #fff;
 }
-
 .checkBox, .checkBox>ul {
 	position: relative;
 }
-
 .checkBox>ul>li {
 	float: left;
 }
-
 .checkBox>ul>li:first-child {
 	width: 85%;
 	padding: 15px;
 	font-weight: 600;
 	color: #888;
 }
-
 .checkBox>ul>li:nth-child(2) {
 	position: absolute;
 	top: 50%;
 	right: 30px;
 	margin-top: -12px;
 }
-
 .checkBox textarea {
 	width: 96%;
 	height: 90px;
@@ -339,17 +288,14 @@ ul.join_box {
 	color: #888;
 	border: none;
 }
-
 .footBtwrap {
 	margin-top: 15px;
 }
-
 .footBtwrap>li {
 	float: left;
 	width: 50%;
 	height: 60px;
 }
-
 .footBtwrap>li>button {
 	display: block;
 	width: 100%;
@@ -359,11 +305,9 @@ ul.join_box {
 	line-height: 50px;
 	border: none;
 }
-
 .fpmgBt1 {
 	background-color: #fff;
 }
-
 .fpmgBt2 {
 	background-color: #50b8b3;
 	color: #fff
@@ -374,48 +318,25 @@ ul.join_box {
 <body>
 	<!-- 헤더 -->
 	<header class="header-section">
-        <nav class="navbar">
-            <div class="container">
+		<nav class="navbar navbar-default">
+			<div class="container">
 
-                <div>
-                    <a class="navbar-brand" href="${contextPath}/main"><b>B</b>uddy</a>
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#"><b>B</b>uddy</a>
+				</div>
 
-                    <ul class="nav justify-content-center">
-                        <li class="active">
-                            <a class="nav-menu" href="${contextPath}/main">Home</a>
-                        </li>
-                        <li>
-                            <a href="#">온라인 클래스</a>
-                        </li>
-                        <li>
-                            <a href="#">오프라인 클래스 </a>
-                        </li>
-                         <li>
-                            <a href="${contextPath}/member/myPage">마이페이지 </a>
-                        </li>
-                        
-                       <%-- 로그인을 했는지, 안 했는지 구분하는 방법 == session에 loginMember 유무 --%>
-						<c:choose>
-
-							<c:when test="${ empty loginMember}">
-								<li><a href="${contextPath}/member/login" tabindex="-1">Login</a>
-								</li>
-
-							</c:when>
-							
-							<c:otherwise>
-							<%-- 로그인이 되었을 때 --%>
-							<li><a class="mem" href="${contextPath}/member/info">${loginMember.memberNickname }</a></li>
-							<li><a 	href="${contextPath}/member/logout">로그아웃</a></li>
-						</c:otherwise> 
-					</c:choose>
-                    </ul>
-                    
-                </div>
-
-            </div>
-        </nav>
-    </header>
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#">Home</a></li>
+						<li><a href="#">온라인 클래스</a></li>
+						<li><a href="#">오프라인 클래스</a></li>
+						<li><a href="#">Login</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
 
 	<!-- 회원가입 -->
 	<div class="signup-form">
@@ -500,27 +421,15 @@ ul.join_box {
     버디버디 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 버디버디 서비스의 이용과 관련하여 버디버디 서비스를 제공하는 버디버디 주식회사(이하 '버디버디')와 이를 이용하는 버디버디 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 버디버디 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
            </textarea>
 					</li>
-
 				</ul>
-				<ul class="footBtwrap clearfix">
-					<li><button class="fpmgBt1">비동의</button></li>
-					<li><button class="fpmgBt2">동의</button></li>
-				</ul>
+				
 			</div>
-
-
 			<div class="form-group">
 				<button type="submit" class="btn btn-primary btn-lg btn-block">회원가입</button>
 			</div>
-
 		</form>
-
 	</div>
-
 	<!-- 회원가입 -->
-
-
-
 	<!-- 풋터 -->
 	<footer class="footer">
 		<footer>
@@ -533,12 +442,7 @@ ul.join_box {
 			</div>
 		</footer>
 	</footer>
-
 	<!-- 웹콘텐트 == 콘텍스패스 -->
 	<script src="${contextPath}/resources/js/member.js"></script>
-
-
-
 </body>
-
-</html>
+</html> 

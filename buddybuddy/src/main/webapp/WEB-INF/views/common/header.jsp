@@ -116,8 +116,8 @@ a:hover {
 
 .mem {
 	color: #1abc9c;
-	font-weight : bolder;
-	font-size : 20px;
+	font-weight: bolder;
+	font-size: 20px;
 }
 </style>
 
@@ -133,11 +133,11 @@ a:hover {
 					<a class="navbar-brand" href="${contextPath}/main"><b>B</b>uddy</a>
 
 					<ul class="nav justify-content-center">
-						<li class="active"><a class="nav-menu" href="${contextPath}/main">Home</a></li>
+						<li class="active"><a class="nav-menu"
+							href="${contextPath}/main">Home</a></li>
 						<li><a href="${contextPath}/class/1/list">온라인 클래스</a></li>
 
-                            <a href="${contextPath}/member/myPage">마이페이지 </a>
-                        </li>
+						<li><a href="${contextPath}/member/myPage">마이페이지 </a></li>
 
 						<li><a href="${contextPath}/offclass/2/list">오프라인 클래스 </a></li>
 
@@ -150,13 +150,13 @@ a:hover {
 								</li>
 
 							</c:when>
-							
+
 							<c:otherwise>
-							<%-- 로그인이 되었을 때 --%>
-							<li><a class="mem" href="${contextPath}/member/info">${loginMember.memberNickname }</a></li>
-							<li><a 	href="${contextPath}/member/logout">로그아웃</a></li>
-						</c:otherwise> 
-					</c:choose>
+								<%-- 로그인이 되었을 때 --%>
+								<li><a class="mem" href="${contextPath}/member/info">${loginMember.memberNickname }</a></li>
+								<li><a href="${contextPath}/member/logout">로그아웃</a></li>
+							</c:otherwise>
+						</c:choose>
 					</ul>
 				</div>
 
