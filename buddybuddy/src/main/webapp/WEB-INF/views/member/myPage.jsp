@@ -11,15 +11,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>myPage</title>
-    <link rel="stylesheet" href="css/main.css">
-    
-    <!-- CSS only -->
+    <title>main</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <style>
         .navbar>.container,
@@ -32,7 +28,84 @@
             display: block;
         }
 
-        .avatar {
+        ul.navbar-nav li.active a {
+            text-decoration: none;
+        }
+
+        ul.navbar-nav li a {
+            text-decoration: none;
+        }
+
+        .header-section {
+            display: block;
+            width: 100%;
+            padding: 20px 0;
+            position: relative;
+           
+            background: #fff;
+        }
+
+        .header-section .navbar .navbar-brand {
+            font-size: 30px;
+            font-weight: 540;
+            text-transform: uppercase;
+            color: #555252;
+        }
+
+        header.header-section.fixed {
+            position: fixed;
+            display: block;
+            width: 100%;
+            top: 0;
+            background: #fff;
+            z-index: 99999;
+            border-bottom: 1px solid #1abc9c;
+            padding: 10px 0;
+            
+        }
+
+        .header-section .navbar .navbar-brand b {
+            color: #1abc9c;
+        }
+
+        ul.navbar-nav {
+            background: transparent;
+            margin: 0 auto;
+            margin-bottom: -5px;
+            display: inline-block;
+            float: none;
+        }
+
+        .navbar-default .navbar-collapse,
+        .navbar-default .navbar-form {
+            text-align: center;
+            padding: 0 !important;
+            background: transparent !important;
+        }
+
+        .nav-menu {
+            color: #1abc9c;
+            font-weight: bolder;
+        }
+        
+        .nav-menu:hover {
+            color: #515151;
+        }
+
+        a {
+            color: #555252;
+            text-decoration: none;
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #70c5c0;
+        }
+
+         /* 회원정보 폼 */
+
+         .avatar {
             position: center;
             width: 150px;
             height: 150px;
@@ -173,188 +246,229 @@
             margin-top: 20px;
             line-height: 70px;
         }
+
+        /* FOOTER */
+        .footer {
+            display: block;
+            text-align: center;
+            background: #ffffff;
+            padding: 20px 0;
+            color: rgb(0, 0, 0);
+        }
+
+        .footer p {
+            padding: 0;
+            margin: 0;
+            font-size: 13px;
+            font-weight: 400;
+            color: rgb(0, 0, 0);
+            text-align: center;
+        }
+        
+        .mem {
+	color: #1abc9c;
+	font-weight : bolder;
+	font-size : 20px;
+}
     </style>
+
 
 </head>
 
 <body>
     <header class="header-section">
-        <nav class="navbar navbar-default">
+        <nav class="navbar">
             <div class="container">
 
-                <div class="navbar-header">
+                <div>
                     <a class="navbar-brand" href="${contextPath}/main"><b>B</b>uddy</a>
+
+                    <ul class="nav justify-content-center">
+                        <li class="active">
+                            <a class="nav-menu" href="${contextPath}/main">Home</a>
+                        </li>
+                        <li>
+                            <a href="#">온라인 클래스</a>
+                        </li>
+                        <li>
+                            <a href="#">오프라인 클래스 </a>
+                        </li>
+                         <li>
+                            <a href="${contextPath}/member/myPage">마이페이지 </a>
+                        </li>
+                        
+                      <%-- 로그인을 했는지, 안 했는지 구분하는 방법 == session에 loginMember 유무 --%>
+						<c:choose>
+
+							<c:when test="${ empty loginMember}">
+								<li><a href="${contextPath}/member/login" tabindex="-1">Login</a>
+								</li>
+
+							</c:when>
+							
+							<c:otherwise>
+							<%-- 로그인이 되었을 때 --%>
+							<li><a class="mem" href="${contextPath}/member/info">${loginMember.memberNickname }</a></li>
+							<li><a 	href="${contextPath}/member/logout">로그아웃</a></li>
+						</c:otherwise> 
+					</c:choose>
+                    </ul>
+                    
                 </div>
 
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="${contextPath}/main">Home</a></li>
-                        <li><a href="#">온라인 클래스</a></li>
-                        <li><a href="#">오프라인 클래스</a></li>
-                        <li><a href="#">Login</a></li>
-                    </ul>
-                </div>
             </div>
         </nav>
     </header>
 
-    <!-- 마이페이지 컨테이너 부분 -->
-    <section class="mypage-section">
+<!-- 마이페이지 컨테이너 부분 -->
+<section class="mypage-section">
+    <div class="row">
+        <!-- 마이페이지 회원 정보-->
         <div class="row">
-            <!-- 마이페이지 회원 정보-->
-            <div class="row">
-                <div class="avatar"></div>
-                <p class="nick-nm text-center">${loginMember.memberNickname}</p>
-                <p class="mem-grade text-center">일반 회원</p>
-            </div>
-
-            <div class="row">
-                <!-- 마이페이지 사이드바 -->
-                <div class="side col-sm-2">
-                    <div class="mypage-menu">
-                        <ul class="mymenu">
-                            <p>클래스</p>
-                            <li><a href="#">클래스 내역</a></li>
-                            <li><a href="#">클래스예약 내역</a></li>
-                        </ul>
-                        <hr>
-                        <ul class="mymenu">
-                            <p>구매 후기</p>
-                            <li><a href="#">후기 작성</a></li>
-                            <li><a href="#">내가 쓴 후기</a></li>
-                        </ul>
-                        <hr>
-                        <ul class="mymenu">
-                            <p>관심리스트</p>
-                            <li><a href="#">찜 목록</a></li>
-                            <li><a href="#">QnA 목록</a></li>
-                        </ul>
-
-                    </div>
-                </div>
-
-
-                <!-- 마이페이지 본문 버튼-->
-                <div class="col-sm-9">
-                    <div class="row">
-                        <nav>
-                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <div class="row">
-
-                                    <button class="class-btn nav-link active col-6" id="nav-home-tab"
-                                        data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab"
-                                        aria-controls="nav-home" aria-selected="true">클래스 내역</button>
-                                    <button class="class-btn1 nav-link col-6" id="nav-profile-tab" data-bs-toggle="tab"
-                                        data-bs-target="#nav-profile" type="button" role="tab"
-                                        aria-controls="nav-profile" aria-selected="false">클래스 예약 내역</button>
-                                </div>
-
-                            </div>
-                        </nav>
-                        <div class="tab-content" id="nav-tabContent">
-                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
-                                aria-labelledby="nav-home-tab">...</div>
-                            <div class="tab-pane fade" id="nav-profile" role="tabpanel"
-                                aria-labelledby="nav-profile-tab">...</div>
-
-                        </div>
-                    </div>
-
-
-                    <!-- 마이페이지 본문 본문 -->
-                    <div class="row">
-                        <div class="row">
-                            <div class="class-list">
-                                <div class="class-img col-sm-2"><img src="https://via.placeholder.com/150" width="70"
-                                        height="70" class="rounded-3 float-start me-2" alt="">
-                                </div>
-                                <div class="class-cate col-sm-2"><a href="#">카테고리</a></div>
-                                <div class="class-nm col-sm-5"><a href="#">클래스 제목</a></div>
-                                <div class="class-dt col-sm-2">21/07/26</div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="class-list">
-                                <div class="class-img col-sm-2"><img src="https://via.placeholder.com/150" width="70"
-                                        height="70" class="rounded-3 float-start me-2" alt="" href="#">
-                                </div>
-                                <div class="class-cate col-sm-2"><a href="#">카테고리</a></div>
-                                <div class="class-nm col-sm-5"><a href="#">클래스 제목</a></div>
-                                <div class="class-dt col-sm-2">21/07/26</div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="class-list">
-                                <div class="class-img col-sm-2"><img src="https://via.placeholder.com/150" width="70"
-                                        height="70" class="rounded-3 float-start me-2" alt="">
-                                </div>
-                                <div class="class-cate col-sm-2"><a href="#">카테고리</a></div>
-                                <div class="class-nm col-sm-5"><a href="#">클래스 제목</a></div>
-                                <div class="class-dt col-sm-2">21/07/26</div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="class-list">
-                                <div class="class-img col-sm-2"><img src="https://via.placeholder.com/150" width="70"
-                                        height="70" class="rounded-3 float-start me-2" alt="">
-                                </div>
-                                <div class="class-cate col-sm-2"><a href="#">카테고리</a></div>
-                                <div class="class-nm col-sm-5"><a href="#">클래스 제목</a></div>
-                                <div class="class-dt col-sm-2">21/07/26</div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="class-list">
-                                <div class="class-img col-sm-2"><img src="https://via.placeholder.com/150" width="70"
-                                        height="70" class="rounded-3 float-start me-2" alt="">
-                                </div>
-                                <div class="class-cate col-sm-2"><a href="#">카테고리</a></div>
-                                <div class="class-nm col-sm-5"><a href="#">클래스 제목</a></div>
-                                <div class="class-dt col-sm-2">21/07/26</div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- 페이지네이션 -->
-                    <nav class="text-center" aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active" aria-current="page">
-                                <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
-
-
-                </div>
-
-
-
-            </div>
+            <div class="avatar"></div>
+            <p class="nick-nm text-center">${loginMember.memberNickname }</p>
+            <p class="mem-grade text-center">일반 회원</p>
         </div>
-    </section>
+
+        <div class="row">
+            <!-- 마이페이지 사이드바 -->
+            <div class="side col-sm-2">
+                <div class="mypage-menu">
+                    <ul class="mymenu">
+                        <p>클래스</p>
+                        <li><a href="#">클래스 내역</a></li>
+                        <li><a href="#">클래스예약 내역</a></li>
+                    </ul>
+                    <hr>
+                    <ul class="mymenu">
+                        <p>구매 후기</p>
+                        <li><a href="#">후기 작성</a></li>
+                        <li><a href="#">내가 쓴 후기</a></li>
+                    </ul>
+                    <hr>
+                    <ul class="mymenu">
+                        <p>관심리스트</p>
+                        <li><a href="#">찜 목록</a></li>
+                        <li><a href="#">QnA 목록</a></li>
+                    </ul>
+
+                </div>
+            </div>
 
 
+            <!-- 마이페이지 본문 버튼-->
+            <div class="col-sm-9">
+                <div class="row">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <div class="row">
+
+                                <button class="class-btn nav-link active col-6" id="nav-home-tab"
+                                    data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab"
+                                    aria-controls="nav-home" aria-selected="true">클래스 내역</button>
+                                <button class="class-btn1 nav-link col-6" id="nav-profile-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-profile" type="button" role="tab"
+                                    aria-controls="nav-profile" aria-selected="false">클래스 예약 내역</button>
+                            </div>
+
+                        </div>
+                    </nav>
+                    
+                </div>
+
+
+                <!-- 마이페이지 본문 본문 -->
+                <div class="row">
+                    <div class="row">
+                        <div class="class-list">
+                            <div class="class-img col-sm-2"><img src="https://via.placeholder.com/150" width="70"
+                                    height="70" class="rounded-3 float-start me-2" alt="">
+                            </div>
+                            <div class="class-cate col-sm-2"><a href="#">카테고리</a></div>
+                            <div class="class-nm col-sm-5"><a href="#">클래스 제목</a></div>
+                            <div class="class-dt col-sm-2">21/07/26</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="class-list">
+                            <div class="class-img col-sm-2"><img src="https://via.placeholder.com/150" width="70"
+                                    height="70" class="rounded-3 float-start me-2" alt="" href="#">
+                            </div>
+                            <div class="class-cate col-sm-2"><a href="#">카테고리</a></div>
+                            <div class="class-nm col-sm-5"><a href="#">클래스 제목</a></div>
+                            <div class="class-dt col-sm-2">21/07/26</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="class-list">
+                            <div class="class-img col-sm-2"><img src="https://via.placeholder.com/150" width="70"
+                                    height="70" class="rounded-3 float-start me-2" alt="">
+                            </div>
+                            <div class="class-cate col-sm-2"><a href="#">카테고리</a></div>
+                            <div class="class-nm col-sm-5"><a href="#">클래스 제목</a></div>
+                            <div class="class-dt col-sm-2">21/07/26</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="class-list">
+                            <div class="class-img col-sm-2"><img src="https://via.placeholder.com/150" width="70"
+                                    height="70" class="rounded-3 float-start me-2" alt="">
+                            </div>
+                            <div class="class-cate col-sm-2"><a href="#">카테고리</a></div>
+                            <div class="class-nm col-sm-5"><a href="#">클래스 제목</a></div>
+                            <div class="class-dt col-sm-2">21/07/26</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="class-list">
+                            <div class="class-img col-sm-2"><img src="https://via.placeholder.com/150" width="70"
+                                    height="70" class="rounded-3 float-start me-2" alt="">
+                            </div>
+                            <div class="class-cate col-sm-2"><a href="#">카테고리</a></div>
+                            <div class="class-nm col-sm-5"><a href="#">클래스 제목</a></div>
+                            <div class="class-dt col-sm-2">21/07/26</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- 페이지네이션 -->
+                <nav class="text-center" aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="#">2</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+</section>
 
     <footer class="footer">
-        <footer>
-            <div class="container">
-                <h5 class="copyright">(주) 버디버디 대표이사 : 도동개 서울특별시 마포구 동교로 19길 12 사업자 등록번호 : 107-87-83297<br>
-                    버디버디는 통신판매중개자이며 통신판매의 당사자가 아닙니다. 따라서 버디버디는 상품 거래정보 및 거래에 대하여 책임을 지지 않습니다.</h5>
-            </div>
-        </footer>
+
+        <div class="footer">
+            <p class="copyright">(주) 버디버디 대표이사 : 도동개 서울특별시 마포구 동교로 19길 12 사업자 등록번호 : 107-87-83297<br>
+                버디버디는 통신판매중개자이며 통신판매의 당사자가 아닙니다. 따라서 버디버디는 상품 거래정보 및 거래에 대하여 책임을 지지 않습니다.</p>
+        </div>
+
     </footer>
 </body>
 

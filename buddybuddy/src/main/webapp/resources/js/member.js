@@ -4,6 +4,8 @@ const checkObj = {
     "id": false,
     "pwd1": false,
     "pwd2": false,
+    "pwd3": false,
+    "pwd4": false
 
 };
 
@@ -109,6 +111,28 @@ $("#pwd1, #pwd2").on("input", function () {
 });
 
 
+
+// 새비밀번호, 새비밀번호 확인 일치 여부 판단
+$("#newPwd1, #newPwd2").on("input", function () {
+
+    const pwd3 = $("#newPwd1").val();
+
+    const pwd4 = $("#newPwd2").val();
+
+    if (pwd3.trim() == "" && pwd4.trim() == "") { // 둘다 비어있을 때
+        $("#checkPwd4").html("&nbsp;");
+        $("#checkPwd3").html("&nbsp;");
+        checkObj.pwd4 = false;
+    } else if (pwd3 == pwd4) {
+        $("#checkPwd4").text("비밀번호 일치").css("color", "green");
+        checkObj.pwd4 = true;
+    } else {
+        $("#checkPwd4").text("비밀번호 불일치").css("color", "red");
+        checkObj.pwd4 = false;
+    }
+});
+
+
 // 회원가입 버튼 클릭 시 전체 유효성 검사 여부 확인
 // 자바스크립트
 function validate() {
@@ -141,6 +165,12 @@ function validate() {
                 case "pwd2":
                     msg = "비밀번호가 일치하지 않습니다. ";
                     break;
+                    case "pwd3":
+                    msg = "비밀번호가 일치하지 않습니다. ";
+                    break;
+                    case "pwd4":
+                    msg = "비밀번호가 일치하지 않습니다. ";
+                    break;
                 case "name":
                     msg = "이름이 유효하지 않습니다.";
                     break;
@@ -159,6 +189,12 @@ function validate() {
     } // for end
     
 }
+
+
+$("#btn").on("click", function(){
+	$("#formFile").click();
+});
+
 
 
 
