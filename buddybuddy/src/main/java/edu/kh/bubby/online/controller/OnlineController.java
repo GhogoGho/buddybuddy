@@ -3,18 +3,25 @@ package edu.kh.bubby.online.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.bubby.member.controller.MemberController;
+import edu.kh.bubby.member.model.vo.Member;
 import edu.kh.bubby.online.model.service.NoticeService;
 import edu.kh.bubby.online.model.service.OnlineService;
+import edu.kh.bubby.online.model.vo.Category;
 import edu.kh.bubby.online.model.vo.Notice;
 import edu.kh.bubby.online.model.vo.Online;
 import edu.kh.bubby.online.model.vo.Pagination;
@@ -82,6 +89,40 @@ public class OnlineController {
 		}
 	}
 	
+	
+	// =================================================================================================================
+	// DML
+	
+	// 클래스 삽입 화면 전환
+	@RequestMapping(value="{classType}/insert", method=RequestMethod.GET)
+	public String insertForm(Model model) {
+		List<Category> category = service.selectCategory();
+		model.addAttribute("category", category);
+		return "onlineClass/onlineClassInsert";
+	}
+	// 클래스 삽입
+	@RequestMapping(value="{classType}/insert", method=RequestMethod.POST)
+	public String insertOnlineClass(@PathVariable("classType") int classType,
+								@ModelAttribute Online online,
+								@ModelAttribute("loginMember") Member loginMember,
+								@RequestParam("images") List<MultipartFile> images,
+								HttpServletRequest request,
+								RedirectAttributes ra
+			) {
+		return null;
+	}
+	
+	// 클래스 수정 화면 전환
+	@RequestMapping(value="{classType}/updateForm", method=RequestMethod.POST)
+	public String updateForm(int classNo, Model model) {
+		List<Category> category = service.selectCategory();
+		Online online = service.selectUpdateOnline(classNo);
+		
+		model.addAttribute("category", category);
+		model.addAttribute("online", online);
+		
+		return "onlineClass/onlineClassUpdate";
+	}
 	
 	
 	

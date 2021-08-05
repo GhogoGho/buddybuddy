@@ -333,6 +333,7 @@
               </tbody>
             </table>
             <p>단, 이런저런 경우 환불이 불가능합니다...</p>
+            <button id="updateBtn" class="btn btn-primary float-right mr-2" onclick="fnRequest('updateForm');">수정</button>
           </div>
         </div>
       </div>
@@ -341,6 +342,22 @@
 	
 		<!-- 하단부 -->
 		<jsp:include page="../common/footer.jsp"/>
+	<form action="#" method="POST" name="requestForm">
+		<input type="hidden" name="classNo" value="${online.classNo}">
+		<input type="hidden" name="cp" value="${param.cp}">
+	</form>
+	
+	
+	
 	</main>
+	
+	<script>
+		function fnRequest(addr){
+			document.requestForm.action = addr;
+			document.requestForm.submit();
+		}
+		
+	</script>
+	
 </body>
 </html>
