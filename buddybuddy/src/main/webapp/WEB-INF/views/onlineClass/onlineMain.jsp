@@ -52,7 +52,7 @@
 <body>
 	<main>
 		<!-- 상단부 -->
-		<jsp:include page="../common/header.jsp"></jsp:include>
+		<jsp:include page="../common/header.jsp"/>
 
 		<!-- <section class="slider-section"> -->
 		<div class="container">
@@ -141,8 +141,10 @@
 										</c:choose>
 									</div>
 									<div class="card-body">
-										<h6 class="card-subtitle">${online.categoryName }</h6>
-										<h5 class="card-title">${online.classTitle }</h5>
+										<a href="${online.classNo}?cp=${pagination.currentPage}${searchStr}">
+											<h6 class="card-subtitle">${online.categoryName }</h6>
+											<h5 class="card-title">${online.classTitle }</h5>
+										</a>
 									</div>
 									<div class="card-footer">
 										<!-- Product reviews-->
@@ -262,7 +264,7 @@
 
 
 		<!-- 하단부 -->
-		<jsp:include page="../common/footer.jsp"></jsp:include>
+		<jsp:include page="../common/footer.jsp"/>
 	</main>
 
 </body>

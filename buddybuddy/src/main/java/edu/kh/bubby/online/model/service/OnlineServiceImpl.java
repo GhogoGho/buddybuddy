@@ -46,5 +46,13 @@ public class OnlineServiceImpl implements OnlineService{
 	public List<Online> selectOnlineList(Search search, Pagination pagination) {
 		return dao.selectSearchList(search, pagination);
 	}
+	
+	// 클래스 상세 조회
+	@Override
+	public Online selectOnline(int classNo) {
+		return dao.selectOnline(classNo);
+	}
+	
+	
 
 }
