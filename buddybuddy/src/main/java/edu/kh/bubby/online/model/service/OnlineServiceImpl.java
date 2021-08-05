@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.bubby.online.model.dao.OnlineDAO;
+import edu.kh.bubby.online.model.vo.Category;
 import edu.kh.bubby.online.model.vo.Online;
 import edu.kh.bubby.online.model.vo.Pagination;
 import edu.kh.bubby.online.model.vo.Search;
@@ -66,6 +67,21 @@ public class OnlineServiceImpl implements OnlineService{
 		
 		return online;
 	}
+	
+	// 카테고리 조회
+	@Override
+	public List<Category> selectCategory() {
+		return dao.selectCategory();
+	}
+
+	// 클래스 수정 상세 조회
+	@Override
+	public Online selectUpdateOnline(int classNo) {
+		Online online = dao.selectOnline(classNo);
+		online.setClassContent(online.getClassContent().replaceAll("<br>", "\r\n"));
+		return online;
+	}
+	
 	
 	
 

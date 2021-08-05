@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.kh.bubby.online.model.vo.Category;
 import edu.kh.bubby.online.model.vo.Online;
 import edu.kh.bubby.online.model.vo.Pagination;
 import edu.kh.bubby.online.model.vo.Search;
@@ -68,6 +69,13 @@ public class OnlineDAO {
 	 */
 	public int increaseReadCount(int classNo) {
 		return sqlSession.update("onlineMapper.increaseReadCount", classNo);
+	}
+
+	/** 카테고리 조회
+	 * @return
+	 */
+	public List<Category> selectCategory() {
+		return sqlSession.selectList("onlineMapper.selectCategory");
 	}
 
 }
