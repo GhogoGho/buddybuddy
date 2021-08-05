@@ -20,7 +20,7 @@
 	<insert id="signUp" parameterType="Member">
 		INSERT INTO MEMBER
 		VALUES( SEQ_MNO.NEXTVAL, #{memberEmail}, #{memberPw}, #{memberNickname}, 
-		DEFAULT, DEFAULT, '1', DEFAULT )
+		DEFAULT, DEFAULT, DEFAULT, DEFAULT )
 	</insert>
 	
 	<!-- id 중복검사 -->

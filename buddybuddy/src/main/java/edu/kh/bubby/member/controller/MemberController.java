@@ -55,9 +55,8 @@ public class MemberController {
 		
 		int result = service.signUp(inputMember);
 		
-		System.out.println(inputMember);
-		
-		System.out.println(result);
+//		System.out.println(inputMember);	
+//		System.out.println(result);
 		
 		if(result > 0) {
 			swalSetMessage(ra, "success", "회원가입 성공하셨습니다!", inputMember.getMemberNickname() + "님 환영합니다!");
@@ -84,10 +83,12 @@ public class MemberController {
 						HttpServletResponse response, RedirectAttributes ra, 
 						@RequestParam(value="save", required = false) String save ) {
 		
+		System.out.println("memberId : " + inputMember.getMemberEmail());
+		System.out.println("memberPw : " + inputMember.getMemberPw());
+		System.out.println("save : " + save);
 		
 		Member loginMember = service.login(inputMember);
 		
-		System.out.println("로그인 결과 : " + loginMember);
 		
 		if(loginMember != null) {
 			model.addAttribute("loginMember", loginMember);
@@ -112,7 +113,7 @@ public class MemberController {
 			
 			ra.addFlashAttribute("icon", "error");
 			ra.addFlashAttribute("title", "로그인 실패");
-			ra.addFlashAttribute("text", "로그인에 실패하였습니다<br> 다시 시도해주세요.");
+			ra.addFlashAttribute("text", "로그인에 실패하였습니다. 다시 시도해주세요.");
 		}
 		
 		
@@ -123,11 +124,11 @@ public class MemberController {
 	
 //	로그아웃
 	@RequestMapping(value="logout", method = RequestMethod.GET)
-	public String logout(SessionStatus status, @RequestHeader("referer") String referer) {
+	public String logout(SessionStatus status) {
 		
 		status.setComplete();
 		
-		return "redirect:/";
+		return "redirect:/" ;
 	}
 	
 	
@@ -154,8 +155,7 @@ public class MemberController {
 							@RequestParam("formFile") MultipartFile formFile) {
 		
 		// @RequestParam(value="currentPwd", required=false) String currentPwd,
-		// @RequestParam(value="newPwd1", required=false)
-		
+		// @RequestParam(value="newPwd1", required=false)	
 		//String currentPwd = request.getParameter("currentPwd");
 		
 		inputMember.setMemberNo(loginMember.getMemberNo());
@@ -170,9 +170,10 @@ public class MemberController {
 		
 		String fileName = service.rename(formFile.getOriginalFilename());
 		if(formFile.getOriginalFilename() != null) { // 업로드된 이미지가 있을때
+			
 			inputMember.setMemberProfile("resources/images/member/" + fileName);
-		}
 		
+		}
 		
 		int result = service.updateInfo(newPwd1, inputMember, savePath, formFile, fileName);
 		
@@ -184,26 +185,32 @@ public class MemberController {
 			
 			if(formFile.getOriginalFilename() != null) { // 업로드된 이미지가 있을때
 				loginMember.setMemberProfile("resources/images/member/" + fileName);
+			} else {
+				loginMember.setMemberProfile(fileName);
 			}
 			
 			loginMember.setMemberNickname(inputNickname);
 			loginMember.setMemberEmail(inputEmail);
-			
-			
-			
+				
 		} else { // 실패
 
 			swalSetMessage(ra, "error", "회원정보 수정 실패", "다시 확인해주세요.");
 		}
-		
-		
+				
 		return "redirect:/";
+	}
+	
+//	탈퇴 화면 전환용 Controller
+	@RequestMapping(value="secession", method=RequestMethod.GET)
+	public String secession() {
+		return "member/secession";
 	}
 	
 	
 	
 	
 	
+
 	
 	
 	
