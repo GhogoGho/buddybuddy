@@ -6,20 +6,23 @@
 		<result property="listCount" column="CNT" />
 	</resultMap>
 	<!-- 오프라인 전체 게시글 조회 -->
-	<select id="getPagination" parameterType="_int" resultMap="pg_rm">
-		SELECT COUNT(*) CNT FROM CLASS_PAGE WHERE CLASS_TYPE_NO = #{classType}
+	<select id="getPagination" parameterType="_int"
+		resultMap="pg_rm">
+		SELECT COUNT(*) CNT FROM CLASS_PAGE WHERE CLASS_TYPE_NO =
+		#{classType}
 	</select>
 	<!-- 오프라인 검색 게시글 조회 -->
-	<select id="getSearchPagination" parameterType="OffSearch" resultMap="pg_rm">
+	<select id="getSearchPagination" parameterType="OffSearch"
+		resultMap="pg_rm">
 		SELECT COUNT(*) CNT FROM CLASS_PAGE WHERE CLASS_TYPE_NO = #{classType}
-		
+
 		<if test="sv != null">
 			AND
 
 			<bind name="val" value="'%' + sv + '%'" />
 
 			<choose>
-			
+
 				<when test="sk == 'title' ">
 					CLASS_TITLE LIKE #{val}
 				</when>
@@ -27,7 +30,8 @@
 					CLASS_CONTENT LIKE #{val}
 				</when>
 				<when test="sk == 'titcont' ">
-					( CLASS_TITLE LIKE #{val} OR CLASS_CONTENT LIKE #{val} )
+					( CLASS_TITLE LIKE #{val} OR CLASS_CONTENT LIKE
+					#{val} )
 				</when>
 				<when test="sk == 'creater' ">
 					MEMBER_NICKNAME LIKE #{val}
@@ -38,11 +42,28 @@
 	</select>
 	<!-- offMain 조회용 -->
 	<resultMap type="OfflineClass" id="offMain_rm">
-		<id property="classNo" column="CLASS_NO"/>
-		<result property="categoryName" column="CATEGORY_NAME"/>
-		<result property="classTitle" column="CLASS_TITLE"/>
-		<collection property="atList" column="CLASS_NO" 
-			javaType="java.util.ArrayList" ofType="OffAttachment" select="selectAttachment"/>
+		<id property="classNo" column="CLASS_NO" />
+
+		<result property="classTitle" column="CLASS_TITLE" />
+		<result property="classContent" column="CLASS_CONTENT" />
+		<result property="classCreateDate" column="CLASS_CREATE_DT" />
+		<result property="classReadCount" column="CLASS_READ_COUNT" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="reviewRatings" column="REVIEW_RATINGS" />
+		<result property="memberNickName" column="MEMBER_NICKNAME" />
+		<result property="categoryName" column="CATEGORY_NAME" />
+		<result property="memberProfile" column="MEMBER_PROFILE" />
+		<result property="reserveDate" column="RESERVE_DATE" />
+		<result property="reserveStart" column="RESERVE_START" />
+		<result property="reserveEnd" column="RESERVE_END" />
+		<result property="reserveLimit" column="RESERVE_LIMIT" />
+		<result property="classLevel" column="CLASS_LEVEL" />
+		<result property="classArea" column="CLASS_AREA" />
+		<result property="paymentStatus" column="PAYMENT_STATUS" />
+		<result property="classPrice" column="CLASS_PRICE" />
+		<collection property="atList" column="CLASS_NO"
+			javaType="java.util.ArrayList" ofType="OffAttachment"
+			select="selectAttachment" />
 	</resultMap>
 	<!-- 파일 정보 조회용 resultMap -->
 	<resultMap type="OffAttachment" id="attachment_rm">
@@ -54,33 +75,37 @@
 		<result property="classNo" column="CLASS_NO" />
 	</resultMap>
 	<!--게시글 목록 섬네일 조회 -->
-	<select id="selectAttachment" parameterType="_int" resultMap="attachment_rm">
+	<select id="selectAttachment" parameterType="_int"
+		resultMap="attachment_rm">
 		SELECT * FROM ATTACHMENT
 		WHERE CLASS_NO = ${classNo}
-		ORDER BY FILE_LEVEL
+		ORDER BY
+		FILE_LEVEL
 	</select>
 	<!-- 게시글목록조회 -->
-	<select id="selectOfflinList" parameterType="OffPage" resultMap="offMain_rm">
+	<select id="selectOfflinList" parameterType="OffPage"
+		resultMap="offMain_rm">
 		SELECT CLASS_NO,CATEGORY_NAME, CLASS_TITLE FROM
 		CLASS_PAGE
-        LEFT JOIN CATEGORY USING(CATEGORY_NO)
+		LEFT JOIN CATEGORY USING(CATEGORY_NO)
 		WHERE CLASS_TYPE_NO =#{classType}
 		ORDER BY CLASS_NO DESC
 	</select>
 	<!-- 게시글목록조회(검색) -->
-	<select id="selectOfflinSearchList" parameterType="OffSearch" resultMap="offMain_rm">
+	<select id="selectOfflinSearchList" parameterType="OffSearch"
+		resultMap="offMain_rm">
 		SELECT CLASS_NO,CATEGORY_NAME, CLASS_TITLE FROM
 		CLASS_PAGE
-        LEFT JOIN CATEGORY USING(CATEGORY_NO)
+		LEFT JOIN CATEGORY USING(CATEGORY_NO)
 		WHERE CLASS_TYPE_NO =#{classType}
-			
+
 		<if test="sv != null">
 			AND
 
 			<bind name="val" value="'%' + sv + '%'" />
 
 			<choose>
-			
+
 				<when test="sk == 'title' ">
 					CLASS_TITLE LIKE #{val}
 				</when>
@@ -88,7 +113,8 @@
 					CLASS_CONTENT LIKE #{val}
 				</when>
 				<when test="sk == 'titcont' ">
-					( CLASS_TITLE LIKE #{val} OR CLASS_CONTENT LIKE #{val} )
+					( CLASS_TITLE LIKE #{val} OR CLASS_CONTENT LIKE
+					#{val} )
 				</when>
 				<when test="sk == 'creater' ">
 					MEMBER_NICKNAME LIKE #{val}
@@ -98,6 +124,15 @@
 		</if>
 		ORDER BY CLASS_NO DESC
 	</select>
-	
-	
+	<!-- 상세조회 -->
+	<select id="selectOfflinView" parameterType="OfflineClass" resultMap="offMain_rm">
+		SELECT CLASS_NO,CLASS_CONTENT,CLASS_AREA,CATEGORY_NAME,CLASS_TITLE,
+		MEMBER_PROFILE,MEMBER_NICKNAME,CLASS_PRICE,CLASS_LEVEL,RESERVE_END,
+		RESERVE_START,RESERVE_LIMIT FROM CLASS_PAGE
+		LEFT JOIN MEMBER USING(MEMBER_NO)
+		LEFT JOIN CATEGORY USING(CATEGORY_NO)
+		LEFT JOIN RESERVE USING(CLASS_NO)
+		LEFT JOIN PAYMENT USING(CLASS_NO)
+		WHERE CLASS_NO = #{classNo}
+	</select>
 </mapper>

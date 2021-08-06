@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -162,8 +163,7 @@ th {
 </head>
 
 <body>
-
-
+<c:set var ="stop" value="false"/>
 	<!-- 컨테이너 입력 부분 -->
 	<div class="container-lg">
 		<div class="row">
@@ -174,10 +174,24 @@ th {
 							data-bs-ride="carousel" style="margin-bottom: 10px;">
 							<div class="carousel-inner">
 								<div class="carousel-item active">
-									<img id="sum"
-										src="https://www.layoutit.com/img/sports-q-c-1600-500-1.jpg"
-										style="width: 100%; height: 400px;" class="d-block w-100"
-										alt="...">
+									<c:forEach items="${offList.atList}" var="list">
+										<c:if test="${not stop}">
+										<c:if test="${list.fileName == null}">
+											<img id="sum"
+												src="${contextPath}/resources/images/noimage.png"
+												style="width: 100%; height: 400px;" class="d-block w-100"
+												alt="...">
+												<c:set var ="stop" value="true"/>
+										</c:if>
+										<c:if test="${list.fileName != null && list.fileLevel !=0 }">
+											<img id="sum"
+												src="${contextPath}/${list.filePath}${list.fileName}"
+												style="width: 100%; height: 400px;" class="d-block w-100"
+												alt="...">
+												<c:set var ="stop" value="true"/>
+										</c:if>
+										</c:if>
+									</c:forEach>
 								</div>
 							</div>
 						</div>
@@ -185,30 +199,13 @@ th {
 				</div>
 				<div class="row mb-3">
 					<div class="col-md-12 text-center">
-						<img name="image" alt="Bootstrap Image Preview" width="50px"
-							height="50px"
-							src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" /> <img
-							name="image" alt="Bootstrap Image Preview" width="50px"
-							height="50px"
-							src="https://www.layoutit.com/img/sports-q-c-1600-500-1.jpg" />
-						<img name="image" alt="Bootstrap Image Preview" width="50px"
-							height="50px"
-							src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" /> <img
-							name="image" alt="Bootstrap Image Preview" width="50px"
-							height="50px"
-							src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" /> <img
-							name="image" alt="Bootstrap Image Preview" width="50px"
-							height="50px"
-							src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" /> <img
-							name="image" alt="Bootstrap Image Preview" width="50px"
-							height="50px"
-							src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" /> <img
-							name="image" alt="Bootstrap Image Preview" width="50px"
-							height="50px"
-							src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" /> <img
-							name="image" alt="Bootstrap Image Preview" width="50px"
-							height="50px"
-							src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" />
+
+						<c:forEach items="${offList.atList}" var="at">
+							<c:if test="${!empty offList && at.fileLevel !=0}">
+								<img name="image" alt="Bootstrap Image Preview" width="50px"
+									height="50px" src="${contextPath}/${at.filePath}${at.fileName}" />
+							</c:if>
+						</c:forEach>
 						<script>
 							$("img[name='image']").on("click", function() {
 								const imgSrc = $(this).attr("src");
@@ -255,16 +252,7 @@ th {
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-12">
-						<h2>Heading</h2>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce
-							dapibus, tellus ac cursus commodo, tortor mauris condimentum
-							nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-							malesuada magna mollis euismod. Donec sed odio dui.</p>
-						<p>
-							<a class="btn" href="#">View details »</a>
-						</p>
-					</div>
+					<div class="col-md-12">${offList.classContent}</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
@@ -277,46 +265,58 @@ th {
 				<div class="row">
 					<div class="col-md-12">
 						<div id="map" style="width: 500px; height: 400px;"></div>
-					<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d202420dc3e0c4ac77a9bab393085e5c&libraries=services"></script>
-	
-<script>
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
+						<script type="text/javascript"
+							src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d202420dc3e0c4ac77a9bab393085e5c&libraries=services"></script>
 
-// 지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
+						<script>
+							var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+							mapOption = {
+								center : new kakao.maps.LatLng(33.450701,
+										126.570667), // 지도의 중심좌표
+								level : 3
+							// 지도의 확대 레벨
+							};
 
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new kakao.maps.services.Geocoder();
+							// 지도를 생성합니다    
+							var map = new kakao.maps.Map(mapContainer,
+									mapOption);
 
-// 주소로 좌표를 검색합니다
-geocoder.addressSearch('충청남도 천안시 서북구 성환읍', function(result, status) {
+							// 주소-좌표 변환 객체를 생성합니다
+							var geocoder = new kakao.maps.services.Geocoder();
 
-    // 정상적으로 검색이 완료됐으면 
-     if (status === kakao.maps.services.Status.OK) {
+							// 주소로 좌표를 검색합니다
+							geocoder
+									.addressSearch(
+											'${offList.classArea}',
+											function(result, status) {
 
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+												// 정상적으로 검색이 완료됐으면 
+												if (status === kakao.maps.services.Status.OK) {
 
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-        });
+													var coords = new kakao.maps.LatLng(
+															result[0].y,
+															result[0].x);
 
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">클래스 열리는 지역</div>'
-        });
-        infowindow.open(map, marker);
+													// 결과값으로 받은 위치를 마커로 표시합니다
+													var marker = new kakao.maps.Marker(
+															{
+																map : map,
+																position : coords
+															});
 
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-    } 
-});    
-</script>
+													// 인포윈도우로 장소에 대한 설명을 표시합니다
+													var infowindow = new kakao.maps.InfoWindow(
+															{
+																content : '<div style="width:150px;text-align:center;padding:6px 0;">클래스 열리는 지역</div>'
+															});
+													infowindow
+															.open(map, marker);
+
+													// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+													map.setCenter(coords);
+												}
+											});
+						</script>
 					</div>
 				</div>
 				<div class="row">
@@ -333,6 +333,7 @@ geocoder.addressSearch('충청남도 천안시 서북구 성환읍', function(re
 							<div class="col-md-12">
 								<div class="row">
 									<div class="col-md-12" style="padding: 0;">
+
 										<img alt="Bootstrap Image Preview"
 											src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg"
 											width="25px" height="25px" class="rounded-circle"
@@ -482,27 +483,27 @@ geocoder.addressSearch('충청남도 천안시 서북구 성환읍', function(re
 					style="top: 10px; border: 1px solid black;">
 					<div class="col-md-12">
 						<div class="row">
-							<div class="col-md-12">카테고리</div>
+							<div class="col-md-12">${offList.categoryName}</div>
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-								<h2>제목</h2>
+								<h2>${offList.classTitle }</h2>
 							</div>
 						</div>
 
 						<div class="row">
 							<div class="col-md-12" style="padding: 0;">
 								<img alt="Bootstrap Image Preview"
-									src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg"
+									src="${contextPath}/${offList.memberProfile}"
 									width="25px" height="25px" class="rounded-circle"
 									style="float: left; margin-left: 20px; margin-right: 20px;" />
-								<h3 style="float: left; margin: 0;">아이디</h3>
+								<h3 style="float: left; margin: 0;">${offList.memberNickName}</h3>
 							</div>
 						</div>
 
 						<div class="row">
 							<div class="col-md-12">
-								<h3>가격</h3>
+								<h3>${offList.classPrice }</h3>
 							</div>
 						</div>
 						<div class="row" style="margin-bottom: 50px;">
@@ -511,16 +512,16 @@ geocoder.addressSearch('충청남도 천안시 서북구 성환읍', function(re
 									<div class="col-md-4 text-center"
 										style="border-right: 1px solid black;">
 										<h4>난이도</h4>
-										<br>하
+										<br>${offList.classLevel}
 									</div>
 									<div class="col-md-4 text-center"
 										style="border-right: 1px solid black;">
 										<h4>소요 시간</h4>
-										<br>1시간
+										<br>1
 									</div>
 									<div class="col-md-4 text-center">
 										<h4>인원</h4>
-										<br>최대 4명
+										<br>${offList.reserveLimit}
 									</div>
 								</div>
 							</div>
