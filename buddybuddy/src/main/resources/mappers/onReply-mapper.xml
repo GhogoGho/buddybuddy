@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="onReplyMapper">
+
+	<resultMap type="OnReply" id="reply_rm">
+		<id property="replyNo" column="REPLY_NO"/>
+		
+		<result property="replyContent" column="REPLY_CONTENT"/>
+		<result property="replyDate" column="REPLY_DT"/>
+		<result property="nestedReply" column="NESTED_REPLY"/>
+		<result property="classNo" column="CLASS_NO"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="memberNickName" column="MEMBER_NICKNAME"/>
+		<result property="memberProfile" column="MEMBER_PROFILE"/>
+	</resultMap>
+	
+	<select id="selectList" parameterType="_int" resultMap="reply_rm">
+		SELECT REPLY_NO, REPLY_CONTENT, NESTED_REPLY, REPLY_DT, CLASS_NO, 
+		MEMBER_NO, MEMBER_NICKNAME, MEMBER_PROFILE
+		FROM REPLY
+		JOIN MEMBER USING(MEMBER_NO)
+		WHERE REPLY_STATUS = 'Y'
+		AND CLASS_NO = #{classNo}
+	</select>
+	
+</mapper>
