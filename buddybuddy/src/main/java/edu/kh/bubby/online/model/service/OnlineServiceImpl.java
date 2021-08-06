@@ -81,8 +81,26 @@ public class OnlineServiceImpl implements OnlineService{
 		online.setClassContent(online.getClassContent().replaceAll("<br>", "\r\n"));
 		return online;
 	}
+
 	
 	
 	
+	
+	
+	
+	
+	
+	// 크로스 사이트 스크립트 방지 처리 메소드
+	public static String replaceParameter(String param) { // 다른 class에서도 사용할 수 있도록 public static으로 변경
+		String result = param;
+		if(param != null) {
+			result = result.replaceAll("&", "&amp;");
+			result = result.replaceAll("<", "&lt;");
+			result = result.replaceAll(">", "&gt;");
+			result = result.replaceAll("\"", "&quot;");
+		}
+		
+		return result;
+	}
 
 }

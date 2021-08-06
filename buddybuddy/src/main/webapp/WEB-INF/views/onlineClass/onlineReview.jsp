@@ -2,101 +2,100 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>기본페이지</title>
-</head>
-<body>
-	<main>
+
+<style>
+    .online-review-content .updateArea {
+      display: none;
+      list-style-type: none;
+    }
+</style>
+
+${reviewList }
+<div class="reviewList">
+  <ul class="online-review-content list-group col-md-12" id="reviewListArea">
+  <c:forEach items="${reviewList}" var="review">
+    <li class="list-group-item">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="ms-2 me-auto">
+          <div class="fw-bold">
+            <img src="#" class="user-image rounded-circle me-2">${review.memberNickName}
+          </div>
+        </div>
+        <p class="date me-2">작성일 : ${review.reviewDate}</p>
+        <c:if test="${review.memberNo == sessionScope.loginMember.memberNo}">
+        <ul class="review-action reviewBtnArea list-inline me-2">
+          <li class="list-inline-item">
+            <button class="btn btn-danger btn-sm ml-1" id="deleteReply" onclick="deleteReply(${review.reviewNo})">삭제</button><button class="btn btn-primary btn-sm ml-1 showUpdateReply" id="showUpdateReply">수정</button>
+          </li>
+        </ul>
+        </c:if>
+        <%-- <button class="btn btn-outline-secondary btn-sm" id="reply-like-btn">
+          <%-- <i class="bi bi-heart" id="reply-like"><span id="reply-like-count">${reply.replyLike }</span></i> 
+          <i class="bi bi-heart" id="reply-like">${reply.replyLike }</i>
+        </button>--%>
+      </div>
+      <div class="ms-2">${review.reviewContent }</div>
+    </li>
+    <li class="list-group-item updateArea">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="ms-2 me-auto">
+          <div class="fw-bold">
+            <pre>수정할 내용</pre>
+          </div>
+        </div>
+      </div>
+      <div class="input-group ms-2 my-2">
+        <textarea class="edit-review form-control" rows="5"></textarea>
+        <button class="btn btn-outline-success" onclick="updateReview(${review.reviewNo}, this)">수정</button>
+      </div>
+    </li>
+  </c:forEach>
+	</ul>
+</div>
+<hr>
+<div class="reviewWrite col-md-12">
+	<h4 class="h5">수강 후기 작성</h4>
+	<div class="input-group my-2" id="reviewContentArea">
+		<textarea class="form-control" id="reviewContent" rows="5"></textarea>
+		<button class="btn btn-outline-success" id="addReview" onclick="addReview();">작성</button>
+	</div>
+</div>
 		
 		
-		<div class="reviewList">
-	    <ul class="online-review-content list-group col-md-12" id="reviewListArea">
-	    <c:forEach items="${reviewList}" var="review">
-	      <li class="list-group-item">
-	        <div class="d-flex justify-content-between align-items-center">
-	          <div class="ms-2 me-auto">
-	            <div class="fw-bold">
-	              <img src="#" class="user-image rounded-circle me-2">${review.memberNickName}
-	            </div>
-	          </div>
-	          <p class="date me-2">작성일 : ${review.reviewDate}</p>
-	          <c:if test="${review.memberNo == sessionScope.loginUser.memberNo}">
-	          <ul class="review-action reviewBtnArea list-inline me-2">
-	            <li class="list-inline-item">
-	              <button class="btn btn-danger btn-sm ml-1" id="deleteReply" onclick="deleteReply(${review.reviewNo})">삭제</button><button class="btn btn-primary btn-sm ml-1 showUpdateReply" id="showUpdateReply">수정</button>
-	            </li>
-	          </ul>
-	          </c:if>
-	          <%-- <button class="btn btn-outline-secondary btn-sm" id="reply-like-btn">
-	            <%-- <i class="bi bi-heart" id="reply-like"><span id="reply-like-count">${reply.replyLike }</span></i> 
-	            <i class="bi bi-heart" id="reply-like">${reply.replyLike }</i>
-	          </button>--%>
-	        </div>
-	        <div class="ms-2">${review.reviewContent }</div>
-	      </li>
-	      <li class="list-group-item updateArea">
-	        <div class="d-flex justify-content-between align-items-center">
-	          <div class="ms-2 me-auto">
-	            <div class="fw-bold">
-	              <pre>수정할 내용</pre>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="input-group ms-2 my-2">
-	          <textarea class="edit-review form-control" rows="5"></textarea>
-	          <button class="btn btn-outline-success" onclick="updateReview(${review.reviewNo}, this)">수정</button>
-	        </div>
-	      </li>
-	    </c:forEach>
-	  </ul>
-	 </div>
-	 <hr>
-   <div class="replyWrite col-md-12">
-		 <h4 class="h5">수강 문의 작성</h4>
-		 <div class="input-group my-2" id="reviewContentArea">
-		   <textarea class="form-control" id="reviewContent" rows="5"></textarea>
-		   <button class="btn btn-outline-success" id="addReview" onclick="addReview();">작성</button>
-		 </div>
-	 </div>
-		
-		
-		
-	</main>
-</body>
 
 <script>
+
+const loginMemberNo = "${loginMember.memberNo}";
+
+const classNo = ${online.classNo};
+
 let beforeReviewRow; 
 //-----------------------------------------------------------------------------------------
-//댓글 등록
+//수강후기 등록
 function addReview() {
 	const reviewContent = $("#reviewContent").val();
-    if(loginUserId == ""){
-    	console.log("로그인 필요");
+    if(loginMemberNo == ""){
+    	swal("로그인 필요");
     }else{
      if(reviewContent.trim() == ""){ 
-       console.log("댓글 작성 후 클릭해 주세요.");
+    	 swal("수강후기 작성 후 클릭해 주세요.");
      }else{
     	 
        $.ajax({ 
-         url : "${contextPath}/review/insertReview", 
+         url : "${contextPath}/onReview/insertReview", 
          type : "POST",
          data : {"memberNo" : loginMemberNo,
              "classNo" : classNo,
              "reviewContent" : reviewContent },
          success : function(result){
            if(result > 0){ 
-        	 console.log("댓글 등록 성공");
-             $("#reviewContent").val(""); 
-             
-             selectReviewList(); 
+						swal({"icon" : "success" , "title" : "수강후기 등록 성공"});
+						$("#reviewContent").val(""); 
+						selectReviewList(); 
            }
          },
          error : function(){
-           console.log("댓글 삽입 실패");
+           console.log("수강후기 등록 실패");
          }
        });
      }
@@ -106,7 +105,7 @@ function addReview() {
 //해당 게시글 댓글 목록 조회
 function selectReviewList(){
     $.ajax({ 
-     url : "${contextPath}/review/list",
+     url : "${contextPath}/onReview/list",
      data : {"classNo" : classNo},
      type : "POST",
      dataType : "JSON",  
@@ -202,7 +201,7 @@ function selectReviewList(){
      },
      
      error : function(){
-       console.log("댓글 목록 조회 실패");
+       console.log("수강후기 목록 조회 실패");
      }
      
     });
@@ -224,44 +223,44 @@ $(document).on("click", ".showUpdateReview", function(){ // 동적 요소가 적
 
 }); 
 // ---------------------------
-// 댓글 수정 기능
+// 수강후기 수정 기능
 function updateReview(reviewNo, el){
 	
 	const reviewContent = $(el).prev().val();
 	
 	$.ajax({
-		url : "${contextPath}/reply/updateReview",
+		url : "${contextPath}/onReview/updateReview",
 		type : "POST",
 		data : {"reviewNo" : reviewNo,
-				"reviewContent" : reviewContent},
+						"reviewContent" : reviewContent},
 		success : function(result){
 			if(result > 0 ){
-				console.log("댓글 수정 성공");
+				swal({"icon" : "success" , "title" : "수강후기 수정 성공"});
 				selectReviewList();
 			}
 		},
 		error : function(){
-			console.log("댓글 수정 실패");
+			console.log("수강후기 수정 실패");
 		}
 	});
 }
 // ---------------------------
-// 댓글 삭제 기능
+// 수강후기 삭제 기능
 function deleteReview(reviewNo){
-	if(confirm("댓글을 삭제하시겠습니까?")){
+	if(confirm("수강후기를 삭제하시겠습니까?")){
   		
         $.ajax({
-          url :"${contextPath}/review/deleteReview",
+          url :"${contextPath}/onReview/deleteReview",
           type : "POST",
           data : {"reviewNo" : reviewNo},
           success : function(result){
             if(result > 0){
-              console.log("댓글 삭제 성공");
+            	swal({"icon" : "success" , "title" : "수강후기 삭제 성공"});
               selectReviewList();
             }
           },
           error : function(){
-            console.log("댓글 삭제 실패");
+            console.log("수강후기 삭제 실패");
           }
     	});
 	}
@@ -270,4 +269,3 @@ function deleteReview(reviewNo){
 
 </script>
 
-</html>

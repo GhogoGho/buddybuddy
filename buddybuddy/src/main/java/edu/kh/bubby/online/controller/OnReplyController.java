@@ -3,6 +3,7 @@ package edu.kh.bubby.online.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,5 +30,24 @@ public class OnReplyController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH:mm").create();
 		return gson.toJson(rList);
 	}
+	
+	// 수강 문의 작성
+	@RequestMapping(value="insertReply", method=RequestMethod.POST)
+	public int insertReply(@ModelAttribute OnReply reply) {
+		return service.insertReply(reply);
+	}
+	
+	// 수강 문의 수정
+	@RequestMapping(value="updateReply", method=RequestMethod.POST)
+	public int updateReply(OnReply reply) {
+		return service.updateReply(reply);
+	}
+	
+	// 수강 문의 삭제
+	@RequestMapping(value="deleteReply", method=RequestMethod.POST)
+	public int deleteReply(int replyNo) {
+		return service.deleteReply(replyNo);
+	}
+	
 	
 }

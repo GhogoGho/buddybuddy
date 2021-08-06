@@ -2,112 +2,109 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>기본페이지</title>
-</head>
-<body>
-	<main>
+
+<style>
+    .online-reply-content .updateArea {
+      display: none;
+      list-style-type: none;
+    }
+</style>
+${rList }
+<div class="replyList">
+   <ul class="online-reply-content list-group col-md-12" id="replyListArea">
+   <c:forEach items="${rList}" var="reply">
+     <li class="list-group-item">
+       <div class="d-flex justify-content-between align-items-center">
+         <div class="ms-2 me-auto">
+           <div class="fw-bold">
+             <img src="#" class="user-image rounded-circle me-2">${reply.memberNickName}
+           </div>
+         </div>
+         <p class="date me-2">작성일 : ${reply.replyDate}</p>
+         <c:if test="${reply.memberNo == sessionScope.loginMember.memberNo}">
+         <ul class="reply-action replyBtnArea list-inline me-2">
+           <li class="list-inline-item">
+             <button class="btn btn-danger btn-sm ml-1" id="deleteReply" onclick="deleteReply(${reply.replyNo})">삭제</button><button class="btn btn-primary btn-sm ml-1 showUpdateReply" id="showUpdateReply">수정</button>
+           </li>
+         </ul>
+         </c:if>
+         <%-- <button class="btn btn-outline-secondary btn-sm" id="reply-like-btn">
+           <%-- <i class="bi bi-heart" id="reply-like"><span id="reply-like-count">${reply.replyLike }</span></i> 
+           <i class="bi bi-heart" id="reply-like">${reply.replyLike }</i>
+         </button>--%>
+       </div>
+       <div class="ms-2">${reply.replyContent }</div>
+     </li>
+     <li class="list-group-item updateArea">
+       <div class="d-flex justify-content-between align-items-center">
+         <div class="ms-2 me-auto">
+           <div class="fw-bold">
+             <pre>수정할 내용</pre>
+           </div>
+         </div>
+       </div>
+       <div class="input-group ms-2 my-2">
+         <textarea class="edit-reply form-control" rows="5"></textarea>
+         <button class="btn btn-outline-success" onclick="updateReply(${reply.replyNo}, this)">수정</button>
+       </div>
+     </li>
+   </c:forEach>
+ </ul>
+</div>
+<hr>
+ <div class="replyWrite col-md-12">
+ <h4 class="h5">수강 문의 작성</h4>
+ <div class="input-group my-2" id="replyContentArea">
+   <textarea class="form-control" id="replyContent" rows="5"></textarea>
+   <button class="btn btn-outline-success" id="addReply" onclick="addReply();">작성</button>
+ </div>
+</div>
+
 		
-		
-		<div class="replyList">
-	    <ul class="online-reply-content list-group col-md-12" id="replyListArea">
-	    <c:forEach items="${rList}" var="reply">
-	      <li class="list-group-item">
-	        <div class="d-flex justify-content-between align-items-center">
-	          <div class="ms-2 me-auto">
-	            <div class="fw-bold">
-	              <img src="#" class="user-image rounded-circle me-2">${reply.memberNickName}
-	            </div>
-	          </div>
-	          <p class="date me-2">작성일 : ${reply.replyDate}</p>
-	          <c:if test="${reply.memberNo == sessionScope.loginUser.memberNo}">
-	          <ul class="reply-action replyBtnArea list-inline me-2">
-	            <li class="list-inline-item">
-	              <button class="btn btn-danger btn-sm ml-1" id="deleteReply" onclick="deleteReply(${reply.replyNo})">삭제</button><button class="btn btn-primary btn-sm ml-1 showUpdateReply" id="showUpdateReply">수정</button>
-	            </li>
-	          </ul>
-	          </c:if>
-	          <%-- <button class="btn btn-outline-secondary btn-sm" id="reply-like-btn">
-	            <%-- <i class="bi bi-heart" id="reply-like"><span id="reply-like-count">${reply.replyLike }</span></i> 
-	            <i class="bi bi-heart" id="reply-like">${reply.replyLike }</i>
-	          </button>--%>
-	        </div>
-	        <div class="ms-2">${reply.replyContent }</div>
-	      </li>
-	      <li class="list-group-item updateArea">
-	        <div class="d-flex justify-content-between align-items-center">
-	          <div class="ms-2 me-auto">
-	            <div class="fw-bold">
-	              <pre>수정할 내용</pre>
-	            </div>
-	          </div>
-	        </div>
-	        <div class="input-group ms-2 my-2">
-	          <textarea class="edit-reply form-control" rows="5"></textarea>
-	          <button class="btn btn-outline-success" onclick="updateReply(${reply.replyNo}, this)">수정</button>
-	        </div>
-	      </li>
-	    </c:forEach>
-	  </ul>
-	 </div>
-	 <hr>
-   <div class="replyWrite col-md-12">
-		 <h4 class="h5">수강 문의 작성</h4>
-		 <div class="input-group my-2" id="replyContentArea">
-		   <textarea class="form-control" id="replyContent" rows="5"></textarea>
-		   <button class="btn btn-outline-success" id="addReply" onclick="addReply();">작성</button>
-		 </div>
-	 </div>
-		
-		
-		
-	</main>
-</body>
 
 <script>
+/* const loginMemberNo = "${loginMember.memberNo}";
+const classNo = ${online.classNo}; */
+
 let beforeReplyRow; 
 //-----------------------------------------------------------------------------------------
-//댓글 등록
+//수강문의 등록
 function addReply() {
 	const replyContent = $("#replyContent").val();
-    if(loginUserId == ""){
-    	console.log("로그인 필요");
+    if(loginMemberNo == ""){
+    	swal("로그인 후 이용해 주세요.");
     }else{
      if(replyContent.trim() == ""){ 
-       console.log("댓글 작성 후 클릭해 주세요.");
+       swal("수강문의 작성 후 클릭해 주세요.");
      }else{
     	 
        $.ajax({ 
-         url : "${contextPath}/reply/insertReply", 
+         url : "${contextPath}/onReply/insertReply", 
          type : "POST",
-         data : {"userId" : loginUserId,
-             "qnaPostId" : qnaPostId,
+         data : {"memberNo" : loginMemberNo,
+             "classNo" : classNo,
              "replyContent" : replyContent },
          success : function(result){
            if(result > 0){ 
-        	 console.log("댓글 등록 성공");
+        	 		swal({"icon" : "success" ,"title" : "수강문의 등록 성공"});
              $("#replyContent").val(""); 
              
              selectReplyList(); 
            }
          },
          error : function(){
-           console.log("댓글 삽입 실패");
+           console.log("수강문의 등록 실패");
          }
        });
      }
   }
 } 
 //-----------------------------------------------------------------------------------------
-//해당 게시글 댓글 목록 조회
+//해당 게시글 수강문의 목록 조회
 function selectReplyList(){
     $.ajax({ 
-     url : "${contextPath}/reply/list",
-     data : {"qnaPostId" : qnaPostId},
+     url : "${contextPath}/onReply/list",
+     data : {"classNo" : classNo},
      type : "POST",
      dataType : "JSON",  
      success : function(rList){
@@ -132,17 +129,17 @@ function selectReplyList(){
               var div3 = $("<div>").addClass("fw-bold");
               div2.append(div3);
     
-              var rWriter = $("<img>").attr("src","${contextPath}"+"/"+item.userPic).addClass("user-image rounded-circle me-2"); 
-              div3.append(rWriter).append(item.userNickname);
+              var rWriter = $("<img>").attr("src","${contextPath}"+"/"+item.memberProfile).addClass("user-image rounded-circle me-2"); 
+              div3.append(rWriter).append(item.memberNickName);
     
               var rDate = $("<p>").addClass("date me-2").text("작성일 : "+item.replyDate);
     
-               if (item.userId == loginUserId) { 
+               if (item.memberNo == loginMemberNo) { 
     
                  var ul = $("<ul>").addClass("reply-action replyBtnArea list-inline me-2");
       
                  var childLi1 = $("<li>").addClass("list-inline-item");
-                 var deleteReply = $("<button>").addClass("btn btn-danger btn-sm ml-1").text("삭제").attr("id", "deleteReply").attr("onclick", "deleteReply("+item.replyId+")");
+                 var deleteReply = $("<button>").addClass("btn btn-danger btn-sm ml-1").text("삭제").attr("id", "deleteReply").attr("onclick", "deleteReply("+item.replyNo+")");
                  var showUpdate = $("<button>").addClass("btn btn-primary btn-sm ml-1 showUpdateReply").text("수정").attr("id", "showUpdateReply");
                  childLi1.append(deleteReply).append(showUpdate);
       
@@ -181,7 +178,7 @@ function selectReplyList(){
               uDivchch.append(uImg); */
               var uDivBottom = $("<div>").addClass("input-group ms-2 my-2");
               var uTextarea = $("<textarea>").addClass("form-control").attr("id", "edit-reply").attr("rows","5");
-              var uButton = $("<button>").addClass("btn btn-outline-primary").text("수정").attr("onclick", "updateReply(" + item.replyId + ", this)");
+              var uButton = $("<button>").addClass("btn btn-outline-primary").text("수정").attr("onclick", "updateReply(" + item.replyNo + ", this)");
               uDivBottom.append(uTextarea).append(uButton);
               
               //수정창 마무리
@@ -225,14 +222,14 @@ $(document).on("click", ".showUpdateReply", function(){ // 동적 요소가 적�
 }); 
 // ---------------------------
 // 댓글 수정 기능
-function updateReply(replyId, el){
+function updateReply(replyNo, el){
 	
 	const replyContent = $(el).prev().val();
 	
 	$.ajax({
-		url : "${contextPath}/reply/updateReply",
+		url : "${contextPath}/onReply/updateReply",
 		type : "POST",
-		data : {"replyId" : replyId,
+		data : {"replyNo" : replyNo,
 				"replyContent" : replyContent},
 		success : function(result){
 			if(result > 0 ){
@@ -247,13 +244,13 @@ function updateReply(replyId, el){
 }
 // ---------------------------
 // 댓글 삭제 기능
-function deleteReply(replyId){
+function deleteReply(replyNo){
 	if(confirm("댓글을 삭제하시겠습니까?")){
   		
         $.ajax({
-          url :"${contextPath}/reply/deleteReply",
+          url :"${contextPath}/onReply/deleteReply",
           type : "POST",
-          data : {"replyId" : replyId},
+          data : {"replyNo" : replyNo},
           success : function(result){
             if(result > 0){
               console.log("댓글 삭제 성공");
@@ -270,4 +267,3 @@ function deleteReply(replyId){
 
 </script>
 
-</html>

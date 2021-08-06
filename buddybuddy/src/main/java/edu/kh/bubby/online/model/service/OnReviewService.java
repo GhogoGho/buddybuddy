@@ -12,4 +12,22 @@ public interface OnReviewService {
 	 */
 	List<OnReview> selectList(int classNo);
 
+	/** 수강후기 작성
+	 * @param review
+	 * @return
+	 */
+	int insertReview(OnReview review);
+
+	/** 수강후기 수정
+	 * @param review
+	 * @return
+	 */
+	int updateReview(OnReview review);
+
+	/** 수강후기 삭제
+	 * @param reviewNo
+	 * @return
+	 */
+	int deleteReview(int reviewNo);
+
 }
