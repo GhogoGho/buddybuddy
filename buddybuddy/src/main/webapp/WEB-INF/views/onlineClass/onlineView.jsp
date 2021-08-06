@@ -9,14 +9,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>온라인 클래스 소개 페이지</title>
 
-<!-- 부트스트랩 -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-  crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 
 <!-- font-awesome -->
@@ -135,84 +127,15 @@
         <div class="col-md-7">
           <p class="h3 my-4" id="class-review">수강 후기</p>
           <hr>
-          <ul class="qna-reply-content list-group col-md-12">
-            <li class="list-group-item">
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">
-                    <img src="https://github.com/mdo.png" width="30" height="30"
-                      class="user-image rounded-circle me-2">${memberNickName}
-                  </div>
-                </div>
-                <span class="date me-2">0000년 00월 00일 00:00</span>
-                <ul class="reply-action list-inline me-2">
-                  <li class="list-inline-item">
-                    <a href="#" class="btn btn-outline-success">수정</a>
-                    <a href="#" class="btn btn-outline-secondary">삭제</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="ms-2">가장 많이 품고 있는 이상! 이것이야말로 무한한 가치를
-                가진 것이다 사람은 크고 작고 간에 이상이 있음으로써 용감하고 굳세게
-                살 수 있는 것이다 석가는 무엇을 위하여 설산에서 고행을 하였으며
-                예수는 무엇을 위하여 광야에서 방황하였으며 공자는 무엇을 위하여 천하를
-                철환하였는가? 밥을 위하여서 옷을 위하여서 미인을 구하기 위하여서 그리하였는가?
-                아니다 그들은 커다란 이상 곧 만천하의
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">
-                    <img src="https://github.com/mdo.png" width="30" height="30"
-                      class="user-image rounded-circle me-2">${memberNickName}
-                  </div>
-                </div>
-                <span class="date me-2">0000년 00월 00일 00:00</span>
-                <ul class="reply-action list-inline me-2">
-                  <li class="list-inline-item">
-                    <a href="#" class="btn btn-outline-success">수정</a>
-                    <a href="#" class="btn btn-outline-secondary">삭제</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="ms-2">가장 많이 품고 있는 이상! 이것이야말로 무한한 가치를
-                가진 것이다 사람은 크고 작고 간에 이상이 있음으로써 용감하고 굳세게
-                살 수 있는 것이다 석가는 무엇을 위하여 설산에서 고행을 하였으며
-                예수는 무엇을 위하여 광야에서 방황하였으며 공자는 무엇을 위하여 천하를
-                철환하였는가? 밥을 위하여서 옷을 위하여서 미인을 구하기 위하여서 그리하였는가?
-                아니다 그들은 커다란 이상 곧 만천하의
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold"><img src="https://github.com/mdo.png" width="30" height="30"
-                      class="user-image rounded-circle me-2">${memberNickName}</div>
-                </div>
-              </div>
-              <div class="input-group ms-2 my-2">
-                <textarea class="form-control" id="edit-reply" rows="5">수정 내용</textarea>
-                <button class="btn btn-outline-success">수정</button>
-              </div>
-            </li>
-          </ul>
-          <hr>
-          <div class="col-md-12">
-            <p class="h5">수강 후기 작성</p>
-            <div class="input-group my-2">
-              <textarea class="form-control" id="edit-reply" rows="5"></textarea>
-              <button class="btn btn-outline-success">작성</button>
-            </div>
-          </div>
+          <jsp:include page="onlineReview.jsp"/>
         </div>
         <!-- </div> -->
-        <!-- 댓글 시작 -->
+        <!-- 수강문의 시작 -->
         <!-- <div class="container mt-5"> -->
         <div class="col-md-7">
           <p class="h3 my-4" id="class-reply">수강 문의</p>
           <hr>
-         	<jsp:include page="onlineReply.jsp"></jsp:include>
+         	<jsp:include page="onlineReply.jsp"/>
         </div>
         <!-- </div> -->
 
