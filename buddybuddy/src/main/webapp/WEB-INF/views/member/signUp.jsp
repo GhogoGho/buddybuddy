@@ -23,7 +23,11 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
+<!-- 자바스크립트  -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+	
 <!-- sweetalert API 추가 -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -33,9 +37,11 @@
 	.navbar>.container-xxl {
 	display: block;
 }
+
 ul.navbar-nav li.active a {
 	text-decoration: none;
 }
+
 ul.navbar-nav li a {
 	text-decoration: none;
 }
@@ -50,6 +56,7 @@ ul.navbar-nav li a {
 	transition: all 1s;
 	background: #fff;
 }
+
 header.header-section.fixed {
 	position: fixed;
 	display: block;
@@ -61,6 +68,7 @@ header.header-section.fixed {
 	padding: 10px 0;
 	transition: all 1s;
 }
+
 .header-section .navbar {
 	height: auto;
 	min-height: none;
@@ -69,20 +77,24 @@ header.header-section.fixed {
 	border: none;
 	background: transparent !important
 }
+
 .header-section .navbar .navbar-brand {
 	font-size: 30px;
 	font-weight: 540;
 	text-transform: uppercase;
 	color: #555252;
 }
+
 .header-section .navbar .navbar-brand b {
 	color: #1abc9c;
 }
+
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
 	text-align: center;
 	padding: 0 !important;
 	background: transparent !important;
 }
+
 ul.navbar-nav {
 	background: transparent;
 	margin: 0 auto;
@@ -90,9 +102,11 @@ ul.navbar-nav {
 	display: inline-block;
 	float: none;
 }
+
 ul.navbar-nav li {
 	
 }
+
 ul.navbar-nav li a {
 	font-size: 14px;
 	font-weight: 700;
@@ -100,14 +114,17 @@ ul.navbar-nav li a {
 	background: transparent !important;
 	text-transform: uppercase;
 }
+
 ul.navbar-nav li.active a, ul.navbar-nav li a:hover {
 	color: #1abc9c !important;
 }
+
 ul.navbar-nav.cart-menu li a {
 	padding-right: 0;
 	color: #0f0101;
 	font-weight: 700;
 }
+
 ul.navbar-nav.cart-menu li a .fa-search {
 	margin-top: 6px;
 	display: block;
@@ -116,41 +133,50 @@ ul.navbar-nav.cart-menu li a .fa-search {
 body {
 	color: #fff;
 }
+
 .form-control {
 	min-height: 41px;
 	background: #fff;
 	box-shadow: none !important;
 	border-color: #e3e3e3;
 }
+
 .form-control-id {
 	min-height: 41px;
 	background: #fff;
 	border-color: #e3e3e3;
 	width: 70%;
 }
+
 .form-control-id:focus {
 	border-color: #70c5c0;
 }
+
 .form-control-id, .btn {
 	border-radius: 2px;
 }
+
 .form-control:focus {
 	border-color: #70c5c0;
 }
+
 .form-control, .btn {
 	border-radius: 2px;
 }
+
 .form-profile {
 	text-align: center;
 	margin-left: 50px;
 	margin-top: 30px;
 }
+
 .signup-form {
 	width: 350px;
 	margin: 0 auto;
 	padding: 100px 0 30px;
 	font-family: 'ELAND_Choice_M';
 }
+
 .signup-form form {
 	color: #7a7a7a;
 	border-radius: 2px;
@@ -161,10 +187,12 @@ body {
 	padding: 30px;
 	position: relative;
 }
+
 .signup-form h2 {
 	font-size: 22px;
 	margin: 35px 0 25px;
 }
+
 .signup-form .avatar {
 	position: absolute;
 	margin: 0 auto;
@@ -179,12 +207,15 @@ body {
 	padding: 15px;
 	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
 }
+
 .signup-form .avatar img {
 	width: 100%;
 }
+
 .signup-form input[type="checkbox"] {
 	margin-top: 2px;
 }
+
 .signup-form .btn {
 	font-size: 16px;
 	font-weight: bold;
@@ -192,40 +223,50 @@ body {
 	border: none;
 	margin-top: 50px;
 }
+
 .signup-form .btn:hover, .signup-form .btn:focus {
 	background: #50b8b3;
 	outline: none !important;
 }
+
 .signup-form a {
 	color: #fff;
 	text-decoration: underline;
 }
+
 .signup-form a:hover {
 	text-decoration: none;
 }
+
 .signup-form form a {
 	color: #7a7a7a;
 	text-decoration: none;
 }
+
 .signup-form form a:hover {
 	text-decoration: underline;
 }
+
 .signup-form .clearfix {
 	margin-bottom: 10px;
 }
+
 .signup-form .clearfix-signUp a {
 	color: #50b8b3;
 	font-weight: bold;
 	font-size: 15px;
 }
+
 .signup-form .clearfix-signUp a:hover {
 	color: black;
 	text-decoration: none;
 }
+
 .signup-form .form-profile {
 	margin-top: 50px;
 	margin-left: 50px;
 }
+
 @font-face {
 	font-family: 'ELAND_Choice_M';
 	src:
@@ -240,46 +281,57 @@ body {
 	padding: 0;
 	box-sizing: border-box
 }
+
 body {
 	background-color: #f7f7f7;
 }
+
 ul>li {
 	list-style: none
 }
+
 a {
 	text-decoration: none;
 }
+
 .clearfix::after {
 	content: "";
 	display: block;
 	clear: both;
 }
+
 #joinForm {
 	width: auto;
 	margin: 0 auto;
 }
+
 ul.join_box {
 	border: 1px solid #ddd;
 	background-color: #fff;
 }
+
 .checkBox, .checkBox>ul {
 	position: relative;
 }
+
 .checkBox>ul>li {
 	float: left;
 }
+
 .checkBox>ul>li:first-child {
 	width: 85%;
 	padding: 15px;
 	font-weight: 600;
 	color: #888;
 }
+
 .checkBox>ul>li:nth-child(2) {
 	position: absolute;
 	top: 50%;
 	right: 30px;
 	margin-top: -12px;
 }
+
 .checkBox textarea {
 	width: 96%;
 	height: 90px;
@@ -288,14 +340,17 @@ ul.join_box {
 	color: #888;
 	border: none;
 }
+
 .footBtwrap {
 	margin-top: 15px;
 }
+
 .footBtwrap>li {
 	float: left;
 	width: 50%;
 	height: 60px;
 }
+
 .footBtwrap>li>button {
 	display: block;
 	width: 100%;
@@ -305,9 +360,11 @@ ul.join_box {
 	line-height: 50px;
 	border: none;
 }
+
 .fpmgBt1 {
 	background-color: #fff;
 }
+
 .fpmgBt2 {
 	background-color: #50b8b3;
 	color: #fff
@@ -364,17 +421,17 @@ ul.join_box {
 				비밀번호 <input type="password" class="form-control" id="pwd1"
 					name="memberPw" placeholder="비밀번호를 입력해주세요" maxlength="12"
 					required="required">
-			<div class="col-md-12">
-				<span id="checkPwd1">&nbsp;</span>
-			</div>
+				<div class="col-md-12">
+					<span id="checkPwd1">&nbsp;</span>
+				</div>
 			</div>
 
 			<div class="form-group">
 				비밀번호 확인 <input type="password" class="form-control" id="pwd2"
 					name="memberPwCk" placeholder="비밀번호를 재입력해주세요" required="required">
-			<div class="col-md-12">
-				<span id="checkPwd2">&nbsp;</span>
-			</div>
+				<div class="col-md-12">
+					<span id="checkPwd2">&nbsp;</span>
+				</div>
 			</div>
 
 			<div class="form-group">
@@ -384,20 +441,20 @@ ul.join_box {
 			</div>
 
 			<!-- 회원가입 약관 -->
-			<div action="" id="joinForm">
+			<div class="agree-form">
 				<ul class="join_box">
 					<li class="checkBox check01">
 						<ul class="clearfix">
 							<li>이용약관, 개인정보 수집 및 이용, 위치정보 이용약관(선택), 프로모션 안내 메일 수신(선택)에 모두
 								동의합니다.</li>
-							<li class="checkAllBtn"><input type="checkbox" name="chkAll"
-								id="chk" class="chkAll"></li>
+							<li class="checkAllBtn"><input type="checkbox" name="check_all"
+								id="check_all" class="check_all"></li>
 						</ul>
 					</li>
 					<li class="checkBox check02">
 						<ul class="clearfix">
 							<li>이용약관 동의(필수)</li>
-							<li class="checkBtn"><input type="checkbox" name="chk">
+							<li class="checkBtn"><input type="checkbox" name="agree">
 							</li>
 						</ul> <textarea name="clear1" id="clear1"">여러분을 환영합니다.
     버디버디 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 버디버디 서비스의 이용과 관련하여 버디버디 서비스를 제공하는 버디버디 주식회사(이하 ‘버디버디’)와 이를 이용하는 버디버디 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 버디버디 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
@@ -406,7 +463,7 @@ ul.join_box {
 					<li class="checkBox check03">
 						<ul class="clearfix">
 							<li>개인정보 수집 및 이용에 대한 안내(필수)</li>
-							<li class="checkBtn"><input type="checkbox" name="chk">
+							<li class="checkBtn"><input type="checkbox" name="agree">
 							</li>
 						</ul> <textarea name="clear2" id="clear2">여러분을 환영합니다.
     버디버디 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 버디버디 서비스의 이용과 관련하여 버디버디 서비스를 제공하는 버디버디 주식회사(이하 '버디버디')와 이를 이용하는 버디버디 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 버디버디 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
@@ -415,14 +472,14 @@ ul.join_box {
 					<li class="checkBox check03">
 						<ul class="clearfix">
 							<li>위치정보 이용약관 동의(선택)</li>
-							<li class="checkBtn"><input type="checkbox" name="chk">
+							<li class="checkBtn"><input type="checkbox" name="agree">
 							</li>
 						</ul> <textarea name="clear3" id="clear3">여러분을 환영합니다.
     버디버디 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 버디버디 서비스의 이용과 관련하여 버디버디 서비스를 제공하는 버디버디 주식회사(이하 '버디버디')와 이를 이용하는 버디버디 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 버디버디 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
            </textarea>
 					</li>
 				</ul>
-				
+
 			</div>
 			<div class="form-group">
 				<button type="submit" class="btn btn-primary btn-lg btn-block">회원가입</button>
@@ -444,5 +501,37 @@ ul.join_box {
 	</footer>
 	<!-- 웹콘텐트 == 콘텍스패스 -->
 	<script src="${contextPath}/resources/js/member.js"></script>
+
+	<script>
+		// 체크박스 다중 선택 스크립트
+		$(".agree-form").on(
+				"click",
+				"#check_all",
+				function() {
+					$(this).parents(".agree-form").find('input').prop(
+							"checked", $(this).is(":checked"));
+
+				});
+
+		// 체크박스 개별 선택
+		$(".agree-form").on("click", ".normal", function() {
+			var is_checked = true;
+
+			$(".agree-form .normal").each(function() {
+				is_checked = is_checked && $(this).is(":checked");
+			});
+
+			$("#check_all").prop("checked", is_checked);
+		});
+
+		function validate() {
+			if ($("#check_all:checked").length == 0) {
+				swal({"icon" : "info", "title" : "약관 동의에 체크해주세요."})
+				return false;
+			}
+			
+			return true;
+		}
+	</script>
 </body>
-</html> 
+</html>

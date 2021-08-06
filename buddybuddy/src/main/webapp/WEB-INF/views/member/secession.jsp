@@ -25,6 +25,14 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
 	crossorigin="anonymous"></script>
+	<!-- Bootstrap core JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+	
+	<!-- sweetalert API 추가 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 
 <style>
 .navbar>.container, .navbar>.container-fluid, .navbar>.container-lg,
@@ -355,7 +363,7 @@ ol, ul {
 	<!-- 탈퇴 -->
 	<div class="secession-form">
 		<form action="secession" method="POST" class="form-horizontal"
-			onsubmit="return secessionValidate();">
+			onsubmit="return secessionValidate();"> 
 			<div class="col-xs-8 col-xs-offset-4">
 				<h2>회원 탈퇴</h2>
 			</div>
@@ -455,21 +463,12 @@ ol, ul {
 			// 방법1) 체크된 체크박스를 선택하는 : checked 선택자 사용 방법
 			// $("#agree:checked") -> 아이디가 agree인 요소 중 check된 요소만을 선택
 			// 체크된 요소가 있다면 length == 1, 없으면 0
-			if($("#agree:checked").length == 0) {
+		if($("#agree:checked").length == 0) {
 				swal({"icon" : "info", "title" : "약관 동의를 체크해주세요."})
 				return false;
 			}
 			
-			// 방법2) jQuery의 .prop("checked") 메소드 이용
-			// $("#agree").prop("chekced")
-			// -> 아이디가 agree인 요소에 체크가 되어있으면 true, 아니면 false
-			if(!$("#agree").prop("checked")) {
-				swal({"icon" : "info", "title" : "약관 동의를 체크해주세요."})
-				return false;
-			}
-			
-			
-		
+			return true;
 		}
 	</script>
 
