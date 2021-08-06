@@ -24,7 +24,7 @@ ${rList }
          <c:if test="${reply.memberNo == sessionScope.loginMember.memberNo}">
          <ul class="reply-action replyBtnArea list-inline me-2">
            <li class="list-inline-item">
-             <button class="btn btn-danger btn-sm ml-1" id="deleteReply" onclick="deleteReply(${reply.replyNo})">삭제</button><button class="btn btn-primary btn-sm ml-1 showUpdateReply" id="showUpdateReply">수정</button>
+             <button class="btn btn-danger btn-sm ml-1" id="deleteReply" onclick="deleteReply(${reply.replyNo})">삭제</button><button class="btn btn-success btn-sm ml-1 showUpdateReply" id="showUpdateReply">수정</button>
            </li>
          </ul>
          </c:if>
@@ -140,7 +140,7 @@ function selectReplyList(){
       
                  var childLi1 = $("<li>").addClass("list-inline-item");
                  var deleteReply = $("<button>").addClass("btn btn-danger btn-sm ml-1").text("삭제").attr("id", "deleteReply").attr("onclick", "deleteReply("+item.replyNo+")");
-                 var showUpdate = $("<button>").addClass("btn btn-primary btn-sm ml-1 showUpdateReply").text("수정").attr("id", "showUpdateReply");
+                 var showUpdate = $("<button>").addClass("btn btn-success btn-sm ml-1 showUpdateReply").text("수정").attr("id", "showUpdateReply");
                  childLi1.append(deleteReply).append(showUpdate);
       
                  //var childLi2 = $("<li>").addClass("list-inline-item");
@@ -178,7 +178,7 @@ function selectReplyList(){
               uDivchch.append(uImg); */
               var uDivBottom = $("<div>").addClass("input-group ms-2 my-2");
               var uTextarea = $("<textarea>").addClass("form-control").attr("id", "edit-reply").attr("rows","5");
-              var uButton = $("<button>").addClass("btn btn-outline-primary").text("수정").attr("onclick", "updateReply(" + item.replyNo + ", this)");
+              var uButton = $("<button>").addClass("btn btn-outline-success").text("수정").attr("onclick", "updateReply(" + item.replyNo + ", this)");
               uDivBottom.append(uTextarea).append(uButton);
               
               //수정창 마무리
