@@ -9,12 +9,56 @@
 	<select id="getPagination" parameterType="_int" resultMap="pg_rm">
 		SELECT COUNT(*) CNT FROM CLASS_PAGE WHERE CLASS_TYPE_NO = #{classType}
 	</select>
+	<!-- 오프라인 검색 게시글 조회 -->
+	<select id="getSearchPagination" parameterType="OffSearch" resultMap="pg_rm">
+		SELECT COUNT(*) CNT FROM CLASS_PAGE WHERE CLASS_TYPE_NO = #{classType}
+		
+		<if test="sv != null">
+			AND
+
+			<bind name="val" value="'%' + sv + '%'" />
+
+			<choose>
+			
+				<when test="sk == 'title' ">
+					CLASS_TITLE LIKE #{val}
+				</when>
+				<when test="sk == 'content' ">
+					CLASS_CONTENT LIKE #{val}
+				</when>
+				<when test="sk == 'titcont' ">
+					( CLASS_TITLE LIKE #{val} OR CLASS_CONTENT LIKE #{val} )
+				</when>
+				<when test="sk == 'creater' ">
+					MEMBER_NICKNAME LIKE #{val}
+				</when>
+
+			</choose>
+		</if>
+	</select>
 	<!-- offMain 조회용 -->
 	<resultMap type="OfflineClass" id="offMain_rm">
 		<id property="classNo" column="CLASS_NO"/>
 		<result property="categoryName" column="CATEGORY_NAME"/>
 		<result property="classTitle" column="CLASS_TITLE"/>
+		<collection property="atList" column="CLASS_NO" 
+			javaType="java.util.ArrayList" ofType="OffAttachment" select="selectAttachment"/>
 	</resultMap>
+	<!-- 파일 정보 조회용 resultMap -->
+	<resultMap type="OffAttachment" id="attachment_rm">
+		<id property="fileNo" column="FILE_NO" />
+
+		<result property="filePath" column="FILE_PATH" />
+		<result property="fileName" column="FILE_NM" />
+		<result property="fileLevel" column="FILE_LEVEL" />
+		<result property="classNo" column="CLASS_NO" />
+	</resultMap>
+	<!--게시글 목록 섬네일 조회 -->
+	<select id="selectAttachment" parameterType="_int" resultMap="attachment_rm">
+		SELECT * FROM ATTACHMENT
+		WHERE CLASS_NO = ${classNo}
+		ORDER BY FILE_LEVEL
+	</select>
 	<!-- 게시글목록조회 -->
 	<select id="selectOfflinList" parameterType="OffPage" resultMap="offMain_rm">
 		SELECT CLASS_NO,CATEGORY_NAME, CLASS_TITLE FROM
@@ -23,4 +67,37 @@
 		WHERE CLASS_TYPE_NO =#{classType}
 		ORDER BY CLASS_NO DESC
 	</select>
+	<!-- 게시글목록조회(검색) -->
+	<select id="selectOfflinSearchList" parameterType="OffSearch" resultMap="offMain_rm">
+		SELECT CLASS_NO,CATEGORY_NAME, CLASS_TITLE FROM
+		CLASS_PAGE
+        LEFT JOIN CATEGORY USING(CATEGORY_NO)
+		WHERE CLASS_TYPE_NO =#{classType}
+			
+		<if test="sv != null">
+			AND
+
+			<bind name="val" value="'%' + sv + '%'" />
+
+			<choose>
+			
+				<when test="sk == 'title' ">
+					CLASS_TITLE LIKE #{val}
+				</when>
+				<when test="sk == 'content' ">
+					CLASS_CONTENT LIKE #{val}
+				</when>
+				<when test="sk == 'titcont' ">
+					( CLASS_TITLE LIKE #{val} OR CLASS_CONTENT LIKE #{val} )
+				</when>
+				<when test="sk == 'creater' ">
+					MEMBER_NICKNAME LIKE #{val}
+				</when>
+
+			</choose>
+		</if>
+		ORDER BY CLASS_NO DESC
+	</select>
+	
+	
 </mapper>
