@@ -11,9 +11,9 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="summer/summernote-ko-KR.js"></script>
-    <script src="summer/summernote-lite.js"></script>
-    <link rel="stylesheet" href="summer/summernote-lite.css">
+    <script src="${contextPath}/resources/summer/summernote-ko-KR.js"></script>
+    <script src="${contextPath}/resources/summer/summernote-lite.js"></script>
+    <link rel="stylesheet" href="${contextPath}/resources/summer/summernote-lite.css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <style>
@@ -263,9 +263,23 @@
                                                 <input type="time" name="endTi" class="endTime" style="width: 150px;">
                                                 <br>
                                                 <label id="inonesu">인원수</label> : <input type="text"><br>
-                                                <button>저장</button><br>
+                                                <button type="button" onclick="dateSave()">저장</button><br>
+                                                <script>
+                                                	function dateSave() {
+                                                		
+														$.ajax(
+																{
+																	type:"POST",	
+																	url:"",
+																	
+														
+														
+																}
+														);
+													}
+                                                </script>
                                                 <div style="text-align: right;">
-                                                    <button style="margin-right: 0px;" onclick="calAdd()">+</button>
+                                                    <button type="button" style="margin-right: 0px;" onclick="calAdd()">+</button>
                                                 </div>
                                             </div>
 
@@ -292,6 +306,9 @@
                                             var tbt = document.createElement("button");
                                             var tbtm = document.createElement("button");
                                             var tbts = document.createElement("button");
+                                            tbt.setAttribute("type","button");
+                                            tbtm.setAttribute("type","button");
+                                            tbts.setAttribute("type","button");
                                             tbt.innerHTML = "+";
                                             tbtm.innerHTML = "-";
                                             tbts.innerHTML = "저장";
@@ -416,7 +433,7 @@
                 <div id="imgff" class="col-md-9">
                     <div>
                         <input type="file" name="offimg" accept="image/*" class="mb-3"
-                            style="padding: 0;display: inline;"><button class="filef" onclick="add()">+</button><br>
+                            style="padding: 0;display: inline;"><button type="button" class="filef" onclick="add()">+</button><br>
                     </div>
 
                     <script>
@@ -429,6 +446,8 @@
                                 var ip = document.createElement("input");
                                 var btnf = document.createElement("button");
                                 var btnm = document.createElement("button");
+                                btnf.setAttribute("type","button");
+                                btnm.setAttribute("type","button");
                                 btnf.innerHTML = "+";
                                 btnm.innerHTML = "-";
                                 ip.setAttribute("type", "file");

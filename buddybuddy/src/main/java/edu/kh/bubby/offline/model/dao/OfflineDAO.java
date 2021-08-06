@@ -12,6 +12,10 @@ import edu.kh.bubby.offline.model.vo.OffSearch;
 import edu.kh.bubby.offline.model.vo.OfflineClass;
 import edu.kh.bubby.online.model.vo.Pagination;
 
+/**
+ * @author 82104
+ *
+ */
 @Repository
 public class OfflineDAO {
 	@Autowired
@@ -55,6 +59,15 @@ public class OfflineDAO {
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 		return sqlSession.selectList("offlineMapper.selectOfflinSearchList",search,rowBounds);
+	}
+
+	/**상세조회
+	 * @param classNo
+	 * @return
+	 */
+	public OfflineClass selectOfflinView(int classNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("offlineMapper.selectOfflinView",classNo);
 	}
 
 }

@@ -85,7 +85,7 @@
 							<c:forEach items="${offList}" var="list">
 
 								<div class="col-md-3" style="margin-bottom: 50px;">
-									<a href="${contextPath}/offclass/2/${list.classNo}">
+									<a href="${contextPath}/offclass/2/${list.classNo}?cp=${pagination.currentPage}${searchStr}">
 										<div class="card">
 											<c:choose>
 												<c:when
@@ -207,6 +207,14 @@
 						</div>
 					</div>
 				</div>
+				
+				 <div class="row">
+                    <div class="col-md-12" style="text-align: right;">
+                        <a href="insert"><button class="btn btn-primary">클래스 작성</button></a>
+                    </div>
+                </div>
+				
+				
 			</div>
 		</div>
 	</div>

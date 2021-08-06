@@ -29,8 +29,8 @@ public class OfflineClass {
 	private String classLevel;
 	private String classArea;
 	
-	private String patmentStatus;
-	
+	private String paymentStatus;
+	private int classPrice;
 	
 	
 	public OfflineClass() {
@@ -38,11 +38,9 @@ public class OfflineClass {
 	}
 
 
-
 	public int getClassNo() {
 		return classNo;
 	}
-
 
 
 	public void setClassNo(int classNo) {
@@ -50,11 +48,9 @@ public class OfflineClass {
 	}
 
 
-
 	public String getClassTitle() {
 		return classTitle;
 	}
-
 
 
 	public void setClassTitle(String classTitle) {
@@ -62,11 +58,9 @@ public class OfflineClass {
 	}
 
 
-
 	public String getClassContent() {
 		return classContent;
 	}
-
 
 
 	public void setClassContent(String classContent) {
@@ -74,11 +68,9 @@ public class OfflineClass {
 	}
 
 
-
 	public Date getClassCreateDate() {
 		return classCreateDate;
 	}
-
 
 
 	public void setClassCreateDate(Date classCreateDate) {
@@ -86,11 +78,9 @@ public class OfflineClass {
 	}
 
 
-
 	public int getClassReadCount() {
 		return classReadCount;
 	}
-
 
 
 	public void setClassReadCount(int classReadCount) {
@@ -98,11 +88,9 @@ public class OfflineClass {
 	}
 
 
-
 	public int getMemberNo() {
 		return memberNo;
 	}
-
 
 
 	public void setMemberNo(int memberNo) {
@@ -110,11 +98,9 @@ public class OfflineClass {
 	}
 
 
-
 	public String getMemberNickName() {
 		return memberNickName;
 	}
-
 
 
 	public void setMemberNickName(String memberNickName) {
@@ -122,11 +108,9 @@ public class OfflineClass {
 	}
 
 
-
 	public List<Attachment> getAtList() {
 		return atList;
 	}
-
 
 
 	public void setAtList(List<Attachment> atList) {
@@ -134,11 +118,9 @@ public class OfflineClass {
 	}
 
 
-
 	public int getClassType() {
 		return classType;
 	}
-
 
 
 	public void setClassType(int classType) {
@@ -146,11 +128,9 @@ public class OfflineClass {
 	}
 
 
-
 	public int getCategoryCode() {
 		return categoryCode;
 	}
-
 
 
 	public void setCategoryCode(int categoryCode) {
@@ -158,11 +138,9 @@ public class OfflineClass {
 	}
 
 
-
 	public String getCategoryName() {
 		return categoryName;
 	}
-
 
 
 	public void setCategoryName(String categoryName) {
@@ -170,11 +148,9 @@ public class OfflineClass {
 	}
 
 
-
 	public int getReviewRatings() {
 		return reviewRatings;
 	}
-
 
 
 	public void setReviewRatings(int reviewRatings) {
@@ -182,11 +158,9 @@ public class OfflineClass {
 	}
 
 
-
 	public String getMemberProfile() {
 		return memberProfile;
 	}
-
 
 
 	public void setMemberProfile(String memberProfile) {
@@ -194,11 +168,9 @@ public class OfflineClass {
 	}
 
 
-
 	public int getReserveNo() {
 		return reserveNo;
 	}
-
 
 
 	public void setReserveNo(int reserveNo) {
@@ -206,11 +178,9 @@ public class OfflineClass {
 	}
 
 
-
 	public String getReserveDate() {
 		return reserveDate;
 	}
-
 
 
 	public void setReserveDate(String reserveDate) {
@@ -218,11 +188,9 @@ public class OfflineClass {
 	}
 
 
-
 	public String getReserveStart() {
 		return reserveStart;
 	}
-
 
 
 	public void setReserveStart(String reserveStart) {
@@ -230,11 +198,9 @@ public class OfflineClass {
 	}
 
 
-
 	public String getReserveEnd() {
 		return reserveEnd;
 	}
-
 
 
 	public void setReserveEnd(String reserveEnd) {
@@ -242,11 +208,9 @@ public class OfflineClass {
 	}
 
 
-
 	public int getReserveLimit() {
 		return reserveLimit;
 	}
-
 
 
 	public void setReserveLimit(int reserveLimit) {
@@ -254,11 +218,9 @@ public class OfflineClass {
 	}
 
 
-
 	public String getClassLevel() {
 		return classLevel;
 	}
-
 
 
 	public void setClassLevel(String classLevel) {
@@ -266,11 +228,9 @@ public class OfflineClass {
 	}
 
 
-
 	public String getClassArea() {
 		return classArea;
 	}
-
 
 
 	public void setClassArea(String classArea) {
@@ -278,17 +238,24 @@ public class OfflineClass {
 	}
 
 
-
-	public String getPatmentStatus() {
-		return patmentStatus;
+	public String getPaymentStatus() {
+		return paymentStatus;
 	}
 
 
-
-	public void setPatmentStatus(String patmentStatus) {
-		this.patmentStatus = patmentStatus;
+	public void setPaymentStatus(String paymentStatus) {
+		this.paymentStatus = paymentStatus;
 	}
 
+
+	public int getClassPrice() {
+		return classPrice;
+	}
+
+
+	public void setClassPrice(int classPrice) {
+		this.classPrice = classPrice;
+	}
 
 
 	@Override
@@ -299,10 +266,10 @@ public class OfflineClass {
 				+ ", categoryCode=" + categoryCode + ", categoryName=" + categoryName + ", reviewRatings="
 				+ reviewRatings + ", memberProfile=" + memberProfile + ", reserveNo=" + reserveNo + ", reserveDate="
 				+ reserveDate + ", reserveStart=" + reserveStart + ", reserveEnd=" + reserveEnd + ", reserveLimit="
-				+ reserveLimit + ", classLevel=" + classLevel + ", classArea=" + classArea + ", patmentStatus="
-				+ patmentStatus + "]";
+				+ reserveLimit + ", classLevel=" + classLevel + ", classArea=" + classArea + ", paymentStatus="
+				+ paymentStatus + ", classPrice=" + classPrice + "]";
 	}
 
-	
+
 	
 }

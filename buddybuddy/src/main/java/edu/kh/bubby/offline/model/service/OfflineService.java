@@ -30,6 +30,11 @@ public interface OfflineService {
 	 * @return
 	 */
 	List<OfflineClass> selectOfflinList(OffSearch search, OffPagination pagination);
+	/**상세페이지 조회
+	 * @param classNo
+	 * @return
+	 */
+	OfflineClass selectOfflinView(int classNo);
 
 
 

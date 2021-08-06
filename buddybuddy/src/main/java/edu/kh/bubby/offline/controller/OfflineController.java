@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.bubby.offline.model.service.OfflineService;
 import edu.kh.bubby.offline.model.vo.OffPagination;
@@ -22,7 +23,7 @@ public class OfflineController {
 
 	@Autowired
 	private OfflineService service;
-	
+	//메인 조회
 	@RequestMapping("{classType}/list")
 	public String offlineClassList(@PathVariable("classType") int classType,
 			@RequestParam(value="cp", required=false, defaultValue = "1" ) int cp,
@@ -40,15 +41,25 @@ public class OfflineController {
 			offList = service.selectOfflinList(search,pagination);			
 			
 		}
+		
 		model.addAttribute("pagination",pagination);
 		model.addAttribute("offList",offList);
 		
 		return "offclass/OffClassMain";
 	}
-	
+	//상세조회 페이지 이동
 	@RequestMapping("{classType}/{classNo}")
-	public String offlineClassView(){
+	public String offlineClassView(@PathVariable("classType")int classType,@PathVariable("classNo") int classNo,Model model,
+			@RequestParam(value="cp",required = false,defaultValue = "1") int cp,
+			RedirectAttributes ra){
+		OfflineClass offList = service.selectOfflinView(classNo);
+		System.out.println(offList);
+		model.addAttribute("offList",offList);
 		return "offclass/OffClassView";
 	}
-	
+	//클래스 작성 페이지
+	@RequestMapping("{classType}/insert")
+	public String insertOfflineClass() {
+		return "offclass/OffClassInsert";
+	}
 }
