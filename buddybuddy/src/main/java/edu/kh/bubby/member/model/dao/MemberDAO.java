@@ -72,4 +72,25 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.updateInfo", inputMember);
 	}
 
+	/** 회원탈퇴 DAO(조회)
+	 * @param memberNo
+	 * @return result
+	 */
+	public String selectMember(int memberNo) {
+		
+		return sqlSession.selectOne("memberMapper.selectMember", memberNo);
+	}
+	
+
+	/** 회원탈퇴 DAO
+	 * @param loginMember
+	 * @return result
+	 */
+	public int secession(Member loginMember) {
+		
+		return sqlSession.update("memberMapper.secession", loginMember);
+	}
+
+
+
 }

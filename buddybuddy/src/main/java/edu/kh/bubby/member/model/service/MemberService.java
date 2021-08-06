@@ -37,5 +37,16 @@ public interface MemberService {
 	public abstract int updateInfo(String currentPwd, Member inputMember, String savePath, MultipartFile formFile, String fileName);
 
 
+	/** 파일 저장용 Service
+	 * @param fileName
+	 * @return
+	 */
 	public abstract String rename(String fileName);
+
+	/** 회원탈퇴 
+	 * @param loginMember
+	 * @param currentPwd
+	 * @return result
+	 */
+	public abstract int secession(Member loginMember, String currentPwd);
 }

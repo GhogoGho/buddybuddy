@@ -128,4 +128,25 @@ public class MemberServiceImpl implements MemberService {
 		return date + str + ext;
 	}
 
+	
+//	회원 탈퇴 Service
+	@Override
+	public int secession(Member loginMember, String currentPwd) {
+		
+		String savePwd = dao.selectMember(loginMember.getMemberNo());
+		
+		int result = 0;
+		
+		if(bCryptPasswordEncoder.matches(currentPwd, savePwd)) {
+			
+			result = dao.secession(loginMember);
+			
+		}
+	
+		return result;
+	}
+	
+	
+	
+
 }

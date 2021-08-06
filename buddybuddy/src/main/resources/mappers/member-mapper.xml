@@ -61,5 +61,19 @@
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
+	
+	<!-- 회원탈퇴 조회  -->
+	<select id="selectMember" parameterType="_int" resultType="string">
+		SELECT MEMBER_PW FROM MEMBER
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 회원탈퇴 -->
+	<update id="secession" parameterType="_int">
+		UPDATE MEMBER SET
+		MEMBER_STATUS = 'N'
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
   
 </mapper>

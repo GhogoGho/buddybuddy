@@ -116,6 +116,8 @@ a:hover {
 }
 
 /* 회원정보 수정 폼 */
+
+
 .form-control {
 	min-height: 41px;
 	background: #fff;
@@ -182,6 +184,10 @@ a:hover {
 	background: #70c5c0;
 	padding: 15px;
 	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+	background-image: url("${contextPath}/${loginMember.memberProfile}");
+	background-size: 145%;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .info-form .avatar img {
@@ -334,20 +340,20 @@ a:hover {
 	</header>
 
 
-	<!-- 로그인 -->
+	<!-- 회원정보 수정 -->
 	<div class="info-form">
 
 		<form action="info" method="POST" enctype="multipart/form-data">
 
 			<div class="avatar">
-				<img src="${contextPath}/${loginMember.memberProfile}" width="70px"
-					height="70px" id="img">
 			</div>
 
 			<div class="text-center">
 				<div class="mb-3">
-					<button type="button" class="profile form-control" id="btn">파일 선택</button>
-					<input class="profile form-control" type="file" name="formFile" id="formFile" style="display:none;">
+					<button type="button" class="profile form-control" id="btn">파일
+						선택</button>
+					<input class="profile form-control" type="file" name="formFile"
+						id="formFile" style="display: none;">
 				</div>
 			</div>
 			<h2 class="text-center">Info</h2>
@@ -367,7 +373,8 @@ a:hover {
 			</div>
 
 			<div class="form-group">
-				현재 비밀번호 <input type="password" class="form-control" id="currentPwd" name="currentPwd">
+				현재 비밀번호 <input type="password" class="form-control" id="currentPwd"
+					name="currentPwd">
 			</div>
 
 
