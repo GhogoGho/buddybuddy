@@ -188,16 +188,17 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div>
-							<form action="#" method="GET" id="searchForm">
-								<input type="hidden" name="type" value="2"> <select
+							<form action="list" method="get" id="searchForm">
+								<select
 									name="sk" aria-label="Default select example"
 									style="margin-left: 35%;">
 
-									<option value="number" selected>게시글 번호</option>
-									<option value="title">게시글 제목</option>
-									<option value="id">아이디</option>
-									<option value="date">날짜</option>
-									<option value="bl">블라인드 처리여부</option>
+					
+									
+									<option value="title" selected>제목</option>
+									<option value="content">내용</option>
+									<option value="titcont">제목+내용</option>
+									<option value="creater">크리에이터</option>
 
 								</select> <input name="sv" type="search">
 								<button id="searchbtn" class="but-style">검색</button>
