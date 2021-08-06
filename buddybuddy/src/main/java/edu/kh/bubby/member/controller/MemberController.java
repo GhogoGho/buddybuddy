@@ -12,6 +12,7 @@ import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -168,10 +169,14 @@ public class MemberController {
 		String savePath = request.getSession().getServletContext().getRealPath("resources/images/member/");
 		
 		
-		String fileName = service.rename(formFile.getOriginalFilename());
+		String fileName = null;
+		
 		if(formFile.getOriginalFilename() != null) { // 업로드된 이미지가 있을때
 			
 			inputMember.setMemberProfile("resources/images/member/" + fileName);
+			
+			fileName = service.rename(formFile.getOriginalFilename());
+			
 		
 		}
 		
@@ -183,7 +188,8 @@ public class MemberController {
 				
 			swalSetMessage(ra, "success", "회원정보 수정 성공!", null);
 			
-			if(formFile.getOriginalFilename() != null) { // 업로드된 이미지가 있을때
+			if(!formFile.getOriginalFilename().equals("")) { // 업로드된 이미지가 있을때
+				
 				loginMember.setMemberProfile("resources/images/member/" + fileName);
 			} else {
 				loginMember.setMemberProfile(fileName);
@@ -207,7 +213,32 @@ public class MemberController {
 	}
 	
 	
-	
+//	회원탈퇴 Controller
+	@RequestMapping(value="secession", method=RequestMethod.POST)
+	public String session(@ModelAttribute("loginMember") Member loginMember,
+						  @RequestParam("currentPwd") String currentPwd,
+						  RedirectAttributes ra, SessionStatus status) {
+		
+		int result = service.secession(loginMember, currentPwd);
+		
+		
+		if(result > 0) { // 탈퇴 성공
+		
+			swalSetMessage(ra, "success", "탈퇴 성공", null);
+			
+			status.setComplete();
+			
+			return "redirect:/main";
+			
+		} else {
+			
+			swalSetMessage(ra, "error", "탈퇴 실패", null);
+			
+			return "redirect:secession";
+			
+		}
+		
+	}
 	
 	
 
