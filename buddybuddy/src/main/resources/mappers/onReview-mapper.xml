@@ -25,9 +25,9 @@
 	</select>
 	
 	<!-- 수강후기 작성 -->
-	<insert id="insertReview">
+	<insert id="insertReview" parameterType="OnReview">
 		INSERT INTO REVIEW VALUES
-		(SEQ_REVIEWNO.NEXTVAL, #{reviewContent}, DEFAULT, DEFAULT, ${reviewRatings}, #{classNo}, #{memberNo})
+		(SEQ_REVIEWNO.NEXTVAL, #{reviewContent}, DEFAULT, DEFAULT, 1, #{classNo}, #{memberNo})
 	</insert>
 	
 	<!-- 수강후기 수정 -->

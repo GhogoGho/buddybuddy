@@ -17,8 +17,8 @@ import edu.kh.bubby.online.model.service.OnReviewService;
 import edu.kh.bubby.online.model.vo.OnReview;
 
 @RestController
-@Controller("/onReview/*")
-@SessionAttributes({ "loginMember" })
+@RequestMapping("/onReview/*")
+@SessionAttributes({"loginMember"})
 public class OnReviewController {
 
 	@Autowired

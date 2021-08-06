@@ -25,7 +25,7 @@ ${reviewList }
         <c:if test="${review.memberNo == sessionScope.loginMember.memberNo}">
         <ul class="review-action reviewBtnArea list-inline me-2">
           <li class="list-inline-item">
-            <button class="btn btn-danger btn-sm ml-1" id="deleteReply" onclick="deleteReply(${review.reviewNo})">삭제</button><button class="btn btn-primary btn-sm ml-1 showUpdateReply" id="showUpdateReply">수정</button>
+            <button class="btn btn-danger btn-sm ml-1" id="deleteReview" onclick="deleteReview(${review.reviewNo})">삭제</button><button class="btn btn-success btn-sm ml-1 showUpdateReview" id="showUpdateReview">수정</button>
           </li>
         </ul>
         </c:if>
