@@ -21,10 +21,12 @@ import edu.kh.bubby.member.controller.MemberController;
 import edu.kh.bubby.member.model.vo.Member;
 import edu.kh.bubby.online.model.service.NoticeService;
 import edu.kh.bubby.online.model.service.OnReplyService;
+import edu.kh.bubby.online.model.service.OnReviewService;
 import edu.kh.bubby.online.model.service.OnlineService;
 import edu.kh.bubby.online.model.vo.Category;
 import edu.kh.bubby.online.model.vo.Notice;
 import edu.kh.bubby.online.model.vo.OnReply;
+import edu.kh.bubby.online.model.vo.OnReview;
 import edu.kh.bubby.online.model.vo.Online;
 import edu.kh.bubby.online.model.vo.Pagination;
 import edu.kh.bubby.online.model.vo.Search;
@@ -43,6 +45,9 @@ public class OnlineController {
 	 
 	 @Autowired
 	 private OnReplyService onReplyService;
+	 
+	 @Autowired
+	 private OnReviewService onReviewService;
 	
 	// 클래스 목록 조회
 	@RequestMapping("{classType}/list")
@@ -91,7 +96,8 @@ public class OnlineController {
 			model.addAttribute("rList", rList);
 			
 			// 수강후기 목록 조회
-			
+			List<OnReview> reviewList = onReviewService.selectList(classNo);
+			model.addAttribute("reviewList", reviewList);
 			
 			model.addAttribute("online", online);
 			return "onlineClass/onlineView";
