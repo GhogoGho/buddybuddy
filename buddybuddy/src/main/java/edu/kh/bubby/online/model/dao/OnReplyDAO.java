@@ -20,4 +20,28 @@ public class OnReplyDAO {
 	public List<OnReply> selectList(int classNo) {
 		return sqlSession.selectList("onReplyMapper.selectList", classNo);
 	}
+
+	/** 수강문의 작성
+	 * @param reply
+	 * @return result
+	 */
+	public int insertReply(OnReply reply) {
+		return sqlSession.insert("onReplyMapper.insertReply", reply);
+	}
+
+	/** 수강문의 수정
+	 * @param reply
+	 * @return result
+	 */
+	public int updateReply(OnReply reply) {
+		return sqlSession.update("onReplyMapper.updateReply", reply);
+	}
+
+	/** 수강문의 삭제
+	 * @param replyNo
+	 * @return result
+	 */
+	public int deleteReply(int replyNo) {
+		return sqlSession.update("onReplyMapper.deleteReply", replyNo);
+	}
 }

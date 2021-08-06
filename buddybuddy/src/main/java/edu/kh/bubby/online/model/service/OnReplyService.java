@@ -12,4 +12,22 @@ public interface OnReplyService {
 	 */
 	List<OnReply> selectList(int classNo);
 
+	/** 수강문의 작성
+	 * @param reply
+	 * @return result
+	 */
+	int insertReply(OnReply reply);
+
+	/** 수강문의 수정
+	 * @param reply
+	 * @return result
+	 */
+	int updateReply(OnReply reply);
+
+	/** 수강문의 삭제
+	 * @param replyNo
+	 * @return result
+	 */
+	int deleteReply(int replyNo);
+
 }

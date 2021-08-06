@@ -24,7 +24,6 @@
 
 </head>
 <body>
-	<main>
 		<!-- 상단부 -->
 		<jsp:include page="../common/header.jsp"/>
 	
@@ -186,7 +185,6 @@
 	
 	
 	
-	</main>
 	
 	<script>
 		function fnRequest(addr){

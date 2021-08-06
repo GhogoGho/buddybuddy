@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.bubby.online.model.dao.OnReplyDAO;
 import edu.kh.bubby.online.model.vo.OnReply;
@@ -18,4 +19,32 @@ public class OnReplyServiceImpl implements OnReplyService{
 	public List<OnReply> selectList(int classNo) {
 		return dao.selectList(classNo);
 	}
+	
+	// 수강문의 작성
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertReply(OnReply reply) {
+		reply.setReplyContent(OnlineServiceImpl.replaceParameter(reply.getReplyContent()));
+		reply.setReplyContent(reply.getReplyContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
+		return dao.insertReply(reply);
+	}
+
+	// 수강문의 수정
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateReply(OnReply reply) {
+		reply.setReplyContent(OnlineServiceImpl.replaceParameter(reply.getReplyContent()));
+		reply.setReplyContent(reply.getReplyContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
+		return dao.updateReply(reply);
+	}
+	
+	// 수강문의 삭제
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteReply(int replyNo) {
+		return dao.deleteReply(replyNo);
+	}
+	
+	
+	
 }
