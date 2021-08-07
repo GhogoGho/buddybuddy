@@ -155,6 +155,13 @@ public class MemberServiceImpl implements MemberService {
 
 		return dao.creatorSignUp(inputMember);
 	}
+
+//	아이디 찾기 Service
+	@Override
+	public String findId(Member findMember) {
+		
+		return dao.findId(findMember);
+	}
 	
 	
 	

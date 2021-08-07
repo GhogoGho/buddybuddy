@@ -269,8 +269,35 @@ public class MemberController {
 		return "redirect:/";
 	}	
 
+//	아이디 찾기 화면 전환용 Controller
+	@RequestMapping(value="findId", method=RequestMethod.GET)
+	public String findId() {
+		return "member/findId";
+	}
 	
-	
+	@RequestMapping(value="findId", method=RequestMethod.POST)
+	public String findId(@RequestParam("findEmail") String findEmail, @ModelAttribute Member findMember, 
+						 RedirectAttributes ra, Model model, @RequestHeader("referer") String referer) {
+		
+		findMember.setMemberEmail(findEmail);
+		
+		String memberEmail = service.findId(findMember);
+		findMember.setMemberEmail(memberEmail);
+		
+		if(memberEmail != null ) {
+			
+			model.addAttribute("findMember", findMember);
+			
+			ra.addFlashAttribute("icon", "success");
+			ra.addFlashAttribute("title", "회원님의 아이디는" + findMember.getMemberEmail());
+			
+		} else {
+			ra.addFlashAttribute("icon", "error");
+			ra.addFlashAttribute("title", "일치하는 회원이 없습니다. 다시 시도해주세요.");
+		}
+		
+		return "redirect:" + referer ;
+	}
 	
 	
 	

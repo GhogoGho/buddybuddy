@@ -55,4 +55,10 @@ public interface MemberService {
 	 * @return inputMember
 	 */
 	public abstract int creatorSignUp(Member inputMember);
+
+	/**
+	 * @param findMember
+	 * @return 
+	 */
+	public abstract String findId(Member findMember);
 }
