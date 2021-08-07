@@ -65,7 +65,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-10">
-						<!-- 썸네일 이미지 -->
+						<!-- 썸네일 동영상 -->
 						<div class="columns my-3">
 							<div class="column">
 								<div class="file is-success is-boxed">
@@ -74,7 +74,7 @@
 										onchange="LoadImg(this)"> <span class="file-cta">
 											<span class="file-icon"> <i
 												class="fas fa-camera-retro"></i>
-										</span> <span class="file-label"> 썸네일 이미지 </span>
+										</span> <span class="file-label"> 썸네일 동영상 </span>
 									</span>
 									</label>
 								</div>
@@ -83,17 +83,54 @@
 
 					</div>
 				</div>
+				
+				<!-- 썸머노트 start -->
 				<div class="row">
 					<div class="col-md-10">
 						<textarea class="summernote" name="editordata"></textarea>
 					</div>
 					<script>
-						$('.summernote').summernote({
-							height : 500,
-							lang : "ko-KR"
-						});
+						// 툴바생략
+						var setting = {
+		            height : 500,
+		            minHeight : null,
+		            maxHeight : null,
+		            focus : true,
+		            lang : 'ko-KR',
+		            toolbar : toolbar,
+		            //콜백 함수
+		            callbacks : { 
+		            	onImageUpload : function(files, editor, welEditable) {
+		            // 파일 업로드(다중업로드를 위해 반복문 사용)
+		            for (var i = files.length - 1; i >= 0; i--) {
+		            uploadSummernoteImageFile(files[i],
+		            this);
+		            		}
+		            	}
+		            }
+		         };
+		        $('.summernote').summernote(setting);
+		        });
+					        
+		        function uploadSummernoteImageFile(file, el) {
+							data = new FormData();
+							data.append("file", file);
+							$.ajax({
+								data : data,
+								type : "POST",
+								url : "uploadSummernoteImageFile",
+								contentType : false,
+								enctype : 'multipart/form-data',
+								processData : false,
+								success : function(data) {
+									$(el).summernote('editor.insertImage', data.url);
+								}
+							});
+						}
 					</script>
 				</div>
+				<!-- 썸머노트 end -->
+				
 				<div class="row">
 					<div class="col-md-10 my-3">
 						<div id="fileArea">

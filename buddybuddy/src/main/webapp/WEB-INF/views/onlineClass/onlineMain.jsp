@@ -24,20 +24,17 @@
 <style>
 .online-category {
 	background-color: #dc3545;
-	height: 200px;
-	width: 210px;
+	height: 210px;
 	text-align: center;
 	line-height: 200px;
 }
 
 .main-img {
-	width: auto;
-	height: 400px;
+	height: 500px;
 }
 </style>
 </head>
 <body>
-	<main>
 		<!-- 상단부 -->
 		<jsp:include page="../common/header.jsp"/>
 
@@ -47,43 +44,43 @@
 			<div class="row justify-content-center">
 				<img
 					src="https://images.unsplash.com/photo-1581079708051-9784b310349f?ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDF8X2hiLWRsNFEtNFV8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-					class="img-fluid main-img">
+					class="img-fluid main-img" style="width: 1000px; height: 500px;">
 			</div>
-			<div class="row">
+			<%-- <div class="row">
 				<a href="${contextPath}/creater/main">크리에이터 페이지 임시 링크</a>
-			</div>
+			</div> --%>
 			<!-- 카테고리 -->
-			<div class="row my-5 ms-5">
-				<div class="col-md-3">
-					<div class="online-category col-md-2 col-md-offset-1 rounded-circle">
+			<div class="columns my-5 ms-5">
+				<div class="column">
+					<div class="online-category col-md-2 col-md-offset-1 rounded-circle" style="width: 210px;">
 					
 						공예
 					</div>
 				</div>
-				<div class="col-md-3">
-					<div class="online-category col-md-2 col-md-offset-1 rounded-1">
+				<div class="column">
+					<div class="online-category col-md-2 col-md-offset-1 rounded-1" style="width: 210px;">
 					
 						미술
 					</div>
 				</div>
-				<div class="col-md-3">
-					<div class="online-category col-md-2 col-md-offset-1 rounded-1">
+				<div class="column">
+					<div class="online-category col-md-2 col-md-offset-1 rounded-1" style="width: 210px;">
 					
 						요리
 					</div>
 				</div>
-				<div class="col-md-3">
-					<div class="online-category col-md-2 col-md-offset-1 rounded-circle">
+				<div class="column">
+					<div class="online-category col-md-2 col-md-offset-1 rounded-circle" style="width: 210px;">
 					
 						플라워
 					</div>
 				</div>
 			</div>
 
-		</div>
+		<!-- </div> -->
 		<!-- </section> -->
 		<!-- 클래스 부분 -->
-		<div class="container">
+		<!-- <div class="container"> -->
 			<div class="row">
 				<div class="col-md-10">
 					<h1 class="h3 mb-3">${pagination.className} 클래스</h1>
@@ -254,12 +251,15 @@
 			<a href="insert">클래스 작성</a>
 		</div>
 		
+		<div class="row">
+			<a href="write">썸머노트 작성</a>
+		</div>
+		
 		</div>
 
 
 		<!-- 하단부 -->
 		<jsp:include page="../common/footer.jsp"/>
-	</main>
 
 </body>
 </html>

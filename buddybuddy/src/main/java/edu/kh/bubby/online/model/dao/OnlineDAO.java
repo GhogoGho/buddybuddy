@@ -78,4 +78,19 @@ public class OnlineDAO {
 		return sqlSession.selectList("onlineMapper.selectCategory");
 	}
 
+	/** 클래스 삽입 (썸머 테스트)
+	 * @param online
+	 * @return result
+	 */
+	public int insertOnline(Online online) {
+		int result = sqlSession.insert("onlineMapper.insertOnline", online);
+		
+		if(result > 0) {
+			return online.getClassNo();
+		}else {
+			return 0;
+		}
+		
+	}
+
 }

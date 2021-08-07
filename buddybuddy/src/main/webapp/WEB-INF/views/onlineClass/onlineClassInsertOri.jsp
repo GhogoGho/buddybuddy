@@ -7,8 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>온라인 클래스 수정 페이지</title>
-
+<title>온라인 클래스 작성 페이지</title>
 <!-- bulma -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
@@ -35,31 +34,32 @@
 <body>
 	<main>
 		<div class="container">
-			<form action="update" method="POST">
+			<form action="insert" method="POST">
+
 				<div class="row">
 					<div class="col-md-3 mt-4">
 						<c:if test="${ !empty category}">
-						<div class="control has-icons-left">
-							<div class="select is-large is-rounded">
-								<select>
-									<option selected>카테고리</option>
-									<c:forEach items="${category}" var="c">
-									<option value="${c.categoryNo}">${c.categoryName}</option>
-									</c:forEach>
-								</select>
+							<div class="control has-icons-left">
+								<div class="select is-large is-rounded">
+									<select>
+										<option selected>카테고리</option>
+										<c:forEach items="${category}" var="c">
+											<option value="${c.categoryNo}">${c.categoryName}</option>
+										</c:forEach>
+									</select>
+								</div>
+								<span class="icon is-large is-left"> <i
+									class="fas fa-th-list"></i>
+								</span>
 							</div>
-							<span class="icon is-large is-left"> 
-								<i class="fas fa-th-list"></i>
-							</span>
-						</div>
 						</c:if>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-10">
-						<label class="form-label" for="boardTitle">제목</label> 
-						<input class="input is-medium is-rounded" id="boardTitle"
-							name="boardTitle" type="text" placeholder="제목을 입력해 주세요." value="${online.classTitle }">
+						<label class="form-label" for="boardTitle"></label> <input
+							class="input is-medium is-rounded" id="boardTitle"
+							name="boardTitle" type="text" placeholder="제목을 입력해 주세요.">
 						<hr>
 					</div>
 				</div>
@@ -68,7 +68,7 @@
 						<!-- 썸네일 동영상 -->
 						<div class="columns my-3">
 							<div class="column">
-								<div class="file is-danger is-boxed">
+								<div class="file is-success is-boxed">
 									<label class="file-label"> <input class="file-input"
 										type="file" id="thumbnailImg" name="thumbnailImg"
 										onchange="LoadImg(this)"> <span class="file-cta">
@@ -83,21 +83,28 @@
 
 					</div>
 				</div>
+				
+				<!-- 썸머노트 start -->
 				<div class="row">
 					<div class="col-md-10">
-						<textarea class="summernote" name="editordata">${online.classContent}</textarea>
+						<textarea class="summernote" name="editordata"></textarea>
 					</div>
 					<script>
 						$('.summernote').summernote({
 							height : 500,
-							lang : "ko-KR"
+							lang : "ko-KR",
+							
+							
+							
 						});
 					</script>
 				</div>
+				<!-- 썸머노트 end -->
+				
 				<div class="row">
 					<div class="col-md-10 my-3">
 						<div id="fileArea">
-							<!-- 클래스 동영상 1~5 -->
+							<!-- 클래스 동영상 1~4 -->
 							<div class="columns">
 								<div class="file is-dark is-boxed column">
 									<label class="file-label"> <input class="file-input"
@@ -135,6 +142,9 @@
 									</span>
 									</label>
 								</div>
+							</div>
+							<!-- 클래스 동영상 5~8 -->
+							<div class="columns">
 								<div class="file is-dark is-boxed column">
 									<label class="file-label"> <input class="file-input"
 										type="file" name="class-video" id="class-video4"
@@ -144,9 +154,6 @@
 									</span>
 									</label>
 								</div>
-							</div>
-							<!-- 클래스 동영상 6~10 -->
-							<div class="columns">
 								<div class="file is-dark is-boxed column">
 									<label class="file-label"> <input class="file-input"
 										type="file" name="class-video" id="class-video5"
@@ -174,6 +181,9 @@
 									</span>
 									</label>
 								</div>
+							</div>
+							<!-- 클래스 동영상 9~12 -->
+							<div class="columns">
 								<div class="file is-dark is-boxed column">
 									<label class="file-label"> <input class="file-input"
 										type="file" name="class-video" id="class-video8"
@@ -192,21 +202,40 @@
 									</span>
 									</label>
 								</div>
+								<div class="file is-dark is-boxed column">
+									<label class="file-label"> <input class="file-input"
+										type="file" name="class-video" id="class-video10"
+										onchange="LoadVideo(this,10)"> <span class="file-cta">
+											<span class="file-icon"> <i class="fas fa-film"></i>
+										</span> <span class="file-label"> 클래스 동영상 </span>
+									</span>
+									</label>
+								</div>
+								<div class="file is-dark is-boxed column">
+									<label class="file-label"> <input class="file-input"
+										type="file" name="class-video" id="class-video11"
+										onchange="LoadVideo(this,11)"> <span class="file-cta">
+											<span class="file-icon"> <i class="fas fa-film"></i>
+										</span> <span class="file-label"> 클래스 동영상 </span>
+									</span>
+									</label>
+								</div>
 							</div>
+
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-10">
 						<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-							<button class="button is-danger is-large">수정</button>
+							<button class="button is-success is-large">작성</button>
 							<button class="button is-light is-rounded is-large">취소</button>
 						</div>
 					</div>
 				</div>
 			</form>
-		</div>
 
+		</div>
 	</main>
 </body>
 </html>

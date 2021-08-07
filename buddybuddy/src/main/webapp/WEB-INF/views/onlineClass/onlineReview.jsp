@@ -10,7 +10,6 @@
     }
 </style>
 
-${reviewList }
 <div class="reviewList">
   <ul class="online-review-content list-group col-md-12" id="reviewListArea">
   <c:forEach items="${reviewList}" var="review">
@@ -18,14 +17,14 @@ ${reviewList }
       <div class="d-flex justify-content-between align-items-center">
         <div class="ms-2 me-auto">
           <div class="fw-bold">
-            <img src="#" class="user-image rounded-circle me-2">${review.memberNickName}
+            <img src="${contextPath}/${review.memberProfile}" class="user-image rounded-circle me-2">${review.memberNickName}
           </div>
         </div>
-        <p class="date me-2">작성일 : ${review.reviewDate}</p>
+        <p class="date me-2">작성일 : <fmt:formatDate value="${review.reviewDate}" pattern="yyyy년 MM월 dd일 HH:mm" /></p>
         <c:if test="${review.memberNo == sessionScope.loginMember.memberNo}">
         <ul class="review-action reviewBtnArea list-inline me-2">
           <li class="list-inline-item">
-            <button class="btn btn-danger btn-sm ml-1" id="deleteReview" onclick="deleteReview(${review.reviewNo})">삭제</button><button class="btn btn-success btn-sm ml-1 showUpdateReview" id="showUpdateReview">수정</button>
+            <button class="button is-danger is-small ml-1" id="deleteReview" onclick="deleteReview(${review.reviewNo})">삭제</button><button class="button is-link is-small is-rounded ml-1 showUpdateReview" id="showUpdateReview">수정</button>
           </li>
         </ul>
         </c:if>
@@ -46,7 +45,7 @@ ${reviewList }
       </div>
       <div class="input-group ms-2 my-2">
         <textarea class="edit-review form-control" rows="5"></textarea>
-        <button class="btn btn-outline-success" onclick="updateReview(${review.reviewNo}, this)">수정</button>
+        <button class="button is-link is-fullwidth" onclick="updateReview(${review.reviewNo}, this)">수정</button>
       </div>
     </li>
   </c:forEach>
@@ -57,7 +56,12 @@ ${reviewList }
 	<h4 class="h5">수강 후기 작성</h4>
 	<div class="input-group my-2" id="reviewContentArea">
 		<textarea class="form-control" id="reviewContent" rows="5"></textarea>
-		<button class="btn btn-outline-success" id="addReview" onclick="addReview();">작성</button>
+		<button class="button is-success is-outlined is-large is-fullwidth" id="addReview" onclick="addReview();">
+		<span class="icon is-small">
+      <i class="fas fa-check"></i>
+    </span>
+    <span>작성</span>
+		</button>
 	</div>
 </div>
 		
@@ -141,8 +145,8 @@ function selectReviewList(){
                  var ul = $("<ul>").addClass("review-action reviewBtnArea list-inline me-2");
       
                  var childLi1 = $("<li>").addClass("list-inline-item");
-                 var deleteReview = $("<button>").addClass("btn btn-danger btn-sm ml-1").text("삭제").attr("id", "deleteReview").attr("onclick", "deleteReview("+item.reviewNo+")");
-                 var showUpdate = $("<button>").addClass("btn btn-success btn-sm ml-1 showUpdateReview").text("수정").attr("id", "showUpdateReview");
+                 var deleteReview = $("<button>").addClass("button is-danger is-small ml-1").text("삭제").attr("id", "deleteReview").attr("onclick", "deleteReview("+item.reviewNo+")");
+                 var showUpdate = $("<button>").addClass("button is-link is-small is-rounded ml-1 showUpdateReview").text("수정").attr("id", "showUpdateReview");
                  childLi1.append(deleteReview).append(showUpdate);
       
                  //var childLi2 = $("<li>").addClass("list-inline-item");
@@ -180,7 +184,7 @@ function selectReviewList(){
               uDivchch.append(uImg); */
               var uDivBottom = $("<div>").addClass("input-group ms-2 my-2");
               var uTextarea = $("<textarea>").addClass("form-control").attr("id", "edit-review").attr("rows","5");
-              var uButton = $("<button>").addClass("btn btn-outline-success").text("수정").attr("onclick", "updateReview(" + item.reviewNo + ", this)");
+              var uButton = $("<button>").addClass("button is-link is-fullwidth").text("수정").attr("onclick", "updateReview(" + item.reviewNo + ", this)");
               uDivBottom.append(uTextarea).append(uButton);
               
               //수정창 마무리
