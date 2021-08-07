@@ -81,5 +81,12 @@
 		'T', DEFAULT, DEFAULT, DEFAULT )
 	</insert>
 	
+	<!-- 아이디 찾기 -->
+	<select id="findId" parameterType="Member" resultType="string">
+		SELECT MEMBER_EMAIL FROM MEMBER
+		WHERE MEMBER_EMAIL = #{memberEmail}
+		AND MEMBER_STATUS = 'Y'
+	</select>
+	
   
 </mapper>

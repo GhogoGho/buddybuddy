@@ -102,5 +102,11 @@ public class MemberDAO {
 	}
 
 
+	public String findId(Member findMember) {
+		
+		return sqlSession.selectOne("memberMapper.findId", findMember);
+	}
+
+
 
 }

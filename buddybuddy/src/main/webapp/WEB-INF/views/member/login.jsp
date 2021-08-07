@@ -348,7 +348,7 @@ a:hover {
 		</form>
 		<hr>
 		<p class="text-right">
-			<a class="findId" href="#">ID 찾기</a><b class="findPw" href="#">PW
+			<a class="findId" href="${contextPath}/member/findId">ID 찾기</a><b class="findPw" href="#">PW
 				찾기</b>
 		</p>
 	</div>
