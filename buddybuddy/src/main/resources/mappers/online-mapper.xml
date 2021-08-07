@@ -190,4 +190,19 @@
 		AND CLASS_STATUS = 'Y'
 	</select>
 	
+	
+	<!-- 클래스 삽입 (썸머 테스트) -->
+	
+	<insert id="insertOnline" parameterType="Online" useGeneratedKeys="true">
+	
+		<selectKey keyProperty="classNo" resultType="_int"
+			order="BEFORE">
+			SELECT SEQ_CLASSNO.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO CLASS_PAGE VALUES
+		( #{classNo}, #{classTitle}, #{classContent}, DEFAULT, DEFAULT, DEFAULT, #{memberNo}, #{classType}, #{categoryCode}, null )
+		
+	</insert>
+	
 </mapper>

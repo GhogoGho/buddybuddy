@@ -51,7 +51,7 @@
                 <a href="#class-review" class="btn">수강 후기</a>
               </td>
               <td>
-                <a href="#class-reply" class="btn">댓글</a>
+                <a href="#class-reply" class="btn">수강 문의</a>
               </td>
               <td>
                 <a href="#class-refund" class="btn">환불 정책</a>
@@ -73,9 +73,9 @@
                   <h6 class="card-subtitle">${categoryName}</h6>
                   <h5 class="card-title">${className}</h5>
                 </div>
-                <div class="col-md-3 text-end">
+                <div class="col-md-3 text-end mb-1">
                   <button type="button" class="btn btn-light btn-sm">
-                    <i class="fas fa-heartbeat"> 찜하기</i>
+                    <i class="fas fa-heartbeat" style="color: #dc3545; background: none;"> 찜하기</i>
                   </button>
                 </div>
               </div>
@@ -97,13 +97,11 @@
               </p>
             </div>
             <div class="card-footer bg-transparent border-dark text-center">
-              <div class="row">
-                <button type="button" class="btn btn-success btn-lg">수강신청</button>
-              </div>
-              <div class="row">
-								<%-- <a href="${contextPath}/class/video">수강하기 임시</a> --%>
+							<button type="button" class="button is-medium is-fullwidth is-danger is-rounded">수강신청</button>
+              <%-- <div class="row">
+								<a href="${contextPath}/class/video">수강하기 임시</a>
 								<a href="${online.classNo}?cp=${pagination.currentPage}${searchStr}/video">수강하기 임시</a>
-							</div>
+							</div> --%>
             </div>
           </div>
         </div>
@@ -169,7 +167,9 @@
               </tbody>
             </table>
             <p>단, 이런저런 경우 환불이 불가능합니다...</p>
-            <button id="updateBtn" class="btn btn-primary float-right mr-2" onclick="fnRequest('updateForm');">수정</button>
+            <c:if test="${online.memberNo == sessionScope.loginMember.memberNo}">
+            <button id="updateBtn" class="button is-large is-fullwidth is-link is-rounded" onclick="fnRequest('updateForm');">수정</button>
+            </c:if>
           </div>
         </div>
       </div>

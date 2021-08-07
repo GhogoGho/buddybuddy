@@ -102,5 +102,20 @@ public class OnlineServiceImpl implements OnlineService{
 		
 		return result;
 	}
+	
+	// 클래스 삽입 (썸머 테스트)
+	@Override
+	public int insertOnline(Online online) {
+		
+		online.setClassTitle(replaceParameter(online.getClassTitle()));
+		online.setClassContent(replaceParameter(online.getClassContent()));
+		
+		online.setClassContent(online.getClassContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
+		int classNo = dao.insertOnline(online);
+		
+		return classNo;
+	}
+	
+	
 
 }

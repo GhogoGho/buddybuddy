@@ -52,5 +52,11 @@ public interface OnlineService {
 	 */
 	Online selectUpdateOnline(int classNo);
 
+	
+	/** 클래스 삽입 (썸머 테스트)
+	 * @param online
+	 * @return result
+	 */
+	int insertOnline(Online online);
 
 }
