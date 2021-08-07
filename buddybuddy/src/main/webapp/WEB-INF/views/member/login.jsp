@@ -340,7 +340,7 @@ a:hover {
 					</div>
 
 					<div class="cre-signUp col-sm-6">
-						<a href="#"> 크리에이터 </a>
+						<a href="${contextPath}/member/creatorSignUp"> 크리에이터 </a>
 					</div>
 				</div>
 			</div>

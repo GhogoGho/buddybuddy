@@ -379,16 +379,16 @@ ul.join_box {
 			<div class="container">
 
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#"><b>B</b>uddy</a>
+					<a class="navbar-brand" href="${contextPath}/main"><b>B</b>uddy</a>
 				</div>
 
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">Home</a></li>
-						<li><a href="#">온라인 클래스</a></li>
-						<li><a href="#">오프라인 클래스</a></li>
-						<li><a href="#">Login</a></li>
+						<li class="active"><a href="${contextPath}/main">Home</a></li>
+						<li><a href="${contextPath}/class/1/list">온라인 클래스</a></li>
+						<li><a href="${contextPath}/member/myPage">오프라인 클래스</a></li>
+						<li><a href="${contextPath}/offclass/2/list">Login</a></li>
 					</ul>
 				</div>
 			</div>
@@ -411,7 +411,6 @@ ul.join_box {
 				Email <input type="text" class="form-control" name="memberEmail"
 					id="id" placeholder="이메일을 입력해주세요" autocomplete="off"
 					required="required">
-
 				<div class="col-md-12">
 					<span id="checkId">&nbsp;</span>
 				</div>
@@ -533,5 +532,26 @@ ul.join_box {
 			return true;
 		}
 	</script>
+	
+	<script>
+	
+		let id; // 입력된 아이디를 저장하기 위한 변수
+		const result = "${result}"; // "0", "1" -> 문자열로 들어옴
+		
+		$(function(){
+			
+			if(result === "") { 
+				
+				id = opener.document.signUpForm.id.value;
+								
+			} else {
+				
+				id = "${id}"; // 중복 검사 진행한 아이디				
+			}
+
+			$("#id").val(id);
+			
+		});
+		</script>
 </body>
 </html>

@@ -92,5 +92,15 @@ public class MemberDAO {
 	}
 
 
+	/** 회원가입 DAO
+	 * @param inputMember
+	 * @return result
+	 */
+	public int creatorSignUp(Member inputMember) {
+		
+		return sqlSession.insert("memberMapper.creatorSignUp", inputMember);
+	}
+
+
 
 }

@@ -146,6 +146,16 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 	
+//	크리에이터 회원가입 Service
+	@Override
+	public int creatorSignUp(Member inputMember) {
+		String encPwd = bCryptPasswordEncoder.encode(inputMember.getMemberPw());
+
+		inputMember.setMemberPw(encPwd);
+
+		return dao.creatorSignUp(inputMember);
+	}
+	
 	
 	
 

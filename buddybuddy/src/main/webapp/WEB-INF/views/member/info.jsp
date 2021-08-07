@@ -21,9 +21,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+<!-- 자바스크립트  -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
 
 
@@ -116,8 +116,6 @@ a:hover {
 }
 
 /* 회원정보 수정 폼 */
-
-
 .form-control {
 	min-height: 41px;
 	background: #fff;
@@ -295,6 +293,40 @@ a:hover {
 	font-weight: bolder;
 	font-size: 20px;
 }
+
+#titleImg {
+	width: 95px;
+	height: 95px;
+	background-size: 145%;
+	background-repeat: no-repeat;
+	background-position: center;
+	border-radius: 50%;
+	right: 0;
+    position: absolute;
+    top: -1px;
+}
+
+/* 이미지 삭제 버튼*/
+.deleteImg {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	background-color: rgba(50, 50, 50, 0.2);
+	border-radius: 50%;
+	line-height: 15px;
+	font-weight: bold;
+	cursor: pointer;
+	margin-left: 40px;
+	margin-top: 70px;
+}
+
+.deleteImg:hover {
+	background-color: rgba(50, 50, 50, 0.3);
+}
 </style>
 
 
@@ -343,9 +375,31 @@ a:hover {
 	<!-- 회원정보 수정 -->
 	<div class="info-form">
 
-		<form action="info" method="POST" enctype="multipart/form-data">
+		<form action="info" method="POST" enctype="multipart/form-data"
+			role="form" onsubmit="return LoadImg();">
+
+			<!-- 이미지 출력 -->
+			<c:forEach items="${memberProfile}" var="at">
+
+				<c:choose>
+					<c:when test="${at.fileLevel == 0 && !empty at.fileName}">
+						<c:set var="img0"
+							value="${contextPath}/${at.filePath}${at.fileName}" />
+					</c:when>
+				</c:choose>
+			</c:forEach>
+
 
 			<div class="avatar">
+				<!-- img0 변수가 만들어진 경우 -->
+				<c:if test="${!empty img0 }">
+					<img id="titleImg" src="${img0}">
+				</c:if>
+				<c:if test="${empty img0 }">
+					<img id="titleImg">
+				</c:if>
+
+				<span class="deleteImg">x</span>
 			</div>
 
 			<div class="text-center">
@@ -353,7 +407,8 @@ a:hover {
 					<button type="button" class="profile form-control" id="btn">파일
 						선택</button>
 					<input class="profile form-control" type="file" name="formFile"
-						id="formFile" style="display: none;">
+						id="formFile" style="display: none;" onchange="LoadImg(this,0)"
+						accept="image/*">
 				</div>
 			</div>
 			<h2 class="text-center">Info</h2>
@@ -405,6 +460,10 @@ a:hover {
 			<div class="clearfix">
 				<a href="${contextPath}/member/secession" class="pull-right">회원탈퇴</a>
 			</div>
+			
+			
+			<!-- 삭제된 이미지를 저장할 태그 추가 -->
+				<input type="hidden" name="deleteImages" value="">
 		</form>
 
 	</div>
@@ -426,6 +485,68 @@ a:hover {
 
 	<script src="${contextPath}/resources/js/info.js"></script>
 
+	<script>
+	
+	$('.deleteImg').on("click", function(){
+		
+	$('.avatar').css('background-image', 'url("")');
+	
+		
+	});
+	
+	
+		// $("input[name='deleteImages']").val(deleteImages);
+			
+		// 미리보기 스크립트
+		function LoadImg(value, num) {
+			
+			
+			if (value.files && value.files[0]) {
+				var reader = new FileReader();
+
+				reader.readAsDataURL(value.files[0]);
+
+				reader.onload = function(e) {
+
+					$(".avatar").eq(num).children("img").attr("src",
+							e.target.result); // <- 미리보기Img
+
+					const index = deleteImages.indexOf(num);
+
+					if (index != -1) {
+
+						deleteImages.splice(index, 1);
+
+					}
+
+				}
+			}
+
+		}
+
+		// 이미지 X 버튼을 눌렀을 때의 동작
+		$(".deleteImages").on("click", function(event) {
+
+			event.stopPropagation(); // 이벤트 버블링(이벤트가 연달아 시작되는 것) 삭제
+
+			console.log($(this).prev().attr("src")); // img의 src속성값 반환
+
+			if ($(this).prev().attr("src") != undefined) { // 이미지가 있을 경우에만 X버튼 동작을 취하라 
+
+				const index = $(this).index(".deleteImages");
+
+				console.log(index);
+
+				deleteImages.push(index);
+
+				$(this).prev().removeAttr("src");
+
+				$("input[name='formFile']").eq(index).val("");
+
+			}
+
+		});
+	</script>
 
 </body>
 

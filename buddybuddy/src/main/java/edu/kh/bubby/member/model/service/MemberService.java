@@ -49,4 +49,10 @@ public interface MemberService {
 	 * @return result
 	 */
 	public abstract int secession(Member loginMember, String currentPwd);
+
+	/** 크리에이터 회원가입 Service
+	 * @param inputMember
+	 * @return inputMember
+	 */
+	public abstract int creatorSignUp(Member inputMember);
 }
