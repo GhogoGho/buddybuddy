@@ -75,6 +75,8 @@ public class MemberController {
 		
 		int result = service.idDupCheck(id);
 		
+		System.out.println(result);
+		
 		return result;
 	}
 	
@@ -90,11 +92,14 @@ public class MemberController {
 		
 		Member loginMember = service.login(inputMember);
 		
+		HttpSession session = request.getSession();
 		
 		if(loginMember != null) {
 			model.addAttribute("loginMember", loginMember);
 			
 			Cookie cookie = new Cookie("saveId", loginMember.getMemberEmail());
+			
+			session.setAttribute("memberGrade", loginMember.getMemberGrade());
 			
 			if(save != null) {
 				
@@ -164,7 +169,7 @@ public class MemberController {
 		inputMember.setMemberEmail(inputEmail);
 		inputMember.setMemberNickname(inputNickname);
 		inputMember.setMemberPw(currentPwd);
-		System.out.println(inputMember);
+		
 		
 		String savePath = request.getSession().getServletContext().getRealPath("resources/images/member/");
 		
@@ -240,7 +245,29 @@ public class MemberController {
 		
 	}
 	
+
+//	크리에이터 회원가입 화면 전환용 Controller
+	@RequestMapping(value="creatorSignUp", method=RequestMethod.GET)
+	public String creatorSignUp() {
+		return "member/creatorSignUp";
+	}
 	
+
+//	크리에이터 회원가입 Controller
+	@RequestMapping(value="creatorSignUp", method=RequestMethod.POST)
+	public String creatorSignUp(@ModelAttribute Member inputMember, RedirectAttributes ra) {
+		
+		int result = service.creatorSignUp(inputMember);
+		
+		
+		if(result > 0) {
+			swalSetMessage(ra, "success", "회원가입 성공하셨습니다!", inputMember.getMemberNickname() + "님 환영합니다!");
+		} else {
+			swalSetMessage(ra, "error", "회원가입 실패하였습니다.", "내용을 다시 확인해주세요.");
+		}
+		
+		return "redirect:/";
+	}	
 
 	
 	

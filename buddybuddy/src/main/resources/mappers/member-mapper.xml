@@ -26,8 +26,7 @@
 	<!-- id 중복검사 -->
 	<select id="idDupCheck" parameterType="string" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER
-  		WHERE MEMBER_STATUS = 'N'
-  		AND MEMBER_EMAIL = #{id}
+  		WHERE MEMBER_EMAIL = #{id}
 	</select>
 	
 	<!-- 로그인 -->
@@ -74,6 +73,13 @@
 		MEMBER_STATUS = 'N'
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
+	
+	<!-- 크리에이터 회원가입 -->
+	<insert id="creatorSignUp" parameterType="Member">
+		INSERT INTO MEMBER
+		VALUES( SEQ_MNO.NEXTVAL, #{memberEmail}, #{memberPw}, #{memberNickname}, 
+		'T', DEFAULT, DEFAULT, DEFAULT )
+	</insert>
 	
   
 </mapper>
