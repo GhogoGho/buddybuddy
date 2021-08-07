@@ -300,7 +300,11 @@ public class MemberController {
 	}
 	
 	
-	
+//	비번 찾기 화면 전환용 Controller
+	@RequestMapping(value="findPw", method=RequestMethod.GET)
+	public String findPw() {
+		return "member/findPw";
+	}
 	
 	
 	

@@ -14,7 +14,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Find ID</title>
+<title>Find PW</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -259,7 +259,7 @@ a:hover {
 							
 							<c:otherwise>
 							<%-- 로그인이 되었을 때 --%>
-							<li><a class="mem" href="${contextPath}/member/info">${loginMember.memberNickname}</a></li>
+							<li><a class="mem" href="${contextPath}/member/info">${loginMember.memberNickname }</a></li>
 							<li><a 	href="${contextPath}/member/logout">로그아웃</a></li>
 						</c:otherwise> 
 					</c:choose>
@@ -276,7 +276,7 @@ a:hover {
     <div class="findId-form">
         <form action="findId" method="post" class="form-horizontal">
             <div class="col-xs-8 col-xs-offset-4">
-                <h2>ID 찾기</h2>
+                <h2>PW 찾기</h2>
             </div>
 
             <div class="form-group">
@@ -285,11 +285,18 @@ a:hover {
                     <input type="email" class="form-control" name="findEmail" required="required" placeholder="Email을 입력해주세요.">
                 </div>
             </div>
+            
+            <div class="form-group">
+                <label class="control-label col-xs-4">닉네임</label>
+                <div class="col-xs-8">
+                    <input type="text" class="form-control" name="findNickname" required="required" placeholder="닉네임을 입력해주세요.">
+                </div>
+            </div>
 
 
             <div class="form-group">
                 <div class="col-xs-8 col-xs-offset-4">
-                    <button type="submit" class="btn btn-primary btn-lg data-toggle=" >ID 찾기</button>
+                    <button type="submit" class="btn btn-primary btn-lg data-toggle=" >PW 찾기</button>
                 </div>
             </div>
             
@@ -325,25 +332,22 @@ a:hover {
 	</c:if>
 
 	<script>
-		// 로그인 수행 시 아이디 / 비밀번호가 작성되었는지 확인하는 유효성 검사 
+		// 비밀번호가 작성되었는지 확인하는 유효성 검사 
 		function loginValidate() {
-			// Validate : 유효한지 확인하다 
+			
 
-			// 아이디가 입력되지 않았을 경우
-			// "아이디를 입력해주세요" 경고창을 띄우고 로그인 수행 X
-			if ($("#findEmail").val().trim().length == 0) { 
-
+			if ($("#memberPw").val().trim().length == 0) {
+				
 				swal({
 					"icon" : "warning",
-					"title" : "이메일을 입력해주세요"
+					"title" : "비밀번호를 입력해주세요"
 				}).then(function() {
-					// 아이디 입력창으로 포커스 이동
-					$("#findEmail").focus();
+					// 비밀번호 입력창으로 포커스 이동
+					$("#memberPw").focus();
 				});
 
 				return false;
 			}
- 
 		}
 	</script>
 </body>
