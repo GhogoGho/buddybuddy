@@ -35,6 +35,12 @@ public interface OfflineService {
 	 * @return
 	 */
 	OfflineClass selectOfflinView(int classNo);
+	
+	/**상세페이지 컨텐츠내용 조회
+	 * @param classNo
+	 * @return
+	 */
+	OfflineClass selectContent(int classNo);
 
 
 

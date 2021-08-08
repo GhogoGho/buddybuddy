@@ -31,11 +31,28 @@ public class OfflineClass {
 	
 	private String paymentStatus;
 	private int classPrice;
+	private int count;
 	
 	
 	public OfflineClass() {
 		// TODO Auto-generated constructor stub
 	}
+
+
+
+
+	public int getCount() {
+		return count;
+	}
+
+
+
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+
 
 
 	public int getClassNo() {
@@ -258,6 +275,11 @@ public class OfflineClass {
 	}
 
 
+
+
+
+
+
 	@Override
 	public String toString() {
 		return "OfflineClass [classNo=" + classNo + ", classTitle=" + classTitle + ", classContent=" + classContent
@@ -269,6 +291,13 @@ public class OfflineClass {
 				+ reserveLimit + ", classLevel=" + classLevel + ", classArea=" + classArea + ", paymentStatus="
 				+ paymentStatus + ", classPrice=" + classPrice + "]";
 	}
+
+
+
+
+
+
+
 
 
 	

@@ -127,6 +127,7 @@ th {
 		for (i = 0; i < doMonth.getDay(); i++) {
 			/*이번달의 day만큼 돌림*/
 			cell = row.insertCell();//열 한칸한칸 계속 만들어주는 역할
+			
 			cnt = cnt + 1;//열의 갯수를 계속 다음으로 위치하게 해주는 역할
 		}
 		/*달력 출력*/
@@ -134,6 +135,7 @@ th {
 			//1일부터 마지막 일까지 돌림
 			cell = row.insertCell();//열 한칸한칸 계속 만들어주는 역할
 			cell.innerHTML = i;//셀을 1부터 마지막 day까지 HTML 문법에 넣어줌
+			
 			cnt = cnt + 1;//열의 갯수를 계속 다음으로 위치하게 해주는 역할
 			if (cnt % 7 == 1) {/*일요일 계산*/
 				//1주일이 7일 이므로 일요일 구하기
@@ -440,38 +442,38 @@ th {
 							<tbody>
 								<tr>
 									<th>클래스 5일 전 취소 시</th>
-									<td><span style="color: #22a7af">100%</span> 환불</td>
+									<th><span style="color: #22a7af">100%</span> 환불</td>
 								</tr>
 								<tr>
 									<th>클래스 4일 전 취소 시</th>
-									<td>클래스 금액의 <span style="color: #22a7af">5%</span> 차감 후 환불
+									<th>클래스 금액의 <span style="color: #22a7af">5%</span> 차감 후 환불
 									</td>
 								</tr>
 								<tr>
 									<th>클래스 3일 전 취소 시</th>
-									<td>클래스 금액의 <span style="color: #22a7af">10%</span> 차감 후
+									<th>클래스 금액의 <span style="color: #22a7af">10%</span> 차감 후
 										환불
 									</td>
 								</tr>
 								<tr>
 									<th>클래스 2일 전 취소 시</th>
-									<td>클래스 금액의 <span style="color: #22a7af">20%</span> 차감 후
+									<th>클래스 금액의 <span style="color: #22a7af">20%</span> 차감 후
 										환불
 									</td>
 								</tr>
 								<tr>
 									<th>클래스 1일 전 취소 시</th>
-									<td>클래스 금액의 <span style="color: #22a7af">30%</span> 차감 후
+									<th>클래스 금액의 <span style="color: #22a7af">30%</span> 차감 후
 										환불
 									</td>
 								</tr>
 								<tr>
 									<th>클래스 당일 취소나 불참 시</th>
-									<td><span style="color: #c74f48">환불 불가</span></td>
+									<th><span style="color: #c74f48">환불 불가</span></td>
 								</tr>
 								<tr>
 									<th>예약 당일 밤 12시 이전 취소 시</th>
-									<td><span style="color: #22a7af">100%</span> 환불</td>
+									<th><span style="color: #22a7af">100%</span> 환불</td>
 								</tr>
 							</tbody>
 						</table>
@@ -551,7 +553,7 @@ th {
 												<div class="col-md-6">
 													<p></p>
 
-													<table id="calendar" border="3"
+													<table id="calendar" border="3" id="cal"
 														style="border-color: #3333FF; text-align: center">
 														<tr>
 															<!-- label은 마우스로 클릭을 편하게 해줌 -->
@@ -573,23 +575,20 @@ th {
 													<script type="text/javascript">
 														buildCalendar();//
 													</script>
+													
 
 												</div>
 
-												<div class="col-md-6">
-
-													<div class="col-md-12"
-														style="border: 1px solid black; margin-top: 10px; text-align: left;">
-														<h4 style="margin-bottom: 20px;">2021년 08월 01일</h4>
+												<div id="ReserveView" class="col-md-6">
+												<!-- 	<div class="col-md-12" style="border:1px solid black">
+													시작시간 13:00 ~ 종료시간 14:00 <br>
+													현재 예약 인원수 : 0 <br>
+													<div>
+													<input type="number" style="width:50px"><button class="btn btn-primary" onclick="ajaxReserve">예약</button>
 													</div>
-													<div class="col-md-12"
-														style="border: 1px solid black; text-align: left;">
-														<h4 style="margin-bottom: 20px;">11: 00 ~ 13: 00</h4>
-													</div>
-													<div class="col-md-12"
-														style="border: 1px solid black; text-align: left;">
-														<h4 style="margin-bottom: 20px;">인원수 자리</h4>
-													</div>
+													</div> -->
+											
+												
 
 												</div>
 											</div>
@@ -650,7 +649,7 @@ th {
 	<script>
 		$(document).on(
 				"click",
-				"tbody td",
+				"td",
 				function() {
 					const thisDate = currentYear + "-" + currentMonth + "-"
 							+ $(this).text()
@@ -659,7 +658,42 @@ th {
 
 					$("td").css("backgroundColor", "white");
 					$(this).css("backgroundColor", "red");
-
+					$.ajax({
+						url : "${contextPath}/reserve/relist",
+						type : "POST",
+						data : {"classNo" : ${classNo},
+								"reserveDate":thisDate
+						},
+						dataType : "JSON",
+						success : function(reList){
+							console.log(reList);
+							document.getElementById("ReserveView").innerHTML="";
+							  $.each(reList, function(index, item){
+									var reDiv =document.createElement("div");
+									reDiv.setAttribute("class","col-md-12");
+									reDiv.setAttribute("style","border:1px solid black");
+									reDiv.innerHTML="시작시간 "+item.reserveStart+" ~ 종료시간 "+item.reserveEnd+"<br>현재 예약 인원수 : "+item.count+"<br>";
+									var reDiv1 =document.createElement("div");
+									var reinput =document.createElement("input");
+									reinput.setAttribute("type","number");
+									reinput.setAttribute("style","width:50px");
+									var rebtn =document.createElement("button");
+									rebtn.innerHTML="예약";
+									rebtn.setAttribute("type","button");
+									rebtn.setAttribute("class","btn btn-primary");
+									rebtn.setAttribute("onclick","ajaxReserve");
+									reDiv1.appendChild(reinput);
+									reDiv1.appendChild(rebtn);
+									reDiv.appendChild(reDiv1);
+									document.getElementById("ReserveView").appendChild(reDiv);
+							  });
+						
+						
+						},
+						error : function(){
+							console.log("예약 목록 조회 실패");
+						}
+					})
 				});
 	</script>
 

@@ -1,5 +1,6 @@
 package edu.kh.bubby.offline.model.vo;
 
+import java.util.List;
 
 public class OffAttachment {
 	private int fileNo;
@@ -7,9 +8,11 @@ public class OffAttachment {
 	private String fileName;
 	private int fileLevel;
 	private int classNo;
-	
+
 	public OffAttachment() {}
 
+
+	
 
 	public int getFileNo() {
 		return fileNo;

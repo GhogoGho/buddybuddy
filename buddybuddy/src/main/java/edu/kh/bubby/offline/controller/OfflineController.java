@@ -53,8 +53,11 @@ public class OfflineController {
 			@RequestParam(value="cp",required = false,defaultValue = "1") int cp,
 			RedirectAttributes ra){
 		OfflineClass offList = service.selectOfflinView(classNo);
-		System.out.println(offList);
+		OfflineClass offContent =service.selectContent(classNo);
+		//System.out.println(offList);
+		offList.setClassContent(offContent.getClassContent());
 		model.addAttribute("offList",offList);
+		
 		return "offclass/OffClassView";
 	}
 	//클래스 작성 페이지

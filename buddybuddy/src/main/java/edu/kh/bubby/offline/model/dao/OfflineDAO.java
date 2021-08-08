@@ -70,4 +70,13 @@ public class OfflineDAO {
 		return sqlSession.selectOne("offlineMapper.selectOfflinView",classNo);
 	}
 
+	/**상세조회 컨탠트 조회
+	 * @param classNo
+	 * @return
+	 */
+	public OfflineClass selectContent(int classNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("offlineMapper.selectContent",classNo);
+	}
+
 }
