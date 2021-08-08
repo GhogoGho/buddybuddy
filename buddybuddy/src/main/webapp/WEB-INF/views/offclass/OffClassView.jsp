@@ -647,6 +647,7 @@ th {
 	</div>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<script>
+	
 		$(document).on(
 				"click",
 				"td",
@@ -669,6 +670,7 @@ th {
 							console.log(reList);
 							document.getElementById("ReserveView").innerHTML="";
 							  $.each(reList, function(index, item){
+								  	max = ${offList.reserveLimit}-parseInt(item.count);
 									var reDiv =document.createElement("div");
 									reDiv.setAttribute("class","col-md-12");
 									reDiv.setAttribute("style","border:1px solid black");
@@ -677,6 +679,8 @@ th {
 									var reinput =document.createElement("input");
 									reinput.setAttribute("type","number");
 									reinput.setAttribute("style","width:50px");
+									reinput.setAttribute("max",max);
+									reinput.setAttribute("min","0");
 									var rebtn =document.createElement("button");
 									rebtn.innerHTML="예약";
 									rebtn.setAttribute("type","button");
@@ -695,6 +699,19 @@ th {
 						}
 					})
 				});
+		
+		
+		$(document).on("input","input",function(){
+			var mmax = $(this).attr("max");
+			if(mmax<$(this).val()){
+				$(this).val(mmax);
+			}
+			
+			if(0>$(this).val()){
+				$(this).val(0);
+			}
+			
+		});
 	</script>
 
 
