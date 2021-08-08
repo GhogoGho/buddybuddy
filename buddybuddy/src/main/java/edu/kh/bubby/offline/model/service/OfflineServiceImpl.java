@@ -49,6 +49,13 @@ public class OfflineServiceImpl implements OfflineService{
 		// TODO Auto-generated method stub
 		return dao.selectOfflinView(classNo);
 	}
+	//상세페이지 컨탠트 조회
+	@Override
+	public OfflineClass selectContent(int classNo) {
+		// TODO Auto-generated method stub
+		return dao.selectContent(classNo);
+	}
+	
 
 
 	

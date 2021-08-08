@@ -4,6 +4,7 @@
 <html lang="ko">
 
 <head>
+<jsp:include page="../common/header.jsp"></jsp:include>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>main</title>
