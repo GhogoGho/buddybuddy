@@ -106,7 +106,7 @@ function addReview() {
   }
 } 
 //-----------------------------------------------------------------------------------------
-//해당 게시글 댓글 목록 조회
+//해당 클래스 수강후기 목록 조회
 function selectReviewList(){
     $.ajax({ 
      url : "${contextPath}/onReview/list",

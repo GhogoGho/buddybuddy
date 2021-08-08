@@ -16,18 +16,36 @@
 	
 	<!-- 수강후기 목록 조회 -->
 	<select id="selectList" parameterType="_int" resultMap="review_rm">
-		SELECT REVIEW_NO, REVIEW_CONTENT, REVIEW_RATINGS, REVIEW_DT, CLASS_NO, 
+		SELECT REVIEW_NO, REVIEW_CONTENT, REVIEW_RATINGS, REVIEW_DT, CLASS_NO, FILE_PATH, FILE_NM,
 		MEMBER_NO, MEMBER_NICKNAME, MEMBER_PROFILE
 		FROM REVIEW
 		JOIN MEMBER USING(MEMBER_NO)
+		LEFT JOIN (SELECT * FROM ATTACHMENT WHERE FILE_LEVEL = 0) USING(CLASS_NO)
 		WHERE REVIEW_STATUS = 'Y'
 		AND CLASS_NO = #{classNo}
 	</select>
 	
 	<!-- 수강후기 작성 -->
-	<insert id="insertReview" parameterType="OnReview">
+	<insert id="insertReview" parameterType="OnReview" useGeneratedKeys="true">
+		<selectKey keyProperty="reviewNo" resultType="_int" order="BEFORE">
+			SELECT SEQ_REVIEWNO.NEXTVAL FROM DUAL
+		</selectKey>
+	
 		INSERT INTO REVIEW VALUES
-		(SEQ_REVIEWNO.NEXTVAL, #{reviewContent}, DEFAULT, DEFAULT, 1, #{classNo}, #{memberNo})
+		(#{reviewNo}, #{reviewContent}, DEFAULT, DEFAULT, 1, #{classNo}, #{memberNo})
+	</insert>
+	
+	<!-- 수강후기 사진 삽입(List) -->
+	<insert id="insertAttachmentList" parameterType="list">
+		INSERT INTO ATTACHMENT
+		SELECT SEQ_FNO.NEXTVAL, A.* FROM (
+		<foreach collection="list" item="at" separator="UNION ALL">
+			SELECT #{at.filePath} FILE_PATH,
+			#{at.fileName} FILE_NAME,
+			#{at.fileLevel} FILE_LEVEL,
+			#{at.classNo} CLASS_NO FROM DUAL
+		</foreach>
+		) A
 	</insert>
 	
 	<!-- 수강후기 수정 -->

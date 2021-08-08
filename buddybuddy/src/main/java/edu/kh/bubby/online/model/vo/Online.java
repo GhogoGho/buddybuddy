@@ -115,6 +115,7 @@ public class Online {
 				+ ", categoryNo=" + categoryNo + ", categoryName=" + categoryName + "]";
 	}
 
+	
 
 	
 	

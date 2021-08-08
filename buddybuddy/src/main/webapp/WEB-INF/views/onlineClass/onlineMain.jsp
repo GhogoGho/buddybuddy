@@ -143,7 +143,7 @@
 												<img src="${contextPath}/resources/images/noimage.png">
 											</c:when>
 											<c:otherwise>
-												<img
+												<video
 													src="${contextPath}/${online.atList[0].filePath}${online.atList[0].fileName}"
 													class="card-img-top">
 											</c:otherwise>

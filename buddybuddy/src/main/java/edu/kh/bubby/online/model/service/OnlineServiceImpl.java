@@ -3,7 +3,9 @@ package edu.kh.bubby.online.model.service;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.bubby.member.exception.SaveFileException;
+import edu.kh.bubby.online.exception.InsertAttachmentException;
 import edu.kh.bubby.online.model.dao.OnlineDAO;
 import edu.kh.bubby.online.model.vo.Attachment;
 import edu.kh.bubby.online.model.vo.Category;
@@ -104,13 +107,6 @@ public class OnlineServiceImpl implements OnlineService{
 		return dao.selectCategory();
 	}
 
-	// 클래스 수정 상세 조회
-	@Override
-	public Online selectUpdateOnline(int classNo) {
-		Online online = dao.selectOnline(classNo);
-		online.setClassContent(online.getClassContent().replaceAll("<br>", "\r\n"));
-		return online;
-	}
 	
 	// 클래스 삽입
 	@Transactional(rollbackFor = Exception.class)
@@ -168,6 +164,88 @@ public class OnlineServiceImpl implements OnlineService{
 		return classNo;
 	}
 	
+	// 클래스 수정 상세 조회
+	@Override
+	public Online selectUpdateOnline(int classNo) {
+		Online online = dao.selectOnline(classNo);
+		online.setClassContent(online.getClassContent().replaceAll("<br>", "\r\n"));
+		return online;
+	}
+	
+	// 클래스 수정
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateOnline(Online online, List<MultipartFile> images, String webPath, String savePath,
+			String deleteImages) {
+		online.setClassTitle( replaceParameter( online.getClassTitle() ) );
+		online.setClassContent( replaceParameter( online.getClassContent() ) );
+		online.setClassContent( online.getClassContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>") );
+		
+		// 2) 글 부분만 수정
+		int result = dao.updateOnline(online);
+		
+		// 3) 이미지 관련 코드 작성
+		if(result > 0 ) {
+			// 3-1) deleteImages와 일치하는 파일레벨의 ATTACHMENT 행 삭제
+			// deleteImage : 삭제해야할 이미지 파일 레벨을 ","를 구분자로 하여 만들어진 String
+			
+			if( !deleteImages.equals("") ) { // 삭제할 파일 레벨이 존재하는 경우
+				// DB 삭제 구문에 필요한 값 : deleteImages, boardNo 
+				// 두 데이터를 한번에 담을 VO가 없음 -> Map 사용
+				
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("classNo", online.getClassNo() );
+				map.put("deleteImages", deleteImages);
+				
+				// 반환 값이 아무런 의미를 갖지 못하므로 반환 받을 필요가 없다.
+				dao.deleteAttachment(map);
+			}
+			
+			
+			List<Attachment> atList = new ArrayList<Attachment>();
+			
+			for(int i=0; i<images.size(); i++) {
+				
+				if( !images.get(i).getOriginalFilename().equals("") ) {
+					
+					String fileName = rename(images.get(i).getOriginalFilename() );
+					
+					Attachment at = new Attachment();
+					at.setFileName(fileName);
+					at.setFilePath(webPath);
+					at.setClassNo(online.getClassNo());
+					at.setFileLevel(i);
+					
+					atList.add(at);
+				}
+			}
+			
+			for(Attachment at : atList) {
+				result = dao.updateAttachment(at);
+				
+				if(result == 0) {
+					result = dao.insertAttachment(at);
+					
+					if(result == 0) { // 삽입 실패
+						// 강제로 예외를 발생시켜 전체 롤백 수행
+						throw new InsertAttachmentException();
+					}
+				}
+			}
+			
+			// 4) 새로 업로드된 이미지 서버에 저장
+			for(int i=0; i<atList.size(); i++) {
+				try {
+					images.get( atList.get(i).getFileLevel() )
+					.transferTo(new File(savePath + "/" + atList.get(i).getFileName() ));
+				}catch(Exception e) {
+					e.printStackTrace();
+					throw new SaveFileException();
+				}
+			}
+		}
+		return result;
+	}
 	
 	
 
@@ -184,6 +262,7 @@ public class OnlineServiceImpl implements OnlineService{
 		return result;
 	}
 	
+
 	// 파일명 변경 메소드
 	private String rename(String originFileName) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -201,14 +280,53 @@ public class OnlineServiceImpl implements OnlineService{
 	// 클래스 삽입 (썸머 테스트)
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int insertOnline(Online online) {
+	public int insertOnline(Online online, List<MultipartFile> videos, String webPath, String savePath) {
 		
 		online.setClassTitle(replaceParameter(online.getClassTitle()));
 		online.setClassContent(replaceParameter(online.getClassContent()));
 		
 		online.setClassContent(online.getClassContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
+		
 		int classNo = dao.insertOnline(online);
 		
+		if(classNo > 0) {
+			List<Attachment> atList = new ArrayList<Attachment>();
+			for(int i=0; i<videos.size(); i++) {
+				
+				if( !videos.get(i).getOriginalFilename().equals("") ) {
+					
+					String fileName = rename(videos.get(i).getOriginalFilename() );
+					
+					Attachment at = new Attachment();
+					at.setFileName(fileName);
+					at.setFilePath(webPath);
+					at.setClassNo(classNo);
+					at.setFileLevel(i);
+					
+					atList.add(at);
+				}
+			}
+			if(!atList.isEmpty()) {
+				
+				int result = dao.insertAttachmentList(atList);
+				
+				if(atList.size() == result) {
+					
+					for(int i=0; i<atList.size(); i++) {
+						try {
+							videos.get( atList.get(i).getFileLevel() )
+							.transferTo(new File(savePath + "/" + atList.get(i).getFileName() ));
+							
+						}catch(Exception e) {
+							e.printStackTrace();
+							throw new SaveFileException();
+						}
+					}
+				}else {
+					throw new SaveFileException();
+				}
+			}
+		}
 		return classNo;
 	}
 

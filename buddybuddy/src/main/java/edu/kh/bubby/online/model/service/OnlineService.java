@@ -85,6 +85,15 @@ public interface OnlineService {
 	int insertOnlineClass(Online online, List<MultipartFile> images, String webPath, String savePath);
 	
 	
+	/** 클래스 수정
+	 * @param online
+	 * @param images
+	 * @param webPath
+	 * @param savePath
+	 * @param deleteImages
+	 * @return result
+	 */
+	int updateOnline(Online online, List<MultipartFile> images, String webPath, String savePath, String deleteImages);
 	
 	
 	
@@ -95,7 +104,7 @@ public interface OnlineService {
 	 * @param online
 	 * @return result
 	 */
-	int insertOnline(Online online);
+	int insertOnline(Online online, List<MultipartFile> videos, String webPath, String savePath);
 
 	/** 클래스 수정 (썸머 테스트)
 	 * @param online
@@ -109,6 +118,7 @@ public interface OnlineService {
 	 */
 	int summerDeleteOnline(int classNo);
 	//=========================================================
+
 	
 
 }
