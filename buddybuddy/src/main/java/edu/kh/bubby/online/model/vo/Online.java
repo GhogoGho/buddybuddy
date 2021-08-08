@@ -14,7 +14,7 @@ public class Online {
 	private String memberNickName;
 	private List<Attachment> atList;
 	private int classType; // CLASS_TYPE_NO 클래스 분류 번호 (1:온라인, 2:오프라인)
-	private int categoryCode; // CATEGORY_NO 카테고리 번호 (1:요리, 2:공예, 3:미술, 4:플라워)
+	private int categoryNo; // CATEGORY_NO 카테고리 번호 (1:요리, 2:공예, 3:미술, 4:플라워)
 	private String categoryName;
 	
 	public Online() {}
@@ -91,12 +91,12 @@ public class Online {
 		this.classType = classType;
 	}
 
-	public int getCategoryCode() {
-		return categoryCode;
+	public int getCategoryNo() {
+		return categoryNo;
 	}
 
-	public void setCategoryCode(int categoryCode) {
-		this.categoryCode = categoryCode;
+	public void setCategoryNo(int categoryNo) {
+		this.categoryNo = categoryNo;
 	}
 
 	public String getCategoryName() {
@@ -112,7 +112,7 @@ public class Online {
 		return "Online [classNo=" + classNo + ", classTitle=" + classTitle + ", classContent=" + classContent
 				+ ", classCreateDate=" + classCreateDate + ", classReadCount=" + classReadCount + ", memberNo="
 				+ memberNo + ", memberNickName=" + memberNickName + ", atList=" + atList + ", classType=" + classType
-				+ ", categoryCode=" + categoryCode + ", categoryName=" + categoryName + "]";
+				+ ", categoryNo=" + categoryNo + ", categoryName=" + categoryName + "]";
 	}
 
 
