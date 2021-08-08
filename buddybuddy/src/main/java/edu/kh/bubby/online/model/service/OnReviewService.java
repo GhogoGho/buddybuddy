@@ -2,6 +2,8 @@ package edu.kh.bubby.online.model.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import edu.kh.bubby.online.model.vo.OnReview;
 
 public interface OnReviewService {
@@ -16,6 +18,7 @@ public interface OnReviewService {
 	 * @param review
 	 * @return
 	 */
+//	int insertReview(OnReview review, List<MultipartFile> reviewImgs, String webPath, String savePath);
 	int insertReview(OnReview review);
 
 	/** 수강후기 수정

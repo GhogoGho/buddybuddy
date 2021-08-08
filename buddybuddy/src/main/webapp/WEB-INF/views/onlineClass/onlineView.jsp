@@ -26,7 +26,7 @@
 <body>
 		<!-- 상단부 -->
 		<jsp:include page="../common/header.jsp"/>
-	
+
 	
 		<div class="container">
 		<c:forEach items="${online.atList}" var="at">
@@ -35,13 +35,13 @@
 								<c:set var="video0" value="${contextPath}/${at.filePath}${at.fileName}"/>
 							</c:when>
 							<c:when test="${at.fileLevel == 1 && !empty at.fileName}">
-								<c:set var="img1" value="${contextPath}/${at.filePath}${at.fileName}"/>
+								<c:set var="video1" value="${contextPath}/${at.filePath}${at.fileName}"/>
 							</c:when>
 							<c:when test="${at.fileLevel == 2 && !empty at.fileName}">
-								<c:set var="img2" value="${contextPath}/${at.filePath}${at.fileName}"/>
+								<c:set var="video2" value="${contextPath}/${at.filePath}${at.fileName}"/>
 							</c:when>
 							<c:when test="${at.fileLevel == 3 && !empty at.fileName}">
-								<c:set var="img3" value="${contextPath}/${at.filePath}${at.fileName}"/>
+								<c:set var="video3" value="${contextPath}/${at.filePath}${at.fileName}"/>
 							</c:when>
 						</c:choose>
 					</c:forEach>
@@ -123,7 +123,7 @@
 							</div> --%>
 						</c:when>	
 						<c:otherwise>
-							<button type="button" class="button is-medium is-fullwidth is-dark is-rounded">수강하기</button>
+							<button type="button" id="videoBtn" class="button is-medium is-fullwidth is-dark is-rounded" onclick="fnRequest('video');">수강하기</button>
 						</c:otherwise>
             </c:choose>
             </div>
@@ -192,7 +192,7 @@
             </table>
             <p>단, 이런저런 경우 환불이 불가능합니다...</p>
             <c:if test="${online.memberNo == sessionScope.loginMember.memberNo}">
-           <!--  <button id="updateBtn" class="button is-large is-fullwidth is-link is-rounded" onclick="fnRequest('updateForm');">수정</button> -->
+            <button id="updateBtn" class="button is-large is-fullwidth is-link is-rounded" onclick="fnRequest('updateForm');">수정</button>
             <button id="updateBtn" class="button is-large is-fullwidth is-link is-rounded" onclick="fnRequest('updateSF');">썸머노트수정</button>
             <button id="deleteBtn" class="button is-large is-fullwidth is-dark is-rounded" onclick="fnRequest('delete');">삭제</button>
             </c:if>

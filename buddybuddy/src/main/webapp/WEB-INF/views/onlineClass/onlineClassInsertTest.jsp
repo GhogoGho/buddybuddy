@@ -34,7 +34,7 @@
 <body>
 
 	<div class="container">
-		<form action="write" method="POST">
+		<form action="write" method="POST" enctype="multipart/form-data">
 
 			<div class="row">
 				<div class="col-md-3 mt-4">
@@ -68,14 +68,72 @@
 					<div class="columns my-3">
 						<div class="column">
 							<div class="file is-success is-boxed">
-								<label class="file-label"> <input class="file-input"
-									type="file" id="thumbnailImg" name="thumbnailImg"
-									onchange="LoadImg(this)"> <span class="file-cta">
-										<span class="file-icon"> <i
-											class="fas fa-camera-retro"></i>
-									</span> <span class="file-label"> 썸네일 동영상 </span>
-								</span>
+								<label class="file-label"> 
+								<input class="file-input" type="file" id="thumbnail" name="videos"
+									onchange="LoadVideo(this)" accept="video/mp4"> 
+									<span class="file-cta">
+										<span class="file-icon"> 
+											<i class="fas fa-camera-retro"></i>
+										</span> 
+										<span class="file-label"> 
+										썸네일 동영상 
+										</span>
+									</span>
 								</label>
+							</div>
+						</div>
+					</div>
+					<!-- 클래스 동영상 -->
+					<div class="columns mb-2">
+						<div class="column">
+							<div class="file is-danger">
+							  <label class="file-label">
+							    <input class="file-input" type="file" id="classVideo1" name="videos" accept="video/mp4">
+							    <span class="file-cta">
+							      <span class="file-icon">
+							        <i class="fas fa-film"></i>
+							      </span>
+							      <span class="file-label">
+							        클래스 동영상
+							      </span>
+							    </span>
+							  </label>
+							</div>
+						</div>
+					</div>
+					<!-- 클래스 동영상 -->
+					<div class="columns mb-2">
+						<div class="column">
+							<div class="file is-danger">
+							  <label class="file-label">
+							    <input class="file-input" type="file" id="classVideo2" name="videos" accept="video/mp4">
+							    <span class="file-cta">
+							      <span class="file-icon">
+							        <i class="fas fa-film"></i>
+							      </span>
+							      <span class="file-label">
+							        클래스 동영상
+							      </span>
+							    </span>
+							  </label>
+							</div>
+						</div>
+					</div>
+					<!-- 클래스 동영상 -->
+					<div class="columns mb-2">
+						<div class="column">
+							<div class="file is-danger">
+							  <label class="file-label">
+							    <input class="file-input" type="file" id="classVideo3" name="videos" accept="video/mp4">
+							    <span class="file-cta">
+							      <span class="file-icon">
+							        <i class="fas fa-film"></i>
+							      </span>
+							      <span class="file-label">
+							        클래스 동영상
+							      </span>
+							    </span>
+							  </label>
 							</div>
 						</div>
 					</div>
@@ -92,9 +150,6 @@
 					$('.summernote').summernote({
 						height : 500,
 						lang : "ko-KR",
-						
-						
-						
 					});
 				</script>
 			</div>

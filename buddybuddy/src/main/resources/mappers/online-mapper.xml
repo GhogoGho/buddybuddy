@@ -323,6 +323,7 @@
 		DEFAULT, DEFAULT, DEFAULT, #{memberNo}, #{classType}, #{categoryNo}, null )
 		
 	</insert>
+	
 
 	<!-- 파일 정보 삽입(List) -->
 	<insert id="insertAttachmentList" parameterType="list">
@@ -338,7 +339,38 @@
 
 	</insert>
 	
+	<!-- 클래스 수정 -->
+	<update id="updateOnline" parameterType="Online">
+		UPDATE CLASS_PAGE SET
+		CLASS_TITLE = #{classTitle},
+		CLASS_CONTENT = #{classContent},
+		CATEGORY_NO = #{categoryNo}
+		WHERE CLASS_NO = #{classNo}
+	</update>
 	
+	<!-- 첨부 파일 정보 삭제 -->
+	<delete id="deleteAttachment" parameterType="map">
+		DELETE FROM ATTACHMENT
+		WHERE CLASS_NO = #{classNo}
+		AND FILE_LEVEL IN ( ${deleteImages} )
+	</delete>
+	
+	<!-- 첨부 파일 정보 수정 -->
+	<update id="updateAttachment" parameterType="OnAttachment">
+		UPDATE ATTACHMENT
+		SET
+		FILE_NM = #{fileName}
+		WHERE CLASS_NO = #{classNo}
+		AND FILE_LEVEL = #{fileLevel}
+	</update>
+	
+	<!-- 첨부 파일 정보 삽입 (한 행) -->
+	<insert id="insertAttachment" parameterType="OnAttachment">
+		INSERT INTO
+		ATTACHMENT VALUES
+		(SEQ_FNO.NEXTVAL, #{filePath}, #{fileName},
+		#{fileLevel}, #{classNo} )
+	</insert>
 	
 	<!-- 클래스 삽입 (썸머 테스트) -->
 	

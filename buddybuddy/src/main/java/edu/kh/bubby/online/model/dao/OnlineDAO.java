@@ -1,6 +1,7 @@
 package edu.kh.bubby.online.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -130,6 +131,38 @@ public class OnlineDAO {
 		}
 	}
 	
+	
+	/** 클래스 수정
+	 * @param online
+	 * @return result
+	 */
+	public int updateOnline(Online online) {
+		return sqlSession.update("onlineMapper.updateOnline", online);
+	}
+	
+	/** 첨부 파일 정보 삭제
+	 * @param map
+	 */
+	public void deleteAttachment(Map<String, Object> map) {
+		sqlSession.delete("onlineMapper.deleteAttachment", map);
+	}
+	
+	/** 첨부 파일 정보 수정(한 행)
+	 * @param at
+	 * @return result
+	 */
+	public int updateAttachment(Attachment at) {
+		return sqlSession.update("onlineMapper.updateAttachment", at);
+	}
+	
+	/** 첨부 파일 정보 삽입(한 행)
+	 * @param at
+	 * @return result
+	 */
+	public int insertAttachment(Attachment at) {
+		return sqlSession.insert("onlineMapper.insertAttachment", at);
+	}
+	
 	/**
 	 * 파일 정보 삽입(List)
 	 * 
@@ -172,6 +205,9 @@ public class OnlineDAO {
 	public int summerDeleteOnline(int classNo) {
 		return sqlSession.update("onlineMapper.summerDeleteOnline", classNo);
 	}
+
+
+
 
 	
 

@@ -198,6 +198,41 @@ public class OnlineController {
 		return path;
 	}
 	
+	// 클래스 수정 화면 전환
+	@RequestMapping(value="{classType}/updateForm", method=RequestMethod.POST)
+	public String updateForm(int classNo, Model model) {
+		List<Category> category = service.selectCategory();
+		Online online = service.selectUpdateOnline(classNo);
+		
+		model.addAttribute("category", category);
+		model.addAttribute("online", online);
+		
+		return "onlineClass/onlineClassUpdate1";
+	}
+	
+	// 클래스 수정
+	@RequestMapping(value="{classType}/update", method=RequestMethod.POST)
+	public String updateOnline(@PathVariable("classType") int classType,
+						Online online,
+						@RequestParam("images") List<MultipartFile> images,
+						@RequestParam("deleteImages") String deleteImages,
+						HttpServletRequest request, Model model, RedirectAttributes ra) {
+		String webPath = "resources/images/";
+		switch(classType) {
+		case 1 : webPath += "onlineClass/"; break;
+		}
+		String savePath = request.getSession().getServletContext().getRealPath(webPath);
+		int result = service.updateOnline(online, images, webPath, savePath, deleteImages);
+		String path = null;
+		if(result > 0) {
+			path="redirect:"+online.getClassNo();
+			MemberController.swalSetMessage(ra, "success", "클래스 수정 성공", null);
+		}else {
+			path="redirect:"+request.getHeader("referer");
+			MemberController.swalSetMessage(ra, "error", "클래스 수정 실패", null);
+		}
+		return path;
+	}
 	
 	//=====================================================================================
 	
@@ -249,19 +284,28 @@ public class OnlineController {
 	// 썸머 테스트 클래스 삽입
 	@RequestMapping(value="{classType}/write", method=RequestMethod.POST)
 	public String summerWrite(@PathVariable("classType") int classType, 
-						Online online,
+						@ModelAttribute Online online,
 						@ModelAttribute("loginMember") Member loginMember,
+						@RequestParam("videos") List<MultipartFile> videos,
 						HttpServletRequest request,
 						RedirectAttributes ra) {
 		online.setMemberNo(loginMember.getMemberNo());
 		online.setClassType(classType);
 		
-		int classNo = service.insertOnline(online);
-		System.out.println("클번:"+classNo);
+		String webPath = "resources/videos/";
+		
+		switch(classType) {
+		case 1 : webPath += "onlineClass/"; break;
+		}
+		
+		String savePath = request.getSession().getServletContext().getRealPath(webPath);
+		
+		int classNo = service.insertOnline(online, videos, webPath, savePath);
+//		System.out.println("클번:"+classNo);
 		String path = null;
 		if(classNo>0) {
 			path = "redirect:"+classNo;
-			MemberController.swalSetMessage(ra, "success", "게시글 삽입 성공", null);
+			MemberController.swalSetMessage(ra, "success", "클래스 삽입 성공", null);
 		}else {
 			path = "redirect:"+request.getHeader("referer");
 			MemberController.swalSetMessage(ra, "error", "클래스 작성 실패", null);
@@ -315,33 +359,23 @@ public class OnlineController {
 	}
 	
 	//=====================================================================================
-	// 클래스 수정 화면 전환
-	@RequestMapping(value="{classType}/updateForm", method=RequestMethod.POST)
-	public String updateForm(int classNo, Model model) {
-		List<Category> category = service.selectCategory();
-		Online online = service.selectUpdateOnline(classNo);
-		
-		model.addAttribute("category", category);
-		model.addAttribute("online", online);
-		
-		return "onlineClass/onlineClassUpdate";
-	}
+	
 	
 	
 	
 	// =================================================================================================================
 	
 	// 클래스 영상 수강 페이지
-	@RequestMapping("{classType}/{classNo}/video")
-	public String onlineVideo(@PathVariable("classType") int classType,
-			@PathVariable("classNo") int classNo,
-			@RequestParam(value="cp", required=false, defaultValue = "1") int cp,
-			Model model) {
+	@RequestMapping(value="{classType}/video", method=RequestMethod.POST)
+	public String onlineVideo(int classNo, Model model) {
+		
+		Online online = service.selectOnline(classNo);
 		
 		// 공지사항 목록 조회
 		List<Notice> nList = noticeService.selectNoticeList(classNo);
 		model.addAttribute("nList", nList);
 		
+		model.addAttribute("online", online);
 		
 		return "onlineClass/onlineVideo";
 	}

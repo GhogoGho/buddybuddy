@@ -2,13 +2,16 @@ package edu.kh.bubby.online.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -34,7 +37,13 @@ public class OnReviewController {
 
 	// 수강 문의 작성
 	@RequestMapping(value = "insertReview", method = RequestMethod.POST)
-	public int insertReview(@ModelAttribute OnReview review) {
+	public int insertReview(@ModelAttribute OnReview review
+							/*@RequestParam("reviewImgs") List<MultipartFile> reviewImgs,
+							HttpServletRequest request*/) {
+//		String webPath = "resources/images/review/";
+//		String savePath = request.getSession().getServletContext().getRealPath(webPath);
+		
+//		return service.insertReview(review, reviewImgs, webPath, savePath);
 		return service.insertReview(review);
 	}
 

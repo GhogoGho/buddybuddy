@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.kh.bubby.online.model.vo.Attachment;
 import edu.kh.bubby.online.model.vo.OnReview;
 
 @Repository
@@ -28,6 +29,14 @@ public class OnReviewDAO {
 	public int insertReview(OnReview review) {
 		return sqlSession.insert("onReviewMapper.insertReview", review);
 	}
+	
+	/** 파일 정보 삽입(List)
+	 * @param atList
+	 * @return result
+	 */
+	public int insertAttachmentList(List<Attachment> atList) {
+		return sqlSession.insert("onReviewMapper.insertAttachmentList", atList);
+	}
 
 	/** 수강후기 수정
 	 * @param review
@@ -44,5 +53,6 @@ public class OnReviewDAO {
 	public int deleteReview(int reviewNo) {
 		return sqlSession.update("onReviewMapper.deleteReview", reviewNo);
 	}
+
 	
 }

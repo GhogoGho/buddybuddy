@@ -24,9 +24,9 @@
 					<a href="#" class="list-group-item list-group-item-action">
 					  <div class="d-flex w-100 justify-content-between">
 					    <h5 class="mb-1">${notice.noticeTitle}</h5>
-					    <small class="text-muted">${notice.noticeDate}</small>
+					    <small class="text-muted"><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy년 MM월 dd일 HH:mm" /></small>
 					  </div>
-					  <p class="mb-1">공지사항 내용${notice.noticeContent}</p>
+					  <p class="mb-1">${notice.noticeContent}</p>
 					</a>
 					</c:forEach>
 			    
