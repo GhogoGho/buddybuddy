@@ -90,6 +90,43 @@ public class OnlineController {
 		return "onlineClass/onlineMain";
 	}
 	
+	
+	// 클래스 individual 목록 조회
+	@RequestMapping("{classType}/{memberNo}/individualList")
+	public String individualList(@PathVariable("classType") int classType,
+								@PathVariable("memberNo") int memberNo,
+			@RequestParam(value="cp", required=false, defaultValue = "1" ) int cp,
+			Model model, Pagination pg, Search search) {
+		
+		pg.setClassType(classType);
+		pg.setCurrentPage(cp);
+		
+		
+		Pagination pagination = null;
+		List<Online> individualList = null;
+		
+		
+		if(search.getSk() == null) {
+			pagination = service.getPagination(pg);
+			/* individualList = service.selectOnlineList(pagination); */
+			individualList = service.selectIndividualList(pagination);
+		}else {
+			pagination = service.getPagination(search, pg);
+			individualList = service.selectOnlineList(search, pagination);
+			/* individualList = service.selectIndividualList(search, pagination); */
+		}
+		
+		for(Online a : individualList) {
+			System.out.println("individualList : "+a);
+		}
+		model.addAttribute("individualList", individualList);
+		model.addAttribute("pagination", pagination);
+		
+		return "onlineClass/onlineIndividualList";
+	}
+	
+	
+	
 	// 클래스 상세 조회
 	@RequestMapping("{classType}/{classNo}")
 	public String onlineView(@PathVariable("classType") int classType,
@@ -125,10 +162,10 @@ public class OnlineController {
 	public String insertForm(Model model) {
 		List<Category> category = service.selectCategory();
 		model.addAttribute("category", category);
-		return "onlineClass/onlineClassInsert";
+		return "onlineClass/onlineClassInsert1";
 	}
 	
-	/*
+	
 	// 클래스 삽입
 	@RequestMapping(value="{classType}/insert", method=RequestMethod.POST)
 	public String insertOnlineClass(@PathVariable("classType") int classType,
@@ -138,9 +175,29 @@ public class OnlineController {
 								HttpServletRequest request,
 								RedirectAttributes ra
 			) {
-		return null;
+		
+		
+		online.setMemberNo( loginMember.getMemberNo() );
+		online.setClassType(classType);
+		String webPath = "resources/images/";
+		switch(classType) {
+		case 1 : webPath += "onlineClass/"; break;
+		}
+		
+		String savePath = request.getSession().getServletContext().getRealPath(webPath);
+		
+		int classNo = service.insertOnlineClass(online, images, webPath, savePath);
+		String path = null;
+		if(classNo > 0) {
+			path ="redirect:"+classNo;
+			MemberController.swalSetMessage(ra, "success", "클래스 등록 성공", null);
+		}else { 
+			path= "redirect:"+request.getHeader("referer"); // 요청 이전 주소
+			MemberController.swalSetMessage(ra, "error", "클래스 등록 실패", null);
+		}
+		return path;
 	}
-	*/
+	
 	
 	//=====================================================================================
 	
@@ -183,7 +240,7 @@ public class OnlineController {
 	
 	// 썸머 테스트 화면 전환용
 	@RequestMapping(value="{classType}/write", method=RequestMethod.GET)
-	public String boardWrite(Model model) {
+	public String summerWriteForm(Model model) {
 		List<Category> category = service.selectCategory();
 		model.addAttribute("category", category);
 	  return "onlineClass/onlineClassInsertTest";
@@ -191,20 +248,71 @@ public class OnlineController {
 	
 	// 썸머 테스트 클래스 삽입
 	@RequestMapping(value="{classType}/write", method=RequestMethod.POST)
-	public String write(@PathVariable("classType") int classType, 
+	public String summerWrite(@PathVariable("classType") int classType, 
 						Online online,
-						@ModelAttribute("loginMember") Member loginMember) {
+						@ModelAttribute("loginMember") Member loginMember,
+						HttpServletRequest request,
+						RedirectAttributes ra) {
 		online.setMemberNo(loginMember.getMemberNo());
 		online.setClassType(classType);
 		
-		
 		int classNo = service.insertOnline(online);
 		System.out.println("클번:"+classNo);
-		return "redirect:"+classNo;
+		String path = null;
+		if(classNo>0) {
+			path = "redirect:"+classNo;
+			MemberController.swalSetMessage(ra, "success", "게시글 삽입 성공", null);
+		}else {
+			path = "redirect:"+request.getHeader("referer");
+			MemberController.swalSetMessage(ra, "error", "클래스 작성 실패", null);
+		}
+		return path;
+	}
+	
+	// 썸머 테스트 클래스 수정 화면 전환용
+	@RequestMapping(value="{classType}/updateSF", method=RequestMethod.POST)
+	public String summerUpdateForm(int classNo, Model model) {
+		List<Category> category = service.selectCategory();
+		Online online = service.selectUpdateOnline(classNo);
+		model.addAttribute("category", category);
+		model.addAttribute("online", online);
+		
+		System.out.println("수정전환시:"+model);
+		System.out.println("수정전환시:"+online);
+		
+	  return "onlineClass/onlineClassUpdateTest";
+	}
+	
+	// 썸머 테스트 클래스 수정
+	@RequestMapping(value="{classType}/updateSummer", method=RequestMethod.POST)
+	public String summerUpdateOnline(@PathVariable("classType") int classType, 
+						@ModelAttribute Online online,
+						HttpServletRequest request, Model model, RedirectAttributes ra) {
+		
+		
+		int result = service.summerUpdateOnline(online);
+		System.out.println("수정클릭"+online);
+		System.out.println(online.getClassNo());
+		String path = null;
+		if(result>0) {
+			path ="redirect:"+online.getClassNo();
+			MemberController.swalSetMessage(ra, "success", "클래스 수정 성공", null);
+		}else {
+			path = "redirect:"+request.getHeader("referer");
+			MemberController.swalSetMessage(ra, "error", "클래스 수정 실패", null);
+		}
+		return path;
 	}
 	
 	
-	
+	// 썸머 테스트 삭제
+	@RequestMapping(value="{classType}/delete", method=RequestMethod.POST)
+	public String summerDeleteOnline(@PathVariable("classType") int classType,
+									int classNo) {
+		int result = service.summerDeleteOnline(classNo);
+		
+		return "redirect:/";
+	}
 	
 	//=====================================================================================
 	// 클래스 수정 화면 전환

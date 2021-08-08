@@ -2,6 +2,8 @@ package edu.kh.bubby.online.model.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import edu.kh.bubby.online.model.vo.Category;
 import edu.kh.bubby.online.model.vo.Online;
 import edu.kh.bubby.online.model.vo.Pagination;
@@ -20,7 +22,26 @@ public interface OnlineService {
 	 * @param pg
 	 * @return pagination
 	 */
+	Pagination getIndiPagination(Search search, Pagination pg);
+	
+	/** 전체 클래스 수 + 클래스 이름 조회
+	 * @param pg
+	 * @return pagination
+	 */
+	Pagination getIndiPagination(Pagination pg);
+	
+	/** 전체 클래스 수 + 클래스 이름 조회(검색)
+	 * @param search
+	 * @param pg
+	 * @return pagination
+	 */
 	Pagination getPagination(Search search, Pagination pg);
+	
+	/** Individual 목록 조회
+	 * @param pagination
+	 * @return individualList
+	 */
+	List<Online> selectIndividualList(Pagination pagination);
 
 	/** 클래스 목록 조회
 	 * @param pagination
@@ -52,11 +73,42 @@ public interface OnlineService {
 	 */
 	Online selectUpdateOnline(int classNo);
 
+	//=========================================================
 	
+	/** 클래스 삽입
+	 * @param online
+	 * @param images
+	 * @param webPath
+	 * @param savePath
+	 * @return classNo
+	 */
+	int insertOnlineClass(Online online, List<MultipartFile> images, String webPath, String savePath);
+	
+	
+	
+	
+	
+	
+	
+	//=========================================================
 	/** 클래스 삽입 (썸머 테스트)
 	 * @param online
 	 * @return result
 	 */
 	int insertOnline(Online online);
+
+	/** 클래스 수정 (썸머 테스트)
+	 * @param online
+	 * @return result
+	 */
+	int summerUpdateOnline(Online online);
+
+	/** 클래스 삭제 (썸머 테스트)
+	 * @param classNo
+	 * @return result
+	 */
+	int summerDeleteOnline(int classNo);
+	//=========================================================
+	
 
 }

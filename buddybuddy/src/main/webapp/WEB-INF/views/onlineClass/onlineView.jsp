@@ -29,16 +29,32 @@
 	
 	
 		<div class="container">
+		<c:forEach items="${online.atList}" var="at">
+						<c:choose>
+							<c:when test="${at.fileLevel == 0 && !empty at.fileName}">
+								<c:set var="video0" value="${contextPath}/${at.filePath}${at.fileName}"/>
+							</c:when>
+							<c:when test="${at.fileLevel == 1 && !empty at.fileName}">
+								<c:set var="img1" value="${contextPath}/${at.filePath}${at.fileName}"/>
+							</c:when>
+							<c:when test="${at.fileLevel == 2 && !empty at.fileName}">
+								<c:set var="img2" value="${contextPath}/${at.filePath}${at.fileName}"/>
+							</c:when>
+							<c:when test="${at.fileLevel == 3 && !empty at.fileName}">
+								<c:set var="img3" value="${contextPath}/${at.filePath}${at.fileName}"/>
+							</c:when>
+						</c:choose>
+					</c:forEach>
       <div class="row">
         <!-- 동영상,클래스목차 -->
         <!-- <div class="row"> -->
         <div class="col-md-7">
           <div class="row">
-            <video
-              src="https://cdn.videvo.net/videvo_files/video/premium/video0234/large_watermarked/02_Selo_zakat_II_43_girl_run_hd_slow_preview.mp4"
-              type="video/mp4" controls>
+          	<c:if test="${!empty video0 }">
+            <video src="${video0}" controls>
               동영상
             </video>
+          	</c:if>
           </div>
           <hr>
           <!-- 네이게이션 메뉴 -->
@@ -65,7 +81,8 @@
           <div class="card border-dark mb-3" id="payment-class" style="max-width: 30rem; height: 25rem;">
             <div class="card-header bg-transparent border-dark">
               <img src="https://via.placeholder.com/150" width="30" height="30" class="rounded-1 float-start me-2">
-              <a href="#" style="text-decoration: none;">크리에이터명</a>
+              <%-- <a href="${contextPath}/class/1/${online.memberNo}/individualList" style="text-decoration: none;">${online.memberNickName}</a> --%>
+              <a href="${contextPath}/class/1/${online.memberNo}/individualList" style="text-decoration: none; pointer-events: none;">${online.memberNickName}</a>
             </div>
             <div class="card-body text-dark">
               <div class="row">
@@ -97,11 +114,18 @@
               </p>
             </div>
             <div class="card-footer bg-transparent border-dark text-center">
+            <c:choose>
+            <c:when test="${a == 0}">
 							<button type="button" class="button is-medium is-fullwidth is-danger is-rounded">수강신청</button>
               <%-- <div class="row">
 								<a href="${contextPath}/class/video">수강하기 임시</a>
 								<a href="${online.classNo}?cp=${pagination.currentPage}${searchStr}/video">수강하기 임시</a>
 							</div> --%>
+						</c:when>	
+						<c:otherwise>
+							<button type="button" class="button is-medium is-fullwidth is-dark is-rounded">수강하기</button>
+						</c:otherwise>
+            </c:choose>
             </div>
           </div>
         </div>
@@ -168,7 +192,9 @@
             </table>
             <p>단, 이런저런 경우 환불이 불가능합니다...</p>
             <c:if test="${online.memberNo == sessionScope.loginMember.memberNo}">
-            <button id="updateBtn" class="button is-large is-fullwidth is-link is-rounded" onclick="fnRequest('updateForm');">수정</button>
+           <!--  <button id="updateBtn" class="button is-large is-fullwidth is-link is-rounded" onclick="fnRequest('updateForm');">수정</button> -->
+            <button id="updateBtn" class="button is-large is-fullwidth is-link is-rounded" onclick="fnRequest('updateSF');">썸머노트수정</button>
+            <button id="deleteBtn" class="button is-large is-fullwidth is-dark is-rounded" onclick="fnRequest('delete');">삭제</button>
             </c:if>
           </div>
         </div>

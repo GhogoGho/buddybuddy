@@ -41,8 +41,7 @@
 					<c:if test="${ !empty category}">
 						<div class="control has-icons-left">
 							<div class="select is-large is-rounded">
-								<select name="categoryCode">
-									<option selected>카테고리</option>
+								<select name="categoryNo">
 									<c:forEach items="${category}" var="c">
 										<option value="${c.categoryNo}">${c.categoryName}</option>
 									</c:forEach>
@@ -57,7 +56,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-10">
-					<label class="form-label" for="boardTitle"></label> <input
+					<label class="form-label" for="classTitle"></label> <input
 						class="input is-medium is-rounded" id="classTitle"
 						name="classTitle" type="text" placeholder="제목을 입력해 주세요.">
 					<hr>
@@ -128,7 +127,7 @@ function goWrite(frm) {
 		return false;
 	}
 	if (categoryCode.trim() == ''){
-		alert("작성자를 입력해주세요");
+		alert("카테고리를 선택해주세요");
 		return false;
 	}
 	if (classContent.trim() == ''){

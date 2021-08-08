@@ -21,30 +21,52 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
+
+</head>
+<body>
+		<!-- 상단부 -->
+		<jsp:include page="../common/header.jsp"/>
+
 <style>
 .online-category {
-	background-color: #dc3545;
+	background-color: #50b8b3;
 	height: 210px;
+	width: 210px;
 	text-align: center;
 	line-height: 200px;
 }
 
 .main-img {
-	height: 500px;
+	height: 700px;
+	width: 1166px;
 }
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #50b8b3;
+    border-color: #50b8b3;
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    color: #50b8b3;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
 </style>
-</head>
-<body>
-		<!-- 상단부 -->
-		<jsp:include page="../common/header.jsp"/>
 
 		<!-- <section class="slider-section"> -->
 		<div class="container">
 			<!-- 온라인 메인 이미지 -->
 			<div class="row justify-content-center">
 				<img
-					src="https://images.unsplash.com/photo-1581079708051-9784b310349f?ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDF8X2hiLWRsNFEtNFV8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-					class="img-fluid main-img" style="width: 1000px; height: 500px;">
+					src="https://images.unsplash.com/photo-1572048572872-2394404cf1f3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1951&q=80"
+					class="img-fluid main-img">
 			</div>
 			<%-- <div class="row">
 				<a href="${contextPath}/creater/main">크리에이터 페이지 임시 링크</a>
@@ -52,25 +74,25 @@
 			<!-- 카테고리 -->
 			<div class="columns my-5 ms-5">
 				<div class="column">
-					<div class="online-category col-md-2 col-md-offset-1 rounded-circle" style="width: 210px;">
+					<div class="online-category col-md-2 col-md-offset-1 rounded-circle">
 					
 						공예
 					</div>
 				</div>
 				<div class="column">
-					<div class="online-category col-md-2 col-md-offset-1 rounded-1" style="width: 210px;">
+					<div class="online-category col-md-2 col-md-offset-1 rounded-1">
 					
 						미술
 					</div>
 				</div>
 				<div class="column">
-					<div class="online-category col-md-2 col-md-offset-1 rounded-1" style="width: 210px;">
+					<div class="online-category col-md-2 col-md-offset-1 rounded-1">
 					
 						요리
 					</div>
 				</div>
 				<div class="column">
-					<div class="online-category col-md-2 col-md-offset-1 rounded-circle" style="width: 210px;">
+					<div class="online-category col-md-2 col-md-offset-1 rounded-circle">
 					
 						플라워
 					</div>
@@ -174,7 +196,7 @@
 							
 							<%-- 현재 페이지가 2페이지 초과 --%>
 							<c:if test="${pagination.currentPage > 2 }">
-							<li class="page-item">
+							<li class="page-item" >
 								<a class="page-link" href="${pageURL}?cp=${pagination.currentPage - 1}${searchStr}" aria-label="Previous"> 
 									<span aria-hidden="true">&laquo;</span>
 								</a>
@@ -248,11 +270,11 @@
 			</div>
 		
 		<div class="row">
-			<a href="insert">클래스 작성</a>
+			<button class="button is-large is-fullwidth is-primary is-light is-rounded"><a href="insert">클래스 작성</a></button>
 		</div>
 		
 		<div class="row">
-			<a href="write">썸머노트 작성</a>
+			<button class="button is-large is-fullwidth is-success is-light is-rounded"><a href="write">썸머노트 작성</a></button>
 		</div>
 		
 		</div>
