@@ -1,5 +1,7 @@
 package edu.kh.bubby.member.model.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -102,10 +104,40 @@ public class MemberDAO {
 	}
 
 
+	/** 아이디 찾기 DAO
+	 * @param findMember
+	 * @return result
+	 */
 	public String findId(Member findMember) {
 		
 		return sqlSession.selectOne("memberMapper.findId", findMember);
 	}
+	
+
+	/** 비밀번호 변경 DAO
+	 * @param findMember
+	 */
+	public int updatePw(Member findMember) {
+		
+		return sqlSession.update("memberMapper.updatePw", findMember);
+	}
+
+
+	/** 비번 찾기 DAO (가입회원 조회용)
+	 * @param memberEmail
+	 * @return result
+	 */
+	public List<Object> findMember(String memberEmail) {
+		
+		return sqlSession.selectList("memberMapper.findMember", memberEmail);
+	}
+
+
+
+
+
+		
+	
 
 
 

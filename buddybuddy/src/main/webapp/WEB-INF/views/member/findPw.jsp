@@ -25,8 +25,12 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	
+	<!-- jQuery -->	
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+	
 	<!-- sweetalert API 추가 -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
+
 
 <style>
 .navbar>.container, .navbar>.container-fluid, .navbar>.container-lg,
@@ -274,7 +278,7 @@ a:hover {
 	<!-- 컨테이너 입력 부분 -->
 	<!-- ID 찾기 -->
     <div class="findId-form">
-        <form action="findId" method="post" class="form-horizontal">
+        <form action="findPw" method="post" class="form-horizontal">
             <div class="col-xs-8 col-xs-offset-4">
                 <h2>PW 찾기</h2>
             </div>
@@ -282,21 +286,21 @@ a:hover {
             <div class="form-group">
                 <label class="control-label col-xs-4">Email</label>
                 <div class="col-xs-8">
-                    <input type="email" class="form-control" name="findEmail" required="required" placeholder="Email을 입력해주세요.">
+                    <input type="text" class="form-control" name="findEmail"  id="findEmail" required="required" placeholder="Email을 입력해주세요.">
                 </div>
             </div>
             
             <div class="form-group">
                 <label class="control-label col-xs-4">닉네임</label>
                 <div class="col-xs-8">
-                    <input type="text" class="form-control" name="findNickname" required="required" placeholder="닉네임을 입력해주세요.">
+                    <input type="text" class="form-control" name="findNickname" id="findNickname" required="required" placeholder="닉네임을 입력해주세요.">
                 </div>
             </div>
 
 
             <div class="form-group">
                 <div class="col-xs-8 col-xs-offset-4">
-                    <button type="submit" class="btn btn-primary btn-lg data-toggle=" >PW 찾기</button>
+                    <button type="button" id="findBtn" class="btn btn-primary btn-lg" >PW 찾기</button>
                 </div>
             </div>
             
@@ -349,6 +353,22 @@ a:hover {
 				return false;
 			}
 		}
+		
+		$(function(){
+			$("#findBtn").click(function(){
+				$.ajax({
+					url : "${contextPath}/member/findPw",
+					type : "POST",
+					data : {
+						findEmail : $("#findEmail").val(),
+						findNickname : $("#findNickname").val()
+					},
+					success : function(result) {
+						alert(result);
+					},
+				})
+			});
+		})
 	</script>
 </body>
 </html>

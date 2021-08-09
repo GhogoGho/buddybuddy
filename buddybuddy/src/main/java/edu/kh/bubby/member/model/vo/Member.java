@@ -12,6 +12,7 @@ public class Member {
 	private Date memberRegdate;
 	private String memberProfile;
 	private String memberStatus;
+	
 	public int getMemberNo() {
 		return memberNo;
 	}
