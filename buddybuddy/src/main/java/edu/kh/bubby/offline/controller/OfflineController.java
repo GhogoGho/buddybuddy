@@ -24,6 +24,7 @@ import edu.kh.bubby.offline.model.vo.OffPagination;
 import edu.kh.bubby.offline.model.vo.OffSearch;
 import edu.kh.bubby.offline.model.vo.OfflineClass;
 
+
 @Controller
 @RequestMapping("offclass/*")
 @SessionAttributes({ "loginMember" })
@@ -81,17 +82,34 @@ public class OfflineController {
 	public String insertOfflineClass(@PathVariable("classType") int classType, OfflineClass offlineClass,
 			@ModelAttribute("loginMember") Member loginMember, @RequestParam("images") List<MultipartFile> images,
 			 @RequestParam("address") List address,
+			 @RequestParam("reserveAll") List reserveAll,
 			 @RequestParam("editordata") String editordata,
 			HttpServletRequest request, RedirectAttributes ra) {
-		String classAddr = address.get(0)+","+address.get(1)+","+address.get(2);
+		String classAddr = address.get(1).toString();
 		offlineClass.setClassArea(classAddr);
 		offlineClass.setClassContent(editordata);		
 		offlineClass.setMemberNo(loginMember.getMemberNo());
 		offlineClass.setClassType(classType);
-		String webPath = "resources/images/offlineClass";
+		offlineClass.setMemberProfile(loginMember.getMemberProfile());
+		String webPath = "resources/images/offlineClass/";
 		String savePath= request.getSession().getServletContext().getRealPath(webPath);
-		int classNo = service.insertOfflineClass(offlineClass,images,webPath,savePath);
-	
-		return "offclass/OffClassInsert";
+		System.out.println(offlineClass);
+		System.out.println(reserveAll);
+		int classNo = service.insertOfflineClass(offlineClass,images,webPath,savePath,reserveAll);
+		String path = null;
+		if(classNo>0) {//삽입 성공
+			// 상세 조회 페이지로 리다이렉트 - > /fin/board/1/600
+			// 현재 페이지                   - > /fin/board/1/insert
+			path = "redirect:"+classNo;
+
+		}else {
+			//이전 게시글 작성 화면으로 리다이렉트
+			path="redirect:"+request.getHeader("referer");
+			
+		}
+		
+		
+		
+		return path;
 	}
 }

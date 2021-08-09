@@ -48,9 +48,10 @@ public interface OfflineService {
 	 * @param images
 	 * @param webPath
 	 * @param savePath
+	 * @param reserveAll 
 	 * @return
 	 */
-	int insertOfflineClass(OfflineClass offlineClass, List<MultipartFile> images, String webPath, String savePath);
+	int insertOfflineClass(OfflineClass offlineClass, List<MultipartFile> images, String webPath, String savePath, List reserveAll);
 
 
 
