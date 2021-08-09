@@ -11,7 +11,7 @@
 		<result property="noticeDate" column="NOTI_CREATE_DT"/>
 		<result property="classNo" column="CLASS_NO"/>
 		<result property="memberNo" column="MEMBER_NO"/>
-		<result property="boardType" column="BOARD_TYPE_NO"/>
+		<result property="classType" column="CLASS_TYPE_NO"/>
 		
 	</resultMap>
 	
