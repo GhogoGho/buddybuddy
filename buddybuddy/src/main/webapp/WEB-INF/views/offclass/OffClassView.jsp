@@ -505,7 +505,7 @@ th {
 
 						<div class="row">
 							<div class="col-md-12">
-								<h3>${offList.classPrice }</h3>
+								<h3>가격 : ${offList.classPrice }</h3>
 							</div>
 						</div>
 						<div class="row" style="margin-bottom: 50px;">

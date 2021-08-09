@@ -2,6 +2,8 @@ package edu.kh.bubby.offline.model.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import edu.kh.bubby.offline.model.vo.OffPagination;
 import edu.kh.bubby.offline.model.vo.OffSearch;
 import edu.kh.bubby.offline.model.vo.OfflineClass;
@@ -41,6 +43,14 @@ public interface OfflineService {
 	 * @return
 	 */
 	OfflineClass selectContent(int classNo);
+	/**오프라인 클래스 삽입
+	 * @param offlineClass
+	 * @param images
+	 * @param webPath
+	 * @param savePath
+	 * @return
+	 */
+	int insertOfflineClass(OfflineClass offlineClass, List<MultipartFile> images, String webPath, String savePath);
 
 
 
