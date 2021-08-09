@@ -22,6 +22,13 @@
 	integrity="sha512-IgmDkwzs96t4SrChW29No3NXBIBv8baW490zk5aXvhCD8vuZM3yUSkbyTBcXohkySecyzIrUwiF/qV0cuPcL3Q=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+<style>
+#online-like{
+ color: #dc3545; 
+ background: none;
+
+}
+</style>
 </head>
 <body>
 		<!-- 상단부 -->
@@ -91,8 +98,9 @@
                   <h5 class="card-title">${className}</h5>
                 </div>
                 <div class="col-md-3 text-end mb-1">
-                  <button type="button" class="btn btn-light btn-sm">
-                    <i class="fas fa-heartbeat" style="color: #dc3545; background: none;"> 찜하기</i>
+                  <button type="button" class="btn btn-light btn-sm" id="online-like-btn">
+                    <i class="fas fa-heart-broken" id="online-like"> 찜하기</i>
+                    <%-- <span id="online-like-count">${online.onlineLike }</span> --%>
                   </button>
                 </div>
               </div>
@@ -149,7 +157,7 @@
         <div class="col-md-7">
           <p class="h3 my-4" id="class-review">수강 후기</p>
           <hr>
-          <jsp:include page="onlineReview.jsp"/>
+          <%-- <jsp:include page="onlineReview.jsp"/> --%>
         </div>
         <!-- </div> -->
         <!-- 수강문의 시작 -->
@@ -157,7 +165,7 @@
         <div class="col-md-7">
           <p class="h3 my-4" id="class-reply">수강 문의</p>
           <hr>
-         	<jsp:include page="onlineReply.jsp"/>
+         	<%-- <jsp:include page="onlineReply.jsp"/> --%>
         </div>
         <!-- </div> -->
 
@@ -213,13 +221,104 @@
 	
 	
 	
-	<script>
-		function fnRequest(addr){
-			document.requestForm.action = addr;
-			document.requestForm.submit();
-		}
+<script>
+function fnRequest(addr){
+	document.requestForm.action = addr;
+	document.requestForm.submit();
+}
+	
+/* 찜하기 */
+const loginMemberNo = "${loginMember.memberNo}";
+const classNo = ${online.classNo};
+/* let onlineLike = ${online.onlineLike}; */
+
+onlineLikeCheck();
+
+function onlineLikeCheck(){
+	
+	let flag = false;
+	$.ajax({
+		url : "${contextPath}/onLike/onlineLikeCheck",
+		data : {"classNo" : classNo},
+		type : "POST",
+		dataType : "JSON",
 		
-	</script>
+		success : function(mList){
+			$.each(mList, function(index, item){
+				
+				if(item.memberNo == loginMemberNo){
+					flag = true;
+				}
+			});
+			if(flag){
+				$("#online-like-btn").html("");
+				var i = $("<i>").addClass("fas fa-heartbeat").attr("id", "online-like").text(" 찜하기");
+				/* var span = $("<span>").attr("id", "online-like-count").text(onlineLike); */
+				
+				/* $("#online-like-btn").append(i).append(span); */
+				$("#online-like-btn").append(i);
+			}
+		},
+		error : function(e){
+			console.log(e);
+		}
+	});
+}
+
+$("#online-like-btn").on("click", function(){
+	
+	console.log("성공?");
+	
+	$.ajax({
+		url : "${contextPath}/onLike/onlineLike",
+		data : {"classNo" : classNo},
+		type : "POST",
+		
+		success : function(result){
+			if(result > 0){
+				$("#online-like-btn").html("");
+				var i = $("<i>").addClass("fas fa-heart-broken").attr("id", "online-like").text(" 찜하기");
+				/* var span = $("<span>").attr("id", "online-like-count").text(onlineLike); */
+				
+				/* $("#online-like-btn").append(i).append(span); */
+				$("#online-like-btn").append(i);
+			}else{
+				$("#online-like-btn").html("");
+				var i = $("<i>").addClass("fas fa-heartbeat").attr("id", "online-like").text(" 찜하기");
+				/* var span = $("<span>").attr("id", "online-like-count").text(onlineLike); */
+				
+				/* $("#online-like-btn").append(i).append(span); */
+				$("#online-like-btn").append(i);
+			}
+			onlineLikeCount();
+		},
+		error : function(e){
+			console.log(e);
+		}
+	});
+});
+
+function onlineLikeCount(){
+	
+	$.ajax({
+		url : "${contextPath}/onLike/onlineLikeCount",
+		data : {"classNo" : classNo},
+		type : "POST",
+		
+		success : function(result){
+			$("#online-like-count").text(result);
+		},
+		error : function(e){
+			console.log(e);
+		}
+	});
+}
+
+
+</script>
+		
+		
+		
 	
 	
 	
@@ -235,7 +334,12 @@
 			custom: true 
 			}); 
 		}); 
+	
 </script>	
+
+
+
+
 	
 </body>
 </html>

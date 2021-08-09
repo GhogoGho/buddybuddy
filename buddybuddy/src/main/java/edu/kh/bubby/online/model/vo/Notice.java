@@ -11,6 +11,7 @@ public class Notice {
 	private int memberNo;
 	private int boardNo;
 	private int classNo;
+	private int classType; // CLASS_TYPE_NO
 	
 	public Notice() {
 		// TODO Auto-generated constructor stub
@@ -80,11 +81,20 @@ public class Notice {
 		this.classNo = classNo;
 	}
 
+	
+	public int getClassType() {
+		return classType;
+	}
+
+	public void setClassType(int classType) {
+		this.classType = classType;
+	}
+
 	@Override
 	public String toString() {
 		return "Notice [noticeNo=" + noticeNo + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
 				+ ", readCount=" + readCount + ", noticeDate=" + noticeDate + ", memberNo=" + memberNo + ", boardNo="
-				+ boardNo + ", classNo=" + classNo + "]";
+				+ boardNo + ", classNo=" + classNo + ", classType=" + classType + "]";
 	}
 
 	

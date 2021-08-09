@@ -44,7 +44,7 @@
          </div>
        </div>
        <div class="input-group ms-2 my-2">
-         <textarea class="edit-reply form-control" rows="5"></textarea>
+         <textarea class="edit-reply form-control" rows="3"></textarea>
          <button class="button is-link is-fullwidth" onclick="updateReply(${reply.replyNo}, this)">수정</button>
        </div>
      </li>
@@ -55,7 +55,7 @@
  <div class="replyWrite col-md-12">
  <h4 class="h5">수강 문의 작성</h4>
  <div class="input-group my-2" id="replyContentArea">
-		<textarea class="form-control" id="replyContent" rows="5"></textarea>
+		<textarea class="form-control" id="replyContent" rows="3"></textarea>
 		<button class="button is-success is-outlined is-large is-fullwidth" id="addReply" onclick="addReply();">
 			<span class="icon is-small">
       <i class="fas fa-check"></i>
