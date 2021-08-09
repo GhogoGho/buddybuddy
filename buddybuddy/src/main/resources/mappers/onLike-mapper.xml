@@ -33,7 +33,7 @@
 	<!-- 찜하기 삽입 -->
 	<insert id="onlineLike" parameterType="OnLike">
 		INSERT INTO CHOICE VALUES
-		(#{memberNo}, #{classNo});
+		(#{memberNo}, #{classNo})
 	</insert>
 	
 	<!-- 찜하기 수 증가 -->
