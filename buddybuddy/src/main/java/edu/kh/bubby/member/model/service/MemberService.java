@@ -1,5 +1,7 @@
 package edu.kh.bubby.member.model.service;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -56,9 +58,26 @@ public interface MemberService {
 	 */
 	public abstract int creatorSignUp(Member inputMember);
 
-	/**
+	/** 아이디 찾기 Service
 	 * @param findMember
 	 * @return 
 	 */
 	public abstract String findId(Member findMember);
+
+	/** 비번찾기 Service
+	 * @param response
+	 * @param findMember
+	 * @throws Exception 
+	 */
+	public abstract void findPw(HttpServletResponse response, Member findMember) throws Exception;
+	
+	
+	/** 이메일 발송 Service
+	 * @param response
+	 * @param div
+	 */
+	public abstract void sendEmail(Member findMember, String div);
+	
+	
 }
+

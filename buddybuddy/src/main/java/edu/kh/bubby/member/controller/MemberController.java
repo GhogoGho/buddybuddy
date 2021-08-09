@@ -86,11 +86,14 @@ public class MemberController {
 						HttpServletResponse response, RedirectAttributes ra, 
 						@RequestParam(value="save", required = false) String save ) {
 		
-		System.out.println("memberId : " + inputMember.getMemberEmail());
-		System.out.println("memberPw : " + inputMember.getMemberPw());
-		System.out.println("save : " + save);
+//		System.out.println("memberId : " + inputMember.getMemberEmail());
+//		System.out.println("memberPw : " + inputMember.getMemberPw());
+//		System.out.println("save : " + save);
 		
 		Member loginMember = service.login(inputMember);
+		
+		loginMember.setMemberEmail(save);
+		
 		
 		HttpSession session = request.getSession();
 		
@@ -164,7 +167,6 @@ public class MemberController {
 		// @RequestParam(value="newPwd1", required=false)	
 		//String currentPwd = request.getParameter("currentPwd");
 		
-		inputMember.setMemberNo(loginMember.getMemberNo());
 		inputMember.setMemberNo(loginMember.getMemberNo());
 		inputMember.setMemberEmail(inputEmail);
 		inputMember.setMemberNickname(inputNickname);
@@ -304,6 +306,23 @@ public class MemberController {
 	@RequestMapping(value="findPw", method=RequestMethod.GET)
 	public String findPw() {
 		return "member/findPw";
+	}
+	
+//	비번 찾기 Controller
+	@RequestMapping(value="findPw", method=RequestMethod.POST)
+	public void findPw(@ModelAttribute Member findMember, Model model,
+			           @RequestParam("findEmail") String findEmail,
+			           @RequestParam("findNickname") String findNickname,
+						HttpServletResponse response) throws Exception {
+		
+		findMember.setMemberEmail(findEmail);
+		findMember.setMemberNickname(findNickname);
+		
+		System.out.println(findEmail);
+		System.out.println(findNickname);
+		
+		
+		service.findPw(response, findMember);
 	}
 	
 	
