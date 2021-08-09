@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.kh.bubby.offline.model.vo.OffAttachment;
 import edu.kh.bubby.offline.model.vo.OffPagination;
 import edu.kh.bubby.offline.model.vo.OffSearch;
 import edu.kh.bubby.offline.model.vo.OfflineClass;
@@ -77,6 +78,39 @@ public class OfflineDAO {
 	public OfflineClass selectContent(int classNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("offlineMapper.selectContent",classNo);
+	}
+
+	/**오프라인클래스 삽입
+	 * @param offlineClass
+	 * @return
+	 */
+	public int insertOfflineClass(OfflineClass offlineClass) {
+		// TODO Auto-generated method stub
+		int result = sqlSession.insert("offlineMapper.insertOfflineClass",offlineClass);
+		if(result>0) {
+			return offlineClass.getClassNo();
+		}else {
+			return 0;
+		}
+	
+	}
+
+	/**예약 날짜 삽입
+	 * @param reof
+	 * @return
+	 */
+	public int insertReserveAll(OfflineClass reof) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("offlineMapper.insertReserveAll",reof);
+	}
+
+	/**오프라인클래스썸네일 소개사진
+	 * @param atList
+	 * @return
+	 */
+	public int insertAttachmentList(List<OffAttachment> atList) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("offlineMapper.insertAttachmentList",atList);
 	}
 
 }
