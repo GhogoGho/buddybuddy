@@ -152,7 +152,7 @@
                    <!-- <div class="d-flex justify-content-between align-items-center"> -->
                    <div class="row">
                      <div class="col-md-3">
-                       <video src="${video1}" type="video/mp4" width="200" height="200" class="user-image me-2">
+                       <video src="${video1}" type="video/mp4" width="200" height="200" class="user-image me-2" id="playVideo">
                      </div>
                      <div class="col-md-9">
                        <p class="h5 fw-bold">01. 프롤로그</p>
@@ -166,9 +166,12 @@
                        </button>
                      </div>
                      <div class="progress">
-                       <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25"
+                       <div class="progress-bar bg-success" role="progressbar" style="width: $('#class-video').progress+'%'" aria-valuenow="25"
                          aria-valuemin="0" aria-valuemax="100"></div>
+                         <progress id="file" max="100" value="$('#playVideo').currentTime"> 70% </progress>
                      </div>
+                     <progress class="progress is-success" value="$('#playVideo').progress" max="100">60%</progress>
+                     <progress class="progress is-success" value="77" max="100">77%</progress>
                    </div>
                    <!-- </div> -->
                  </li>
@@ -449,17 +452,21 @@
 </body>
 
 <script>
+let video = $('#class-video');
+console.log(video.progress);
+
 $(document).on("click", "#btn-play1", function(){
 	 let video = $('#class-video');
-     let videoDom = video.get(0);
-     let button = $('#btn-play1');
+   let videoDom = video.get(0);
+   let button = $('#btn-play1');
+   let cTime = video.attr("currentTime");
      if(videoDom.paused){
 	      video.attr({ 'src': '${video1}' });
 	      videoDom.play();
 	      
 	      button.attr({'class':'btn btn-danger btn-lg'});
 	      button.text('일시정지');
-	      
+	      console.log(cTime);
      }else{
    	  videoDom.pause();
    	  

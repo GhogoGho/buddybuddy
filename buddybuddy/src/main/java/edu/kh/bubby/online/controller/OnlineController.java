@@ -214,15 +214,15 @@ public class OnlineController {
 	@RequestMapping(value="{classType}/update", method=RequestMethod.POST)
 	public String updateOnline(@PathVariable("classType") int classType,
 						Online online,
-						@RequestParam("images") List<MultipartFile> images,
-						@RequestParam("deleteImages") String deleteImages,
+						@RequestParam("videos") List<MultipartFile> videos,
+						@RequestParam("deleteVideos") String deleteVideos,
 						HttpServletRequest request, Model model, RedirectAttributes ra) {
 		String webPath = "resources/images/";
 		switch(classType) {
 		case 1 : webPath += "onlineClass/"; break;
 		}
 		String savePath = request.getSession().getServletContext().getRealPath(webPath);
-		int result = service.updateOnline(online, images, webPath, savePath, deleteImages);
+		int result = service.updateOnline(online, videos, webPath, savePath, deleteVideos);
 		String path = null;
 		if(result > 0) {
 			path="redirect:"+online.getClassNo();

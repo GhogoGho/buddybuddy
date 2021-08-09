@@ -8,6 +8,10 @@
       display: none;
       list-style-type: none;
     }
+    /* 별점 */
+    .stars .far{
+			cursor:pointer;
+		}
 </style>
 
 <div class="reviewList">
@@ -48,6 +52,19 @@
         <button class="button is-link is-fullwidth" onclick="updateReview(${review.reviewNo}, this)">수정</button>
       </div>
     </li>
+    <div> 
+    	<c:if test= "${review.reviewRatings == 5 }">
+   		<div class="star-rating">
+				<div class="d-flex justify-content-left large text-warning stars">
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+				</div>
+			</div>
+    	</c:if>
+    </div>
   </c:forEach>
 	</ul>
 </div>
@@ -55,16 +72,43 @@
 <div class="reviewWrite col-md-12">
 	<h4 class="h5">수강 후기 작성</h4>
 	<div class="input-group my-2" id="reviewContentArea">
-		<textarea class="form-control" id="reviewContent" rows="5"></textarea>
+		<textarea class="form-control" id="reviewContent" rows="3"></textarea>
 		<button class="button is-success is-outlined is-large is-fullwidth" id="addReview" onclick="addReview();">
 		<span class="icon is-small">
       <i class="fas fa-check"></i>
     </span>
     <span>작성</span>
 		</button>
+		<!-- 별점 -->
+		<div class="star-rating">
+			<div class="d-flex justify-content-center large text-warning stars">
+				<i class="far fa-star"></i>
+				<i class="far fa-star"></i>
+				<i class="far fa-star"></i>
+				<i class="far fa-star"></i>
+				<i class="far fa-star"></i>
+			</div>
+		</div>
+		<div class="print"></div>
 	</div>
 </div>
 		
+<!-- 별점 -->
+<script>
+
+const reviewRatings = $(this).index();
+/* let starRate = $('.print').text(starNum); */
+
+	$('.stars .far').click(function(){
+		$(this).attr({'class': 'fas fa-star'});
+		$(this).prevAll().attr({'class': 'fas fa-star'});
+		$(this).nextAll().attr({'class': 'far fa-star'});
+		
+		let num = $(this).index();
+		let reviewRatings = num + 1;
+		$('.print').text(reviewRatings);
+	});
+</script>		
 		
 
 <script>
@@ -90,7 +134,8 @@ function addReview() {
          type : "POST",
          data : {"memberNo" : loginMemberNo,
              "classNo" : classNo,
-             "reviewContent" : reviewContent },
+             "reviewContent" : reviewContent,
+             "reviewRatings" : reviewRatings },
          success : function(result){
            if(result > 0){ 
 						swal({"icon" : "success" , "title" : "수강후기 등록 성공"});
@@ -272,4 +317,6 @@ function deleteReview(reviewNo){
 
 
 </script>
+
+
 
