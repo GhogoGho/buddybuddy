@@ -310,4 +310,18 @@
 	});
 </script>
 
+<!-- 인디케이터 : Indicator (Progress Bar) --> 
+<script type="text/javascript" src="https://rawcdn.githack.com/mburakerman/prognroll/0feda211643153bce2c69de32ea1b39cdc64ffbe/src/prognroll.js"></script> 
+<script type="text/javascript"> 
+	$(function() { 
+		$("body").prognroll({ 
+			height: 10, 
+			color: "#50b8b3" 
+		}); 
+		$(".content").prognroll({ 
+			custom: true 
+			}); 
+		}); 
+</script>
+
 </html>
