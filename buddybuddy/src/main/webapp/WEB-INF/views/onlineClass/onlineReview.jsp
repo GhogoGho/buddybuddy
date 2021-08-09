@@ -12,7 +12,28 @@
     .stars .far{
 			cursor:pointer;
 		}
+		
+		#reviewImg0{
+			height:100px;
+		}
 </style>
+
+<c:forEach items="${review.atList}" var="at">
+		<c:choose>
+			<c:when test="${at.fileLevel == 0 && !empty at.fileName}">
+				<c:set var="img0" value="${contextPath}/${at.filePath}${at.fileName}"/>
+			</c:when>
+			<c:when test="${at.fileLevel == 1 && !empty at.fileName}">
+				<c:set var="img1" value="${contextPath}/${at.filePath}${at.fileName}"/>
+			</c:when>
+			<c:when test="${at.fileLevel == 2 && !empty at.fileName}">
+				<c:set var="img2" value="${contextPath}/${at.filePath}${at.fileName}"/>
+			</c:when>
+			<c:when test="${at.fileLevel == 3 && !empty at.fileName}">
+				<c:set var="img3" value="${contextPath}/${at.filePath}${at.fileName}"/>
+			</c:when>
+		</c:choose>
+	</c:forEach>
 
 <div class="reviewList">
   <ul class="online-review-content list-group col-md-12" id="reviewListArea">
@@ -37,7 +58,12 @@
           <i class="bi bi-heart" id="reply-like">${reply.replyLike }</i>
         </button>--%>
       </div>
-      <div class="ms-2">${review.reviewContent }</div>
+      <div class="ms-2">
+			${review.reviewContent }
+      <c:if test="${empty img0}">
+       <img id="reviewImg0" src="${contextPath}/resources/images/noimage.png">
+			</c:if>
+      </div>
     </li>
     <li class="list-group-item updateArea">
       <div class="d-flex justify-content-between align-items-center">
@@ -53,17 +79,35 @@
       </div>
     </li>
     <div> 
-    	<c:if test= "${review.reviewRatings == 5 }">
    		<div class="star-rating">
 				<div class="d-flex justify-content-left large text-warning stars">
+    		<c:if test= "${review.reviewRatings == 1 }">
+					<i class="fas fa-star"></i>
+    		</c:if>
+    		<c:if test= "${review.reviewRatings == 2 }">
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+				</c:if>
+				<c:if test= "${review.reviewRatings == 3 }">
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+				</c:if>
+				<c:if test= "${review.reviewRatings == 4 }">
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+					<i class="fas fa-star"></i>
+				</c:if>
+				<c:if test= "${review.reviewRatings == 5 }">
 					<i class="fas fa-star"></i>
 					<i class="fas fa-star"></i>
 					<i class="fas fa-star"></i>
 					<i class="fas fa-star"></i>
 					<i class="fas fa-star"></i>
+				</c:if>
 				</div>
 			</div>
-    	</c:if>
     </div>
   </c:forEach>
 	</ul>
@@ -72,15 +116,13 @@
 <div class="reviewWrite col-md-12">
 	<h4 class="h5">수강 후기 작성</h4>
 	<div class="input-group my-2" id="reviewContentArea">
-		<textarea class="form-control" id="reviewContent" rows="3"></textarea>
-		<button class="button is-success is-outlined is-large is-fullwidth" id="addReview" onclick="addReview();">
-		<span class="icon is-small">
-      <i class="fas fa-check"></i>
-    </span>
-    <span>작성</span>
-		</button>
+		<div class="col-md-12">
+			<input type="file" name="reviewImg" id="reviewImg" accept="image/*" multiple>
+			<textarea class="form-control" id="reviewContent" rows="3"></textarea>
+		</div>
 		<!-- 별점 -->
-		<div class="star-rating">
+		<div class="star-rating mb-1">
+		별점
 			<div class="d-flex justify-content-center large text-warning stars">
 				<i class="far fa-star"></i>
 				<i class="far fa-star"></i>
@@ -88,15 +130,22 @@
 				<i class="far fa-star"></i>
 				<i class="far fa-star"></i>
 			</div>
+			
 		</div>
 		<div class="print"></div>
+		
+		<button class="button is-success is-outlined is-large is-fullwidth" id="addReview" onclick="addReview();">
+		<span class="icon is-small">
+      <i class="fas fa-check"></i>
+    </span>
+    <span>작성</span>
+		</button>
 	</div>
 </div>
 		
 <!-- 별점 -->
 <script>
 
-const reviewRatings = $(this).index();
 /* let starRate = $('.print').text(starNum); */
 
 	$('.stars .far').click(function(){
@@ -105,13 +154,14 @@ const reviewRatings = $(this).index();
 		$(this).nextAll().attr({'class': 'far fa-star'});
 		
 		let num = $(this).index();
-		let reviewRatings = num + 1;
+		const reviewRatings = num + 1;
 		$('.print').text(reviewRatings);
 	});
-</script>		
+	const starRate = $('.print').val();
+<!-- </script>		
 		
 
-<script>
+<script> -->
 
 const loginMemberNo = "${loginMember.memberNo}";
 
@@ -122,6 +172,10 @@ let beforeReviewRow;
 //수강후기 등록
 function addReview() {
 	const reviewContent = $("#reviewContent").val();
+	const reviewImg = $("#reviewImg").val();
+	const reviewRatings = starRate + 1;
+	
+	let formData = new FormData();
     if(loginMemberNo == ""){
     	swal("로그인 필요");
     }else{
@@ -132,10 +186,15 @@ function addReview() {
        $.ajax({ 
          url : "${contextPath}/onReview/insertReview", 
          type : "POST",
+         /*enctype : "multipart/form-data",*/
          data : {"memberNo" : loginMemberNo,
              "classNo" : classNo,
              "reviewContent" : reviewContent,
+             "reviewImg" : reviewImg,
              "reviewRatings" : reviewRatings },
+         /*data : formData ,
+         contentType: false,
+         processData: false,*/
          success : function(result){
            if(result > 0){ 
 						swal({"icon" : "success" , "title" : "수강후기 등록 성공"});
@@ -175,6 +234,7 @@ function selectReviewList(){
     
               var div1 = $("<div>").addClass("d-flex justify-content-between align-items-center");
               var lastDiv = $("<div>").addClass("ms-2").html(item.reviewContent);
+    					var img = $("<img>").attr("src","${contextPath}/resources/images/noimage.png").attr("id", "reviewImg0");
               var div2 = $("<div>").addClass("ms-2 me-auto");
     
               var div3 = $("<div>").addClass("fw-bold");
@@ -182,7 +242,7 @@ function selectReviewList(){
     
               var rWriter = $("<img>").attr("src","${contextPath}"+"/"+item.memberProfile).addClass("user-image rounded-circle me-2"); 
               div3.append(rWriter).append(item.memberNickName);
-    
+              
               var rDate = $("<p>").addClass("date me-2").text("작성일 : "+item.reviewDate);
     
                if (item.memberNo == loginMemberNo) { 
@@ -212,6 +272,7 @@ function selectReviewList(){
               
               
               /* var listButton = $("<button>").addClass("btn btn-outline-primary").text("목록갱신(테스트용)").attr("onclick", "selectReplyList()"); */
+             lastDiv.append(img);
               
               li.append(div1).append(lastDiv);
               

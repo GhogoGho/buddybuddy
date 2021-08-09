@@ -109,8 +109,9 @@
                 </tr>
               </table>
               <p class="card-text">
-                클래스 간단 소개?
-                구매 옵션?
+                <img style="width:142px;" src="https://images.unsplash.com/photo-1619911000556-cd9aa5856472?ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDY4fFJfRnluLUd3dGx3fHxlbnwwfHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
+                <img style="width:142px;" src="https://images.unsplash.com/photo-1619911004446-6d985c84ee64?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDF8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60">
+                <img style="width:142px;" src="https://images.unsplash.com/photo-1605281039732-e42f06744b9d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60">
               </p>
             </div>
             <div class="card-footer bg-transparent border-dark text-center">
@@ -219,6 +220,22 @@
 		}
 		
 	</script>
+	
+	
+	
+<!-- 인디케이터 : Indicator (Progress Bar) --> 
+<script type="text/javascript" src="https://rawcdn.githack.com/mburakerman/prognroll/0feda211643153bce2c69de32ea1b39cdc64ffbe/src/prognroll.js"></script> 
+<script type="text/javascript"> 
+	$(function() { 
+		$("body").prognroll({ 
+			height: 10, 
+			color: "#50b8b3" 
+		}); 
+		$(".content").prognroll({ 
+			custom: true 
+			}); 
+		}); 
+</script>	
 	
 </body>
 </html>
