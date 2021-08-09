@@ -8,8 +8,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>main</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="${contextPath}/resources/summer/summernote-ko-KR.js"></script>
@@ -176,7 +174,7 @@
   
 
     <!-- 컨테이너 입력 부분 -->
-    <form action="">
+    <form action="insert" method="post" enctype="multipart/form-data">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
@@ -187,20 +185,32 @@
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <label style="font-size: 25px;">카테고리 : </label>
-                    <select style="font-size: 20px;">
-                        <option selected>공예</option>
-                        <option value="1">요리</option>
-                        <option value="2">미술</option>
-                        <option value="3">플라워</option>
+                    <select style="font-size: 20px;" name="categoryCode">
+                        <option value="1" selected>공예</option>
+                        <option value="2">요리</option>
+                        <option value="3">미술</option>
+                        <option value="4">플라워</option>
+                    </select>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label style="font-size: 25px;">난이도 : </label>
+                    <select style="font-size: 20px;" name="classLevel">
+                        <option value="하" selected>하</option>
+                        <option value="중">중</option>
+                        <option value="상">상</option>
                     </select>
                 </div>
                 <div class="col-md-12 mb-3">
                     <label style="font-size: 25px;">제목 : </label>
-                    <input type="text" class="form-control" style="width: 90%; display: inline-block;">
+                    <input name="classTitle" type="text" class="form-control" style="width: 90%; display: inline-block;">
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label style="font-size: 25px;">가격 : </label>
+                    <input name="classPrice" type="text" class="form-control" style="width: 15%; display: inline-block;">
                 </div>
                 <div class="col-md-12 mb-3">
                     <label style="font-size: 25px;">썸네일 : </label>
-                    <input type="file" style="display: inline-block;" accept="images/*">
+                    <input  name="images" type="file" style="display: inline-block;" accept="images/*">
                 </div>
                 <div class="col-md-12  mb-3">
                     <label style="font-size: 25px;">예약가능 날짜 : </label>
@@ -426,14 +436,49 @@
                     </script>
 
                 </div>
+					<div class="row mb-3 form-row">
+						<div class="col-md-3">
+							<label for="postcodify_search_button">우편번호</label>
+						</div>
+						<div class="col-md-3">
+							<input type="text" name="address" class="form-control postcodify_postcode5">
+						</div>
+						<div class="col-md-3">
+							<button type="button" class="btn btn-primary" id="postcodify_search_button">검색</button>
+						</div>
+					</div>
 
+					<div class="row mb-3 form-row">
+						<div class="col-md-3">
+							<label for="address1">도로명 주소</label>
+						</div>
+						<div class="col-md-9">
+							<input type="text" class="form-control postcodify_address" name="address" id="address1">
+						</div>
+					</div>
+
+					<div class="row mb-3 form-row">
+						<div class="col-md-3">
+							<label for="address2">상세주소</label>
+						</div>
+						<div class="col-md-9">
+							<input type="text" class="form-control postcodify_details" name="address" id="address2">
+						</div>
+					</div>
+					<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+		<script>
+			// 검색 단추를 누르면 팝업 레이어가 열리도록 설정한다.
+			$(function () {
+				$("#postcodify_search_button").postcodifyPopUp();
+			});
+		</script>
                 <div class="col-md-3">
                     <label style="font-size: 25px;">클래스 소개 이미지</label><br>
                     <label style="font-size: 25px;">(최대 8개)</label><br>
                 </div>
                 <div id="imgff" class="col-md-9">
                     <div>
-                        <input type="file" name="offimg" accept="image/*" class="mb-3"
+                        <input type="file" name="images" accept="image/*" class="mb-3"
                             style="padding: 0;display: inline;"><button type="button" class="filef" onclick="add()">+</button><br>
                     </div>
 
@@ -452,7 +497,7 @@
                                 btnf.innerHTML = "+";
                                 btnm.innerHTML = "-";
                                 ip.setAttribute("type", "file");
-                                ip.setAttribute("name", "offimg");
+                                ip.setAttribute("name", "images");
                                 ip.setAttribute("accept", "image/*");
                                 ip.setAttribute("class", "mb-3");
                                 ip.setAttribute("style", "padding: 0;display: inline;");

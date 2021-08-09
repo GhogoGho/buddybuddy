@@ -1,9 +1,11 @@
 package edu.kh.bubby.offline.model.service;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.bubby.offline.model.dao.OfflineDAO;
 import edu.kh.bubby.offline.model.vo.OffPagination;
@@ -55,8 +57,41 @@ public class OfflineServiceImpl implements OfflineService{
 		// TODO Auto-generated method stub
 		return dao.selectContent(classNo);
 	}
+	//오프라인 클래스 삽입
+	@Override
+	public int insertOfflineClass(OfflineClass offlineClass, List<MultipartFile> images, String webPath,
+			String savePath) {
+		// TODO Auto-generated method stub
+		offlineClass.setClassTitle(replaceParameter(offlineClass.getClassTitle()));
+		
+		return 0;
+	}
 	
 
 
-	
+	// 크로스 사이트 스크립트 방지 처리 메소드
+			public static String replaceParameter(String param) {
+				String result = param;
+				if(param != null) {
+					result = result.replaceAll("&", "&amp;");
+					result = result.replaceAll("<", "&lt;");
+					result = result.replaceAll(">", "&gt;");
+					result = result.replaceAll("\"", "&quot;");
+				}
+				
+				return result;
+			}
+			// 파일명 변경 메소드
+			private String rename(String originFileName) {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+				String date = sdf.format(new java.util.Date(System.currentTimeMillis()));
+				
+				int ranNum = (int)(Math.random()*100000); // 5자리 랜덤 숫자 생성
+				
+				String str = "_" + String.format("%05d", ranNum);
+				
+				String ext = originFileName.substring(originFileName.lastIndexOf("."));
+				
+				return date + str + ext;
+			}
 }

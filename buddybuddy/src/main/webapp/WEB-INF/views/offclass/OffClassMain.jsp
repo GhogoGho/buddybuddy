@@ -207,12 +207,14 @@
 						</div>
 					</div>
 				</div>
-				
+				<c:if test="${loginMember.memberGrade eq 'C'}">
 				 <div class="row">
                     <div class="col-md-12" style="text-align: right;">
                         <a href="insert"><button class="btn btn-primary">클래스 작성</button></a>
                     </div>
                 </div>
+				
+				</c:if>
 				
 				
 			</div>
