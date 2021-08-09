@@ -12,7 +12,7 @@
     line-height: 40px
   }
    
-  .classImg{
+  .classVideo{
   	cursor : pointer;
 		width: 200px;
 		height: 200px;
@@ -25,7 +25,7 @@
 		height: 300px;
 	}
 	
-	.classImg > img{
+	.classVideo > video{
 		max-width : 100%;
 		max-height : 100%;
 		position: absolute;
@@ -42,7 +42,7 @@
 	}
 	
 	/* 이미지 삭제 버튼 */
-	.deleteImg{
+	.deleteVideo{
 		position : absolute;
 		top : 5px;
 		right : 5px;
@@ -57,7 +57,7 @@
 		cursor: pointer;
 	}
 	
-	.deleteImg:hover{
+	.deleteVideo:hover{
 		background-color: rgba(50,50,50,0.3);
 	}
 	
@@ -115,29 +115,29 @@
 				 <c:forEach items="${online.atList}" var="at">
 					<c:choose>
 						<c:when test="${at.fileLevel == 0 && !empty at.fileName}">
-							<c:set var="img0" value="${contextPath}/${at.filePath}${at.fileName}"/>
+							<c:set var="video0" value="${contextPath}/${at.filePath}${at.fileName}"/>
 						</c:when>
 						<c:when test="${at.fileLevel == 1 && !empty at.fileName}">
-							<c:set var="img1" value="${contextPath}/${at.filePath}${at.fileName}"/>
+							<c:set var="video1" value="${contextPath}/${at.filePath}${at.fileName}"/>
 						</c:when>
 						<c:when test="${at.fileLevel == 2 && !empty at.fileName}">
-							<c:set var="img2" value="${contextPath}/${at.filePath}${at.fileName}"/>
+							<c:set var="video2" value="${contextPath}/${at.filePath}${at.fileName}"/>
 						</c:when>
 						<c:when test="${at.fileLevel == 3 && !empty at.fileName}">
-							<c:set var="img3" value="${contextPath}/${at.filePath}${at.fileName}"/>
+							<c:set var="video3" value="${contextPath}/${at.filePath}${at.fileName}"/>
 						</c:when>
 					</c:choose>
 				</c:forEach>
 
 					<div class="form-inline mb-2">
 						<label class="input-group-addon mr-3 insert-label">썸네일</label>
-						<div class="classImg thubnail" id="titleImgArea">
+						<div class="classVideo thubnail" id=titleVideoArea>
 							
-							<!-- img0 변수가 만들어진 경우 -->
-							<c:if test="${!empty img0 }">  <img id="titleImg" src="${img0}"> </c:if>
-							<c:if test="${empty img0 }">  <img id="titleImg"> </c:if>
+							<!-- video0 변수가 만들어진 경우 -->
+							<c:if test="${!empty video0 }">  <video style="width:300px;" id="titleVideo" src="${video0}"> </c:if>
+							<c:if test="${empty video0 }">  <video id="titleVideo"> </c:if>
 							
-							<span class="deleteImg">x</span>	
+							<span class="deleteVideo">x</span>	
 							
 								
 						</div>
@@ -145,32 +145,32 @@
 	
 					<div class="form-inline mb-2">
 						<label class="input-group-addon mr-3 insert-label">업로드<br>이미지</label>
-						<div class="mr-2 classImg" id="contentImgArea1">
-							<c:if test="${!empty img1 }">  <img id="titleImg" src="${img1}"> </c:if>
-							<c:if test="${empty img1 }">  <img id="titleImg"> </c:if>
-							<span class="deleteImg">x</span>
+						<div class="mr-2 classVideo" id="contentVideoArea1">
+							<c:if test="${!empty video1 }">  <video style="width:200px;" id="titleVideo" src="${video1}"> </c:if>
+							<c:if test="${empty video1 }">  <video style="width:200px;" id="titleVideo"> </c:if>
+							<span class="deleteVideo">x</span>
 						</div>
 	
-						<div class="mr-2 classImg" id="contentImgArea2">
-							<c:if test="${!empty img2 }">  <img id="titleImg" src="${img2}"> </c:if>
-							<c:if test="${empty img2 }">  <img id="titleImg"> </c:if>
-							<span class="deleteImg">x</span>
+						<div class="mr-2 classVideo" id="contentVideoArea2">
+							<c:if test="${!empty video2 }">  <video style="width:200px;" id="titleVideo" src="${video2}"> </c:if>
+							<c:if test="${empty video2 }">  <video style="width:200px;" id="titleVideo"> </c:if>
+							<span class="deleteVideo">x</span>
 						</div>
 	
-						<div class="mr-2 classImg" id="contentImgArea3">
-							<c:if test="${!empty img3 }">  <img id="titleImg" src="${img3}"> </c:if>
-							<c:if test="${empty img3 }">  <img id="titleImg"> </c:if>
-							<span class="deleteImg">x</span>
+						<div class="mr-2 classVideo" id="contentVideoArea3">
+							<c:if test="${!empty video3 }">  <video style="width:200px;" id="titleVideo" src="${video3}"> </c:if>
+							<c:if test="${empty video3 }">  <video style="width:200px;" id="titleVideo"> </c:if>
+							<span class="deleteVideo">x</span>
 						</div>
 					</div>
 
 
 				<!-- 파일 업로드 하는 부분 -->
 				<div id="fileArea">
-					<input type="file" id="img0" name="images" onchange="LoadImg(this,0)" accept="image/*"> 
-					<input type="file" id="img1" name="images" onchange="LoadImg(this,1)" accept="image/*"> 
-					<input type="file" id="img2" name="images" onchange="LoadImg(this,2)" accept="image/*"> 
-					<input type="file" id="img3" name="images" onchange="LoadImg(this,3)" accept="image/*">
+					<input type="file" id="video0" name="images" onchange="LoadVideo(this,0)" accept="video/mp4"> 
+					<input type="file" id="video1" name="images" onchange="LoadVideo(this,1)" accept="video/mp4"> 
+					<input type="file" id="video2" name="images" onchange="LoadVideo(this,2)" accept="video/mp4"> 
+					<input type="file" id="video3" name="images" onchange="LoadVideo(this,3)" accept="video/mp4">
 				</div>
 
 				<div class="form-group">
@@ -195,7 +195,7 @@
 				<input type="hidden" name="classNo" value="${online.classNo}">
 				
 				<!-- 삭제된 이미지를 저장할 태그 추가 -->
-				<input type="hidden" name="deleteImages" value="">
+				<input type="hidden" name="deleteVideos" value="">
 				
 			</form>
 		</div>
@@ -221,25 +221,25 @@
 			}
 			
 			// 유효성 검사를 모두 통과한 경우에
-			// input type = "hidden" 태그 중 name 속성값이 "deleteImages"인 요소에
-			// deleteImages 배열을 value로 추가
-			$("input[name='deleteImages']").val(deleteImages);
+			// input type = "hidden" 태그 중 name 속성값이 "deleteVideos"인 요소에
+			// deleteVideos 배열을 value로 추가
+			$("input[name='deleteVideos']").val(deleteVideos);
 			
 			
 		}
 
 		// 이미지 영역을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
 		$(function() {
-			$(".classImg").on("click", function() {
-				var index = $(".classImg").index(this);
-				$("#img" + index).click();
+			$(".classVideo").on("click", function() {
+				var index = $(".classVideo").index(this);
+				$("#video" + index).click();
 			});
 
 		});
 
 		
 		// 각각의 영역에 파일을 첨부 했을 경우 미리 보기가 가능하도록 하는 함수
-		function LoadImg(value, num) {
+		function LoadVideo(value, num) {
 			if (value.files && value.files[0]) {
 				var reader = new FileReader();
 				// 자바스크립트 FileReader
@@ -256,18 +256,18 @@
 					// e.target.result
 					// -> 파일 읽기 동작을 성공한 객체에(fileTag) 올라간 결과(이미지 또는 파일)
 				
-					$(".classImg").eq(num).children("img").attr("src", e.target.result);
+					$(".classVideo").eq(num).children("video").attr("src", e.target.result);
 					
 					//****************************************************
-					// 이미지가 추가된 경우 추가된 레벨이 deleteImages 배열에 있는지 검사하여
+					// 이미지가 추가된 경우 추가된 레벨이 deleteVideos 배열에 있는지 검사하여
 					// 있을 경우 해당 배열 요소를 제거
 					
-					const index = deleteImages.indexOf(num);
+					const index = deleteVideos.indexOf(num);
 					// 배열.indexOf("값") : 배열 내부에 값이 일치하는 요소가 있을 경우 해당 인덱스를 반환. 없으면  -1 반환
 					
 					if(index != -1){ // 배열에 일치하는 레벨이 존재하는 경우
 						
-						deleteImages.splice( index, 1 );
+						deleteVideos.splice( index, 1 );
 						// 배열.splice(시작인덱스, 제거할 요소 수)
 						// : 배열 내부 요소 중 특정 인텍스부터 시작하여
 						// 	지정된 개수 만큼의 요소를 제거
@@ -314,10 +314,10 @@
 		// ****************************************
 		
 		// 1) x버튼이 눌러진 이미지 레벨을 저장할 배열 생성
-		let deleteImages = [];
+		let deleteVideos = [];
 		
 		// 2) x버튼이 클릭되었을 때 라는 이벤트 생성
-		$(".deleteImg").on("click", function(event){
+		$(".deleteVideo").on("click", function(event){
 			// 매개변수 event : 현재 발생한 이벤트와 관련된 모든 정보를 가지고 있는 객체
 			event.stopPropagation(); // 이벤트 버블링(이벤트가 연달아 시작되는 것) 삭제
 			
@@ -325,16 +325,16 @@
 			
 			if( $(this).prev().attr("src") != undefined ){ // 이미지가 있을 경우에만 x버튼 동작을 실행
 				
-				// 3) 4개의 .deleteImg 중 몇번째 인덱스의 x버튼이 눌러졌는지 확인
+				// 3) 4개의 .deleteVideo 중 몇번째 인덱스의 x버튼이 눌러졌는지 확인
 				// 왜? index == 0,1,2,3으로 존재 == fileLevel
-				const index = $(this).index(".deleteImg");
+				const index = $(this).index(".deleteVideo");
 						// $(this) : 클릭된 x버튼
-						// $(this).index(".deleteImg") : 클릭된 x버튼이 .deleteImg 중 몇번째 인덱스인지 반환
+						// $(this).index(".deleteVideo") : 클릭된 x버튼이 .deleteVideo 중 몇번째 인덱스인지 반환
 				
 				// console.log(index); //요소 클릭 인텍스 확인용
 				
-				// 4) deleteImages 배열에 index를 추가
-				deleteImages.push(index);
+				// 4) deleteVideos 배열에 index를 추가
+				deleteVideos.push(index);
 				
 				// 5) x버튼이 눌러진 곳의 이미지 삭제
 				$(this).prev().removeAttr("src"); // 클릭한 x버튼의 이전 요소의 속성 중 src 제거

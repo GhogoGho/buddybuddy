@@ -175,8 +175,8 @@ public class OnlineServiceImpl implements OnlineService{
 	// 클래스 수정
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int updateOnline(Online online, List<MultipartFile> images, String webPath, String savePath,
-			String deleteImages) {
+	public int updateOnline(Online online, List<MultipartFile> videos, String webPath, String savePath,
+			String deleteVideos) {
 		online.setClassTitle( replaceParameter( online.getClassTitle() ) );
 		online.setClassContent( replaceParameter( online.getClassContent() ) );
 		online.setClassContent( online.getClassContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>") );
@@ -189,13 +189,13 @@ public class OnlineServiceImpl implements OnlineService{
 			// 3-1) deleteImages와 일치하는 파일레벨의 ATTACHMENT 행 삭제
 			// deleteImage : 삭제해야할 이미지 파일 레벨을 ","를 구분자로 하여 만들어진 String
 			
-			if( !deleteImages.equals("") ) { // 삭제할 파일 레벨이 존재하는 경우
+			if( !deleteVideos.equals("") ) { // 삭제할 파일 레벨이 존재하는 경우
 				// DB 삭제 구문에 필요한 값 : deleteImages, boardNo 
 				// 두 데이터를 한번에 담을 VO가 없음 -> Map 사용
 				
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("classNo", online.getClassNo() );
-				map.put("deleteImages", deleteImages);
+				map.put("deleteImages", deleteVideos);
 				
 				// 반환 값이 아무런 의미를 갖지 못하므로 반환 받을 필요가 없다.
 				dao.deleteAttachment(map);
@@ -204,11 +204,11 @@ public class OnlineServiceImpl implements OnlineService{
 			
 			List<Attachment> atList = new ArrayList<Attachment>();
 			
-			for(int i=0; i<images.size(); i++) {
+			for(int i=0; i<videos.size(); i++) {
 				
-				if( !images.get(i).getOriginalFilename().equals("") ) {
+				if( !videos.get(i).getOriginalFilename().equals("") ) {
 					
-					String fileName = rename(images.get(i).getOriginalFilename() );
+					String fileName = rename(videos.get(i).getOriginalFilename() );
 					
 					Attachment at = new Attachment();
 					at.setFileName(fileName);
@@ -236,7 +236,7 @@ public class OnlineServiceImpl implements OnlineService{
 			// 4) 새로 업로드된 이미지 서버에 저장
 			for(int i=0; i<atList.size(); i++) {
 				try {
-					images.get( atList.get(i).getFileLevel() )
+					videos.get( atList.get(i).getFileLevel() )
 					.transferTo(new File(savePath + "/" + atList.get(i).getFileName() ));
 				}catch(Exception e) {
 					e.printStackTrace();

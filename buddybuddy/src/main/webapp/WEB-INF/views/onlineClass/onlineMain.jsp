@@ -57,6 +57,19 @@
     border: 1px solid #dee2e6;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+.page-link:hover {
+    position: relative;
+    display: block;
+    color: #50b8b3;
+    text-decoration: none;
+    background-color: #grey;
+    border: 1px solid #dee2e6;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.stars .far{
+	cursor:pointer;
+}
 
 </style>
 
@@ -155,14 +168,14 @@
 											<h5 class="card-title">${online.classTitle }</h5>
 										</a>
 									</div>
-									<div class="card-footer">
+									<div class="card-footer star-rating">
 										<!-- Product reviews-->
-										<div class="d-flex justify-content-center large text-warning my-1">
-											<i class="fas fa-star"></i> 
-											<i class="fas fa-star"></i> 
-											<i class="fas fa-star"></i> 
-											<i class="fas fa-star"></i> 
-											<i class="fas fa-star"></i>
+										<div class="d-flex justify-content-center large text-danger my-1 stars">
+											<i class="far fa-star"></i>
+											<i class="far fa-star"></i>
+											<i class="far fa-star"></i>
+											<i class="far fa-star"></i>
+											<i class="far fa-star"></i>
 										</div>
 									</div>
 								</div>
@@ -284,4 +297,17 @@
 		<jsp:include page="../common/footer.jsp"/>
 
 </body>
+
+<script>
+	$('.stars .far').click(function(){
+		$(this).attr({'class': 'fas fa-star'});
+		$(this).prevAll().attr({'class': 'fas fa-star'});
+		$(this).nextAll().attr({'class': 'far fa-star'});
+		
+		let num = $(this).index();
+		let starRate = num + 1;
+		// $('.print').text(starRate);
+	});
+</script>
+
 </html>

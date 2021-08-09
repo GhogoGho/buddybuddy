@@ -93,7 +93,7 @@ public interface OnlineService {
 	 * @param deleteImages
 	 * @return result
 	 */
-	int updateOnline(Online online, List<MultipartFile> images, String webPath, String savePath, String deleteImages);
+	int updateOnline(Online online, List<MultipartFile> videos, String webPath, String savePath, String deleteVideos);
 	
 	
 	

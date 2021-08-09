@@ -44,6 +44,8 @@ public class OnReviewController {
 //		String savePath = request.getSession().getServletContext().getRealPath(webPath);
 		
 //		return service.insertReview(review, reviewImgs, webPath, savePath);
+		
+		System.out.println("review: "+review);
 		return service.insertReview(review);
 	}
 
