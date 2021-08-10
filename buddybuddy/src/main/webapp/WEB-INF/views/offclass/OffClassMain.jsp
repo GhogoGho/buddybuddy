@@ -91,12 +91,12 @@
 												<c:when
 													test="${ empty list.atList || list.atList[0].fileLevel != 0}">
 													<img src="${contextPath}/resources/images/noimage.png"
-														class="card-img-top" alt="...">
+														class="card-img-top" alt="..." style="width:214px;height:214px; display:block; margin:auto">
 												</c:when>
 												<c:otherwise>
 													<img
 														src="${contextPath}/${list.atList[0].filePath}${list.atList[0].fileName}"
-														class="card-img-top" alt="...">
+														class="card-img-top" alt="..." style="width:214px;height:214px; display:block; margin:auto">
 												</c:otherwise>
 											</c:choose>
 											<div class="card-body">

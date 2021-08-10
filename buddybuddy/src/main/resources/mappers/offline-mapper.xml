@@ -222,4 +222,14 @@
 		) A
 
 	</insert>
+	
+	
+	<!-- 예약번호 조회 -->
+	<select id="selectReserveMemberNo" parameterType="OfflineClass" resultMap="offajax_rm">
+		SELECT * FROM RESERVE WHERE CLASS_NO =#{classNo} AND RESERVE_START =#{reserveStart} AND RESERVE_END=#{reserveEnd} AND RESERVE_DT=#{reserveDate}
+	</select>
+	<!-- 예약자 삽입 -->
+	<insert id="reserveInsert" parameterType="OfflineClass">
+		INSERT INTO CONFIRM_RESERVE VALUES(SEQ_CONFIRM.NEXTVAL,DEFAULT,#{memberNo},#{classNo},#{reserveNo})
+	</insert>
 </mapper>
