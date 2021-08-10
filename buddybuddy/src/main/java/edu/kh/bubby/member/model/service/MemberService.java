@@ -77,6 +77,8 @@ public interface MemberService {
 	 * @param div
 	 */
 	public abstract void sendEmail(Member findMember, String div);
+
+	public abstract Member kakaoLogin(Member kakaoMember);
 	
 	
 }

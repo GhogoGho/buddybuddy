@@ -24,6 +24,9 @@
 	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	
+<!-- 카카오 jsp -->
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>	
 
 <style>
 .navbar>.container, .navbar>.container-fluid, .navbar>.container-lg,
@@ -326,10 +329,10 @@ a:hover {
 					
 					<button type="submit" class="btn btn-primary btn-lg">Login</button>
 					<div class="login_kakao">
-						<!--  <a href="#"><img src="resources/images/kakao_login_medium_narrow.png"
-							id="kakaoimg" class="btn-lg login-btn">-->
-					</div>
-					</a>
+						 <a href="https://kauth.kakao.com/oauth/authorize?client_id=ad9a08954a77d6d6ebd0424be8484545&redirect_uri=http://localhost:8080/buddybuddy/member/kakaoLogin&response_type=code&scope=account_email&scope=profile_nickname">
+					<img src="${contextPath}/resources/images/kakao_login_medium_narrow.png"
+							id="kakaoimg" class="btn-lg login-btn"></a>
+					</div>					
 				</div>
 			</div>
 
