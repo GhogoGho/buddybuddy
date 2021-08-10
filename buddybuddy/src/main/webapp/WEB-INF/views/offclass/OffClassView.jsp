@@ -578,8 +578,9 @@ th {
 													
 
 												</div>
-
+												<input type="hidden" id="ReserveViewDate" value="">
 												<div id="ReserveView" class="col-md-6">
+												
 												<!-- 	<div class="col-md-12" style="border:1px solid black">
 													시작시간 13:00 ~ 종료시간 14:00 <br>
 													현재 예약 인원수 : 0 <br>
@@ -588,7 +589,81 @@ th {
 													</div>
 													</div> -->
 											
-												
+													<script>
+														$(document).on("click",".reBtnInsert",function(){
+															console.log(${offList.classNo});
+															console.log(${loginMember.memberNo});
+															console.log($("#ReserveViewDate").val());
+															console.log($(this).parent().children('span').text());
+															console.log($(this).parent().children('div').text());
+															console.log($(this).prev().val());
+														
+															$.ajax({
+																url : "${contextPath}/reserve/reserveInsert",
+																type : "POST",
+																data:{"classNo":${offList.classNo},
+																	  "memberNo":${loginMember.memberNo},
+																	  "reserveDate" : $("#ReserveViewDate").val(),
+																	  "reserveStart": $(this).parent().children('#ajaxStart').text(),
+																	  "reserveEnd":$(this).parent().children('div').text(),
+																	  "insertNum":$(this).prev().val()
+																      },
+																dataType:"JSON",
+																success : function(result){
+																	console.log("삽입후반환값:"+result);
+																	
+																	if(result>0){
+																		const thisDate =$("#ReserveViewDate").val();
+
+																$.ajax({
+																	url : "${contextPath}/reserve/relist",
+																	type : "POST",
+																	data : {"classNo" : ${classNo},
+																			"reserveDate":thisDate
+																	},
+																	dataType : "JSON",
+																	success : function(reList){
+																		console.log(reList);
+																		document.getElementById("ReserveView").innerHTML="";
+																		  $.each(reList, function(index, item){
+																			  	max = ${offList.reserveLimit}-parseInt(item.count);
+																				var reDiv =document.createElement("div");
+																				reDiv.setAttribute("class","col-md-12");
+																				reDiv.setAttribute("style","border:1px solid black");
+																				reDiv.innerHTML="시작시간 <span id='ajaxStart'>"+item.reserveStart+"</span> ~ 종료시간 <div style='display:inline')>"+item.reserveEnd+"</div><br>현재 예약 인원수 : <span id='ajaxin'>"+item.count+"</span><br>";
+																				var reDiv1 =document.createElement("div");
+																				var reinput =document.createElement("input");
+																				reinput.setAttribute("type","number");
+																				reinput.setAttribute("style","width:50px");
+																				reinput.setAttribute("max",max);
+																				reinput.setAttribute("min","0");
+																				var rebtn =document.createElement("button");
+																				rebtn.innerHTML="예약";
+																				rebtn.setAttribute("type","button");
+																				rebtn.setAttribute("class","btn btn-primary reBtnInsert");
+																		
+																				reDiv.appendChild(reinput);
+																				reDiv.appendChild(rebtn);
+																				document.getElementById("ReserveView").appendChild(reDiv);
+																		  });
+																	
+																	
+																	},
+																	error : function(){
+																		console.log("예약 목록 조회 실패");
+																	}
+																})
+																	}
+																},
+																error : function(){
+																	console.log("예약 실패");
+																}
+																
+															});
+														
+														});
+														
+													</script>
 
 												</div>
 											</div>
@@ -596,7 +671,7 @@ th {
 												<button type="button"
 													class="btn btn-secondary main-btn-color"
 													data-bs-dismiss="modal">취소</button>
-												<button type="button" class="btn btn-primary main-btn-color">예약</button>
+												
 											</div>
 										</div>
 									</div>
@@ -653,10 +728,11 @@ th {
 				"td",
 				function() {
 					const thisDate = currentYear + "-" + currentMonth + "-"
-							+ $(this).text()
+							+ $(this).text();
 
 					console.log(thisDate);
-
+					$("#ReserveViewDate").val(thisDate);
+					console.log("date "+$("#ReserveViewDate").val());
 					$("td").css("backgroundColor", "white");
 					$(this).css("backgroundColor", "red");
 					$.ajax({
@@ -674,7 +750,7 @@ th {
 									var reDiv =document.createElement("div");
 									reDiv.setAttribute("class","col-md-12");
 									reDiv.setAttribute("style","border:1px solid black");
-									reDiv.innerHTML="시작시간 "+item.reserveStart+" ~ 종료시간 "+item.reserveEnd+"<br>현재 예약 인원수 : "+item.count+"<br>";
+									reDiv.innerHTML="시작시간 <span id='ajaxStart'>"+item.reserveStart+"</span> ~ 종료시간 <div style='display:inline')>"+item.reserveEnd+"</div><br>현재 예약 인원수 : <span id='ajaxin'>"+item.count+"</span><br>";
 									var reDiv1 =document.createElement("div");
 									var reinput =document.createElement("input");
 									reinput.setAttribute("type","number");
@@ -684,11 +760,10 @@ th {
 									var rebtn =document.createElement("button");
 									rebtn.innerHTML="예약";
 									rebtn.setAttribute("type","button");
-									rebtn.setAttribute("class","btn btn-primary");
-									rebtn.setAttribute("onclick","ajaxReserve");
-									reDiv1.appendChild(reinput);
-									reDiv1.appendChild(rebtn);
-									reDiv.appendChild(reDiv1);
+									rebtn.setAttribute("class","btn btn-primary reBtnInsert");
+							
+									reDiv.appendChild(reinput);
+									reDiv.appendChild(rebtn);
 									document.getElementById("ReserveView").appendChild(reDiv);
 							  });
 						

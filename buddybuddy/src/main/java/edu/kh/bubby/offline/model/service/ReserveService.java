@@ -18,4 +18,11 @@ public interface ReserveService {
 	 */
 	int reserveCount(int reserveNo);
 
+	/**예약하기
+	 * @param offClass
+	 * @param insertNum
+	 * @return
+	 */
+	int reserveInsert(OfflineClass offClass, int insertNum);
+
 }

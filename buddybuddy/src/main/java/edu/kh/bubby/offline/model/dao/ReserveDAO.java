@@ -30,4 +30,28 @@ public class ReserveDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("offlineMapper.reserveCount",reserveNo);
 	}
+
+	/**예약할 예약번호 조회
+	 * @param offClass
+	 * @return
+	 */
+	public int selectReserveMemberNo(OfflineClass offClass) {
+		// TODO Auto-generated method stub
+		int reserveNo =0;
+		OfflineClass off =sqlSession.selectOne("offlineMapper.selectReserveMemberNo",offClass);
+		if(off !=null) {
+			reserveNo = off.getReserveNo();
+		}
+		return reserveNo;
+	}
+
+	/**예약한사람 삽입
+	 * @param offClass
+	 * @return
+	 */
+	public int reserveInsert(OfflineClass offClass) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("offlineMapper.reserveInsert",offClass);
+	}
+
 }
