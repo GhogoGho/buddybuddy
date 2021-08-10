@@ -60,8 +60,8 @@
       </div>
       <div class="ms-2">
 			${review.reviewContent }
-      <c:if test="${empty img0}">
-       <img id="reviewImg0" src="${contextPath}/resources/images/noimage.png">
+      <c:if test="${!empty img0}">
+       <img id="reviewImg0" src="${img0}">
 			</c:if>
       </div>
     </li>
@@ -117,7 +117,8 @@
 	<h4 class="h5">수강 후기 작성</h4>
 	<div class="input-group my-2" id="reviewContentArea">
 		<div class="col-md-12">
-			<input type="file" name="reviewImg" id="reviewImg" accept="image/*" multiple>
+		<!-- 후기 사진 첨부 -->
+			<input type="file" name="reviewImgs" id="reviewImg" accept="image/*" multiple>
 			<textarea class="form-control" id="reviewContent" rows="3"></textarea>
 		</div>
 		<!-- 별점 -->
@@ -143,9 +144,31 @@
 	</div>
 </div>
 		
-<!-- 별점 -->
 <script>
+/* 
+function addReviewImg()({
+	if($("#reviewImg").val()!=''){ // 파일이 첨부가 된 경우
+		var formData = new FormData();
+		formData.append("file", $("input[name=reviewImg]")[0].files[0]);
+		$.ajax({
+			url : "${contextPath}/onReview/insertReviewImg",
+			type : "POST",
+			data : formData,
+			processData : false,
+			contentType : false,
+			success : function(data){ // 업로드된 실제파일 이름을 전달 받기 
+				$("#filename").val(data);
+			},
+			error : function(){ alert("error"); }
+		});
+	}else{ // 파일이 첨부되지 않은 경우
+		
+	}
+})
+ */
 
+
+<!-- 별점 -->
 /* let starRate = $('.print').text(starNum); */
 
 	$('.stars .far').click(function(){
@@ -158,23 +181,26 @@
 		$('.print').text(reviewRatings);
 	});
 	const starRate = $('.print').val();
-<!-- </script>		
-		
 
-<script> -->
-
+	
 /* const loginMemberNo = "${loginMember.memberNo}";
 const classNo = ${online.classNo}; */
-
-let beforeReviewRow; 
+/* let beforeReviewRow;  */
 //-----------------------------------------------------------------------------------------
 //수강후기 등록
 function addReview() {
 	const reviewContent = $("#reviewContent").val();
-	const reviewImg = $("#reviewImg").val();
+	/* const reviewImg = $("#reviewImg").val(); */
+	const reviewImgs = $("input[name='reviewImgs']").get(0).files[0];
 	const reviewRatings = starRate + 1;
 	
-	let formData = new FormData();
+	var formData = new FormData();
+	formData.append("memberNo", loginMemberNo);
+	formData.append("classNo", classNo);
+	formData.append("reviewContent", reviewContent);
+	formData.append("reviewImgs", reviewImgs);
+	formData.append("reviewRatings", reviewRatings);
+	
     if(loginMemberNo == ""){
     	swal("로그인 필요");
     }else{
@@ -185,15 +211,15 @@ function addReview() {
        $.ajax({ 
          url : "${contextPath}/onReview/insertReview", 
          type : "POST",
-         /*enctype : "multipart/form-data",*/
-         data : {"memberNo" : loginMemberNo,
+         enctype : "multipart/form-data",
+         /*data : {"memberNo" : loginMemberNo,
              "classNo" : classNo,
              "reviewContent" : reviewContent,
              "reviewImg" : reviewImg,
-             "reviewRatings" : reviewRatings },
-         /*data : formData ,
+             "reviewRatings" : reviewRatings },*/
+         data : formData ,
          contentType: false,
-         processData: false,*/
+         processData: false,
          success : function(result){
            if(result > 0){ 
 						swal({"icon" : "success" , "title" : "수강후기 등록 성공"});

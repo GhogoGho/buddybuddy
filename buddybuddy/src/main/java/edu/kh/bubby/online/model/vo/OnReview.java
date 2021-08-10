@@ -1,6 +1,7 @@
 package edu.kh.bubby.online.model.vo;
 
 import java.util.Date;
+import java.util.List;
 
 public class OnReview {
 	private int reviewNo;
@@ -11,6 +12,8 @@ public class OnReview {
 	private int memberNo;
 	private String memberNickName;
 	private String memberProfile;
+	
+	private List<ReviewAttachment> atList;
 	
 	public OnReview() {
 		// TODO Auto-generated constructor stub
@@ -80,12 +83,22 @@ public class OnReview {
 		this.memberProfile = memberProfile;
 	}
 
+	public List<ReviewAttachment> getAtList() {
+		return atList;
+	}
+
+	public void setAtList(List<ReviewAttachment> atList) {
+		this.atList = atList;
+	}
+
 	@Override
 	public String toString() {
 		return "OnReview [reviewNo=" + reviewNo + ", reviewContent=" + reviewContent + ", reviewDate=" + reviewDate
 				+ ", reviewRatings=" + reviewRatings + ", classNo=" + classNo + ", memberNo=" + memberNo
-				+ ", memberNickName=" + memberNickName + ", memberProfile=" + memberProfile + "]";
+				+ ", memberNickName=" + memberNickName + ", memberProfile=" + memberProfile + ", atList=" + atList
+				+ "]";
 	}
+
 	
 	
 }
