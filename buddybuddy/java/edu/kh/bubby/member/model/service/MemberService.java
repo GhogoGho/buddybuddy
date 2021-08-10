@@ -78,6 +78,9 @@ public interface MemberService {
 	 */
 	public abstract void sendEmail(Member findMember, String div);
 	
+	// 카카오 로그인 Service
+	public abstract Member kakaoLogin(Member kakaoMember);
+	
 	
 }
 

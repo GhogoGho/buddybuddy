@@ -350,7 +350,7 @@ public class MemberController {
 	        	
 		        session.setAttribute("loginMember", loginMember);
 		        	
-		        System.out.println(loginMember);
+		        System.out.println("loginMember : " + loginMember);
 		        
 		        return "redirect:/";
 		        
