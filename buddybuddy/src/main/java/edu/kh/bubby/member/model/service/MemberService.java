@@ -80,6 +80,7 @@ public interface MemberService {
 
 	public abstract Member kakaoLogin(Member kakaoMember);
 	
+
 	
 }
 

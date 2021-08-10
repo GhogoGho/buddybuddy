@@ -322,13 +322,6 @@ public class MemberController {
 	    
 	    HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
 	    
-	    
-//	    셀렉트 토큰아이디가 있는지 확인 
-//	    Member memberid = service.selectId(userInfo.get("id"));
-	    
-//	    없으면 멤버테이블에 가져온 정보 저장
-//	    있으면 바로 로그인
-	    	
 	    System.out.println("login Controller : " + userInfo);
 	    
 //	    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
@@ -340,19 +333,19 @@ public class MemberController {
 	        kakaoMember.setMemberEmail(""+userInfo.get("email"));
 	        kakaoMember.setMemberProfile(""+userInfo.get("profile_image"));
 	        kakaoMember.setMemberNickname(""+userInfo.get("nickname"));
-	        
-//	        1) 카카오 email이 db에 저장된 email인 경우 = 회원 -> 세션에 로그인된 회원 정보 올리기
-	        
+	            
 //	        2) 카카오 email이 저장된 email이 아닐 경우 -> 확인된 회원이 없다 팝업 / 회원가입 후 이용 가능합니다 가입하시겠습니까 페이지 
 	        
 	        Member loginMember = service.kakaoLogin(kakaoMember);
 	        
+	        System.out.println(kakaoMember);
+	        System.out.println("loginMember : " + loginMember);
+	        
+//	        1) 카카오 email이 db에 저장된 email인 경우 = 회원 -> 세션에 로그인된 회원 정보 올리기
 	        if(loginMember != null) { // 로그인 O
 	        	
 		        session.setAttribute("loginMember", loginMember);
-		        	
-		        System.out.println("loginMember : " + loginMember);
-		        
+
 		        return "redirect:/";
 		        
 		        

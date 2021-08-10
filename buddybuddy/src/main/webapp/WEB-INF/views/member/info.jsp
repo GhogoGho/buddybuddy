@@ -394,7 +394,10 @@ a:hover {
 				<!-- img0 변수가 만들어진 경우 -->
 				<c:if test="${!empty img0 }">
 					<img id="titleImg" src="${img0}">
+					
 				</c:if>
+				
+				
 				<c:if test="${empty img0 }">
 					<img id="titleImg">
 				</c:if>
@@ -486,6 +489,8 @@ a:hover {
 	<script src="${contextPath}/resources/js/info.js"></script>
 
 	<script>
+	
+	console.log(${img0});
 	
 	$('.deleteImg').on("click", function(){
 		
