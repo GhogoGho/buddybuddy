@@ -31,6 +31,7 @@ public class OnReviewController {
 	@RequestMapping(value = "list", method = RequestMethod.POST)
 	public String selectList(int classNo) {
 		List<OnReview> reviewList = service.selectList(classNo);
+		System.out.println("reviewList수강후기조회 :"+reviewList);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH:mm").create();
 		return gson.toJson(reviewList);
 	}
