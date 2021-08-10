@@ -163,9 +163,8 @@
 
 <script> -->
 
-const loginMemberNo = "${loginMember.memberNo}";
-
-const classNo = ${online.classNo};
+/* const loginMemberNo = "${loginMember.memberNo}";
+const classNo = ${online.classNo}; */
 
 let beforeReviewRow; 
 //-----------------------------------------------------------------------------------------

@@ -51,7 +51,7 @@ public class OnLikeDAO {
 	 * @param classNo
 	 * @return
 	 */
-	public int onlineLikeCount(int classNo) {
+	public OnLike onlineLikeCount(int classNo) {
 		return sqlSession.selectOne("onLikeMapper.onlineLikeCount", classNo);
 	}
 }
