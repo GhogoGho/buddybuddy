@@ -329,7 +329,7 @@ th {
 						<hr>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row"  style="overflow:scroll;height:370px">
 					<div class="col-md-12 mb-3">
 						<div class="row">
 							<div class="col-md-12">
@@ -345,26 +345,18 @@ th {
 									</div>
 								</div>
 								<div style="border: 1px solid black;">
-									Lorem ipsum dolor sit amet, <strong>consectetur
-										adipiscing elit</strong>. Aliquam eget sapien sapien. Curabitur in
-									metus urna. In hac habitasse platea dictumst. Phasellus eu sem
-									sapien, sed vestibulum velit. Nam purus nibh, lacinia non
-									faucibus et, pharetra in dolor. Sed iaculis posuere diam ut
-									cursus. <em>Morbi commodo sodales nisi id sodales. Proin
-										consectetur, nisi id commodo imperdiet, metus nunc consequat
-										lectus, id bibendum diam velit et dui.</em> Proin massa magna,
-									vulputate nec bibendum nec, posuere nec lacus. <small>Aliquam
-										mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla
-										euismod ultrices massa, et feugiat ipsum consequat eu.</small>
+									후기 작성 자리
 								</div>
 								<button class="btn main-btn-color" style="float: right;">수정</button>
 								<button class="btn main-btn-color" style="float: right;">삭제</button>
 							</div>
 						</div>
 					</div>
+				</div>
+				<div class= "row">
 					<div class="col-md-11" style="padding-right: 0px;">
 						<div class="form-floating">
-							<textarea class="form-control" id="floatingTextarea2"
+							<textarea class="form-control" id="floatingTextarea1"
 								style="height: 100px; resize: none;"></textarea>
 							<label for="floatingTextarea2">댓글</label>
 						</div>
