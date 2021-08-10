@@ -353,6 +353,7 @@ th {
 						</div>
 					</div>
 				</div>
+				<c:if test="${!empty loginMember }">
 				<div class= "row">
 					<div class="col-md-11" style="padding-right: 0px;">
 						<div class="form-floating">
@@ -368,6 +369,8 @@ th {
 						</button>
 					</div>
 				</div>
+				
+				</c:if>
 				<div class="row">
 					<div class="col-md-12">
 						<h3 id="class-4">
@@ -521,19 +524,26 @@ th {
 							</div>
 						</div>
 						<div class="row">
+						<c:if test="${!empty loginMember}">
 							<div class="col-md-6 text-center">
 								<button type="button"
 									class="btn btn-primary btn-md btn-block main-btn-color">
 									찜하기</button>
 							</div>
+							</c:if>
 							<div class="col-md-6 text-center">
 
 
 								<!-- Button trigger modal -->
+								<c:if test="${!empty loginMember}">
 								<button type="button"
 									class="btn btn-primary btn-block main-btn-color"
 									data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 									예약하기</button>
+								</c:if>
+						
+								
+								
 
 								<!-- Modal -->
 								<div class="modal" id="staticBackdrop" data-bs-backdrop="static"
@@ -678,9 +688,11 @@ th {
 		<div class="row">
 			<div class="col-md-12" style="text-align: right;">
 				<!-- Button trigger modal -->
+				<c:if test="${!empty loginMember }">
 				<button type="button" class="btn btn-primary main-btn-color"
 					data-bs-toggle="modal" data-bs-target="#exampleModal">클래스
 					신고</button>
+				</c:if>
 
 				<!-- Modal -->
 				<div class="modal" id="exampleModal" tabindex="-1"
