@@ -36,6 +36,14 @@
 	line-height: 200px;
 }
 
+.onCateImg {
+	background-color: #50b8b3;
+	height: 210px;
+	width: 210px;
+	text-align: center;
+	line-height: 200px;
+}
+
 .main-img {
 	height: 700px;
 	width: 1166px;
@@ -85,30 +93,34 @@
 				<a href="${contextPath}/creater/main">크리에이터 페이지 임시 링크</a>
 			</div> --%>
 			<!-- 카테고리 -->
-			<div class="columns my-5 ms-5">
+			<div class="columns my-5">
 				<div class="column">
-					<div class="online-category col-md-2 col-md-offset-1 rounded-circle">
-					
-						공예
-					</div>
+					<!-- <div class="online-category col-md-2 col-md-offset-1 rounded-circle"></div> -->
+					<figure class="image is-square">
+						<img class="is-rounded" src="https://images.unsplash.com/photo-1622076360264-6bf78ea413df?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzB8fGhhbmRjcmFmdHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
+						<h6 class="title is-4">공예</h6>
+					</figure>
 				</div>
 				<div class="column">
-					<div class="online-category col-md-2 col-md-offset-1 rounded-1">
-					
-						미술
-					</div>
+					<!-- <div class="online-category col-md-2 col-md-offset-1 rounded-1"></div> -->
+					<figure class="image is-square">
+						<img src="https://images.unsplash.com/photo-1606017120350-8e283700004e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nzd8fGFydHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
+						<h6 class="title is-4">미술</h6>
+					</figure>
 				</div>
 				<div class="column">
-					<div class="online-category col-md-2 col-md-offset-1 rounded-1">
-					
-						요리
-					</div>
+					<!-- <div class="online-category col-md-2 col-md-offset-1 rounded-1"></div> -->
+					<figure class="image is-square">
+						<img src="https://images.unsplash.com/photo-1616169776580-c86189ee67b8?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGNvb2t8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
+						<h6 class="title is-4">요리</h6>
+					</figure>
 				</div>
 				<div class="column">
-					<div class="online-category col-md-2 col-md-offset-1 rounded-circle">
-					
-						플라워
-					</div>
+					<!-- <div class="online-category col-md-2 col-md-offset-1 rounded-circle"></div> -->
+					<figure class="image is-square">
+						<img class="is-rounded" src="https://images.unsplash.com/photo-1572495754162-78a92305ea6a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDJ8fGZsb3dlcnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
+						<h6 class="title is-4">플라워</h6>
+					</figure>
 				</div>
 			</div>
 
@@ -122,7 +134,7 @@
 				</div>
 				<div class="col-md-2 mt-4">
 
-					<div class="control has-icons-left">
+					<!-- <div class="control has-icons-left">
 						<div class="select is-large is-rounded">
 							<select>
 								<option selected>최신순</option>
@@ -134,11 +146,30 @@
 						<span class="icon is-large is-left"> 
 						<i class="fas fa-th-list"></i>
 						</span>
-					</div>
+					</div> -->
 
 				</div>
 				<hr>
 			</div>
+			
+			<%-- 검색 상태 유지를 위한 쿼리스트링용 변수 선언 --%>
+			<c:if test="${!empty param.sk}">
+				<c:if test="${!empty paramValues.ct }">
+				
+					<c:forEach items="${paramValues.ct }" var="code">
+						<c:set var="category" value="${category}&ct=${code}" />
+					</c:forEach>
+				</c:if>
+				
+				<c:if test="${ !empty param.sv && param.sv != '' }">
+					
+					<c:set var="searchValue" value="&sv=${param.sv}"/>
+				</c:if>
+				
+				<c:set var="searchStr" value="${category}&sk=${param.sk}${searchValue}"  />
+			</c:if>
+			
+			
 			<!-- 클래스 목록 -->
 			<div class="row row-cols-1 row-cols-md-4 g-4">
 				<c:choose>
@@ -296,7 +327,29 @@
 		<!-- 하단부 -->
 		<jsp:include page="../common/footer.jsp"/>
 
-</body>
+
+<script>
+	(function(){
+		var searchKey = "${param.sk}";
+		var searchValue = "${param.sv}";
+		
+		$("select[name=sk] > option").each(function(index, item){
+			if( $(item).val() == searchKey ){
+					$(item).prop("selected", true);
+			}
+		});
+		
+		$("input[name=sv]").val(searchValue);
+		<c:forEach items="${paramValues.ct}" var="code">
+			$.each( $("[name='ct']"), function(){
+				if( $(this).val() == "${code}"){
+						$(this).prop)("checked", true);
+				}
+			})
+		</c:forEach>
+	})();
+</script>
+
 
 <script>
 	$('.stars .far').click(function(){
@@ -324,4 +377,5 @@
 		}); 
 </script>
 
+</body>
 </html>
