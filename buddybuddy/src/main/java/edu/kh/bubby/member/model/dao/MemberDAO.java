@@ -133,6 +133,20 @@ public class MemberDAO {
 	}
 
 
+	/** 카카오 로그인
+	 * @param kakaoMember
+	 * @return 
+	 */
+	public Member kakaoLogin(Member kakaoMember) {
+		
+		System.out.println(kakaoMember.getMemberEmail());
+		
+		return sqlSession.selectOne("memberMapper.kakaoLogin", kakaoMember);
+	}
+
+
+
+
 
 
 
