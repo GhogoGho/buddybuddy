@@ -17,23 +17,6 @@
 			height:100px;
 		}
 </style>
-<c:forEach items="${review.atList}" var="at">
-		<c:choose>
-			<c:when test="${at.fileLevel == 0 && !empty at.fileName}">
-				<c:set var="img0" value="${contextPath}/${at.filePath}${at.fileName}"/>
-			</c:when>
-			<c:when test="${at.fileLevel == 1 && !empty at.fileName}">
-				<c:set var="img1" value="${contextPath}/${at.filePath}${at.fileName}"/>
-			</c:when>
-			<c:when test="${at.fileLevel == 2 && !empty at.fileName}">
-				<c:set var="img2" value="${contextPath}/${at.filePath}${at.fileName}"/>
-			</c:when>
-			<c:when test="${at.fileLevel == 3 && !empty at.fileName}">
-				<c:set var="img3" value="${contextPath}/${at.filePath}${at.fileName}"/>
-			</c:when>
-		</c:choose>
-	</c:forEach>
-${review}
 
 <div class="reviewList">
   <ul class="online-review-content list-group col-md-12" id="reviewListArea">
@@ -53,6 +36,23 @@ ${review}
           </li>
         </ul>
         </c:if>
+        <!-- 이미지 불러오기 -->
+				<c:forEach items="${review.atList}" var="at">
+					<c:choose>
+						<c:when test="${at.fileLevel == 0 && !empty at.fileName}">
+							<c:set var="img0" value="${contextPath}/${at.filePath}${at.fileName}"/>
+						</c:when>
+						<c:when test="${at.fileLevel == 1 && !empty at.fileName}">
+							<c:set var="img1" value="${contextPath}/${at.filePath}${at.fileName}"/>
+						</c:when>
+						<c:when test="${at.fileLevel == 2 && !empty at.fileName}">
+							<c:set var="img2" value="${contextPath}/${at.filePath}${at.fileName}"/>
+						</c:when>
+						<c:when test="${at.fileLevel == 3 && !empty at.fileName}">
+							<c:set var="img3" value="${contextPath}/${at.filePath}${at.fileName}"/>
+						</c:when>
+					</c:choose>
+				</c:forEach>
         <%-- <button class="btn btn-outline-secondary btn-sm" id="reply-like-btn">
           <%-- <i class="bi bi-heart" id="reply-like"><span id="reply-like-count">${reply.replyLike }</span></i> 
           <i class="bi bi-heart" id="reply-like">${reply.replyLike }</i>
@@ -60,8 +60,8 @@ ${review}
       </div>
       <div class="ms-2">
 			${review.reviewContent }
-      <c:if test="${!empty img0}">
-       <img id="reviewImg0" src="${img0}">
+			<c:if test="${ !empty review.atList && review.atList[0].fileLevel == 0}">
+      	<img id="reviewImg0" src="${contextPath}/${review.atList[0].filePath}${review.atList[0].fileName}">
 			</c:if>
       </div>
       <!-- 별점 출력 -->
@@ -148,7 +148,6 @@ ${review}
 		</button>
 	</div>
 </div>
-		
 <script>
 /* 
 function addReviewImg()({
@@ -175,8 +174,8 @@ function addReviewImg()({
 
 <!-- 별점 -->
 /* let starRate = $('.print').text(starNum); */
-
-	$('.stars .far').click(function(){
+/* $(document).on("click", ".stars .far", function(){ 별이 채워진 후 안 돌아감 */ 
+ 	$('.stars .far').click(function(){
 		$(this).attr({'class': 'fas fa-star'});
 		$(this).prevAll().attr({'class': 'fas fa-star'});
 		$(this).nextAll().attr({'class': 'far fa-star'});
@@ -230,7 +229,15 @@ function addReview() {
          success : function(result){
            if(result > 0){ 
 						swal({"icon" : "success" , "title" : "수강후기 등록 성공"});
-						$("#reviewContent").val(""); 
+						$("#reviewContent").val(""); // 삽입 후 비우기
+						$("#reviewImg").text(""); // 업로드 후 파일 지우기
+						$("#addStars").html(""); // 지우고 다시 생성
+						var addFar1 = $("<i>").addClass("far fa-star");
+						var addFar2 = $("<i>").addClass("far fa-star");
+						var addFar3 = $("<i>").addClass("far fa-star");
+						var addFar4 = $("<i>").addClass("far fa-star");
+						var addFar5 = $("<i>").addClass("far fa-star");
+						$("#addStars").append(addFar1).append(addFar2).append(addFar3).append(addFar4).append(addFar5);
 						/*function(){
 							$("#addStars").html("");
 							var addFar1 = $("<i>").addClass("far fa-star");
@@ -275,7 +282,9 @@ function selectReviewList(){
     
               var div1 = $("<div>").addClass("d-flex justify-content-between align-items-center");
               var lastDiv = $("<div>").addClass("ms-2").html(item.reviewContent);
-    					var img = $("<img>").attr("src","${contextPath}"+"/"+item.img0).attr("id", "reviewImg0");
+      				/* if( item.atList == "" && item.atList[0].fileLevel == 0 ){
+      				} */
+    					var img = $("<img>").attr("src","${contextPath}"+"/").attr("id", "reviewImg0");
     					/* 별점 만들기 후아~ */
     					var starArea = $("<div>").addClass("star-area");
     					var starRating = $("<div>").addClass("star-rating");
@@ -348,8 +357,9 @@ function selectReviewList(){
               
               
               /* var listButton = $("<button>").addClass("btn btn-outline-primary").text("목록갱신(테스트용)").attr("onclick", "selectReplyList()"); */
-             lastDiv.append(img);
-              
+		          /* if(item.atList == "" && item.atList[0].fileLevel == 0 ){
+		         	} */
+			        lastDiv.append(img);
               li.append(div1).append(lastDiv).append(starArea);
               
             //수정창 시작-----------------------------------------------------------------------------------------

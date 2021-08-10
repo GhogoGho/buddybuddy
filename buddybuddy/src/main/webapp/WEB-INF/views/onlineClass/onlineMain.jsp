@@ -182,8 +182,7 @@
 								<div class="card h-100">
 									<div class="ratio ratio-1x1">
 										<c:choose>
-											<c:when
-												test="${ empty online.atList || online.atList[0].fileLevel != 0}">
+											<c:when test="${ empty online.atList || online.atList[0].fileLevel != 0}">
 												<img src="${contextPath}/resources/images/noimage.png">
 											</c:when>
 											<c:otherwise>
