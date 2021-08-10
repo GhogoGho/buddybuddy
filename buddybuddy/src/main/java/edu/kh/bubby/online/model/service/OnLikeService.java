@@ -15,7 +15,7 @@ public interface OnLikeService {
 
 	/** 찜하기 삽입, 삭제
 	 * @param onLike
-	 * @return result
+	 * @return onLike
 	 */
 	OnLike onlineLike(OnLike onLike);
 
@@ -23,6 +23,6 @@ public interface OnLikeService {
 	 * @param classNo
 	 * @return 
 	 */
-	int onlineLikeCount(int classNo);
+	OnLike onlineLikeCount(int classNo);
 
 }

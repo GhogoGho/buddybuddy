@@ -42,7 +42,7 @@ public class OnLikeController {
 	}
 	// 찜하기 수 카운트
 	@RequestMapping(value = "onlineLikeCount", method = RequestMethod.POST)
-	public int onlineLikeCount(int classNo) {
+	public OnLike onlineLikeCount(int classNo) {
 		return service.onlineLikeCount(classNo);
 	}
 	

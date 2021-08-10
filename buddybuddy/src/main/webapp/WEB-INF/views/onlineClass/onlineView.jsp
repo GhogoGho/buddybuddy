@@ -157,7 +157,7 @@
         <div class="col-md-7">
           <p class="h3 my-4" id="class-review">수강 후기</p>
           <hr>
-          <%-- <jsp:include page="onlineReview.jsp"/> --%>
+          <jsp:include page="onlineReview.jsp"/>
         </div>
         <!-- </div> -->
         <!-- 수강문의 시작 -->
@@ -165,7 +165,7 @@
         <div class="col-md-7">
           <p class="h3 my-4" id="class-reply">수강 문의</p>
           <hr>
-         	<%-- <jsp:include page="onlineReply.jsp"/> --%>
+         	<jsp:include page="onlineReply.jsp"/>
         </div>
         <!-- </div> -->
 
@@ -232,9 +232,10 @@ const loginMemberNo = "${loginMember.memberNo}";
 const classNo = ${online.classNo};
 /* let onlineLike = ${online.onlineLike}; */
 
-onlineLikeCheck();
+onlineLikeCheck(); // 찜하기 체크(페이지가 로드되면서 작동)
 
-function onlineLikeCheck(){
+/* 찜하기 체크 */
+function onlineLikeCheck(){ 
 	
 	let flag = false;
 	$.ajax({
@@ -267,30 +268,31 @@ function onlineLikeCheck(){
 
 $("#online-like-btn").on("click", function(){
 	
-	console.log("성공?");
+	//console.log("작동?");
 	
 	$.ajax({
 		url : "${contextPath}/onLike/onlineLike",
 		data : {"classNo" : classNo},
 		type : "POST",
-		
-		success : function(result){
-			if(result > 0){
-				$("#online-like-btn").html("");
-				var i = $("<i>").addClass("fas fa-heart-broken").attr("id", "online-like").text(" 찜하기");
-				/* var span = $("<span>").attr("id", "online-like-count").text(onlineLike); */
-				
-				/* $("#online-like-btn").append(i).append(span); */
-				$("#online-like-btn").append(i);
-			}else{
+		success : function(onLike){
+		console.log(onLike); // 객체 값 확인용
+			if(onLike == ""){ // null 대신 빈문자열을 반환하므로
 				$("#online-like-btn").html("");
 				var i = $("<i>").addClass("fas fa-heartbeat").attr("id", "online-like").text(" 찜하기");
 				/* var span = $("<span>").attr("id", "online-like-count").text(onlineLike); */
 				
 				/* $("#online-like-btn").append(i).append(span); */
 				$("#online-like-btn").append(i);
+				
+			}else { 
+				$("#online-like-btn").html("");
+				var i = $("<i>").addClass("fas fa-heart-broken").attr("id", "online-like").text(" 찜하기");
+				/* var span = $("<span>").attr("id", "online-like-count").text(onlineLike); */
+				
+				/* $("#online-like-btn").append(i).append(span); */
+				$("#online-like-btn").append(i);
 			}
-			onlineLikeCount();
+			/* onlineLikeCount(); */ //찜하기 수 카운트용
 		},
 		error : function(e){
 			console.log(e);
@@ -298,6 +300,8 @@ $("#online-like-btn").on("click", function(){
 	});
 });
 
+// 찜하기 수 카운트용
+/*
 function onlineLikeCount(){
 	
 	$.ajax({
@@ -313,7 +317,7 @@ function onlineLikeCount(){
 		}
 	});
 }
-
+*/
 
 </script>
 		

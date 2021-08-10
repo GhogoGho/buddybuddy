@@ -24,19 +24,20 @@ public class OnLikeServiceImpl implements OnLikeService{
 	public OnLike onlineLike(OnLike onLike) {
 		OnLike onlineLike = dao.onlineLikeCheck(onLike);
 		int result = 0;
-		if(onlineLike != null) {
-			result = 1;
-		}
-		if(result==0) {
+//		System.out.println("onlineLike 전: "+onlineLike); //체크용
+		if(onlineLike == null) {
 			result = dao.onlineLike(onLike);
+//			onlineLike = dao.onlineLikeCheck(onLike); //체크용
 		}else {
 			result = dao.onlineLikeCancel(onLike);
+//			onlineLike = dao.onlineLikeCheck(onLike); //체크용
 		}
+//		System.out.println("onlineLike 후: "+onlineLike); //체크용
 		return onlineLike;
 	}
 	// 찜하기 수 카운트
 	@Override
-	public int onlineLikeCount(int classNo) {
+	public OnLike onlineLikeCount(int classNo) {
 		return dao.onlineLikeCount(classNo);
 	}
 	
