@@ -234,56 +234,90 @@ td {
 				<div id="reserveArea" class="col-md-12 mb-3"></div>
 				<div class="col-md-12 mb-3">
 					<textarea class="summernote" name="editordata"></textarea>
+
 					<script>
-						$('.summernote')
-								.summernote(
-										{
-											height : 450,
-											lang : "ko-KR",
-											toolbar : [
-													// [groupName, [list of button]]
-													[ 'fontname',
-															[ 'fontname' ] ],
-													[ 'fontsize',
-															[ 'fontsize' ] ],
+					$(document).ready(function() {
+						$('.summernote').summernote(
+								{
+									height : 450,
+									lang : 'ko-KR',
+									toolbar : [
+										
+											[ 'fontname',
+													[ 'fontname' ] ],
+											[ 'fontsize',
+													[ 'fontsize' ] ],
+											[
+													'style',
 													[
-															'style',
-															[
-																	'bold',
-																	'italic',
-																	'underline',
-																	'strikethrough',
-																	'clear' ] ],
-													[
-															'color',
-															[ 'forecolor',
-																	'color' ] ],
-													[ 'table', [ 'table' ] ],
-													[
-															'para',
-															[ 'ul', 'ol',
-																	'paragraph' ] ],
-													[ 'height', [ 'height' ] ],
-													[
-															'insert',
-															[ 'picture',
-																	'link',
-																	'video' ] ],
-													[
-															'view',
-															[ 'fullscreen',
-																	'help' ] ] ],
-											fontNames : [ 'Arial',
-													'Arial Black',
-													'Comic Sans MS',
-													'Courier New', '맑은 고딕',
-													'궁서', '굴림체', '굴림', '돋움체',
-													'바탕체' ],
-											fontSizes : [ '8', '9', '10', '11',
-													'12', '14', '16', '18',
-													'20', '22', '24', '28',
-													'30', '36', '50', '72' ]
-										});
+															'bold',
+															'italic',
+															'underline',
+															'strikethrough',
+															'clear' ] ],
+											[
+													'color',
+													[ 'forecolor',
+															'color' ] ],
+											[ 'table', [ 'table' ] ],
+											[
+													'para',
+													[ 'ul', 'ol',
+															'paragraph' ] ],
+											[ 'height', [ 'height' ] ],
+											[
+													'insert',
+													[ 'picture',
+															'link',
+															'video' ] ],
+											[
+													'view',
+													[ 'fullscreen',
+															'help' ] ] ],
+									fontNames : [ 'Arial',
+											'Arial Black',
+											'Comic Sans MS',
+											'Courier New', '맑은 고딕',
+											'궁서', '굴림체', '굴림', '돋움체',
+											'바탕체' ],
+									fontSizes : [ '8', '9', '10', '11',
+											'12', '14', '16', '18',
+											'20', '22', '24', '28',
+											'30', '36', '50', '72' ],
+											//콜백 함수
+								            callbacks : { 
+								            	onImageUpload : function(files, editor, welEditable) {
+								            // 파일 업로드(다중업로드를 위해 반복문 사용)
+								            for (var i = files.length - 1; i >= 0; i--) {
+								            uploadSummernoteImageFile(files[i],
+								            this);
+								            		}
+								            	}
+								            }
+								});
+					});
+						
+						
+						function uploadSummernoteImageFile(file, el) {
+							data = new FormData();
+							data.append("file", file);
+							$.ajax({
+								data : data,
+								dataType:"JSON",
+								type : "POST",
+								url : "${contextPath}/reserve/summer",
+								contentType : false,
+								enctype : 'multipart/form-data',
+								processData : false,
+								success : function(data) {
+									console.log(data.url);
+									$(el).summernote('editor.insertImage', data.url);
+								},
+								error : function(){
+									console.log("썸머노트 실패");
+								}
+							});
+						}
 					</script>
 
 				</div>
