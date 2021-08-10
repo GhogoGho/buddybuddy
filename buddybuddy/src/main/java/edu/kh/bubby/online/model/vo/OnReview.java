@@ -7,7 +7,7 @@ public class OnReview {
 	private int reviewNo;
 	private String reviewContent;
 	private Date reviewDate;
-	private int reviewRatings;
+	private String reviewRatings;
 	private int classNo;
 	private int memberNo;
 	private String memberNickName;
@@ -43,11 +43,11 @@ public class OnReview {
 		this.reviewDate = reviewDate;
 	}
 
-	public int getReviewRatings() {
+	public String getReviewRatings() {
 		return reviewRatings;
 	}
 
-	public void setReviewRatings(int reviewRatings) {
+	public void setReviewRatings(String reviewRatings) {
 		this.reviewRatings = reviewRatings;
 	}
 
