@@ -1,5 +1,8 @@
 package edu.kh.bubby.member.controller;
 
+import java.io.IOException;
+import java.util.HashMap;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.kh.bubby.member.model.service.KakaoAPI;
 import edu.kh.bubby.member.model.service.MemberService;
 import edu.kh.bubby.member.model.vo.Member;
 
@@ -31,6 +35,10 @@ public class MemberController {
 
 	@Autowired
 	private MemberService service;
+	
+	@Autowired
+	private KakaoAPI kakao;
+
 
 //	로그인 화면 전환용 Controller
 	@RequestMapping(value = "login", method = RequestMethod.GET)
@@ -304,5 +312,76 @@ public class MemberController {
 		ra.addFlashAttribute("text", text);
 
 	}
+	
+//	카카오 로그인
+	@RequestMapping(value="kakaoLogin")
+	public String login(@RequestParam("code") String code, HttpSession session,
+						@ModelAttribute Member kakaoMember) throws IOException {
+		
+	    String access_Token = kakao.getAccessToken(code);
+	    
+	    HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+	    
+	    
+//	    셀렉트 토큰아이디가 있는지 확인 
+//	    Member memberid = service.selectId(userInfo.get("id"));
+	    
+//	    없으면 멤버테이블에 가져온 정보 저장
+//	    있으면 바로 로그인
+	    	
+	    System.out.println("login Controller : " + userInfo);
+	    
+//	    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
+	    if (userInfo.get("email") != null) {
+	    	
+//	        session.setAttribute("userId", userInfo.get("email"));
+//	        session.setAttribute("access_Token", access_Token);
+	        
+	        kakaoMember.setMemberEmail(""+userInfo.get("email"));
+	        kakaoMember.setMemberProfile(""+userInfo.get("profile_image"));
+	        kakaoMember.setMemberNickname(""+userInfo.get("nickname"));
+	        
+//	        1) 카카오 email이 db에 저장된 email인 경우 = 회원 -> 세션에 로그인된 회원 정보 올리기
+	        
+//	        2) 카카오 email이 저장된 email이 아닐 경우 -> 확인된 회원이 없다 팝업 / 회원가입 후 이용 가능합니다 가입하시겠습니까 페이지 
+	        
+	        Member loginMember = service.kakaoLogin(kakaoMember);
+	        
+	        if(loginMember != null) { // 로그인 O
+	        	
+		        session.setAttribute("loginMember", loginMember);
+		        	
+		        System.out.println("loginMember : " + loginMember);
+		        
+		        return "redirect:/";
+		        
+		        
+	        } else { // 가입된 소셜 회원이 아닐 경우
+	        
+	        	session.setAttribute("kakaoMember", kakaoMember);
+	        	
+//	        	return "member/kakaoSignUp";
+	        	
+	        	
+	        	// 가입x 소셜회원이 아닐 경우의 컨트롤러 요청 위임 작성
+	        	
+	        	
+	        }
+	        	
+	    } else {
+	    	
+//	    	return "redirect:/";
+	    	
+	    }
+		return "redirect:/";
+	}
+	
+//	카카오 회원가입 문의 화면 연결용
+	@RequestMapping(value="kakaoSignUp")
+	public String kakaoSignUp() {
+		
+		return "member/kakaoSignUp";
+	}
+
 
 }
