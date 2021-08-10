@@ -27,7 +27,12 @@ public class OnReviewDAO {
 	 * @return result
 	 */
 	public int insertReview(OnReview review) {
-		return sqlSession.insert("onReviewMapper.insertReview", review);
+		int result = sqlSession.insert("onReviewMapper.insertReview", review);
+		if(result>0) {
+			return review.getReviewNo();
+		}else {
+			return 0;
+		}
 	}
 	
 	/** 파일 정보 삽입(List)

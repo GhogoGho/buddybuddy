@@ -52,8 +52,10 @@ public class OnReviewServiceImpl implements OnReviewService{
 					at.setFileLevel(i);
 					
 					atList.add(at);
+					System.out.println("at: "+at);
 				}
 			}
+			System.out.println("atList: "+atList);
 			if(!atList.isEmpty()) { // atList가 비어있지 않을 때(업로드된 이미지가 있을 때)
 				
 				int result = dao.insertAttachmentList(atList);
