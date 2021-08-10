@@ -206,21 +206,21 @@ td {
 				<div class="col-md-12 mb-3">
 					<label style="font-size: 25px;">제목 : </label> <input
 						name="classTitle" type="text" class="form-control"
-						style="width: 90%; display: inline-block;">
+						style="width: 90%; display: inline-block;" required>
 				</div>
 				<div class="col-md-12 mb-3">
 					<label style="font-size: 25px;">가격 : </label> <input
 						name="classPrice" type="text" class="form-control"
-						style="width: 15%; display: inline-block;">
+						style="width: 15%; display: inline-block;" required>
 				</div>
 				<div class="col-md-12 mb-3">
 					<label style="font-size: 25px;">인원수 : </label> <input
 						name="reserveLimit" type="text" class="form-control"
-						style="width: 15%; display: inline-block;">
+						style="width: 15%; display: inline-block;" required>
 				</div>
 				<div class="col-md-12 mb-3">
 					<label style="font-size: 25px;">썸네일 : </label> <input name="images"
-						type="file" style="display: inline-block;" accept="images/*">
+						type="file" style="display: inline-block;" accept="images/*" required>
 				</div>
 				<div class="col-md-12  mb-3">
 					<label style="font-size: 25px;">예약가능 날짜 : </label>
@@ -233,7 +233,7 @@ td {
 				</div>
 				<div id="reserveArea" class="col-md-12 mb-3"></div>
 				<div class="col-md-12 mb-3">
-					<textarea class="summernote" name="editordata"></textarea>
+					<textarea class="summernote" name="editordata" required></textarea>
 
 					<script>
 					$(document).ready(function() {
@@ -327,7 +327,7 @@ td {
 					</div>
 					<div class="col-md-3">
 						<input type="text" name="address"
-							class="form-control postcodify_postcode5">
+							class="form-control postcodify_postcode5"  required>
 					</div>
 					<div class="col-md-3">
 						<button type="button" class="btn btn-primary"
@@ -341,7 +341,7 @@ td {
 					</div>
 					<div class="col-md-9">
 						<input type="text" class="form-control postcodify_address"
-							name="address" id="address1">
+							name="address" id="address1" required>
 					</div>
 				</div>
 
@@ -351,7 +351,7 @@ td {
 					</div>
 					<div class="col-md-9">
 						<input type="text" class="form-control postcodify_details"
-							name="address" id="address2">
+							name="address" id="address2" required>
 					</div>
 				</div>
 				<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
@@ -368,7 +368,7 @@ td {
 				<div id="imgff" class="col-md-9">
 					<div>
 						<input type="file" name="images" accept="image/*" class="mb-3"
-							style="padding: 0; display: inline;">
+							style="padding: 0; display: inline;" required>
 						<button type="button" class="filef" onclick="add()">+</button>
 						<br>
 					</div>
@@ -582,20 +582,12 @@ td {
 																});
 																return false;
 															}
-															
-															if ($(this).prev()
-																	.val()>$(this).val()) {
-																swal({
-																	"icon" : "error",
-																	"title" : "시작시간보다 크게 입력해주세요"
-																});
-																
-															}
+													
 
 														});
 										$(document)
 												.on(
-														"input",
+														"blur",
 														".endTime",
 														function() {
 														
