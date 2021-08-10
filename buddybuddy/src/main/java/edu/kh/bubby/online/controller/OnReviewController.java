@@ -37,16 +37,16 @@ public class OnReviewController {
 
 	// 수강 문의 작성
 	@RequestMapping(value = "insertReview", method = RequestMethod.POST)
-	public int insertReview(@ModelAttribute OnReview review
-							/*@RequestParam("reviewImgs") List<MultipartFile> reviewImgs,
-							HttpServletRequest request*/) {
-//		String webPath = "resources/images/review/";
-//		String savePath = request.getSession().getServletContext().getRealPath(webPath);
-		
-//		return service.insertReview(review, reviewImgs, webPath, savePath);
-		
+	public int insertReview(@ModelAttribute OnReview review,
+							@RequestParam("reviewImgs") List<MultipartFile> reviewImgs,
+							HttpServletRequest request) {
+		String webPath = "resources/images/review/";
+		String savePath = request.getSession().getServletContext().getRealPath(webPath);
 		System.out.println("review: "+review);
-		return service.insertReview(review);
+		return service.insertReview(review, reviewImgs, webPath, savePath);
+		
+//		System.out.println("review: "+review);
+//		return service.insertReview(review);
 	}
 
 	// 수강 문의 수정

@@ -6,8 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import edu.kh.bubby.online.model.vo.Attachment;
 import edu.kh.bubby.online.model.vo.OnReview;
+import edu.kh.bubby.online.model.vo.ReviewAttachment;
 
 @Repository
 public class OnReviewDAO {
@@ -34,7 +34,7 @@ public class OnReviewDAO {
 	 * @param atList
 	 * @return result
 	 */
-	public int insertAttachmentList(List<Attachment> atList) {
+	public int insertAttachmentList(List<ReviewAttachment> atList) {
 		return sqlSession.insert("onReviewMapper.insertAttachmentList", atList);
 	}
 

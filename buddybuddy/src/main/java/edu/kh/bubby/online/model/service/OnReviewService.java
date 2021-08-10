@@ -18,8 +18,8 @@ public interface OnReviewService {
 	 * @param review
 	 * @return
 	 */
-//	int insertReview(OnReview review, List<MultipartFile> reviewImgs, String webPath, String savePath);
-	int insertReview(OnReview review);
+	int insertReview(OnReview review, List<MultipartFile> reviewImgs, String webPath, String savePath);
+//	int insertReview(OnReview review);
 
 	/** 수강후기 수정
 	 * @param review
