@@ -34,6 +34,10 @@
 		<typeAlias type="edu.kh.bubby.online.model.vo.OnReview" alias="OnReview" />
 		<typeAlias type="edu.kh.bubby.online.model.vo.OnLike" alias="OnLike" />
 		
+		<!-- 오프라인 수강문의, 수강후기 -->
+		<typeAlias type="edu.kh.bubby.offline.model.vo.OffReply" alias="OffReply"/>
+		<typeAlias type="edu.kh.bubby.offline.model.vo.OffReview" alias="OffReview"/>
+		<typeAlias type="edu.kh.bubby.offline.model.vo.OffReviewAttachment" alias="OffReviewAttachment"/>
 		
 	</typeAliases>
 	
@@ -46,6 +50,8 @@
 	  <mapper resource="/mappers/onReply-mapper.xml" />
 	  <mapper resource="/mappers/onReview-mapper.xml" />
 	  <mapper resource="/mappers/onLike-mapper.xml" />
+	  <mapper resource="/mappers/offReply-mapper.xml" />
+	  <mapper resource="/mappers/offReview-mapper.xml" />
 	</mappers>
 
 </configuration>
