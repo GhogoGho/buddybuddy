@@ -64,13 +64,16 @@
 			</div>
 			<div class="row">
 				<div class="col-md-10">
+				
+					<div class="mr-2 classVideo" id="contentVideoArea1">
+						<video style="width:300px; id="contentVideo0">
+					</div>
 					<!-- 썸네일 동영상 -->
-					<div class="columns my-3">
+					<div class="columns mb-3">
 						<div class="column">
 							<div class="file is-success is-boxed">
 								<label class="file-label"> 
-								<input class="file-input" type="file" id="thumbnail" name="videos"
-									onchange="LoadVideo(this)" accept="video/mp4"> 
+								<input class="file-input" type="file" id="thumbnail" name="videos" onchange="LoadVideo(this,0)" accept="video/mp4"> 
 									<span class="file-cta">
 										<span class="file-icon"> 
 											<i class="fas fa-camera-retro"></i>
@@ -83,12 +86,16 @@
 							</div>
 						</div>
 					</div>
+					
+					<div class="mr-2 classVideo" id="contentVideoArea1">
+						<video style="width:200px; id="contentVideo1">
+					</div>
 					<!-- 클래스 동영상 -->
 					<div class="columns mb-2">
 						<div class="column">
 							<div class="file is-danger">
 							  <label class="file-label">
-							    <input class="file-input" type="file" id="classVideo1" name="videos" accept="video/mp4">
+							    <input class="file-input" type="file" id="classVideo1" name="videos" onchange="LoadVideo(this,1)" accept="video/mp4">
 							    <span class="file-cta">
 							      <span class="file-icon">
 							        <i class="fas fa-film"></i>
@@ -101,12 +108,16 @@
 							</div>
 						</div>
 					</div>
+					
+					<div class="mr-2 classVideo" id="contentVideoArea2">
+						<video style="width:200px; id="contentVideo2">
+					</div>
 					<!-- 클래스 동영상 -->
 					<div class="columns mb-2">
 						<div class="column">
 							<div class="file is-danger">
 							  <label class="file-label">
-							    <input class="file-input" type="file" id="classVideo2" name="videos" accept="video/mp4">
+							    <input class="file-input" type="file" id="classVideo2" name="videos" onchange="LoadVideo(this,2)" accept="video/mp4">
 							    <span class="file-cta">
 							      <span class="file-icon">
 							        <i class="fas fa-film"></i>
@@ -119,12 +130,16 @@
 							</div>
 						</div>
 					</div>
+					
+					<div class="mr-2 classVideo" id="contentVideoArea3">
+						<video style="width:200px; id="contentVideo3">
+					</div>
 					<!-- 클래스 동영상 -->
 					<div class="columns mb-2">
 						<div class="column">
 							<div class="file is-danger">
 							  <label class="file-label">
-							    <input class="file-input" type="file" id="classVideo3" name="videos" accept="video/mp4">
+							    <input class="file-input" type="file" id="classVideo3" name="videos" onchange="LoadVideo(this,3)" accept="video/mp4">
 							    <span class="file-cta">
 							      <span class="file-icon">
 							        <i class="fas fa-film"></i>
@@ -190,6 +205,45 @@ function goWrite(frm) {
 		return false;
 	}
 	frm.submit();
+}
+
+
+
+
+
+//이미지 영역을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
+$(function() {
+	$(".classVideo").on("click", function() {
+		var index = $(".classVideo").index(this);
+		// this : 이벤트가 발생한 요소  == 클릭된 .classImg 요소
+		// 배열.index("요소") : 매개변수로 작성된 요소가 요소가 배열의 몇 번째 index 요소인지 반환 
+		$("#video" + index).click();
+	});
+
+});
+
+
+// 각각의 영역에 파일을 첨부 했을 경우 미리 보기가 가능하도록 하는 함수
+function LoadVideo(value, num) {
+	if (value.files && value.files[0]) {
+		var reader = new FileReader();
+		// 자바스크립트 FileReader
+		// 웹 애플리케이션이 비동기적으로 데이터를 읽기 위하여 읽을 파일을 가리키는 File 혹은 Blob객체를 이용해 파일의 내용을 읽고 사용자의 컴퓨터에 저장하는 것을 가능하게 해주는 객체
+
+		reader.readAsDataURL(value.files[0]);
+		// FileReader.readAsDataURL()
+		// 지정된의 내용을 읽기 시작합니다. Blob완료되면 result속성 data:에 파일 데이터를 나타내는 URL이 포함 됩니다.
+
+		// FileReader.onload
+		// load 이벤트의 핸들러. 이 이벤트는 읽기 동작이 성공적으로 완료 되었을 때마다 발생합니다.
+		reader.onload = function(e) {
+			// e.target.result
+			// -> 파일 읽기 동작을 성공한 객체에(fileTag) 올라간 결과(이미지 또는 파일)
+
+			$(".classVideo").eq(num).children("video").attr("src",e.target.result);
+		}
+
+	}
 }
 </script>
 

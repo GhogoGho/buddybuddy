@@ -283,7 +283,7 @@ public class OnlineServiceImpl implements OnlineService{
 	public int insertOnline(Online online, List<MultipartFile> videos, String webPath, String savePath) {
 		
 		online.setClassTitle(replaceParameter(online.getClassTitle()));
-		online.setClassContent(replaceParameter(online.getClassContent()));
+//		online.setClassContent(replaceParameter(online.getClassContent())); // 썸머노트 사용시 불필요
 		
 		online.setClassContent(online.getClassContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
 		
@@ -333,14 +333,59 @@ public class OnlineServiceImpl implements OnlineService{
 	// 클래스 수정 (썸머 테스트)
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int summerUpdateOnline(Online online) {
+	public int summerUpdateOnline(Online online, List<MultipartFile> videos, String webPath, String savePath, String deleteVideos) {
 		
 		online.setClassTitle(replaceParameter(online.getClassTitle()));
-		online.setClassContent(replaceParameter(online.getClassContent()));
+//		online.setClassContent(replaceParameter(online.getClassContent())); // 썸머노트 사용시 불필요
 		online.setClassContent(online.getClassContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
 		
 		int result = dao.summerUpdateOnline(online);
 		
+		if(result>0) {
+			if(!deleteVideos.equals("") ) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("classNo", online.getClassNo());
+				map.put("deleteVideos", deleteVideos);
+				
+				dao.deleteAttachment(map);
+			}
+			
+			List<Attachment> atList = new ArrayList<Attachment>();
+			for(int i=0; i<videos.size(); i++) {
+				if( !videos.get(i).getOriginalFilename().equals("") ) {
+					String fileName = rename(videos.get(i).getOriginalFilename() );
+					
+					Attachment at = new Attachment();
+					at.setFileName(fileName);
+					at.setFilePath(webPath);
+					at.setClassNo(online.getClassNo());
+					at.setFileLevel(i);
+					
+					atList.add(at);
+				}
+			}
+			for(Attachment at : atList) {
+				result = dao.updateAttachment(at);
+				if(result == 0) {
+					result = dao.insertAttachment(at);
+					
+					if(result == 0) { // 삽입 실패
+						// 강제로 예외를 발생시켜 전체 롤백 수행
+						throw new InsertAttachmentException();
+					}
+				}
+			}
+			
+			for(int i=0; i<atList.size(); i++) {
+				try {
+					videos.get( atList.get(i).getFileLevel() )
+					.transferTo(new File(savePath + "/" + atList.get(i).getFileName() ));
+				}catch(Exception e) {
+					e.printStackTrace();
+					throw new SaveFileException();
+				}
+			}
+		}
 		return result;
 	}
 	

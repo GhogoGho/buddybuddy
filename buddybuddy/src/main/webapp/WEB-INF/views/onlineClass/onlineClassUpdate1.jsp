@@ -78,8 +78,7 @@
 				- application/x-www-form-urlencoded : 모든 문자를 서버로 전송하기 전에 인코딩 (form태그 기본값)
 				- multipart/form-data : 모든 문자를 인코딩 하지 않음.(원본 데이터가 유지되어 이미지, 파일등을 서버로 전송 할 수 있음.) 
 			-->
-			<form action="update" method="post" 
-				  enctype="multipart/form-data" role="form" onsubmit="return classValidate();">
+			<form action="update" method="post" enctype="multipart/form-data" role="form" onsubmit="return classValidate();">
 				<c:if test="${ !empty category}"> 
 					<div class="mb-2">
 						<label class="input-group-addon mr-3 insert-label">카테고리</label> 
@@ -167,10 +166,10 @@
 
 				<!-- 파일 업로드 하는 부분 -->
 				<div id="fileArea">
-					<input type="file" id="video0" name="images" onchange="LoadVideo(this,0)" accept="video/mp4"> 
-					<input type="file" id="video1" name="images" onchange="LoadVideo(this,1)" accept="video/mp4"> 
-					<input type="file" id="video2" name="images" onchange="LoadVideo(this,2)" accept="video/mp4"> 
-					<input type="file" id="video3" name="images" onchange="LoadVideo(this,3)" accept="video/mp4">
+					<input type="file" id="video0" name="videos" onchange="LoadVideo(this,0)" accept="video/mp4"> 
+					<input type="file" id="video1" name="videos" onchange="LoadVideo(this,1)" accept="video/mp4"> 
+					<input type="file" id="video2" name="videos" onchange="LoadVideo(this,2)" accept="video/mp4"> 
+					<input type="file" id="video3" name="videos" onchange="LoadVideo(this,3)" accept="video/mp4">
 				</div>
 
 				<div class="form-group">
@@ -343,7 +342,7 @@
 				// 새로 이미지를 올린 후 삭제를해도 input type="file" 태그에는 업로드된 파일 정보가 남아있음
 	            // -> 이를 제거하지 않으면 파일이 업로드되는 문제 발생!
 	            // --> 이를 해결하기 위해 눌러진 x버튼과 같은 index의 file 타입 태그의 값을 초기화함.
-	            $("input[name='images']").eq(index).val("");
+	            $("input[name='videos']").eq(index).val("");
 				
 			}
 		});

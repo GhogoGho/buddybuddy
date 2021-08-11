@@ -110,7 +110,7 @@ public interface OnlineService {
 	 * @param online
 	 * @return result
 	 */
-	int summerUpdateOnline(Online online);
+	int summerUpdateOnline(Online online, List<MultipartFile> videos, String webPath, String savePath, String deleteVideos);
 
 	/** 클래스 삭제 (썸머 테스트)
 	 * @param classNo
