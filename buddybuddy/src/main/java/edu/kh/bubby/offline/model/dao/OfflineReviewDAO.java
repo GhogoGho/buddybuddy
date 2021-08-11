@@ -34,4 +34,14 @@ public class OfflineReviewDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("offReviewMapper.selectReviewList",classNo);
 	}
+
+
+	/**리뷰 삭제
+	 * @param reviewNo
+	 * @return
+	 */
+	public int deleteReview(int reviewNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("offReviewMapper.deleteReview",reviewNo);
+	}
 }

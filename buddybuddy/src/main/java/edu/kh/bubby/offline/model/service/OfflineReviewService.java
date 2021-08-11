@@ -18,4 +18,10 @@ public interface OfflineReviewService {
 	 */
 	List<OffReview> selectReviewList(int classNo);
 
+	/**리뷰 삭제
+	 * @param classNo
+	 * @return
+	 */
+	int deleteReview(int reviewNo);
+
 }

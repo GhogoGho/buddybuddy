@@ -26,4 +26,11 @@ public class OfflineReviewServiceImpl implements OfflineReviewService{
 		// TODO Auto-generated method stub
 		return dao.selectReviewList(classNo);
 	}
+	//리뷰 삭제
+	@Override
+	public int deleteReview(int reviewNo) {
+		// TODO Auto-generated method stub
+		return dao.deleteReview(reviewNo);
+	}
+
 }
