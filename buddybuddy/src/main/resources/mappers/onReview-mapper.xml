@@ -75,9 +75,27 @@
 	<!-- 수강후기 수정 -->
 	<update id="updateReview" parameterType="OnReview">
 		UPDATE REVIEW SET
-		REVIEW_CONTENT = #{reviewContent}
+		REVIEW_CONTENT = #{reviewContent},
+		REVIEW_RATINGS = #{reviewRatings}
 		WHERE REVIEW_NO = #{reviewNo}
 	</update>
+	
+	<!-- 수강후기 사진 정보 수정 -->
+	<update id="updateAttachment" parameterType="ReviewAttachment">
+		UPDATE REVIEW_ATTACHMENT
+		SET
+		FILE_NM = #{fileName}
+		WHERE REVIEW_NO = #{reviewNo}
+		AND FILE_LEVEL = #{fileLevel}
+	</update>
+	
+	<!-- 수강후기 사진 정보 삽입 (한 행) -->
+	<insert id="insertAttachment" parameterType="ReviewAttachment">
+		INSERT INTO
+		REVIEW_ATTACHMENT VALUES
+		(SEQ_REVIEWFNO.NEXTVAL, #{filePath}, #{fileName},
+		#{fileLevel}, #{reviewNo})
+	</insert>
 	
 	<!-- 수강후기 삭제 -->
 	<update id="deleteReview" parameterType="_int">

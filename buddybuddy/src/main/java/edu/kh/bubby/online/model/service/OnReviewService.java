@@ -25,7 +25,7 @@ public interface OnReviewService {
 	 * @param review
 	 * @return
 	 */
-	int updateReview(OnReview review);
+	int updateReview(OnReview review, List<MultipartFile> reviewImgs, String webPath, String savePath);
 
 	/** 수강후기 삭제
 	 * @param reviewNo

@@ -119,10 +119,57 @@
           </div>
         </div>
       </div>
+      <!-- 수정 이미지 파일 -->
+     	<input type="file" name="reviewImgs" id="editReviewImg" accept="image/*" multiple>
       <div class="input-group ms-2 my-2">
         <textarea class="edit-review form-control" rows="5"></textarea>
         <button class="button is-link is-fullwidth" onclick="updateReview(${review.reviewNo}, this)">수정</button>
+        
+        <!--수정 별점 -->
+				<div class="star-rating mb-1">
+				별점
+					<div class="d-flex justify-content-center large text-warning stars" id="editStars">
+					<c:if test= "${review.reviewRatings == 1 }">
+						<i class="fas fa-star"></i>
+						<i class="far fa-star"></i>
+						<i class="far fa-star"></i>
+						<i class="far fa-star"></i>
+						<i class="far fa-star"></i>
+    			</c:if>
+	    			<c:if test= "${review.reviewRatings == 2 }">
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="far fa-star"></i>
+						<i class="far fa-star"></i>
+						<i class="far fa-star"></i>
+					</c:if>
+					<c:if test= "${review.reviewRatings == 3 }">
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="far fa-star"></i>
+						<i class="far fa-star"></i>
+					</c:if>
+					<c:if test= "${review.reviewRatings == 4 }">
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="far fa-star"></i>
+					</c:if>
+					<c:if test= "${review.reviewRatings == 5 }">
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+						<i class="fas fa-star"></i>
+					</c:if>
+					</div>
+				</div>
+				<div class="editPrint"></div>
+				<!--수정 별점 -->
       </div>
+				
     </li>
   </c:forEach>
 	</ul>
@@ -204,9 +251,35 @@ function addReviewImg()({
  */
 
 
-<!-- 별점 -->
+<!-- 별점(수정용) -->
 /* let starRate = $('.print').text(starNum); */
-$(document).on("click", ".stars .far", function(){ // 별점이 비어있을 때
+$(document).on("click", "#editStars > .far", function(){ // 별점이 비어있을 때
+	if( $(this).attr("class") == "far fa-star" ){
+		$(this).attr({"class": "fas fa-star"});
+		$(this).prevAll().attr({"class": "fas fa-star"});
+		$(this).nextAll().attr({"class": "far fa-star"});
+	}
+	
+	let editNum = $(this).index();
+	const editReviewRatings = editNum + 1;
+	$('.editPrint').text(editReviewRatings);
+	const editStarRate = $('.editPrint').val();
+});
+
+$(document).on("click", "#editStars > .fas", function(){ // 별점이 채워져 있을 때
+	if( $(this).attr("class") == "fas fa-star" ){
+		$(this).prevAll().attr({"class": "fas fa-star"});
+		$(this).nextAll().attr({"class": "far fa-star"});
+	}
+	let editNum = $(this).index();
+	const editReviewRatings = editNum + 1;
+	$('.editPrint').text(editReviewRatings);
+	const editStarRate = $('.editPrint').val();
+});
+
+<!-- 별점(입력용) -->
+/* let starRate = $('.print').text(starNum); */
+$(document).on("click", "#addStars > .far", function(){ // 별점이 비어있을 때
 	if( $(this).attr("class") == "far fa-star" ){
 		$(this).attr({"class": "fas fa-star"});
 		$(this).prevAll().attr({"class": "fas fa-star"});
@@ -219,7 +292,7 @@ $(document).on("click", ".stars .far", function(){ // 별점이 비어있을 때
 	const starRate = $('.print').val();
 });
 
-$(document).on("click", ".stars .fas", function(){ // 별점이 채워져 있을 때
+$(document).on("click", "#addStars > .fas", function(){ // 별점이 채워져 있을 때
 	if( $(this).attr("class") == "fas fa-star" ){
 		$(this).prevAll().attr({"class": "fas fa-star"});
 		$(this).nextAll().attr({"class": "far fa-star"});
@@ -408,13 +481,61 @@ function selectReviewList(){
               uDivchch.append(updateC);
               /* var uImg = $("<img>").attr("src","#").addClass("user-image rounded-circle me-2").text("닉네임 : ");
               uDivchch.append(uImg); */
+              var editRevImg = $("<input>").attr("type", "file").attr("name", "reviewImgs").attr("id", "editReviewImg").attr("accept", "image"+"/"+"*");
               var uDivBottom = $("<div>").addClass("input-group ms-2 my-2");
               var uTextarea = $("<textarea>").addClass("form-control").attr("id", "edit-review").attr("rows","5");
               var uButton = $("<button>").addClass("button is-link is-fullwidth").text("수정").attr("onclick", "updateReview(" + item.reviewNo + ", this)");
-              uDivBottom.append(uTextarea).append(uButton);
+              
+              
+              
+              /* 별 파티 */
+              var editStarRating = $("<div>").addClass("star-rating mb-1");
+              var editPri = $("<div>").addClass("editPrint");
+							var editStars = $("<div>").addClass("d-flex justify-content-center large text-warning stars").attr("id", "editStars");
+							if(item.reviewRatings == "1"){
+								var editFas1 = $("<i>").addClass("fas fa-star");
+								var editFar1 = $("<i>").addClass("far fa-star");
+								var editFar2 = $("<i>").addClass("far fa-star");
+								var editFar3 = $("<i>").addClass("far fa-star");
+								var editFar4 = $("<i>").addClass("far fa-star");
+								editStars.append(editFas1).append(editFar1).append(editFar2).append(editFar3).append(editFar4);
+							}else if(item.reviewRatings == "2"){
+								var editFas1 = $("<i>").addClass("fas fa-star");
+								var editFas2 = $("<i>").addClass("fas fa-star");
+								var editFar1 = $("<i>").addClass("far fa-star");
+								var editFar2 = $("<i>").addClass("far fa-star");
+								var editFar3 = $("<i>").addClass("far fa-star");
+								editStars.append(editFas1).append(editFas2).append(editFar1).append(editFar2).append(editFar3);
+							}else if(item.reviewRatings == "3"){
+								var editFas1 = $("<i>").addClass("fas fa-star");
+								var editFas2 = $("<i>").addClass("fas fa-star");
+								var editFas3 = $("<i>").addClass("fas fa-star");
+								var editFar1 = $("<i>").addClass("far fa-star");
+								var editFar2 = $("<i>").addClass("far fa-star");
+								editStars.append(editFas1).append(editFas2).append(editFas3).append(editFar1).append(editFar2);
+							}else if(item.reviewRatings == "4"){
+								var editFas1 = $("<i>").addClass("fas fa-star");
+								var editFas2 = $("<i>").addClass("fas fa-star");
+								var editFas3 = $("<i>").addClass("fas fa-star");
+								var editFas4 = $("<i>").addClass("fas fa-star");
+								var editFar1 = $("<i>").addClass("far fa-star");
+								editStars.append(editFas1).append(editFas2).append(editFas3).append(editFas4).append(editFar1);
+							}else if(item.reviewRatings == "5"){
+								var editFas1 = $("<i>").addClass("fas fa-star");
+								var editFas2 = $("<i>").addClass("fas fa-star");
+								var editFas3 = $("<i>").addClass("fas fa-star");
+								var editFas4 = $("<i>").addClass("fas fa-star");
+								var editFas5 = $("<i>").addClass("fas fa-star");
+								editStars.append(editFas1).append(editFas2).append(editFas3).append(editFas4).append(editFas5);
+							}
+							editStarRating.append(editStars);
+              /* 별 파티 끝! */
+              
+              uDivBottom.append(uTextarea).append(uButton).append(editStarRating).append(editPri);
+              
               
               //수정창 마무리
-              updateLi.append(uDivTop).append(uDivBottom);
+              updateLi.append(uDivTop).append(editRevImg).append(uDivBottom);
             //수정창 끝-------------------------------------------------------------------------------------------
               //댓글 + 수정창
              //topUl.append(li).append(updateLi);
@@ -457,12 +578,27 @@ $(document).on("click", ".showUpdateReview", function(){ // 동적 요소가 적
 function updateReview(reviewNo, el){
 	
 	const reviewContent = $(el).prev().val();
+	const editReviewRatings = $(el).next().next(".editPrint").text();
+	const editReviewImgs = $(el).parent().prev("#editReviewImg").get(0).files[0];
+	
+	console.log(editReviewImgs);
+	console.log(editReviewRatings)
+	console.log(reviewContent)
+	var formData = new FormData();
+	formData.append("reviewContent", reviewContent);
+	formData.append("reviewRatings", editReviewRatings);
+	formData.append("reviewImgs", editReviewImgs);
+	formData.append("reviewNo", reviewNo);
 	
 	$.ajax({
 		url : "${contextPath}/onReview/updateReview",
 		type : "POST",
-		data : {"reviewNo" : reviewNo,
-						"reviewContent" : reviewContent},
+		enctype : "multipart/form-data",
+		data : formData ,
+		contentType : false,
+		processData : false,
+		/* data : {"reviewNo" : reviewNo,
+						"reviewContent" : reviewContent}, */
 		success : function(result){
 			if(result > 0 ){
 				swal({"icon" : "success" , "title" : "수강후기 수정 성공"});
