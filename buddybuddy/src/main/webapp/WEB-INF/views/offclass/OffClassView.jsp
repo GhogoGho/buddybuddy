@@ -329,7 +329,7 @@ th {
 						<hr>
 					</div>
 				</div>
-				<jsp:include page="offlineReply.jsp"></jsp:include>
+				<jsp:include page="offlineReview.jsp"></jsp:include>
 				<div class="row">
 					<div class="col-md-12">
 						<h3 id="class-4">

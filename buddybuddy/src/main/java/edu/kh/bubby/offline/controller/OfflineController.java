@@ -18,9 +18,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.bubby.member.model.vo.Member;
+import edu.kh.bubby.offline.model.service.OfflineReviewService;
+import edu.kh.bubby.offline.model.service.OfflineReviewServiceImpl;
 import edu.kh.bubby.offline.model.service.OfflineService;
 import edu.kh.bubby.offline.model.vo.OffAttachment;
 import edu.kh.bubby.offline.model.vo.OffPagination;
+import edu.kh.bubby.offline.model.vo.OffReview;
 import edu.kh.bubby.offline.model.vo.OffSearch;
 import edu.kh.bubby.offline.model.vo.OfflineClass;
 
@@ -33,6 +36,8 @@ public class OfflineController {
 	@Autowired
 	private OfflineService service;
 
+	@Autowired
+	private OfflineReviewService offReviewService;
 	// 메인 조회
 	@RequestMapping("{classType}/list")
 	public String offlineClassList(@PathVariable("classType") int classType,
@@ -66,8 +71,10 @@ public class OfflineController {
 		OfflineClass offContent = service.selectContent(classNo);
 		// System.out.println(offList);
 		offList.setClassContent(offContent.getClassContent());
+		
 		model.addAttribute("offList", offList);
-
+		List<OffReview> reviewList = offReviewService.selectReviewList(classNo);
+		model.addAttribute("reviewList",reviewList);
 		return "offclass/OffClassView";
 	}
 

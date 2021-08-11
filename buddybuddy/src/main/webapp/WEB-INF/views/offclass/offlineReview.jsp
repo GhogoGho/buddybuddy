@@ -51,26 +51,34 @@
 
 				<div  class="row"  style="overflow:scroll;height:370px">
 					<div id="reviewListArea" class="col-md-12 mb-3">
+						<c:forEach items="${reviewList}" var="review">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="row">
 									<div class="col-md-12" style="padding: 0;">
 
 										<img alt="Image"
-											src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg"
+											src="${contextPath}/${review.memberProfile}"
 											width="25px" height="25px" class="rounded-circle"
 											style="float: left; margin-left: 20px; margin-right: 20px;" />
-										<h3 style="float: left; margin: 0;">아이디</h3>
-										<span style="float: right; margin-right: 50px;">★★★★</span>
+										<h3 style="float: left; margin: 0;">${review.memberNickName}</h3>
+										<span style="float: right; margin-right: 50px;">
+										<c:forEach begin="1" end="${review.reviewRatings}">
+										★
+										</c:forEach>
+										</span>
 									</div>
 								</div>
 								<div style="border: 1px solid black;">
-									후기 작성 자리
+									${review.reviewContent}
 								</div>
+								<c:if test="${loginMember.memberNo == review.memberNo }">
 								<button class="btn main-btn-color" style="float: right;">수정</button>
-								<button class="btn main-btn-color" style="float: right;">삭제</button>
+								<button class="btn main-btn-color" style="float: right;" onclick="deleteReply(${review.reviewNo})">삭제</button>								
+								</c:if>
 							</div>
-						</div>
+						</div>						
+						</c:forEach>
 					</div>
 				</div>
 				<c:if test="${!empty loginMember }">
@@ -108,8 +116,8 @@
 					</div>
 					<div class="col-md-1" style="padding-left: 0px;">
 						<button class="btn btn-success main-btn-color"
-							style="width: 100%; height: 100%; text-align: center; padding: 0px;" onclick="addReply();">
-							<b>작성</b>
+							style="width: 100%; height: 100%; text-align: center; padding: 0px;" onclick="addReply()">
+							작성
 						</button>
 					</div>
 				</div>
@@ -132,11 +140,12 @@
 const loginMemberNo = "${loginMember.memberNo}";
 
 // 현재 게시글 번호
-const boardNo = ${offList.classNo};
+const classNo = ${offList.classNo};
 
 // 수정 전 댓글 요소를 저장할 변수 (댓글 수정 시 사용)
 let beforeReplyRow;
 
+let reviewRatings = $("#reviewRatings").val();
 
 
 //-----------------------------------------------------------------------------------------
@@ -154,12 +163,14 @@ if(loginMemberNo==""){
 	}
 	else{
 		//로그인O, 댓글 작성O
+		
 		$.ajax({
-			url : "${contextPath}/reply/insertReply",//필수 속성!1
+			url : "${contextPath}/offReview/insertReply",//필수 속성!1
 			type : "POST",
 			data : {"memberNo" : loginMemberNo,
 					"classNo" : classNo,
-					"replyContent" : replyContent},
+					"reviewContent" : replyContent,
+					"reviewRatings" : $("#reviewRatings").val()},
 			success: function(result){
 				if(result>0){
 					swal({"icon" : "success" , "title" : "댓글 등록 성공"});
@@ -185,13 +196,13 @@ if(loginMemberNo==""){
 function selectReplyList(){
  
 	$.ajax({
-		url: "${contextPath}/reply/list",
+		url: "${contextPath}/offReview/list",
 		data : {"classNo":classNo},
 		type : "POST",
 		dataType : "JSON", // 응답 되는 데이터의 형식이 JSON임을 알려줌 - > 자바스크립트 객체로 변환됨
 		success : function(rList){
 			console.log(rList);
-	         $("#reviewListArea").html(""); // 기존 정보 초기화
+	         /* $("#reviewListArea").html(""); // 기존 정보 초기화
 	         //왜? 새로 읽어온 댓글 목록으로 다시 만들어서 출력하려고
 	         $.each(rList, function(index, item){
 	            //$.each():jQuery의 반복문
@@ -230,8 +241,8 @@ function selectReplyList(){
 	            
 	            
 	            // 합쳐진 댓글을 화면에 배치
-	            $("#replyListArea").append(li);
-	         });
+	            $("#replyListArea").append(li); 
+	         });*/
 		},
 		error : function(){
 			console.log("댓글 목록 조회 실패");
@@ -335,10 +346,10 @@ function deleteReply(replyNo){
 		
 		$.ajax({
 			url : url,
-			data : {"replyNo" : replyNo},
+			data : {"reviewNo" : replyNo},
 			success : function(result){
 				if(result > 0){
-					selectReplyList(boardNo);
+					//selectReplyList(boardNo);
 					
 					swal({"icon" : "success" , "title" : "댓글 삭제 성공"});
 				}
