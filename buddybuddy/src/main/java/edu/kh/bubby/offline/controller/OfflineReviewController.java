@@ -35,4 +35,10 @@ public class OfflineReviewController {
 		
 		return gson.toJson(rList);
 	}
+	//리뷰 삭제
+	@RequestMapping("deleteReview")
+	public int deleteReview(@RequestParam("reviewNo") int reviewNo) {
+		
+		return service.deleteReview(reviewNo);
+	}
 }

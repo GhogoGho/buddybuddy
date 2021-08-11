@@ -78,7 +78,7 @@
 									${review.reviewContent}
 								</div>
 								<c:if test="${loginMember.memberNo == review.memberNo }">
-								<button class="btn main-btn-color" style="float: right;">수정</button>
+								<button class="btn main-btn-color" style="float: right;" onclick="showUpdateReply(${review.reviewNo}, this)">수정</button>
 								<button class="btn main-btn-color" style="float: right;" onclick="deleteReply(${review.reviewNo})">삭제</button>								
 								</c:if>
 							</div>
@@ -334,7 +334,7 @@ function selectReplyList(){
 				div2.append(div3).append(div5).append(div7);
 				
 				if(loginMemberNo==item.memberNo){
-					var updateReview = $("<button>").addClass("btn main-btn-color").text("수정").css({
+					var updateReview = $("<button>").addClass("btn main-btn-color").text("수정").attr("onclick", "showUpdateReply("+item.reviewNo+", this)").css({
 						float: "right"
 					});
 					var deleteReview =$("<button>").addClass("btn main-btn-color").text("삭제").attr("onclick","deleteReply("+item.reviewNo+")").css({
@@ -376,7 +376,7 @@ function showUpdateReply(replyNo, el){
 	beforeReplyRow = $(el).parent().parent().html();
 
 	// 작성되어있던 내용(수정 전 댓글 내용) 
-	var beforeContent = $(el).parent().prev().html();
+	var beforeContent = $(el).prev().html();
 
 	
 	
@@ -447,15 +447,14 @@ function updateReply(replyNo, el){
 //댓글 삭제
 function deleteReply(replyNo){
 	if(confirm("정말로 삭제하시겠습니까?")){
-		var url = "${contextPath}/reply/deleteReply";
+		var url = "${contextPath}/offReview/deleteReview";
 		
 		$.ajax({
 			url : url,
 			data : {"reviewNo" : replyNo},
 			success : function(result){
 				if(result > 0){
-					//selectReplyList(boardNo);
-					
+					selectReplyList(classNo);
 					swal({"icon" : "success" , "title" : "댓글 삭제 성공"});
 				}
 				
