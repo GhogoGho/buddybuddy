@@ -31,7 +31,7 @@ public class OnReviewController {
 	@RequestMapping(value = "list", method = RequestMethod.POST)
 	public String selectList(int classNo) {
 		List<OnReview> reviewList = service.selectList(classNo);
-		System.out.println("reviewList수강후기조회 :"+reviewList);
+//		System.out.println("reviewList수강후기조회 :"+reviewList);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH:mm").create();
 		return gson.toJson(reviewList);
 	}
@@ -43,7 +43,7 @@ public class OnReviewController {
 							HttpServletRequest request) {
 		String webPath = "resources/images/review/";
 		String savePath = request.getSession().getServletContext().getRealPath(webPath);
-		System.out.println("review: "+review);
+//		System.out.println("review: "+review);
 		return service.insertReview(review, reviewImgs, webPath, savePath);
 		
 //		System.out.println("review: "+review);
@@ -52,8 +52,13 @@ public class OnReviewController {
 
 	// 수강 후기 수정
 	@RequestMapping(value = "updateReview", method = RequestMethod.POST)
-	public int updateReview(OnReview review) {
-		return service.updateReview(review);
+	public int updateReview(@ModelAttribute OnReview review,
+							@RequestParam("reviewImgs") List<MultipartFile> reviewImgs,
+							HttpServletRequest request) {
+		String webPath = "resources/images/review/";
+		String savePath = request.getSession().getServletContext().getRealPath(webPath);
+		System.out.println("review수정: "+review);
+		return service.updateReview(review, reviewImgs, webPath, savePath);
 	}
 
 	// 수강 후기 삭제

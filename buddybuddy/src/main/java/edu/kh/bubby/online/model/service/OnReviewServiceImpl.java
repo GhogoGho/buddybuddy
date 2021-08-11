@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.bubby.member.exception.SaveFileException;
+import edu.kh.bubby.online.exception.InsertAttachmentException;
 import edu.kh.bubby.online.model.dao.OnReviewDAO;
 import edu.kh.bubby.online.model.vo.Attachment;
 import edu.kh.bubby.online.model.vo.OnReview;
@@ -36,7 +37,7 @@ public class OnReviewServiceImpl implements OnReviewService{
 		review.setReviewContent(review.getReviewContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
 		
 		int reviewNo = dao.insertReview(review);
-		System.out.println("reviewNo나오나 :"+review);
+//		System.out.println("reviewNo나오나 :"+review);
 		if(reviewNo>0) {
 			List<ReviewAttachment> atList = new ArrayList<ReviewAttachment>();
 			for(int i=0; i<reviewImgs.size(); i++) {
@@ -84,10 +85,53 @@ public class OnReviewServiceImpl implements OnReviewService{
 	// 수강후기 수정
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int updateReview(OnReview review) {
+	public int updateReview(OnReview review, List<MultipartFile> reviewImgs, String webPath, String savePath) {
 		review.setReviewContent(OnlineServiceImpl.replaceParameter(review.getReviewContent()));
 		review.setReviewContent(review.getReviewContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
-		return dao.updateReview(review);
+		
+		int result = dao.updateReview(review);
+		if(result>0) {
+			List<ReviewAttachment> atList = new ArrayList<ReviewAttachment>();
+			for(int i=0; i<reviewImgs.size(); i++) {
+				
+				if( !reviewImgs.get(i).getOriginalFilename().equals("") ) {
+					
+					String fileName = rename(reviewImgs.get(i).getOriginalFilename() );
+					
+					ReviewAttachment at = new ReviewAttachment();
+					at.setFileName(fileName);
+					at.setFilePath(webPath);
+					at.setReviewNo(review.getReviewNo());
+					at.setFileLevel(i);
+					
+					atList.add(at);
+				}
+			}
+			
+			for(ReviewAttachment at : atList) {
+				result = dao.updateAttachment(at);
+				
+				if(result == 0) {
+					result = dao.insertAttachment(at);
+					
+					if(result == 0) { // 삽입 실패
+						// 강제로 예외를 발생시켜 전체 롤백 수행
+						throw new InsertAttachmentException();
+					}
+				}
+			}
+			
+			for(int i=0; i<atList.size(); i++) {
+				try {
+					reviewImgs.get( atList.get(i).getFileLevel() )
+					.transferTo(new File(savePath + "/" + atList.get(i).getFileName() ));
+				}catch(Exception e) {
+					e.printStackTrace();
+					throw new SaveFileException();
+				}
+			}
+		}
+		return result;
 	}
 
 	// 수강후기 삭제

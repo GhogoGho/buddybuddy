@@ -59,5 +59,21 @@ public class OnReviewDAO {
 		return sqlSession.update("onReviewMapper.deleteReview", reviewNo);
 	}
 
+	/** 수강후기 파일 정보 수정(한 행)
+	 * @param at
+	 * @return result
+	 */
+	public int updateAttachment(ReviewAttachment at) {
+		return sqlSession.update("onReviewMapper.updateAttachment", at);
+	}
+
+	/** 수강후기 파일 정보 삽입(한 행)
+	 * @param at
+	 * @return
+	 */
+	public int insertAttachment(ReviewAttachment at) {
+		return sqlSession.insert("onReviewMapper.insertAttachment", at);
+	}
+
 	
 }
