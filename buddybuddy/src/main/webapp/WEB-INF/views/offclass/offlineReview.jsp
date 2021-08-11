@@ -62,14 +62,19 @@
 											width="25px" height="25px" class="rounded-circle"
 											style="float: left; margin-left: 20px; margin-right: 20px;" />
 										<h3 style="float: left; margin: 0;">${review.memberNickName}</h3>
-										<span style="float: right; margin-right: 50px;">
+										<span style="float: right;">
 										<c:forEach begin="1" end="${review.reviewRatings}">
 										★
 										</c:forEach>
 										</span>
 									</div>
 								</div>
-								<div style="border: 1px solid black;">
+								<div class="row"  style="text-align: right;">
+								<div>
+								<fmt:formatDate value="${review.reviewDate}" pattern="yyyy년 MM월 dd일 HH:mm" />
+								</div>
+								</div>
+								<div class="row" style="border: 1px solid black;">
 									${review.reviewContent}
 								</div>
 								<c:if test="${loginMember.memberNo == review.memberNo }">
@@ -202,8 +207,9 @@ function selectReplyList(){
 		dataType : "JSON", // 응답 되는 데이터의 형식이 JSON임을 알려줌 - > 자바스크립트 객체로 변환됨
 		success : function(rList){
 			console.log(rList);
-	         /* $("#reviewListArea").html(""); // 기존 정보 초기화
-	         //왜? 새로 읽어온 댓글 목록으로 다시 만들어서 출력하려고
+			
+	          $("#reviewListArea").html(""); // 기존 정보 초기화
+	        /*  //왜? 새로 읽어온 댓글 목록으로 다시 만들어서 출력하려고
 	         $.each(rList, function(index, item){
 	            //$.each():jQuery의 반복문
 	            // rList : ajax 결과로 받은 댓글이 담겨있는 객체 배열
@@ -242,7 +248,106 @@ function selectReplyList(){
 	            
 	            // 합쳐진 댓글을 화면에 배치
 	            $("#replyListArea").append(li); 
-	         });*/
+	         }); */
+	         
+/* 	      	<c:forEach items="${reviewList}" var="review">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-12" style="padding: 0;">
+
+							<img alt="Image"
+								src="${contextPath}/${review.memberProfile}"
+								width="25px" height="25px" class="rounded-circle"
+								style="float: left; margin-left: 20px; margin-right: 20px;" />
+							<h3 style="float: left; margin: 0;">${review.memberNickName}</h3>
+							<span style="float: right;">
+							<c:forEach begin="1" end="${review.reviewRatings}">
+							★
+							</c:forEach>
+							</span>
+						</div>
+					</div>
+					<div class="row"  style="text-align: right;">
+					<div>
+					<fmt:formatDate value="${review.reviewDate}" pattern="yyyy년 MM월 dd일 HH:mm" />
+					</div>
+					</div>
+					<div class="row" style="border: 1px solid black;">
+						${review.reviewContent}
+					</div>
+					<c:if test="${loginMember.memberNo == review.memberNo }">
+					<button class="btn main-btn-color" style="float: right;">수정</button>
+					<button class="btn main-btn-color" style="float: right;" onclick="deleteReply(${review.reviewNo})">삭제</button>								
+					</c:if>
+				</div>
+			</div>						
+			</c:forEach> */
+			$.each(rList, function(index, item){
+				console.log(parseInt(item.reviewRatings,10));
+				var Ratings = parseInt(item.reviewRatings,10);
+				//제일큰 div
+				var div1 = $("<div>").addClass("row");
+				//2번째 담는 div
+				var div2 = $("<div>").addClass("col-md-12");
+				//아이디 프로필사진 별점을 담는 div의 div
+				var div3 = $("<div>").addClass("row");				
+				//아이디 프로필사진 별점을 담는 div
+				var div4 = $("<div>").addClass("col-md-12").css("padding","0");
+				//프로필 이미지
+				var img = $('<img>', {
+					src: "${contextPath}/"+item.memberProfile,
+					width:"25px",
+					height:"25px",
+					class:"rounded-circle"
+				}).css({
+					float: "left",
+					marginLeft:  '20px',
+					marginRight: '20px'
+				});
+				//작성자 닉네임
+				var Nick = $("<h3>").text(item.memberNickName).css({
+					float: "left",
+					margin: "0"
+				});
+				//별점
+				var span = $("<span>").css({
+					float: "right"
+				});
+				var star = "";
+				for(var i=0; i<Ratings ;i++){
+					star+="★"
+				}
+				span.text(star);
+				//날짜 담는 div담는 div
+				var div5 = $("<div>").addClass("row").css("text-align", "right");
+				//날짜 담는 div에 날짜 담김
+				var div6 = $("<div>").text(item.reviewDate);
+				//리뷰 content 담은 div
+				var div7 = $("<div>").addClass("row").text(item.reviewContent).css({
+					border: "1px solid black"
+				});
+				//이미지 담는 div에 요소 담기
+				div4.append(img).append(Nick).append(span);
+				div3.append(div4);
+				div5.append(div6);
+				div2.append(div3).append(div5).append(div7);
+				
+				if(loginMemberNo==item.memberNo){
+					var updateReview = $("<button>").addClass("btn main-btn-color").text("수정").css({
+						float: "right"
+					});
+					var deleteReview =$("<button>").addClass("btn main-btn-color").text("삭제").attr("onclick","deleteReply("+item.reviewNo+")").css({
+						float: "right"
+					});
+					div2.append(updateReview).append(deleteReview);
+				}
+				div1.append(div2);
+				$("#reviewListArea").append(div1);
+				
+			}); 
+			
+			
 		},
 		error : function(){
 			console.log("댓글 목록 조회 실패");
