@@ -390,7 +390,10 @@
 	
 	<!-- 클래스 수정 (썸머 테스트) -->
 	<update id="summerUpdateOnline" parameterType="Online">
-		UPDATE CLASS_PAGE SET CLASS_TITLE = #{classTitle}, CLASS_CONTENT = #{classContent}, CATEGORY_NO = #{categoryNo}
+		UPDATE CLASS_PAGE SET
+		CLASS_TITLE = #{classTitle},
+		CLASS_CONTENT = #{classContent},
+		CATEGORY_NO = #{categoryNo}
 		WHERE CLASS_NO = #{classNo}
 	</update>
 	

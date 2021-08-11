@@ -207,6 +207,9 @@ public class OnlineController {
 		model.addAttribute("category", category);
 		model.addAttribute("online", online);
 		
+		System.out.println("수정전환시:"+model);
+		System.out.println("수정전환시:"+online);
+		
 		return "onlineClass/onlineClassUpdate1";
 	}
 	
@@ -223,6 +226,9 @@ public class OnlineController {
 		}
 		String savePath = request.getSession().getServletContext().getRealPath(webPath);
 		int result = service.updateOnline(online, videos, webPath, savePath, deleteVideos);
+		System.out.println("수정클릭"+online);
+		System.out.println("수정클륵 후 클번: "+online.getClassNo());
+		System.out.println("수정클륵 후 비디오: "+videos);
 		String path = null;
 		if(result > 0) {
 			path="redirect:"+online.getClassNo();
@@ -331,12 +337,18 @@ public class OnlineController {
 	@RequestMapping(value="{classType}/updateSummer", method=RequestMethod.POST)
 	public String summerUpdateOnline(@PathVariable("classType") int classType, 
 						@ModelAttribute Online online,
+						@RequestParam("videos") List<MultipartFile> videos,
+						@RequestParam("deleteVideos") String deleteVideos,
 						HttpServletRequest request, Model model, RedirectAttributes ra) {
-		
-		
-		int result = service.summerUpdateOnline(online);
+		String webPath = "resources/images/";
+		switch(classType) {
+		case 1 : webPath += "onlineClass/"; break;
+		}
+		String savePath = request.getSession().getServletContext().getRealPath(webPath);
+		int result = service.summerUpdateOnline(online, videos, webPath, savePath, deleteVideos);
 		System.out.println("수정클릭"+online);
-		System.out.println(online.getClassNo());
+		System.out.println("수정클륵 후 클번: "+online.getClassNo());
+		
 		String path = null;
 		if(result>0) {
 			path ="redirect:"+online.getClassNo();

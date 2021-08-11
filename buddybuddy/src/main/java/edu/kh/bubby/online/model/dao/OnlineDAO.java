@@ -137,6 +137,7 @@ public class OnlineDAO {
 	 * @return result
 	 */
 	public int updateOnline(Online online) {
+		System.out.println("DAO에서 : "+online);
 		return sqlSession.update("onlineMapper.updateOnline", online);
 	}
 	
@@ -195,6 +196,7 @@ public class OnlineDAO {
 	 * @return result
 	 */
 	public int summerUpdateOnline(Online online) {
+		System.out.println("DAO에서 : "+online);
 		return sqlSession.update("onlineMapper.summerUpdateOnline", online);
 	}
 
