@@ -16,7 +16,12 @@
 		#reviewImg0{
 			height:100px;
 		}
+		.member-image {
+		width:30px;
+		}
 </style>
+
+
 
 <div class="reviewList">
   <ul class="online-review-content list-group col-md-12" id="reviewListArea">
@@ -25,7 +30,14 @@
       <div class="d-flex justify-content-between align-items-center">
         <div class="ms-2 me-auto">
           <div class="fw-bold">
-            <img src="${contextPath}/${review.memberProfile}" class="user-image rounded-circle me-2">${review.memberNickName}
+          	<c:choose>
+          	<c:when test="${!empty review.memberProfile }">
+	          <img src="${contextPath}/${review.memberProfile}" class="member-image rounded-circle me-2">${review.memberNickName}
+          	</c:when>
+          	<c:otherwise>
+            <img src="${contextPath}/resources/images/noimage.png" class="member-image rounded-circle me-2">${review.memberNickName}
+          	</c:otherwise>
+          	</c:choose>
           </div>
         </div>
         <p class="date me-2">작성일 : <fmt:formatDate value="${review.reviewDate}" pattern="yyyy년 MM월 dd일 HH:mm" /></p>
@@ -36,7 +48,7 @@
           </li>
         </ul>
         </c:if>
-        <!-- 이미지 불러오기 -->
+        <!-- 이미지 불러오기 (두 번 선언되지 않으면 상세페이지로 넘어올 경우 이미지 변수 선언이 동작하지 않음)-->
 				<c:forEach items="${review.atList}" var="at">
 					<c:choose>
 						<c:when test="${at.fileLevel == 0 && !empty at.fileName}">
@@ -59,10 +71,11 @@
         </button>--%>
       </div>
       <div class="ms-2">
-			${review.reviewContent }
 			<c:if test="${ !empty review.atList && review.atList[0].fileLevel == 0}">
-      	<img id="reviewImg0" src="${contextPath}/${review.atList[0].filePath}${review.atList[0].fileName}">
+      	<%-- <img id="reviewImg0" src="${contextPath}/${review.atList[0].filePath}${review.atList[0].fileName}"> --%>
+      	<img id="reviewImg0" src="${img0}">
 			</c:if>
+				<div id="review-con">${review.reviewContent }</div>
       </div>
       <!-- 별점 출력 -->
 	    <div class="star-area"> 
@@ -138,7 +151,8 @@
 		<!-- 별점 숫자로 출력하는 부분(값을 가져가기 위해)
 				다른 방법으로는 input이 있음 val()로 가져감
 		 -->
-		<div class="print" style="display:none"></div>
+		<!-- <div class="print" style="display:none"></div> -->
+		<div class="print"></div>
 		
 		<button class="button is-success is-outlined is-large is-fullwidth" id="addReview" onclick="addReview();">
 		<span class="icon is-small">
@@ -148,7 +162,25 @@
 		</button>
 	</div>
 </div>
+<!-- 이미지 불러오기 (자바스크립트에서 변수 사용을 위해 필요) 변수 미사용으로 필요 없어짐-->
+<%-- <c:forEach items="${review.atList}" var="at">
+	<c:choose>
+		<c:when test="${at.fileLevel == 0 && !empty at.fileName}">
+			<c:set var="img0" value="${contextPath}/${at.filePath}${at.fileName}"/>
+		</c:when>
+		<c:when test="${at.fileLevel == 1 && !empty at.fileName}">
+			<c:set var="img1" value="${contextPath}/${at.filePath}${at.fileName}"/>
+		</c:when>
+		<c:when test="${at.fileLevel == 2 && !empty at.fileName}">
+			<c:set var="img2" value="${contextPath}/${at.filePath}${at.fileName}"/>
+		</c:when>
+		<c:when test="${at.fileLevel == 3 && !empty at.fileName}">
+			<c:set var="img3" value="${contextPath}/${at.filePath}${at.fileName}"/>
+		</c:when>
+	</c:choose>
+</c:forEach> --%>
 <script>
+
 /* 
 function addReviewImg()({
 	if($("#reviewImg").val()!=''){ // 파일이 첨부가 된 경우
@@ -174,21 +206,34 @@ function addReviewImg()({
 
 <!-- 별점 -->
 /* let starRate = $('.print').text(starNum); */
-/* $(document).on("click", ".stars .far", function(){ 별이 채워진 후 안 돌아감 */ 
- 	$('.stars .far').click(function(){
-		$(this).attr({'class': 'fas fa-star'});
-		$(this).prevAll().attr({'class': 'fas fa-star'});
-		$(this).nextAll().attr({'class': 'far fa-star'});
-		
-		let num = $(this).index();
-		const reviewRatings = num + 1;
-		$('.print').text(reviewRatings);
-	});
+$(document).on("click", ".stars .far", function(){ // 별점이 비어있을 때
+	if( $(this).attr("class") == "far fa-star" ){
+		$(this).attr({"class": "fas fa-star"});
+		$(this).prevAll().attr({"class": "fas fa-star"});
+		$(this).nextAll().attr({"class": "far fa-star"});
+	}
+	
+	let num = $(this).index();
+	const reviewRatings = num + 1;
+	$('.print').text(reviewRatings);
 	const starRate = $('.print').val();
+});
 
+$(document).on("click", ".stars .fas", function(){ // 별점이 채워져 있을 때
+	if( $(this).attr("class") == "fas fa-star" ){
+		$(this).prevAll().attr({"class": "fas fa-star"});
+		$(this).nextAll().attr({"class": "far fa-star"});
+	}
+	let num = $(this).index();
+	const reviewRatings = num + 1;
+	$('.print').text(reviewRatings);
+	const starRate = $('.print').val();
+});
+
+
+/* 중복 변수 */
 /* const loginMemberNo = "${loginMember.memberNo}";
 const classNo = ${online.classNo}; */
-/* let beforeReviewRow;  */
 //-----------------------------------------------------------------------------------------
 //수강후기 등록
 function addReview() {
@@ -206,7 +251,7 @@ function addReview() {
 	formData.append("reviewRatings", reviewRatings);
 	
     if(loginMemberNo == ""){
-    	swal("로그인 필요");
+    	swal("로그인이 필요합니다.");
     }else{
      if(reviewContent.trim() == ""){ 
     	 swal("수강후기 작성 후 클릭해 주세요.");
@@ -218,11 +263,6 @@ function addReview() {
          url : "${contextPath}/onReview/insertReview", 
          type : "POST",
          enctype : "multipart/form-data",
-         /*data : {"memberNo" : loginMemberNo,
-             "classNo" : classNo,
-             "reviewContent" : reviewContent,
-             "reviewImg" : reviewImg,
-             "reviewRatings" : reviewRatings },*/
          data : formData ,
          contentType: false,
          processData: false,
@@ -231,6 +271,7 @@ function addReview() {
 						swal({"icon" : "success" , "title" : "수강후기 등록 성공"});
 						$("#reviewContent").val(""); // 삽입 후 비우기
 						$("#reviewImg").text(""); // 업로드 후 파일 지우기
+						$(".print").text(""); // 별점 값 지우기
 						$("#addStars").html(""); // 지우고 다시 생성
 						var addFar1 = $("<i>").addClass("far fa-star");
 						var addFar2 = $("<i>").addClass("far fa-star");
@@ -238,15 +279,6 @@ function addReview() {
 						var addFar4 = $("<i>").addClass("far fa-star");
 						var addFar5 = $("<i>").addClass("far fa-star");
 						$("#addStars").append(addFar1).append(addFar2).append(addFar3).append(addFar4).append(addFar5);
-						/*function(){
-							$("#addStars").html("");
-							var addFar1 = $("<i>").addClass("far fa-star");
-							var addFar2 = $("<i>").addClass("far fa-star");
-							var addFar3 = $("<i>").addClass("far fa-star");
-							var addFar4 = $("<i>").addClass("far fa-star");
-							var addFar5 = $("<i>").addClass("far fa-star");
-							$("#addStars").append(addFar1).append(addFar2).append(addFar3).append(addFar4).append(addFar5);
-						}*/
 						selectReviewList(); 
            }
          },
@@ -266,25 +298,23 @@ function selectReviewList(){
      type : "POST",
      dataType : "JSON",  
      success : function(reviewList){
-       /* console.log(rList); */
        
-            //$("#replyListArea").html(""); 1
             $("#reviewListArea").html(""); 
             
             
             $.each(reviewList, function(index, item){
             	
-              // console.log(item.userNickname); 
-              //var topDiv = $("<div>").addClass("replyList mt-5 pt-2");
-          	  //var topUl = $("<ul>").addClass("qna-reply-content list-group col-md-9").attr("id", "replyListArea");
     
               var li = $("<li>").addClass("list-group-item");
     
               var div1 = $("<div>").addClass("d-flex justify-content-between align-items-center");
-              var lastDiv = $("<div>").addClass("ms-2").html(item.reviewContent);
-      				/* if( item.atList == "" && item.atList[0].fileLevel == 0 ){
-      				} */
-    					var img = $("<img>").attr("src","${contextPath}"+"/").attr("id", "reviewImg0");
+              var lastDiv = $("<div>").addClass("ms-2");
+      				if( item.atList != "" && item.atList[0].fileLevel == 0){ // 후기 사진 출력
+	    					/* var img = $("<img>").attr("src", "${contextPath}"+"/"+item.atList[0].filePath).attr("id", "reviewImg0"); */
+	    					/* var img = $("<img>").attr("src", "${img0}").attr("id", "reviewImg0"); */
+	    					var img = $("<img>").attr("src", "${contextPath}"+"/"+item.atList[0].filePath+item.atList[0].fileName).attr("id", "reviewImg0");
+      				}
+      				var reviewCon = $("<div>").attr("id", "review-con").html(item.reviewContent);
     					/* 별점 만들기 후아~ */
     					var starArea = $("<div>").addClass("star-area");
     					var starRating = $("<div>").addClass("star-rating");
@@ -324,13 +354,16 @@ function selectReviewList(){
     
               var div3 = $("<div>").addClass("fw-bold");
               div2.append(div3);
-    
-              var rWriter = $("<img>").attr("src","${contextPath}"+"/"+item.memberProfile).addClass("user-image rounded-circle me-2"); 
+    					if(item.memberProfile != null){ // 프로필 사진 출력
+              	var rWriter = $("<img>").attr("src","${contextPath}"+"/"+item.memberProfile).addClass("member-image rounded-circle me-2"); 
+    					}else{
+    						var rWriter = $("<img>").attr("src","${contextPath}"+"/"+"resources"+"/"+"images"+"/"+"noimage.png").addClass("member-image rounded-circle me-2"); 
+    					}
               div3.append(rWriter).append(item.memberNickName);
               
               var rDate = $("<p>").addClass("date me-2").text("작성일 : "+item.reviewDate);
     
-               if (item.memberNo == loginMemberNo) { 
+               if (item.memberNo == loginMemberNo) { // 삭제 수정 버튼 
     
                  var ul = $("<ul>").addClass("review-action reviewBtnArea list-inline me-2");
       
@@ -359,7 +392,8 @@ function selectReviewList(){
               /* var listButton = $("<button>").addClass("btn btn-outline-primary").text("목록갱신(테스트용)").attr("onclick", "selectReplyList()"); */
 		          /* if(item.atList == "" && item.atList[0].fileLevel == 0 ){
 		         	} */
-			        lastDiv.append(img);
+		         	
+			        lastDiv.append(img).append(reviewCon);
               li.append(div1).append(lastDiv).append(starArea);
               
             //수정창 시작-----------------------------------------------------------------------------------------
