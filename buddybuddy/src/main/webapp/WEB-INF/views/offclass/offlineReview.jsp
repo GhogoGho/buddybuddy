@@ -74,9 +74,7 @@
 								<fmt:formatDate value="${review.reviewDate}" pattern="yyyy년 MM월 dd일 HH:mm" />
 								</div>
 								</div>
-								<div class="row" style="border: 1px solid black;">
-									${review.reviewContent}
-								</div>
+								<div class="row" style="border: 1px solid black;">${review.reviewContent}</div>
 								<c:if test="${loginMember.memberNo == review.memberNo }">
 								<button class="btn main-btn-color" style="float: right;" onclick="showUpdateReply(${review.reviewNo}, this)">수정</button>
 								<button class="btn main-btn-color" style="float: right;" onclick="deleteReply(${review.reviewNo})">삭제</button>								

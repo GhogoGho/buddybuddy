@@ -52,6 +52,12 @@ public interface OfflineService {
 	 * @return
 	 */
 	int insertOfflineClass(OfflineClass offlineClass, List<MultipartFile> images, String webPath, String savePath, List reserveAll);
+	
+	/**클래스 삭제
+	 * @param classNo
+	 * @return
+	 */
+	int deleteClass(int classNo);
 
 
 
