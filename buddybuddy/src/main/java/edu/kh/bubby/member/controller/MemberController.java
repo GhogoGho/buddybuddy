@@ -2,6 +2,7 @@ package edu.kh.bubby.member.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +29,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import edu.kh.bubby.member.model.service.KakaoAPI;
 import edu.kh.bubby.member.model.service.MemberService;
 import edu.kh.bubby.member.model.vo.Member;
+import edu.kh.bubby.offline.model.vo.OfflineClass;
+import edu.kh.bubby.online.model.vo.Online;
+import edu.kh.bubby.online.model.vo.Pagination;
 
 @Controller
 @RequestMapping("member/*")
@@ -143,6 +148,40 @@ public class MemberController {
 
 		return "member/myPage";
 	}
+	
+//	마이페이지 Controller
+//	@RequestMapping(value = "classType")
+//	public String myPage(@ModelAttribute("loginMember") Member loginMember,
+//						/* @RequestParam(value="cp", required = false, defaultValue="1") int cp,*/
+//						 Model model/*, Pagination pg*/) {
+//	
+//		
+//		return null;
+//	}
+//	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 //	info 화면 전환용 Controller
 	@RequestMapping(value = "info", method = RequestMethod.GET)

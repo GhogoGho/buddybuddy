@@ -288,10 +288,10 @@
                             <a class="nav-menu" href="${contextPath}/main">Home</a>
                         </li>
                         <li>
-                            <a href="#">온라인 클래스</a>
+                            <a href="${contextPath}/class/1/list">온라인 클래스</a>
                         </li>
                         <li>
-                            <a href="#">오프라인 클래스 </a>
+                            <a href="${contextPath}/offclass/2/list">오프라인 클래스 </a>
                         </li>
                          <li>
                             <a href="${contextPath}/member/myPage">마이페이지 </a>
@@ -365,10 +365,10 @@
 
                                 <button class="class-btn nav-link active col-6" id="nav-home-tab"
                                     data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab"
-                                    aria-controls="nav-home" aria-selected="true">클래스 내역</button>
+                                    aria-controls="nav-home" aria-selected="true">온라인 클래스 내역</button>
                                 <button class="class-btn1 nav-link col-6" id="nav-profile-tab" data-bs-toggle="tab"
                                     data-bs-target="#nav-profile" type="button" role="tab"
-                                    aria-controls="nav-profile" aria-selected="false">클래스 예약 내역</button>
+                                    aria-controls="nav-profile" aria-selected="true">오프라인 클래스 내역</button>
                             </div>
 
                         </div>
@@ -384,8 +384,8 @@
                             <div class="class-img col-sm-2"><img src="https://via.placeholder.com/150" width="70"
                                     height="70" class="rounded-3 float-start me-2" alt="">
                             </div>
-                            <div class="class-cate col-sm-2"><a href="#">카테고리</a></div>
-                            <div class="class-nm col-sm-5"><a href="#">클래스 제목</a></div>
+                            <div class="class-cate col-sm-2"><a href="${list.categoryName}">카테고리</a></div>
+                            <div class="class-nm col-sm-5"><a href="${list.classTitle }">클래스 제목</a></div>
                             <div class="class-dt col-sm-2">21/07/26</div>
                         </div>
                     </div>
@@ -395,8 +395,8 @@
                             <div class="class-img col-sm-2"><img src="https://via.placeholder.com/150" width="70"
                                     height="70" class="rounded-3 float-start me-2" alt="" href="#">
                             </div>
-                            <div class="class-cate col-sm-2"><a href="#">카테고리</a></div>
-                            <div class="class-nm col-sm-5"><a href="#">클래스 제목</a></div>
+                            <div class="class-cate col-sm-2"><a href="${list.categoryName}">카테고리</a></div>
+                            <div class="class-nm col-sm-5"><a href="${list.classTitle }">클래스 제목</a></div>
                             <div class="class-dt col-sm-2">21/07/26</div>
                         </div>
                     </div>
@@ -406,8 +406,8 @@
                             <div class="class-img col-sm-2"><img src="https://via.placeholder.com/150" width="70"
                                     height="70" class="rounded-3 float-start me-2" alt="">
                             </div>
-                            <div class="class-cate col-sm-2"><a href="#">카테고리</a></div>
-                            <div class="class-nm col-sm-5"><a href="#">클래스 제목</a></div>
+                            <div class="class-cate col-sm-2"><a href="${list.categoryName}">카테고리</a></div>
+                            <div class="class-nm col-sm-5"><a href="${list.classTitle }">클래스 제목</a></div>
                             <div class="class-dt col-sm-2">21/07/26</div>
                         </div>
                     </div>
@@ -417,8 +417,8 @@
                             <div class="class-img col-sm-2"><img src="https://via.placeholder.com/150" width="70"
                                     height="70" class="rounded-3 float-start me-2" alt="">
                             </div>
-                            <div class="class-cate col-sm-2"><a href="#">카테고리</a></div>
-                            <div class="class-nm col-sm-5"><a href="#">클래스 제목</a></div>
+                            <div class="class-cate col-sm-2"><a href="${list.categoryName}">카테고리</a></div>
+                            <div class="class-nm col-sm-5"><a href="${list.classTitle }">클래스 제목</a></div>
                             <div class="class-dt col-sm-2">21/07/26</div>
                         </div>
                     </div>
@@ -428,8 +428,8 @@
                             <div class="class-img col-sm-2"><img src="https://via.placeholder.com/150" width="70"
                                     height="70" class="rounded-3 float-start me-2" alt="">
                             </div>
-                            <div class="class-cate col-sm-2"><a href="#">카테고리</a></div>
-                            <div class="class-nm col-sm-5"><a href="#">클래스 제목</a></div>
+                            <div class="class-cate col-sm-2"><a href="${list.categoryName}">카테고리</a></div>
+                            <div class="class-nm col-sm-5"><a href="${list.classTitle }">클래스 제목</a></div>
                             <div class="class-dt col-sm-2">21/07/26</div>
                         </div>
                     </div>
