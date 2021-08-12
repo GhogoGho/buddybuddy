@@ -19,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import edu.kh.bubby.member.exception.SaveFileException;
 import edu.kh.bubby.member.model.dao.MemberDAO;
 import edu.kh.bubby.member.model.vo.Member;
+import edu.kh.bubby.online.model.vo.Online;
+import edu.kh.bubby.online.model.vo.Pagination;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -240,11 +242,29 @@ public class MemberServiceImpl implements MemberService {
 			out.close();
 		}
 	}
-
+	
+//	카카오 소셜 로그인 Service
 	@Override
 	public Member kakaoLogin(Member kakaoMember) {
 		
 		return dao.kakaoLogin(kakaoMember);
+	}
+
+//	온라인 클래스 조회 Service
+	@Override
+	public List<Online> onlineList(int memberNo) {
+		
+		return dao.selectOnlineList(memberNo);
+	}
+	
+//	이용내역 조회 
+	@Override
+	public Pagination getPagination(Pagination pg) {
+		
+		Pagination selectPg = dao.getListCount(pg.getClassType());
+		
+		return new Pagination(pg.getCurrentPage(), selectPg.getListCount(), 
+				pg.getClassType(), selectPg.getClassName());
 	}
 
 	

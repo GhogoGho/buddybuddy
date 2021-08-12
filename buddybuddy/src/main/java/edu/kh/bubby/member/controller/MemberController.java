@@ -150,15 +150,37 @@ public class MemberController {
 	}
 	
 //	마이페이지 Controller
-//	@RequestMapping(value = "classType")
-//	public String myPage(@ModelAttribute("loginMember") Member loginMember,
-//						/* @RequestParam(value="cp", required = false, defaultValue="1") int cp,*/
-//						 Model model/*, Pagination pg*/) {
-//	
-//		
-//		return null;
-//	}
-//	
+	@RequestMapping(value = "{classType}/list")
+	public String myPage(@ModelAttribute("loginMember") Member loginMember,
+						 @PathVariable("classType") int classType,
+						 @RequestParam(value="cp", required = false, defaultValue="1") int cp,
+						 Model model, Pagination pg) {
+		
+		pg.setClassType(classType);
+		pg.setCurrentPage(cp);
+		
+		List<Online> onlineList = null;
+		Pagination pagination = null;
+		
+		if(loginMember != null) {
+			
+			pagination = service.getPagination(pg);
+			onlineList = service.onlineList(loginMember.getMemberNo());
+		
+		} else {
+			
+			pagination = service.getPagination(pg);
+			
+		}
+		
+		System.out.println(onlineList);
+		
+		model.addAttribute("onlineList", onlineList);
+		model.addAttribute("pagination", pagination);
+	
+		return "member/myPage";
+	}
+	
 	
 	
 	

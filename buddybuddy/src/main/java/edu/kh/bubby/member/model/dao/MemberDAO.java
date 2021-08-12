@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.bubby.member.model.vo.Member;
+import edu.kh.bubby.online.model.vo.Online;
+import edu.kh.bubby.online.model.vo.Pagination;
 
 @Repository
 public class MemberDAO {
@@ -142,6 +144,26 @@ public class MemberDAO {
 		System.out.println(kakaoMember.getMemberEmail());
 		
 		return sqlSession.selectOne("memberMapper.kakaoLogin", kakaoMember);
+	}
+
+
+	/** 온라인 수강내역 조회
+	 * @param memberNo
+	 * @return
+	 */
+	public List<Online> selectOnlineList(int memberNo) {
+		
+		return sqlSession.selectList("memberMapper.selectOnlineList", memberNo);
+	}
+
+
+	/** 전체 이용내역 조회
+	 * @param classType
+	 * @return pagination
+	 */
+	public Pagination getListCount(int classType) {
+		
+		return sqlSession.selectOne("onlineMapper.getListCount", classType);
 	}
 
 

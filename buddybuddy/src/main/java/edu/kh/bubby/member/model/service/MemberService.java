@@ -1,11 +1,15 @@
 package edu.kh.bubby.member.model.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.bubby.member.model.vo.Member;
+import edu.kh.bubby.online.model.vo.Online;
+import edu.kh.bubby.online.model.vo.Pagination;
 
 @Service
 public interface MemberService {
@@ -60,7 +64,7 @@ public interface MemberService {
 
 	/** 아이디 찾기 Service
 	 * @param findMember
-	 * @return 
+	 * @return findMember
 	 */
 	public abstract String findId(Member findMember);
 
@@ -78,7 +82,23 @@ public interface MemberService {
 	 */
 	public abstract void sendEmail(Member findMember, String div);
 
+	/** 카카오 로그인 Service
+	 * @param kakaoMember
+	 * @return kakaoMember
+	 */
 	public abstract Member kakaoLogin(Member kakaoMember);
+
+	/** 온라인 클래스 조회 Service
+	 * @param memberNo
+	 * @return 
+	 */
+	public abstract List<Online> onlineList(int memberNo);
+
+	/** 전체 내역 조회
+	 * @param pg
+	 * @return pagination
+	 */
+	public abstract Pagination getPagination(Pagination pg);
 	
 
 	
