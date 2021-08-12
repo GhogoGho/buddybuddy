@@ -9,6 +9,10 @@ import edu.kh.bubby.offline.model.vo.OffPagination;
 import edu.kh.bubby.offline.model.vo.OffSearch;
 import edu.kh.bubby.offline.model.vo.OfflineClass;
 
+/**
+ * @author 82104
+ *
+ */
 public interface OfflineService {
 
 	/**전체 게시글 수 가져오기
@@ -63,6 +67,12 @@ public interface OfflineService {
 	 * @return
 	 */
 	List<OffCategory> selectCategory();
+	
+	/** 업데이트시 예약날짜 조회
+	 * @param classNo
+	 * @return
+	 */
+	List<OfflineClass> selectReserveUpdate(int classNo);
 
 
 

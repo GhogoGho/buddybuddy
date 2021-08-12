@@ -137,5 +137,14 @@ public class OfflineDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("offlineMapper.selectCategory");
 	}
+	
+	/**예약 날짜 조회
+	 * @param classNo
+	 * @return
+	 */
+	public List<OfflineClass> selectReserveUpdate(int classNo) {
+		// TODO Auto-generated method stub
+		return  sqlSession.selectList("offlineMapper.selectReserveUpdate",classNo);
+	}
 
 }

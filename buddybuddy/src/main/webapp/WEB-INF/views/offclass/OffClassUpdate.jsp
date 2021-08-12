@@ -238,7 +238,7 @@ td {
 					<c:if test="${!empty reserve }">
 						<c:forEach items="${reserve}" var ="time">
 							<div class="col-md-3" style="display:inline-block">
-							<input type="text" name="reserveAll" value=" ${time.reserveDate} ${time.reserveStart} ${time.reserveEnd }" readonly="true">
+							<input type="text" name="reserveAll" value="${time.reserveDate} ${time.reserveStart} ${time.reserveEnd }" readonly="true">
 							<button style=" float: right; font-size: 25px; margin-left: 10px; width: 34px; height : 30px;line-height: 0px;" onclick="deleteDate(this)">-</button>
 							</div>
 						</c:forEach>
@@ -339,7 +339,7 @@ td {
 					</div>
 					<div class="col-md-3">
 						<input type="text" name="address"
-							class="form-control postcodify_postcode5"  value="${addr1}" required>
+							class="form-control postcodify_postcode5"  value="${addr.add1}" required>
 					</div>
 					<div class="col-md-3">
 						<button type="button" class="btn btn-primary"
@@ -353,7 +353,7 @@ td {
 					</div>
 					<div class="col-md-9">
 						<input type="text" class="form-control postcodify_address"
-							name="address" id="address1" value="${addr2}" required>
+							name="address" id="address1" value="${addr.add2}" required>
 					</div>
 				</div>
 
@@ -363,7 +363,7 @@ td {
 					</div>
 					<div class="col-md-9">
 						<input type="text" class="form-control postcodify_details"
-							name="address" id="address2" value="${addr3}" required>
+							name="address" id="address2" value="${addr.add3}" required>
 					</div>
 				</div>
 				<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
@@ -680,31 +680,39 @@ td {
 
 		       </div> */
 		function dateSave() {
+		    	   if($("#hiddenDate").val() =="" || $("#startTime").val() ==""|| $(".endTime").val()==""){
+						swal({
+							icon : "error",
+							title:"날짜선택 , 시작시간, 종료시간 중 빠진것이 없는지 확인해주세요."
+						});
+					}else{
+						var hiddenDate = $("#hiddenDate").val();
+						var startTime = $("#startTime").val();
+						var endTime = $(".endTime").val();
+						console.log(hiddenDate + " " + startTime + " " + endTime);
+						var dtdiv = document.createElement("div");
+						dtdiv.setAttribute("class","col-md-3");
+						dtdiv.setAttribute("style","display:inline-block");
+						var dtinput = document.createElement("input");
+						dtinput.setAttribute("type", "text");
+						dtinput.setAttribute("name", "reserveAll");
+						dtinput.setAttribute("value", hiddenDate + " " + startTime + " "
+								+ endTime);
+						dtinput.setAttribute("readonly", true);
+						var dtbtn = document.createElement("button");
+						dtbtn
+								.setAttribute(
+										"style",
+										" float: right; font-size: 25px; margin-left: 10px; width: 34px; height : 30px;line-height: 0px;");
+						dtbtn.setAttribute("onclick", "deleteDate(this)");
+						dtbtn.innerHTML="-";
+						dtdiv.appendChild(dtinput);
+						dtdiv.appendChild(dtbtn);
 
-			var hiddenDate = $("#hiddenDate").val();
-			var startTime = $("#startTime").val();
-			var endTime = $(".endTime").val();
-			console.log(hiddenDate + " " + startTime + " " + endTime);
-			var dtdiv = document.createElement("div");
-			dtdiv.setAttribute("class","col-md-3");
-			dtdiv.setAttribute("style","display:inline-block");
-			var dtinput = document.createElement("input");
-			dtinput.setAttribute("type", "text");
-			dtinput.setAttribute("name", "reserveAll");
-			dtinput.setAttribute("value", hiddenDate + " " + startTime + " "
-					+ endTime);
-			dtinput.setAttribute("readonly", true);
-			var dtbtn = document.createElement("button");
-			dtbtn
-					.setAttribute(
-							"style",
-							" float: right; font-size: 25px; margin-left: 10px; width: 34px; height : 30px;line-height: 0px;");
-			dtbtn.setAttribute("onclick", "deleteDate(this)");
-			dtbtn.innerHTML="-";
-			dtdiv.appendChild(dtinput);
-			dtdiv.appendChild(dtbtn);
+						document.getElementById("reserveArea").appendChild(dtdiv);
+					}
+					
 
-			document.getElementById("reserveArea").appendChild(dtdiv);
 
 		}
 		function deleteDate(el) {

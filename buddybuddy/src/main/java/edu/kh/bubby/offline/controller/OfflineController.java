@@ -1,6 +1,9 @@
 package edu.kh.bubby.offline.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
@@ -90,11 +93,11 @@ public class OfflineController {
 	@RequestMapping(value = "{classType}/insert", method = RequestMethod.POST)
 	public String insertOfflineClass(@PathVariable("classType") int classType, OfflineClass offlineClass,
 			@ModelAttribute("loginMember") Member loginMember, @RequestParam("images") List<MultipartFile> images,
-			 @RequestParam("address") List address,
+			 @RequestParam("address") String address,
 			 @RequestParam("reserveAll") List reserveAll,
 			 @RequestParam("editordata") String editordata,
 			HttpServletRequest request, RedirectAttributes ra) {
-		String classAddr = address.get(1).toString();
+		String classAddr = address.toString();
 		offlineClass.setClassArea(classAddr);
 		offlineClass.setClassContent(editordata);		
 		offlineClass.setMemberNo(loginMember.getMemberNo());
@@ -135,13 +138,29 @@ public class OfflineController {
 		OfflineClass offList = service.selectOfflinView(classNo);
 		OfflineClass offContent = service.selectContent(classNo);
 		List<OffCategory> category = service.selectCategory();
+		List<OfflineClass> reserve = service.selectReserveUpdate(classNo);
+		
 		offList.setClassContent(offContent.getClassContent());
 		offList.setMemberNo(offContent.getMemberNo());
+		String[] addr = offList.getClassArea().toString().split(",");
+		String arrd1= addr[0];
+		String arrd2= addr[1];
+		String arrd3= addr[2].replace(",", "");
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("add1", arrd1);
+		map.put("add2", arrd2);
+		map.put("add3", arrd3);
 		System.out.println("-----------");
 		System.out.println(offList);
 		System.out.println(category);
+		System.out.println("rere: "+reserve);
 		model.addAttribute("category",category);
 		model.addAttribute("offList", offList);
+		model.addAttribute("reserve", reserve);
+		model.addAttribute("addr", map);
+		
+	
+
 		return "offclass/OffClassUpdate";
 	}
 }

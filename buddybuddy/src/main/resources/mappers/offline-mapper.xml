@@ -258,4 +258,9 @@
 	<select id="selectCategory" resultMap="category_rm">
 		SELECT * FROM CATEGORY
 	</select>
+	
+	<!--업데이트 예약 날짜 조회  -->
+	<select id="selectReserveUpdate" parameterType="_int" resultMap="offMain_rm">
+		SELECT RESERVE_START,RESERVE_END,RESERVE_DT FROM RESERVE WHERE CLASS_NO = #{classNo}
+	</select>
 </mapper>
