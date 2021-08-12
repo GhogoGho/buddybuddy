@@ -134,10 +134,10 @@
              <button class="nav-link" id="pills-reply-tab" data-bs-toggle="pill" data-bs-target="#pills-reply"
                type="button" role="tab" aria-controls="pills-reply" aria-selected="false">댓글</button>
            </li>-->
-           <li class="nav-item" role="presentation">
+           <!-- <li class="nav-item" role="presentation">
              <button class="nav-link" id="pills-tete-tab" data-bs-toggle="pill" data-bs-target="#pills-tete"
                type="button" role="tab" aria-controls="pills-tete" aria-selected="false">수강문의</button>
-           </li> 
+           </li> --> 
          </ul>
          <hr>
          <div class="tab-content" id="pills-tabContent">

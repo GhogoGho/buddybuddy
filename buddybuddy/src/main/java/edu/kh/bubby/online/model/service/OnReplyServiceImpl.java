@@ -45,6 +45,31 @@ public class OnReplyServiceImpl implements OnReplyService{
 		return dao.deleteReply(replyNo);
 	}
 	
+	// 수강문의 대댓글 작성
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertComment(OnReply reply) {
+		reply.setNestedReply(OnlineServiceImpl.replaceParameter(reply.getNestedReply()));
+		reply.setNestedReply(reply.getNestedReply().replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
+		return dao.insertComment(reply);
+	}
+	// 수강문의 대댓글 작성
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateComment(OnReply reply) {
+		reply.setNestedReply(OnlineServiceImpl.replaceParameter(reply.getNestedReply()));
+		reply.setNestedReply(reply.getNestedReply().replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
+		return dao.updateComment(reply);
+	}
+	// 수강문의 대댓글 작성
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int deleteComment(OnReply reply) {
+		reply.setNestedReply(OnlineServiceImpl.replaceParameter(reply.getNestedReply()));
+		reply.setNestedReply(reply.getNestedReply().replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
+		return dao.deleteComment(reply);
+	}
+	
 	
 	
 }

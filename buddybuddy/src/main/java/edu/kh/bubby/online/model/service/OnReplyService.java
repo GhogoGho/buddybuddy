@@ -30,4 +30,22 @@ public interface OnReplyService {
 	 */
 	int deleteReply(int replyNo);
 
+	/** 수강문의 대댓글 작성
+	 * @param reply
+	 * @return result
+	 */
+	int insertComment(OnReply reply);
+	
+	/** 수강문의 대댓글 수정
+	 * @param reply
+	 * @return result
+	 */
+	int updateComment(OnReply reply);
+	
+	/** 수강문의 대댓글 삭제
+	 * @param reply
+	 * @return result
+	 */
+	int deleteComment(OnReply reply);
+
 }

@@ -49,5 +49,22 @@ public class OnReplyController {
 		return service.deleteReply(replyNo);
 	}
 	
+	// 수강 문의 대댓글 작성
+	@RequestMapping(value="insertComment", method=RequestMethod.POST)
+	public int insertComment(OnReply reply) {
+		return service.insertComment(reply);
+	}
+	
+	// 수강 문의 대댓글 작성
+	@RequestMapping(value="updateComment", method=RequestMethod.POST)
+	public int updateComment(OnReply reply) {
+		return service.updateComment(reply);
+	}
+	
+	// 수강 문의 대댓글 작성
+	@RequestMapping(value="deleteComment", method=RequestMethod.POST)
+	public int deleteComment(OnReply reply) {
+		return service.deleteComment(reply);
+	}
 	
 }

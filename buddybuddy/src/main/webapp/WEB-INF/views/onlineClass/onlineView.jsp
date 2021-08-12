@@ -165,7 +165,8 @@
         <div class="col-md-7">
           <p class="h3 my-4" id="class-reply">수강 문의</p>
           <hr>
-         	<jsp:include page="onlineReply.jsp"/>
+         	<%-- <jsp:include page="onlineReply.jsp"/> --%>
+         	<jsp:include page="onlineReplyBulma.jsp"/>
         </div>
         <!-- </div> -->
 
