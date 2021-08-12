@@ -194,4 +194,11 @@ public class OfflineServiceImpl implements OfflineService{
 				// TODO Auto-generated method stub
 				return dao.selectCategory();
 			}
+			//예약 날짜 조회
+			@Override
+			public List<OfflineClass> selectReserveUpdate(int classNo) {
+				// TODO Auto-generated method stub
+				return dao.selectReserveUpdate(classNo);
+			}
+			
 }

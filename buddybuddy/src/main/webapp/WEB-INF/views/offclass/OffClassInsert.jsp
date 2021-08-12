@@ -655,31 +655,38 @@ td {
 
 		       </div> */
 		function dateSave() {
+			if($("#hiddenDate").val() =="" || $("#startTime").val() ==""|| $(".endTime").val()==""){
+				swal({
+					icon : "error",
+					title:"날짜선택 , 시작시간, 종료시간 중 빠진것이 없는지 확인해주세요."
+				});
+			}else{
+				var hiddenDate = $("#hiddenDate").val();
+				var startTime = $("#startTime").val();
+				var endTime = $(".endTime").val();
+				console.log(hiddenDate + " " + startTime + " " + endTime);
+				var dtdiv = document.createElement("div");
+				dtdiv.setAttribute("class","col-md-3");
+				dtdiv.setAttribute("style","display:inline-block");
+				var dtinput = document.createElement("input");
+				dtinput.setAttribute("type", "text");
+				dtinput.setAttribute("name", "reserveAll");
+				dtinput.setAttribute("value", hiddenDate + " " + startTime + " "
+						+ endTime);
+				dtinput.setAttribute("readonly", true);
+				var dtbtn = document.createElement("button");
+				dtbtn
+						.setAttribute(
+								"style",
+								" float: right; font-size: 25px; margin-left: 10px; width: 34px; height : 30px;line-height: 0px;");
+				dtbtn.setAttribute("onclick", "deleteDate(this)");
+				dtbtn.innerHTML="-";
+				dtdiv.appendChild(dtinput);
+				dtdiv.appendChild(dtbtn);
 
-			var hiddenDate = $("#hiddenDate").val();
-			var startTime = $("#startTime").val();
-			var endTime = $(".endTime").val();
-			console.log(hiddenDate + " " + startTime + " " + endTime);
-			var dtdiv = document.createElement("div");
-			dtdiv.setAttribute("class","col-md-3");
-			dtdiv.setAttribute("style","display:inline-block");
-			var dtinput = document.createElement("input");
-			dtinput.setAttribute("type", "text");
-			dtinput.setAttribute("name", "reserveAll");
-			dtinput.setAttribute("value", hiddenDate + " " + startTime + " "
-					+ endTime);
-			dtinput.setAttribute("readonly", true);
-			var dtbtn = document.createElement("button");
-			dtbtn
-					.setAttribute(
-							"style",
-							" float: right; font-size: 25px; margin-left: 10px; width: 34px; height : 30px;line-height: 0px;");
-			dtbtn.setAttribute("onclick", "deleteDate(this)");
-			dtbtn.innerHTML="-";
-			dtdiv.appendChild(dtinput);
-			dtdiv.appendChild(dtbtn);
-
-			document.getElementById("reserveArea").appendChild(dtdiv);
+				document.getElementById("reserveArea").appendChild(dtdiv);
+			}
+			
 
 		}
 		function deleteDate(el) {
