@@ -15,6 +15,15 @@
 		<result property="memberStatus" column="MEMBER_STATUS" />
 
 	</resultMap>
+	
+	
+	<!-- Pagination용 resultMap -->
+	<resultMap type="OnPagination" id="pg_rm">
+		<result property="listCount" column="CNT"/>
+		<result property="className" column="CLASS_TYPE_NAME"/>
+	</resultMap>
+	
+	
 
 	<!-- 회원가입 -->
 	<insert id="signUp" parameterType="Member">
@@ -113,6 +122,20 @@
 		WHERE MEMBER_EMAIL = #{memberEmail}
 	</select>
 
-
+	<!-- 온라인 클래스 조회 -->
+	<select id="selectOnlineList" parameterType="_int">
+		SELECT CLASS_NO * CLASS_PAGE
+		WHERE MEMBER_NO = #{memberNo}
+		AND CLASS_TYPE_NO = 1;
+	</select>
+	
+	<!-- 전체 이용내역 조회 -->
+	<select id="getListCount" parameterType="_int" resultMap="pg_rm">
+		SELECT
+		CNT, (SELECT CLASS_TYPE_NAME FROM CLASS_TYPE WHERE CLASS_TYPE_NO = #{classType}) CLASS_TYPE_NAME
+		FROM (SELECT COUNT(*) CNT
+		FROM ONLINE_LIST
+		WHERE CLASS_TYPE_NO = #{classType} AND CLASS_STATUS = 'Y')
+	</select>
 
 </mapper>
