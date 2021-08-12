@@ -172,9 +172,12 @@ public class MemberServiceImpl implements MemberService {
 		String setfrom = "alcasskh@gmail.com"; // 보내는 사람 이메일
 		String tomail = findMember.getMemberEmail(); // 받는 사람 이메일
 		String title = "버디버디"; // 메일 제목
-
-		String content = "임시비밀번호 어쩌구"; // 내용
 		String key = findMember.getMemberPw();
+
+		String content = findMember.getMemberEmail() + "님에게 임시 비밀번호가 발급 되었습니다. <br>"
+						+ "발급된 임시번호로 로그인 후 반드시 변경하여 사용해 주세요. <br>"
+						+ "임시 비밀번호 : " + key;
+		
 		try {
 
 			MimeMessage message = mailSender.createMimeMessage();
@@ -183,7 +186,7 @@ public class MemberServiceImpl implements MemberService {
 			messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
 			messageHelper.setTo(tomail); // 받는사람 이메일
 			messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
-			messageHelper.setText(content + key); // 메일 내용
+			messageHelper.setText(content, true); // 메일 내용
 			mailSender.send(message);
 		} catch (Exception e) {
 			System.out.println(e);
