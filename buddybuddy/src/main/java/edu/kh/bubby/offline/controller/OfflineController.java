@@ -71,7 +71,8 @@ public class OfflineController {
 		OfflineClass offContent = service.selectContent(classNo);
 		// System.out.println(offList);
 		offList.setClassContent(offContent.getClassContent());
-		
+		offList.setMemberNo(offContent.getMemberNo());
+		System.out.println(offList);
 		model.addAttribute("offList", offList);
 		List<OffReview> reviewList = offReviewService.selectReviewList(classNo);
 		model.addAttribute("reviewList",reviewList);
@@ -118,5 +119,13 @@ public class OfflineController {
 		
 		
 		return path;
+	}
+	
+	//클래스 삭제 및 예약 삭제
+	@RequestMapping("{classType}/deleteClass")
+	public String deleteClass(@RequestParam("classNo")int classNo) {
+		service.deleteClass(classNo);
+		
+		return "redirect:/";
 	}
 }

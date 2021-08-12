@@ -176,4 +176,15 @@ public class OfflineServiceImpl implements OfflineService{
 				
 				return date + str + ext;
 			}
+			
+			//클래스 삭제
+			@Transactional(rollbackFor = Exception.class)
+			@Override
+			public int deleteClass(int classNo) {
+				// TODO Auto-generated method stub
+				dao.deleteClass(classNo);
+				dao.deleteReserve(classNo);
+				dao.deleteConfirmReserve(classNo);
+				return 0;
+			}
 }

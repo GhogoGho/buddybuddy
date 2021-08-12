@@ -118,6 +118,7 @@
 		CLASS_PAGE
 		LEFT JOIN CATEGORY USING(CATEGORY_NO)
 		WHERE CLASS_TYPE_NO =#{classType}
+		AND CLASS_STATUS = 'Y'
 		ORDER BY CLASS_NO DESC
 	</select>
 	<!-- 게시글목록조회(검색) -->
@@ -152,6 +153,7 @@
 
 			</choose>
 		</if>
+		AND CLASS_STATUS = 'Y'
 		ORDER BY CLASS_NO DESC
 	</select>
 	<!-- 상세조회 -->
@@ -180,7 +182,7 @@
 	<!--컨텐트조회 -->
 	<select id="selectContent" parameterType="_int"
 		resultMap="offMain_rm">
-		SELECT CLASS_CONTENT FROM CLASS_PAGE WHERE CLASS_NO =
+		SELECT CLASS_CONTENT ,MEMBER_NO FROM CLASS_PAGE WHERE CLASS_NO =
 		#{classNo}
 	</select>
 	<!-- 예약글 목록 조회 -->
@@ -191,6 +193,7 @@
 		FROM RESERVE A
 		WHERE CLASS_NO = #{classNo}
 		AND RESERVE_DT = #{reserveDate}
+		AND RESERVE_STATUS= 'Y'
 	</select>
 	<!-- 클래스 삽입 -->
 	<insert id="insertOfflineClass" parameterType="OfflineClass"
@@ -206,7 +209,7 @@
 	
 	<!--예약날짜 삽입  -->
 	<insert id="insertReserveAll" parameterType="OfflineClass">
-		INSERT INTO RESERVE VALUES(SEQ_RESERVE.NEXTVAL,#{reserveDate},#{reserveStart},#{reserveEnd},#{reserveLimit},#{classLevel},#{classArea},#{memberNo},#{classNo})
+		INSERT INTO RESERVE VALUES(SEQ_RESERVE.NEXTVAL,#{reserveDate},#{reserveStart},#{reserveEnd},#{reserveLimit},#{classLevel},#{classArea},#{memberNo},#{classNo},DEFAULT)
 	</insert>
 	<!-- 사진 삽입 -->
 		<insert id="insertAttachmentList" parameterType="list">
@@ -232,4 +235,16 @@
 	<insert id="reserveInsert" parameterType="OfflineClass">
 		INSERT INTO CONFIRM_RESERVE VALUES(SEQ_CONFIRM.NEXTVAL,DEFAULT,#{memberNo},#{classNo},#{reserveNo})
 	</insert>
+	<!-- 클래스 삭제 -->
+	<update id="deleteClass" parameterType="_int">
+		UPDATE CLASS_PAGE SET CLASS_STATUS = 'N' WHERE CLASS_NO=#{classNo}
+	</update>
+	<!-- 예약 삭제 -->
+	<update id="deleteReserve" parameterType="_int">
+		UPDATE RESERVE SET RESERVE_STATUS = 'N' WHERE CLASS_NO=#{classNo}
+	</update>
+	<!-- 예약자 삭제 -->
+	<update id="deleteConfirmReserve" parameterType="_int">
+		UPDATE CONFIRM_RESERVE SET RESERVE_STATUS = 'N' WHERE CLASS_NO=#{classNo}
+	</update>
 </mapper>

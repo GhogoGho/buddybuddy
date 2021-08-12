@@ -113,4 +113,23 @@ public class OfflineDAO {
 		return sqlSession.insert("offlineMapper.insertAttachmentList",atList);
 	}
 
+	/**클래스 삭제
+	 * @param classNo
+	 * @return
+	 */
+	public int deleteClass(int classNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("offlineMapper.deleteClass",classNo);
+	}
+
+	public int deleteReserve(int classNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("offlineMapper.deleteReserve",classNo);
+	}
+
+	public int deleteConfirmReserve(int classNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("offlineMapper.deleteConfirmReserve",classNo);
+	}
+
 }
