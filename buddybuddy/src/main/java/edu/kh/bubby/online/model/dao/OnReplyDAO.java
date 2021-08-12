@@ -44,4 +44,28 @@ public class OnReplyDAO {
 	public int deleteReply(int replyNo) {
 		return sqlSession.update("onReplyMapper.deleteReply", replyNo);
 	}
+
+	/** 수강문의 대댓글 작성
+	 * @param reply
+	 * @return result
+	 */
+	public int insertComment(OnReply reply) {
+		return sqlSession.update("onReplyMapper.insertComment", reply);
+	}
+	
+	/** 수강문의 대댓글 수정
+	 * @param reply
+	 * @return result
+	 */
+	public int updateComment(OnReply reply) {
+		return sqlSession.update("onReplyMapper.updateComment", reply);
+	}
+	
+	/** 수강문의 대댓글 삭제
+	 * @param reply
+	 * @return result
+	 */
+	public int deleteComment(OnReply reply) {
+		return sqlSession.update("onReplyMapper.deleteComment", reply);
+	}
 }

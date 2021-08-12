@@ -44,4 +44,25 @@
 		WHERE REPLY_NO = #{replyNo}
 	</update>
 	
+	<!-- 수강문의 대댓글 작성 -->
+	<update id="insertComment" parameterType="OnReply">
+		UPDATE REPLY SET
+		NESTED_REPLY = #{nestedReply}
+		WHERE REPLY_NO = #{replyNo}
+	</update>
+	
+	<!-- 수강문의 대댓글 작성 -->
+	<update id="updateComment" parameterType="OnReply">
+		UPDATE REPLY SET
+		NESTED_REPLY = #{nestedReply}
+		WHERE REPLY_NO = #{replyNo}
+	</update>
+	
+	<!-- 수강문의 대댓글 작성 -->
+	<update id="deleteComment" parameterType="OnReply">
+		UPDATE REPLY SET
+		NESTED_REPLY = null
+		WHERE REPLY_NO = #{replyNo}
+	</update>
+	
 </mapper>
