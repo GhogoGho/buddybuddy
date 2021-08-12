@@ -207,8 +207,8 @@ public class OnlineController {
 		model.addAttribute("category", category);
 		model.addAttribute("online", online);
 		
-		System.out.println("수정전환시:"+model);
-		System.out.println("수정전환시:"+online);
+//		System.out.println("수정전환시:"+model);
+//		System.out.println("수정전환시:"+online);
 		
 		return "onlineClass/onlineClassUpdate1";
 	}
@@ -220,15 +220,15 @@ public class OnlineController {
 						@RequestParam("videos") List<MultipartFile> videos,
 						@RequestParam("deleteVideos") String deleteVideos,
 						HttpServletRequest request, Model model, RedirectAttributes ra) {
-		String webPath = "resources/images/";
+		String webPath = "resources/videos/";
 		switch(classType) {
 		case 1 : webPath += "onlineClass/"; break;
 		}
 		String savePath = request.getSession().getServletContext().getRealPath(webPath);
 		int result = service.updateOnline(online, videos, webPath, savePath, deleteVideos);
-		System.out.println("수정클릭"+online);
-		System.out.println("수정클륵 후 클번: "+online.getClassNo());
-		System.out.println("수정클륵 후 비디오: "+videos);
+//		System.out.println("수정클릭"+online);
+//		System.out.println("수정클륵 후 클번: "+online.getClassNo());
+//		System.out.println("수정클륵 후 비디오: "+videos);
 		String path = null;
 		if(result > 0) {
 			path="redirect:"+online.getClassNo();
@@ -327,8 +327,8 @@ public class OnlineController {
 		model.addAttribute("category", category);
 		model.addAttribute("online", online);
 		
-		System.out.println("수정전환시:"+model);
-		System.out.println("수정전환시:"+online);
+//		System.out.println("수정전환시:"+model);
+//		System.out.println("수정전환시:"+online);
 		
 	  return "onlineClass/onlineClassUpdateTest";
 	}
@@ -340,14 +340,14 @@ public class OnlineController {
 						@RequestParam("videos") List<MultipartFile> videos,
 						@RequestParam("deleteVideos") String deleteVideos,
 						HttpServletRequest request, Model model, RedirectAttributes ra) {
-		String webPath = "resources/images/";
+		String webPath = "resources/videos/";
 		switch(classType) {
 		case 1 : webPath += "onlineClass/"; break;
 		}
 		String savePath = request.getSession().getServletContext().getRealPath(webPath);
 		int result = service.summerUpdateOnline(online, videos, webPath, savePath, deleteVideos);
-		System.out.println("수정클릭"+online);
-		System.out.println("수정클륵 후 클번: "+online.getClassNo());
+//		System.out.println("수정클릭"+online);
+//		System.out.println("수정클륵 후 클번: "+online.getClassNo());
 		
 		String path = null;
 		if(result>0) {
@@ -386,6 +386,10 @@ public class OnlineController {
 		// 공지사항 목록 조회
 		List<Notice> nList = noticeService.selectNoticeList(classNo);
 		model.addAttribute("nList", nList);
+		
+		// 수강문의 목록 조회
+		List<OnReply> rList = onReplyService.selectList(classNo);
+		model.addAttribute("rList", rList);
 		
 		model.addAttribute("online", online);
 		

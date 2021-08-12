@@ -195,7 +195,7 @@ public class OnlineServiceImpl implements OnlineService{
 				
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("classNo", online.getClassNo() );
-				map.put("deleteImages", deleteVideos);
+				map.put("deleteVideos", deleteVideos);
 				
 				// 반환 값이 아무런 의미를 갖지 못하므로 반환 받을 필요가 없다.
 				dao.deleteAttachment(map);
@@ -380,6 +380,9 @@ public class OnlineServiceImpl implements OnlineService{
 				try {
 					videos.get( atList.get(i).getFileLevel() )
 					.transferTo(new File(savePath + "/" + atList.get(i).getFileName() ));
+//					.transferTo(new File(savePath + atList.get(i).getFileName() ));
+//					System.out.println("주소확인: "+savePath + "/" + atList.get(i).getFileName());
+//					System.out.println("주소주소 : "+atList.get(i).getFileName());
 				}catch(Exception e) {
 					e.printStackTrace();
 					throw new SaveFileException();

@@ -89,9 +89,9 @@
 					src="https://images.unsplash.com/photo-1572048572872-2394404cf1f3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1951&q=80"
 					class="img-fluid main-img">
 			</div>
-			<%-- <div class="row">
+			<div class="row">
 				<a href="${contextPath}/creater/main">크리에이터 페이지 임시 링크</a>
-			</div> --%>
+			</div>
 			<!-- 카테고리 -->
 			<div class="columns my-5">
 				<div class="column">

@@ -3,102 +3,94 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<!-- 댓글1 -->
+<div id="replyListArea">
+	<c:forEach items="${rList}" var="reply">
+	<article class="media">
+	  <figure class="media-left">
+	    <p class="image is-64x64">
+	    	<c:choose>
+	    	<c:when test="${!empty review.memberProfile }">
+	      <img src="${contextPath}/${reply.memberProfile}">
+	      </c:when>
+       	<c:otherwise>
+				<img src="${contextPath}/resources/images/noimage.png">
+     		</c:otherwise>
+	    	</c:choose>
+	    </p>
+	  </figure>
+	  <div class="media-content">
+	    <div class="content">
+	      <p>
+	        <strong>${reply.memberNickName}</strong>
+	        <br>
+	        <div id="notice-con">
+	        	${reply.replyContent }
+	        </div>
+	        <br>
+	        <small>
+	        	<c:if test="${reply.nestedReply == null }">
+	        	<button class="button is-dark">답글 작성</button>
+	        	</c:if>
+	        	<c:if test="${reply.memberNo == sessionScope.loginMember.memberNo}">
+          	<button class="button is-danger">삭제</button>
+            <button class="button is-primary is-rounded showUpdateReply">수정</button>
+	        	</c:if>
+	          <fmt:formatDate value="${reply.replyDate}" pattern="yyyy년 MM월 dd일 HH:mm" />
+	        </small>
+	      </p>
+	    </div>
+	    <!-- 댓글 수정 -->
+	    <div id="edit-reply-area">
+	    	<textarea class="textarea is-success"></textarea>
+	    	<button class="button is-primary is-fullwidth">수정</button>
+	    </div>
+	    <c:if test="${reply.nestedReply != null }">
+			<!-- 대댓글1 -->
+	    <article class="media">
+	      <figure class="media-left">
+	        <p class="image is-48x48">
+	          <img
+	            src="https://images.unsplash.com/photo-1627828940313-e62fee6fd02d?ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Nnx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
+	        </p>
+	      </figure>
+	      <div class="media-content">
+	        <div class="content">
+	          <p>
+	            <strong>대댓글1</strong>
+	            <br>
+	            <div id="notice-con">
+	            	${reply.nestedReply }
+	            </div>
+	            <br>
+	            <small>
+								<c:if test="${reply.memberNo == sessionScope.loginMember.memberNo}">
+		          	<button class="button is-danger">삭제</button>
+		            <button class="button is-primary is-rounded showUpdateComment">수정</button>
+			        	</c:if>
+	              <fmt:formatDate value="${reply.replyDate}" pattern="yyyy년 MM월 dd일 HH:mm" />
+	            </small>
+	          </p>
+	        </div>
+					<!-- 대댓글 수정 -->
+					<div id="edit-comment-area">
+						<textarea class="textarea is-success"></textarea>
+						<button class="button is-primary is-fullwidth">수정</button>
+					</div>
+					
+	      </div>
+	    </article>
+			<!-- 대댓글1 끝-->
+	    </c:if>
+	    
+	  </div>
+	</article>
+	</c:forEach>
+	
+</div>
 
-<article class="media">
-  <figure class="media-left">
-    <p class="image is-64x64">
-      <img
-        src="https://images.unsplash.com/photo-1627889701110-cc04941c8208?ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Mnx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
-    </p>
-  </figure>
-  <div class="media-content">
-    <div class="content">
-      <p>
-        <strong>Barbara Middleton</strong>
-        <br>
-        <div id="notice-con">
-          나의 무엇인지 나는 불러 오는 토끼, 것은 버리었습니다. 위에 사랑과 어머님, 밤이 걱정도 까닭입니다. 멀리 언덕 별이 마디씩 그리워 때 피어나듯이 듯합니다. 내 그리워 언덕 언덕 피어나듯이 소학교 릴케 이름과, 못 거외다. 패, 이런 별 이름을 묻힌 속의 있습니다.
-        </div>
-        <br>
-        <small>
-          <a>
-            <button class="button is-success is-small is-rounded">수정</button>
-          </a>
-          <a><button class="button is-danger is-small is-rounded">삭제</button>
-          </a>
-          0000년 00월 00일 00:00
-        </small>
-      </p>
-    </div>
-
-    <article class="media">
-      <figure class="media-left">
-        <p class="image is-48x48">
-          <img
-            src="https://images.unsplash.com/photo-1627828940313-e62fee6fd02d?ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Nnx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
-        </p>
-      </figure>
-      <div class="media-content">
-        <div class="content">
-          <p>
-            <strong>Sean Brown</strong>
-            <br>
-            <div id="notice-con">
-              언덕 다 새겨지는 프랑시스 하늘에는 있습니다. 아름다운 묻힌 어머니, 것은 이름과, 버리었습니다. 이제 밤이 그리워 별 써 이네들은 그리고 계절이 계십니다. 같이 가난한 마리아 잔디가 쓸쓸함과 계십니다. 새겨지는 오면 별 이름과, 마디씩 있습니다.
-            </div>
-            <br>
-            <small>
-              <a>
-                <button class="button is-success is-small is-rounded">수정</button>
-              </a>
-              <a><button class="button is-danger is-small is-rounded">삭제</button>
-              </a>
-              0000년 00월 00일 00:00
-            </small>
-          </p>
-        </div>
-
-        <article class="media">
-          이상은 청춘을 청춘의 인도하겠다는 인생의 때에, 것이다. 가치를 커다란 품었기 속잎나고, 그러므로 피에 있으랴? 눈이 길지 꽃 충분히 남는 듣기만 끝까지 운다.
-        </article>
-
-        <article class="media">
-          풀이 피부가 그들의 품에 길을 새 만물은 듣는다. 싸인 우리 청춘을 얼마나 쓸쓸하랴? 고동을 바이며, 얼마나 무엇을 위하여서 바로 간에 그들을 모래뿐일 아니다. 이상의 가는 얼음에 그들은 청춘 그러므로 듣는다.
-        </article>
-      </div>
-    </article>
-
-    <article class="media">
-      <figure class="media-left">
-        <p class="image is-48x48">
-          <img
-            src="https://images.unsplash.com/photo-1627828939428-66f34bdf3bbf?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMDF8fHxlbnwwfHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
-        </p>
-      </figure>
-      <div class="media-content">
-        <div class="content">
-          <p>
-            <strong>Kayli Eunice </strong>
-            <br>
-            <div id="notice-con">
-              이런 어머니 이국 다 벌레는 아이들의 봅니다. 위에도 피어나듯이 흙으로 밤이 벌레는 자랑처럼 아직 있습니다. 시와 별에도 나의 책상을 하나에 라이너 거외다. 했던 아무 지나가는 계십니다. 다 이름자 너무나 오는 듯합니다. 이름과 쉬이 이름자를 아침이 써 나는 이런 속의 있습니다. 마디씩 애기 멀듯이, 새겨지는 까닭입니다.
-            </div>
-            <br>
-            <small>
-              <a>
-                <button class="button is-success is-small is-rounded">수정</button>
-              </a>
-              <a><button class="button is-danger is-small is-rounded">삭제</button>
-              </a>
-              0000년 00월 00일 00:00
-            </small>
-          </p>
-        </div>
-      </div>
-    </article>
-  </div>
-</article>
-
+<!-- 댓글 작성 -->
+<hr>
 <article class="media">
   <figure class="media-left">
     <p class="image is-64x64">
@@ -108,22 +100,23 @@
   <div class="media-content">
     <div class="field">
       <p class="control">
-        <textarea class="textarea" placeholder="수강후기를 작성해 주세요."></textarea>
+        <textarea class="textarea" placeholder="수강문의를 작성해 주세요."></textarea>
       </p>
     </div>
     <div class="field">
       <p class="control">
-        <button class="button is-success is-medium">작성</button>
+        <button class="button is-link is-medium is-fullwidth">작성</button>
       </p>
     </div>
   </div>
 </article>
 
+
 		
 
 <script>
-/* const loginMemberNo = "${loginMember.memberNo}";
-const classNo = ${online.classNo}; */
+const loginMemberNo = "${loginMember.memberNo}";
+const classNo = ${online.classNo};
 
 let beforeReplyRow; 
 //-----------------------------------------------------------------------------------------
@@ -159,32 +152,134 @@ function addReply() {
   }
 } 
 //-----------------------------------------------------------------------------------------
-//해당 게시글 수강문의 목록 조회
+//해당 클래스 수강문의 목록 조회
+/* const memberNo = 6; */
 function selectReplyList(){
-    $.ajax({ 
-     url : "${contextPath}/onReply/list",
-     data : {"classNo" : classNo},
-     type : "POST",
-     dataType : "JSON",  
-     success : function(rList){
-       
-            $("#replyListArea").html(""); 
-            
-            
-            $.each(rList, function(index, item){
-           
-       
-     },
-     
-     error : function(){
-       console.log("댓글 목록 조회 실패");
-     }
-     
-    });
+	$.ajax({ 
+		url : "${contextPath}/onReply/list",
+		data : {"classNo" : classNo},
+		type : "POST",
+		dataType : "JSON",  
+		success : function(rList){
+		  
+			$("#replyListArea").html(""); //최상단
+			
+			$.each(rList, function(index, item){ // 재생성 부분
+		  	
+				var topArticle = $("<article>").addClass("media");
+				var topFigure = $("<figure>").addClass("media-left");
+				var topP = $("<p>").addClass("image is-64x64");
+				if(item.memberProfile != null){
+					var topImg = $("<img>").attr("src", "${contextPath}"+"/"+item.memberProfile);
+				}else{
+					var topImg = $("<img>").attr("src","${contextPath}"+"/"+"resources"+"/"+"images"+"/"+"noimage.png"); 
+				}
+				
+				topP.append(topImg);
+				topFigure.append(topP);
+				topArticle.append(topFigure);
+				
+				var firstDiv = $("<div>").addClass("media-content");
+				var secondDiv = $("<div>").addClass("content");
+				var contentP = $("<p>");
+				var strong = $("<strong>").append(item.memberNickName).text("댓글닉넴");
+				var firstBr = $("<br>");
+				var contentDiv = $("<div>").attr("id", "notice-con").html(item.replyContent);
+				var secondBr = $("<br>");
+				
+				var small = $("<small>").text(item.replyDate);
+				if(item.nestedReply == null){
+					var addComment = $("<button>").addClass("button is-dark").text("답글 작성");
+					small.append(addComment);
+				}
+				if (item.memberNo == loginMemberNo) {
+					var deleteBtn = $("<button>").addClass("button is-danger").text("삭제");
+					var editBtn = $("<button>").addClass("button is-primary is-rounded showUpdateReply").text("수정");
+					small.append(deleteBtn).append(editBtn);
+				}
+				if(item.nestedReply == null && item.memberNo == loginMemberNo){
+					small.append(addComment).append(deleteBtn).append(editBtn);
+				}
+				
+				contentP.append(strong).append(firstBr).append(contentDiv).append(secondBr).append(small);
+				secondDiv.append(contentP);
+				
+				// 댓글 수정창
+				var editReplyArea = $("<div>").attr("id", "edit-reply-area");
+				var editReplyCon = $("<textarea>").addClass("textarea is-success");
+				var editReplyBtn = $("<button>").addClass("button is-primary is-fullwidth").text("수정");
+				editReplyArea.append(editReplyCon).append(editReplyBtn);
+				
+				/////////////////////////////////////////////////////////////////////////////////////////////
+				// 대댓글 시작
+				var commentArti = $("<article>").addClass("media");
+				var cTopFigure = $("<figure>").addClass("media-left");
+				var cTopP = $("<p>").addClass("image is-48x48");
+				if(item.memberProfile != null){
+					var cTopImg = $("<img>").attr("src", "${contextPath}"+"/"+item.memberProfile);
+				}else{
+					var cTopImg = $("<img>").attr("src","${contextPath}"+"/"+"resources"+"/"+"images"+"/"+"noimage.png"); 
+				}
+				
+				cTopP.append(cTopImg);
+				cTopFigure.append(cTopP);
+				commentArti.append(cTopFigure);
+				
+				var cFirstDiv = $("<div>").addClass("media-content");
+				var cSecondDiv = $("<div>").addClass("content");
+				var cContentP = $("<p>");
+				var cStrong = $("<strong>").append(item.memberNickName).text("대댓글닉넴");
+				var cFirstBr = $("<br>");
+				var cContentDiv = $("<div>").attr("id", "notice-con").html(item.nestedReply);
+				var cSecondBr = $("<br>");
+				
+				var cSmall = $("<small>").text(item.replyDate);
+				if (item.memberNo == loginMemberNo) {
+					var cDeleteBtn = $("<button>").addClass("button is-danger").text("삭제");
+					var cEditBtn = $("<button>").addClass("button is-primary is-rounded showUpdateComment").text("수정");
+					cSmall.append(cDeleteBtn).append(cEditBtn);
+				}
+				
+				cContentP.append(cStrong).append(cFirstBr).append(cContentDiv).append(cSecondBr).append(cSmall);
+				cSecondDiv.append(cContentP);
+				
+				// 대댓글 수정창
+				var editCommentArea = $("<div>").attr("id", "edit-reply-area");
+				var editCommentCon = $("<textarea>").addClass("textarea is-success");
+				var editCommentBtn = $("<button>").addClass("button is-primary is-fullwidth").text("수정");
+				editReplyArea.append(editReplyCon).append(editReplyBtn);
+				
+				// 대댓글 마지막
+				//commentArti.append(cTopFigure).append(cFirstDiv);
+				cFirstDiv.append(cSecondDiv).append(editCommentArea);
+				commentArti.append(cFirstDiv);
+				
+				
+				//댓글 마지막 및 대댓글 부분 붙는 곳
+				firstDiv.append(secondDiv).append(editReplyArea).append(commentArti);
+				topArticle.append(firstDiv);
+				$("#replyListArea").append(topArticle);
+				
+			});
+			
+		},
+			
+		error : function(){
+		  console.log("수강문의 목록 조회 실패");
+		}
+
+		});
 }
 // ---------------------------
 // 수강문의 수정창 여닫
 $(document).on("click", ".showUpdateReply", function(){ // 동적 요소가 적용된 후에도 동작함
+	
+
+
+}); 
+// ---------------------------
+// 수강문의 대댓글 수정창 여닫
+$(document).on("click", ".showUpdateComment", function(){ // 동적 요소가 적용된 후에도 동작함
 	
 
 

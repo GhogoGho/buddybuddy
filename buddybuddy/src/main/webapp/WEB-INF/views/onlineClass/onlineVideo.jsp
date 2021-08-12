@@ -136,7 +136,7 @@
            </li>-->
            <li class="nav-item" role="presentation">
              <button class="nav-link" id="pills-tete-tab" data-bs-toggle="pill" data-bs-target="#pills-tete"
-               type="button" role="tab" aria-controls="pills-tete" aria-selected="false">수강후기</button>
+               type="button" role="tab" aria-controls="pills-tete" aria-selected="false">수강문의</button>
            </li> 
          </ul>
          <hr>
@@ -324,7 +324,7 @@
 
            <!-- bulma 테스트 -->
            <div class="tab-pane fade" id="pills-tete" role="tabpanel" aria-labelledby="pills-tete-tab">
-             <p class="h3 my-4" id="class-reply">수강후기</p>
+             <p class="h3 my-4" id="class-reply">수강문의</p>
              <hr>
              <jsp:include page="onlineReplyBulma.jsp"/>
            </div>
