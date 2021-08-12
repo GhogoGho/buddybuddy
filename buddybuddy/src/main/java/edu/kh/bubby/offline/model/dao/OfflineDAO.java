@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.bubby.offline.model.vo.OffAttachment;
+import edu.kh.bubby.offline.model.vo.OffCategory;
 import edu.kh.bubby.offline.model.vo.OffPagination;
 import edu.kh.bubby.offline.model.vo.OffSearch;
 import edu.kh.bubby.offline.model.vo.OfflineClass;
@@ -130,6 +131,11 @@ public class OfflineDAO {
 	public int deleteConfirmReserve(int classNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.update("offlineMapper.deleteConfirmReserve",classNo);
+	}
+	//카테고리 조회
+	public List<OffCategory> selectCategory() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("offlineMapper.selectCategory");
 	}
 
 }

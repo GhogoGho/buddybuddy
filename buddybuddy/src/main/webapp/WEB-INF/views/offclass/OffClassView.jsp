@@ -640,7 +640,7 @@ th {
 					<c:if test="${loginMember.memberNo == offList.memberNo}">
 					<div class="row" style="margin-top:30px">
 						<div class="col-md-6 " style="text-align: center">
-						<a href="" style="display: inline"><button type="button" class="btn btn-secondary main-btn-color" >수정</button></a>
+						<a href="updateForm?classNo=${offList.classNo}" style="display: inline"><button type="button" class="btn btn-secondary main-btn-color" >수정</button></a>
 						</div>
 						<div class="col-md-6" style="text-align: center">
 						<a href="deleteClass?classNo=${offList.classNo}" style="display: inline"><button type="button" class="btn btn-secondary main-btn-color" >삭제</button></a>

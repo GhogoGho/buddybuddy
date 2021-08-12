@@ -22,6 +22,7 @@ import edu.kh.bubby.offline.model.service.OfflineReviewService;
 import edu.kh.bubby.offline.model.service.OfflineReviewServiceImpl;
 import edu.kh.bubby.offline.model.service.OfflineService;
 import edu.kh.bubby.offline.model.vo.OffAttachment;
+import edu.kh.bubby.offline.model.vo.OffCategory;
 import edu.kh.bubby.offline.model.vo.OffPagination;
 import edu.kh.bubby.offline.model.vo.OffReview;
 import edu.kh.bubby.offline.model.vo.OffSearch;
@@ -127,5 +128,20 @@ public class OfflineController {
 		service.deleteClass(classNo);
 		
 		return "redirect:/";
+	}
+	//클래스 ,예약 날짜 수정
+	@RequestMapping("{classType}/updateForm")
+	public String updateClass(@RequestParam("classNo") int classNo ,Model model) {
+		OfflineClass offList = service.selectOfflinView(classNo);
+		OfflineClass offContent = service.selectContent(classNo);
+		List<OffCategory> category = service.selectCategory();
+		offList.setClassContent(offContent.getClassContent());
+		offList.setMemberNo(offContent.getMemberNo());
+		System.out.println("-----------");
+		System.out.println(offList);
+		System.out.println(category);
+		model.addAttribute("category",category);
+		model.addAttribute("offList", offList);
+		return "offclass/OffClassUpdate";
 	}
 }
