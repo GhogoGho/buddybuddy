@@ -80,6 +80,7 @@
 		<result property="reviewRatings" column="REVIEW_RATINGS" />
 		<result property="memberNickName" column="MEMBER_NICKNAME" />
 		<result property="categoryName" column="CATEGORY_NAME" />
+		<result property="categoryCode" column="CATEGORY_NO" />
 		<result property="memberProfile" column="MEMBER_PROFILE" />
 		<result property="reserveDate" column="RESERVE_DATE" />
 		<result property="reserveStart" column="RESERVE_START" />
@@ -247,4 +248,14 @@
 	<update id="deleteConfirmReserve" parameterType="_int">
 		UPDATE CONFIRM_RESERVE SET RESERVE_STATUS = 'N' WHERE CLASS_NO=#{classNo}
 	</update>
+	
+	<resultMap type="OffCategory" id="category_rm">
+		<id property="categoryNo" column="CATEGORY_NO"/>
+		<result property="categoryName" column="CATEGORY_NAME"/>
+	</resultMap>
+	
+	<!-- 카테고리 조회 -->
+	<select id="selectCategory" resultMap="category_rm">
+		SELECT * FROM CATEGORY
+	</select>
 </mapper>

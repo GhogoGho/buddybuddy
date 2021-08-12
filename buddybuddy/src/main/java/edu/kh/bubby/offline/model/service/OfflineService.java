@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.kh.bubby.offline.model.vo.OffCategory;
 import edu.kh.bubby.offline.model.vo.OffPagination;
 import edu.kh.bubby.offline.model.vo.OffSearch;
 import edu.kh.bubby.offline.model.vo.OfflineClass;
@@ -58,6 +59,10 @@ public interface OfflineService {
 	 * @return
 	 */
 	int deleteClass(int classNo);
+	/**카테고리 조회
+	 * @return
+	 */
+	List<OffCategory> selectCategory();
 
 
 

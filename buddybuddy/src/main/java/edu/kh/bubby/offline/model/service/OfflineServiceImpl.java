@@ -15,6 +15,7 @@ import edu.kh.bubby.offline.exception.SaveFileException;
 import edu.kh.bubby.offline.exception.reserveException;
 import edu.kh.bubby.offline.model.dao.OfflineDAO;
 import edu.kh.bubby.offline.model.vo.OffAttachment;
+import edu.kh.bubby.offline.model.vo.OffCategory;
 import edu.kh.bubby.offline.model.vo.OffPagination;
 import edu.kh.bubby.offline.model.vo.OffSearch;
 import edu.kh.bubby.offline.model.vo.OfflineClass;
@@ -186,5 +187,11 @@ public class OfflineServiceImpl implements OfflineService{
 				dao.deleteReserve(classNo);
 				dao.deleteConfirmReserve(classNo);
 				return 0;
+			}
+			//카테고리 조회
+			@Override
+			public List<OffCategory> selectCategory() {
+				// TODO Auto-generated method stub
+				return dao.selectCategory();
 			}
 }
