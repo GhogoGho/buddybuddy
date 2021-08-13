@@ -43,7 +43,7 @@ ul.navbar-nav li a {
 	display: block;
 	width: 100%;
 	padding: 20px 0;
-	position: relative;
+	position: relative;a
 	background: #fff;
 }
 
@@ -210,40 +210,24 @@ a:hover {
 }
 
 /* 마이페이지 본문 */
-.class-list {
-	margin-left: 15px;
-}
+.comment_container {
+            margin-top: 30px;
+            border-bottom : 1px solid #ddd;
+        }
 
-.class-list .class-img {
-	margin-left: 35px;
-	margin-top: 20px;
-}
+        .mem_nick {
+            font-size: 18px;
+            font-weight: bold;
 
-.class-list .class-cate a {
-	color: #50b8b3;
-	font-weight: bolder;
-	font-size: 15px;
-	text-decoration: none;
-	margin-top: 20px;
-	line-height: 100px;
-}
+        }
 
-.class-list .class-nm a {
-	color: black;
-	font-weight: bolder;
-	font-size: 15px;
-	text-decoration: none;
-	margin-top: 20px;
-	line-height: 100px;
-}
+        .mem_nick a {
+            color: #50b8b3;
+        }
 
-.class-list .class-dt {
-	color: black;
-	font-weight: bolder;
-	font-size: 15px;
-	margin-top: 20px;
-	line-height: 70px;
-}
+        .comment {
+            margin-left: 20px;
+        }
 
 /* FOOTER */
 .footer {
@@ -355,7 +339,7 @@ a:hover {
 									<button class="class-btn nav-link active col-6"
 										id="nav-home-tab" data-bs-toggle="tab"
 										data-bs-target="#nav-home" type="button" role="tab"
-										aria-controls="nav-home" aria-selected="true">오프라인 클래스 수강내역</button>
+										aria-controls="nav-home" aria-selected="true">내가 쓴 리뷰</button>
 
 								</div>
 
@@ -367,85 +351,159 @@ a:hover {
 
 					<!-- 마이페이지 본문 본문 -->
 					<div class="row">
-						<div class="row">
-							<div class="class-list">
-								<div class="class-img col-sm-2">
-									<img src="https://via.placeholder.com/150" width="70"
-										height="70" class="rounded-3 float-start me-2" alt="">
-								</div>
-								<div class="class-cate col-sm-2">
-									<a href="#">카테고리</a>
-								</div>
-								<div class="class-nm col-sm-5">
-									<a href="#">클래스 제목</a>
-								</div>
-								<div class="class-dt col-sm-2">21/07/26</div>
-							</div>
-						</div>
+						<div class="comment">
 
-						<div class="row">
-							<div class="class-list">
-								<div class="class-img col-sm-2">
-									<img src="https://via.placeholder.com/150" width="70"
-										height="70" class="rounded-3 float-start me-2" alt="" href="#">
-								</div>
-								<div class="class-cate col-sm-2">
-									<a href="#">카테고리</a>
-								</div>
-								<div class="class-nm col-sm-5">
-									<a href="#">클래스 제목</a>
-								</div>
-								<div class="class-dt col-sm-2">21/07/26</div>
-							</div>
-						</div>
+                            <div class="row">
+                                <div class="comment_container">
+                                    <span>
+                                        <div class="mem_nick">
+                                            <a href="#"
+                                                onclick="showSideView(this, 'H_U3MMf4xtc0', '\uAD7F\uBAA8\uB2CC'); return false;"
+                                                class="nicknm">${loginMember.memberNickname }</a>
 
-						<div class="row">
-							<div class="class-list">
-								<div class="class-img col-sm-2">
-									<img src="https://via.placeholder.com/150" width="70"
-										height="70" class="rounded-3 float-start me-2" alt="">
-								</div>
-								<div class="class-cate col-sm-2">
-									<a href="#">카테고리</a>
-								</div>
-								<div class="class-nm col-sm-5">
-									<a href="#">클래스 제목</a>
-								</div>
-								<div class="class-dt col-sm-2">21/07/26</div>
-							</div>
-						</div>
+                                            <span id="comm" class="comment_date">
+                                                21/08/12
+                                            </span>
 
-						<div class="row">
-							<div class="class-list">
-								<div class="class-img col-sm-2">
-									<img src="https://via.placeholder.com/150" width="70"
-										height="70" class="rounded-3 float-start me-2" alt="">
-								</div>
-								<div class="class-cate col-sm-2">
-									<a href="#">카테고리</a>
-								</div>
-								<div class="class-nm col-sm-5">
-									<a href="#">클래스 제목</a>
-								</div>
-								<div class="class-dt col-sm-2">21/07/26</div>
-							</div>
-						</div>
+                                        </div>
 
-						<div class="row">
-							<div class="class-list">
-								<div class="class-img col-sm-2">
-									<img src="https://via.placeholder.com/150" width="70"
-										height="70" class="rounded-3 float-start me-2" alt="">
-								</div>
-								<div class="class-cate col-sm-2">
-									<a href="#">카테고리</a>
-								</div>
-								<div class="class-nm col-sm-5">
-									<a href="#">클래스 제목</a>
-								</div>
-								<div class="class-dt col-sm-2">21/07/26</div>
-							</div>
-						</div>
+                                    </span>
+                                    <div class="comment">
+                                        <span class="comment_contents">
+                                            <img src="">
+                                            <a href="#">댓글 내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용</a>
+                                        </span>
+                                        <br>
+                                        <span class="p11">
+                                            <a href="#">댓글 제ㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔ목</a>
+                                            <span class="txt_point">[30] -> 댓글 수 </span>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="comment_container">
+                                    <span>
+                                        <div class="mem_nick">
+                                            <a href="#"
+                                                onclick="showSideView(this, 'H_U3MMf4xtc0', '\uAD7F\uBAA8\uB2CC'); return false;"
+                                                class="nicknm">${loginMember.memberNickname }</a>
+
+                                            <span id="comm" class="comment_date">
+                                                21/08/12
+                                            </span>
+
+                                        </div>
+
+                                    </span>
+                                    <div class="comment">
+                                        <span class="comment_contents">
+                                            <img src="">
+                                            <a href="#">댓글 내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용</a>
+                                        </span>
+                                        <br>
+                                        <span class="p11">
+                                            <a href="#">댓글 제ㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔ목</a>
+                                            <span class="txt_point">[30] -> 댓글 수 </span>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="comment_container">
+                                    <span>
+                                        <div class="mem_nick">
+                                            <a href="#"
+                                                onclick="showSideView(this, 'H_U3MMf4xtc0', '\uAD7F\uBAA8\uB2CC'); return false;"
+                                                class="nicknm">${loginMember.memberNickname }</a>
+
+                                            <span id="comm" class="comment_date">
+                                                21/08/12
+                                            </span>
+
+                                        </div>
+
+                                    </span>
+                                    <div class="comment">
+                                        <span class="comment_contents">
+                                            <img src="">
+                                            <a href="#">댓글 내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용</a>
+                                        </span>
+                                        <br>
+                                        <span class="p11">
+                                            <a href="#">댓글 제ㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔ목</a>
+                                            <span class="txt_point">[30] -> 댓글 수 </span>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="comment_container">
+                                    <span>
+                                        <div class="mem_nick">
+                                            <a href="#"
+                                                onclick="showSideView(this, 'H_U3MMf4xtc0', '\uAD7F\uBAA8\uB2CC'); return false;"
+                                                class="nicknm">${loginMember.memberNickname }</a>
+
+                                            <span id="comm" class="comment_date">
+                                                21/08/12
+                                            </span>
+
+                                        </div>
+
+                                    </span>
+                                    <div class="comment">
+                                        <span class="comment_contents">
+                                            <img src="">
+                                            <a href="#">댓글 내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용</a>
+                                        </span>
+                                        <br>
+                                        <span class="p11">
+                                            <a href="#">댓글 제ㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔ목</a>
+                                            <span class="txt_point">[30] -> 댓글 수 </span>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="comment_container">
+                                    <span>
+                                        <div class="mem_nick">
+                                            <a href="#"
+                                                onclick="showSideView(this, 'H_U3MMf4xtc0', '\uAD7F\uBAA8\uB2CC'); return false;"
+                                                class="nicknm">${loginMember.memberNickname }</a>
+
+                                            <span id="comm" class="comment_date">
+                                                21/08/12
+                                            </span>
+
+                                        </div>
+
+                                    </span>
+                                    <div class="comment">
+                                        <span class="comment_contents">
+                                            <img src="">
+                                            <a href="#">댓글 내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용</a>
+                                        </span>
+                                        <br>
+                                        <span class="p11">
+                                            <a href="#">댓글 제ㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔ목</a>
+                                            <span class="txt_point">[30] -> 댓글 수 </span>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
 
 					</div>
 					

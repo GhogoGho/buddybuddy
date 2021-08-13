@@ -189,9 +189,33 @@ public class MemberController {
 	}
 	
 	
+//	마이페이지 화면 전환용 Controller
+	@RequestMapping(value = "myPage/joinOffline", method = RequestMethod.GET)
+	public String joinOffline() {
+
+		return "member/myPage/joinOffline";
+	}
 	
+//	마이페이지 화면 전환용 Controller
+	@RequestMapping(value = "myPage/reserveOnline", method = RequestMethod.GET)
+	public String reserveOnline() {
+
+		return "member/myPage/reserveOnline";
+	}
 	
+//	마이페이지 화면 전환용 Controller
+	@RequestMapping(value = "myPage/reserveOffline", method = RequestMethod.GET)
+	public String reserveOffline() {
+
+		return "member/myPage/reserveOffline";
+	}
 	
+//	마이페이지 화면 전환용 Controller
+	@RequestMapping(value = "myPage/review", method = RequestMethod.GET)
+	public String review() {
+
+		return "member/myPage/review";
+	}
 	
 	
 	
