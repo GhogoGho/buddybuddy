@@ -30,30 +30,6 @@
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
   <script src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
 
-  <style>
-    /* nav 버튼 */
-    .nav-pills .nav-link.active,
-    .nav-pills .show>.nav-link {
-      color: #fff;
-      background-color: #198754;
-    }
-
-    /* nav 글자 */
-    .nav-link {
-      display: block;
-      padding: .5rem 1rem;
-      color: #000;
-      text-decoration: none;
-      transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
-    }
-
-    .list-group-item.active {
-      z-index: 2;
-      color: #fff;
-      background-color: #198754;
-      border-color: #198754;
-    }
-  </style>
 
 
 </head>
@@ -61,17 +37,71 @@
 	<main>
 		<!-- 상단부 -->
 		<jsp:include page="../common/header.jsp"/>
+<style>
+  /* nav 버튼 */
+  .nav-pills .nav-link.active,
+  .nav-pills .show>.nav-link {
+    color: #fff;
+    background-color: #198754;
+  }
+
+  /* nav 글자 */
+  .nav-link {
+    display: block;
+    padding: .5rem 1rem;
+    color: #000;
+    text-decoration: none;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+  }
+
+  
+  /* 사이드 글자 */
+  .list-group-item.active {
+  z-index: 2;
+  color: #fff;
+  background-color: #50b8b3;
+  border-color: #50b8b3;
+	}
+	
+	
+	/* 페이지네이션 */
+	.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #50b8b3;
+    border-color: #50b8b3;
+	}
+
+	.page-link {
+	    position: relative;
+	    display: block;
+	    color: #50b8b3;
+	    text-decoration: none;
+	    background-color: #fff;
+	    border: 1px solid #dee2e6;
+	    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+	}
+	.page-link:hover {
+	    position: relative;
+	    display: block;
+	    color: #50b8b3;
+	    text-decoration: none;
+	    background-color: #grey;
+	    border: 1px solid #dee2e6;
+	    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+	}
+</style>
 		
 		<div class="container">
       <div class="row">
         <div class="col-2">
           <div class="list-group" id="list-tab" role="tablist">
             <a class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list"
-              href="#list-home" role="tab" aria-controls="list-home">클래스 공지 목록</a>
+              href="#list-home" role="tab" aria-controls="list-home">내 클래스 목록</a>
             <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list"
-              href="#list-profile" role="tab" aria-controls="list-profile">클래스 공지 작성</a>
+              href="#list-profile" role="tab" aria-controls="list-profile">클래스 공지 목록</a>
             <a class="list-group-item list-group-item-action" id="list-messages-list" data-bs-toggle="list"
-              href="#list-messages" role="tab" aria-controls="list-messages">내 클래스 목록</a>
+              href="#list-messages" role="tab" aria-controls="list-messages">클래스 공지 작성</a>
             <!-- <a class="list-group-item list-group-item-action" id="list-cwrite-list" data-bs-toggle="list"
               href="#list-cwrite" role="tab" aria-controls="list-cwrite">내 클래스 작성</a>
             <a class="list-group-item list-group-item-action" id="list-settings-list" data-bs-toggle="list"
@@ -82,24 +112,24 @@
         </div>
         <div class="col-10">
           <div class="tab-content" id="nav-tabContent">
-            <!-- 클래스공지 목록 start-->
+            <!-- 내 클래스 목록 start -->
             <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+              <jsp:include page="createrClassList.jsp"/>
+            </div>
+            <!-- 내 클래스 목록 end -->
+            
+            <!-- 클래스공지 목록 start-->
+            <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
               <%-- <jsp:include page="noticeList.jsp"/> --%>
               <jsp:include page="noticeListTest.jsp"/>
             </div>
             <!-- 클래스공지 목록 end-->
             
             <!-- 클래스공지 작성 start -->
-            <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+            <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
               <jsp:include page="noticeWrite.jsp"/>
             </div>
             <!-- 클래스공지 작성 end -->
-            
-            <!-- 내 클래스 목록 start -->
-            <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
-              <jsp:include page="createrClassList.jsp"/>
-            </div>
-            <!-- 내 클래스 목록 end -->
             
             <%-- <!-- 내 클래스 작성 start -->
             <div class="tab-pane fade" id="list-cwrite" role="tabpanel" aria-labelledby="list-cwrite-list">

@@ -53,7 +53,7 @@ public class CreaterController {
 	
 	
 	// 크리에이터 목록 조회
-	@RequestMapping("{classType}/main")// classType 넘겨받자
+	@RequestMapping("{classType}/main")
 	public String createrMain(@PathVariable("classType") int classType,
 			@RequestParam(value="cp", required=false, defaultValue = "1" ) int cp,
 			@ModelAttribute("loginMember") Member loginMember,
@@ -110,8 +110,6 @@ public class CreaterController {
 	
 	}
 		
-		
-	
 	// 공지사항 작성
 	@RequestMapping(value = "{classType}/insertNotice", method=RequestMethod.POST)
 	public String insertNotice(@PathVariable("classType") int classType,
@@ -128,38 +126,8 @@ public class CreaterController {
 		}else {
 			MemberController.swalSetMessage(ra, "error", "공지사항 등록 실패", null);
 		}
-		return "redirect:"+request.getHeader("referer");
+//		return "redirect:"+request.getHeader("referer");
+		return "redirect:"+"/"+"creater/"+classType+"/main#list-profile";
 	}
 	
-	// 공지사항 수정
-	@RequestMapping(value = "{classType}/updateNotice", method=RequestMethod.POST)
-	public String updateNotice(@PathVariable("classType") int classType,
-							@ModelAttribute Notice notice,
-							@ModelAttribute("loginMember") Member loginMember,
-							HttpServletRequest request,
-							RedirectAttributes ra) {
-		notice.setMemberNo(loginMember.getMemberNo() );
-		notice.setClassType(classType);
-		int result = noticeService.updateNotice(notice);
-		if(result>0) {
-			MemberController.swalSetMessage(ra, "success", "공지사항 수정 성공", null);
-		}else {
-			MemberController.swalSetMessage(ra, "error", "공지사항 수정 실패", null);
-		}
-		return "redirect:"+request.getHeader("referer");
-	}
-	
-	// 공지사항 삭제
-	@RequestMapping(value = "{classType}/deleteNotice")
-	public int deleteNotice(@PathVariable("classType") int classType,
-			@ModelAttribute Notice notice,
-			@ModelAttribute("loginMember") Member loginMember) {
-		
-		notice.setMemberNo(loginMember.getMemberNo());
-		notice.setClassType(classType);
-		System.out.println("공지삭제 : "+notice);
-		
-		return noticeService.deleteNotice(notice);
-		
-	}
 }
