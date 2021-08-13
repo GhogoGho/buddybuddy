@@ -78,6 +78,17 @@ public interface OfflineService {
 	 * @return
 	 */
 	int deleteAtt(int classNo);
+	/**클래스 업데이트
+	 * @param offlineClass
+	 * @param images
+	 * @param webPath
+	 * @param savePath
+	 * @param deleteReserve
+	 * @param updateReserve
+	 * @return
+	 */
+	int updateClass(OfflineClass offlineClass, List<MultipartFile> images, String webPath, String savePath,
+			List deleteReserve, List updateReserve);
 
 
 

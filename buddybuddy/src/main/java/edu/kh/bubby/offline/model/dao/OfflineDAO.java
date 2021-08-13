@@ -151,5 +151,42 @@ public class OfflineDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.delete("offlineMapper.deleteAtt",classNo);
 	}
+	
+	/**게시글 업데이트
+	 * @param offlineClass
+	 * @return
+	 */
+	public int updateClass(OfflineClass offlineClass) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("offlineMapper.updateClass",offlineClass);
+	}
+
+	/**게시글 예약자 삭제를 위한 reserveNo조회
+	 * @param deleteOff
+	 * @return
+	 */
+	public int selectReserveNo(OfflineClass deleteOff) {
+		// TODO Auto-generated method stub
+		OfflineClass reserveNo = sqlSession.selectOne("offlineMapper.selectReserveNo",deleteOff);
+		
+		return reserveNo.getReserveNo();
+	}
+
+	/**예약자 삭제
+	 * @param reserveNo
+	 */
+	public void deletReserveMember(int reserveNo) {
+		// TODO Auto-generated method stub
+		sqlSession.update("offlineMapper.deletReserveMember",reserveNo);
+	}
+
+	/**업데이트중 예약 삭제
+	 * @param reserveNo
+	 * @return
+	 */
+	public int updeleteReserve(int reserveNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("offlineMapper.updeleteReserve",reserveNo);
+	}
 
 }
