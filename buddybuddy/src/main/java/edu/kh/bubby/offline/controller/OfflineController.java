@@ -132,9 +132,36 @@ public class OfflineController {
 		
 		return "redirect:/";
 	}
-	//클래스 ,예약 날짜 수정
+	//클래스 업데이트
+	@RequestMapping(value="{classType}/update",method=RequestMethod.POST)
+	public String updateClass(@PathVariable("classType") int classType, OfflineClass offlineClass,
+			@ModelAttribute("loginMember") Member loginMember, @RequestParam("images") List<MultipartFile> images,
+			 @RequestParam("address") String address,
+			 @RequestParam("editordata") String editordata,
+			HttpServletRequest request,
+			@RequestParam("deleteReserve") List deleteReserve,
+			@RequestParam("updateReserve") List updateReserve) {
+		
+		String classAddr = address.toString();
+		offlineClass.setClassArea(classAddr);
+		offlineClass.setClassContent(editordata);		
+		offlineClass.setMemberNo(loginMember.getMemberNo());
+		offlineClass.setClassType(classType);
+		offlineClass.setMemberProfile(loginMember.getMemberProfile());
+		String webPath = "resources/images/offlineClass/";
+		String savePath= request.getSession().getServletContext().getRealPath(webPath);
+		System.out.println("업데이트 구간");
+		System.out.println(deleteReserve);
+		System.out.println(updateReserve);
+		//기존 첨부파일 전체 삭제
+		//service.deleteAtt(offlineClass.getClassNo());
+		//int result = service.updateClass(offlineClass,images,webPath,savePath,deleteReserve);
+		String path=null;
+		return path;
+	}
+	//클래스 ,예약 날짜 수정 폼 이동
 	@RequestMapping("{classType}/updateForm")
-	public String updateClass(@RequestParam("classNo") int classNo ,Model model) {
+	public String updateClassForm(@RequestParam("classNo") int classNo ,Model model) {
 		OfflineClass offList = service.selectOfflinView(classNo);
 		OfflineClass offContent = service.selectContent(classNo);
 		List<OffCategory> category = service.selectCategory();

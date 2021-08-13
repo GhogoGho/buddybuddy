@@ -200,5 +200,11 @@ public class OfflineServiceImpl implements OfflineService{
 				// TODO Auto-generated method stub
 				return dao.selectReserveUpdate(classNo);
 			}
+			//업데이트시 첨부파일 삭제
+			@Override
+			public int deleteAtt(int classNo) {
+				// TODO Auto-generated method stub
+				return dao.deleteAtt(classNo);
+			}
 			
 }

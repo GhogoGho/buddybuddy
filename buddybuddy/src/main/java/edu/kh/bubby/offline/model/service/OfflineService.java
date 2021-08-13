@@ -73,6 +73,11 @@ public interface OfflineService {
 	 * @return
 	 */
 	List<OfflineClass> selectReserveUpdate(int classNo);
+	/**업데이트시 기존 첨부파일 삭제
+	 * @param classNo
+	 * @return
+	 */
+	int deleteAtt(int classNo);
 
 
 

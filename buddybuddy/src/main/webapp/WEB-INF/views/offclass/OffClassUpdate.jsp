@@ -176,12 +176,15 @@ td {
 
 
 	<!-- 컨테이너 입력 부분 -->
-	<form action="insert" method="post" enctype="multipart/form-data">
+	<form action="update" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="classNo" value="${offList.classNo }">
+	<input type="hidden" id="deleteReserve" name="deleteReserve" value="">
+	<input type="hidden" id="updateReserve" name="updateReserve" value="">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 text-center">
 					<h1>
-						<b>오프라인 클래스 작성</b>
+						<b>오프라인 클래스 수정</b>
 					</h1>
 					<hr>
 				</div>
@@ -221,9 +224,14 @@ td {
 						name="reserveLimit" type="text" class="form-control"
 						style="width: 15%; display: inline-block;" value="${offList.reserveLimit }" required>
 				</div>
+				<c:forEach items="${offList.atList}" var="at">
+					<c:if test="${at.fileLevel==0}">
+						<c:set var="sum" value="안녕하세요"></c:set>
+					</c:if>
+				</c:forEach>
 				<div class="col-md-12 mb-3">
 					<label style="font-size: 25px;">썸네일 : </label> <input name="images"
-						type="file" style="display: inline-block;" accept="image/*" required>
+						type="file"  id="sumxx" style="display: inline-block;" accept="image/*" value="${sum}" required>
 				</div>
 				<div class="col-md-12  mb-3">
 					<label style="font-size: 25px;">예약가능 날짜 : </label>
@@ -238,7 +246,7 @@ td {
 					<c:if test="${!empty reserve }">
 						<c:forEach items="${reserve}" var ="time">
 							<div class="col-md-3" style="display:inline-block">
-							<input type="text" name="reserveAll" value="${time.reserveDate} ${time.reserveStart} ${time.reserveEnd }" readonly="true">
+							<input type="text" name="reserveAll" value="${time.reserveDate} ${time.reserveStart} ${time.reserveEnd }" readonly>
 							<button style=" float: right; font-size: 25px; margin-left: 10px; width: 34px; height : 30px;line-height: 0px;" onclick="deleteDate(this)">-</button>
 							</div>
 						</c:forEach>
@@ -434,17 +442,18 @@ td {
 					</script>
 
 				</div>
-
-			</div>
-			<div class="row">
+				<div class="row">
 				<div class="col-md-12">
 					<button class="btn btn-primary" type="reset"
 						style="float: right; margin-left: 25px; font-size: 25px;">취소</button>
-					<button class="btn btn-primary"
-						style="float: right; font-size: 25px;">작성</button>
+					<button type="submit" class="btn btn-primary"
+						style="float: right; font-size: 25px;">작성
+						</button>
 				</div>
 			</div>
-		</div>
+			</div>
+			
+		
 	</form>
 
 					<!-- Modal -->
@@ -637,7 +646,24 @@ td {
 	</script>
 	<script>
 	const categoryName= "${offList.categoryName}";
+	
+	let Reserve = [];
+	let x ;
+	<c:forEach items="${reserve}" var="item">
+	x = "${item.reserveDate}"+" "+"${item.reserveStart}"+" "+"${item.reserveEnd}";
+	Reserve.push(x);
+	</c:forEach>
+	console.log(Reserve);
+	let updateReserve=[];
+	let deleteReserve =[];
+	let allReserve=[];
 
+	for(var i=0;i<Reserve.length;i++){
+		allReserve.push(Reserve[i]);
+	}
+	for(var i=0;i<updateReserve.length;i++){
+		allReserve.push(updateReserve[i]);
+	}
 	$('#categoryCode > option').each(function(index, item){
 		//item : 현재 접근한 배열 요소
 		
@@ -685,11 +711,26 @@ td {
 							icon : "error",
 							title:"날짜선택 , 시작시간, 종료시간 중 빠진것이 없는지 확인해주세요."
 						});
-					}else{
-						var hiddenDate = $("#hiddenDate").val();
+					}
+		    	   let ch =0;
+		    	   for(var i =0; i<allReserve.length;i++){
+		    		   var hiddenDate = $("#hiddenDate").val();
 						var startTime = $("#startTime").val();
 						var endTime = $(".endTime").val();
-						console.log(hiddenDate + " " + startTime + " " + endTime);
+						var save = hiddenDate + " " + startTime + " " + endTime;
+		    		   if(allReserve[i] == save){
+		    				swal({
+								icon : "error",
+								title:"중복된 날짜 시간은 불가능 합니다."
+							});
+		    				ch=1;
+		    				break;
+		    		   }
+		    		  
+		    	   }
+		    	   if(ch==0){
+	    			   console.log(hiddenDate + " " + startTime + " " + endTime);
+	    				
 						var dtdiv = document.createElement("div");
 						dtdiv.setAttribute("class","col-md-3");
 						dtdiv.setAttribute("style","display:inline-block");
@@ -708,15 +749,90 @@ td {
 						dtbtn.innerHTML="-";
 						dtdiv.appendChild(dtinput);
 						dtdiv.appendChild(dtbtn);
-
+						
+						
+						document.getElementById("reserveArea").appendChild(dtdiv);
+						allReserve.push(save);
+						updateReserve.push(save);
+						for(var i;i<deleteReserve.length;i++){
+							if(deleteReserve[i] == save){
+								  deleteReserve.splice(i, 1);
+								  i--;
+							}
+						}
+						console.log(allReserve);
+						$("#updateReserve").val("");
+						$("#updateReserve").val(updateReserve);
+						
+						
+						
+	    		   }
+		    	   
+		    	   /* else{
+		    		   var hiddenDate = $("#hiddenDate").val();
+						var startTime = $("#startTime").val();
+						var endTime = $(".endTime").val();
+						var save = hiddenDate + " " + startTime + " " + endTime;
+						console.log(hiddenDate + " " + startTime + " " + endTime);
+		
+						var dtdiv = document.createElement("div");
+						dtdiv.setAttribute("class","col-md-3");
+						dtdiv.setAttribute("style","display:inline-block");
+						var dtinput = document.createElement("input");
+						dtinput.setAttribute("type", "text");
+						dtinput.setAttribute("name", "reserveAll");
+						dtinput.setAttribute("value", hiddenDate + " " + startTime + " "
+								+ endTime);
+						dtinput.setAttribute("readonly", true);
+						var dtbtn = document.createElement("button");
+						dtbtn
+								.setAttribute(
+										"style",
+										" float: right; font-size: 25px; margin-left: 10px; width: 34px; height : 30px;line-height: 0px;");
+						dtbtn.setAttribute("onclick", "deleteDate(this)");
+						dtbtn.innerHTML="-";
+						dtdiv.appendChild(dtinput);
+						dtdiv.appendChild(dtbtn);
+						
+						
 						document.getElementById("reserveArea").appendChild(dtdiv);
 					}
-					
+					 */
 
 
 		}
+			
 		function deleteDate(el) {
+			let leng =0;
+			console.log($(el).prev().val());
+	 		if(deleteReserve.length != 0){
+				leng=deleteReserve.length;
+			}else{
+				leng=1;
+			}
+	 		var coco=0;
+			for(var i =0;i<leng;i++){
+				if(deleteReserve[i] == $(el).prev().val()){
+					coco=1;
+				}
+			} 
+	 		if(coco==0){
+	 			deleteReserve.push($(el).prev().val());
+	 		}
+			for(var i=0;i<updateReserve.length;i++){
+				if(updateReserve[i] == $(el).prev().val()){
+					  updateReserve.splice(i, 1);
+					  i--;
+				}
+			}
+			console.log(deleteReserve);
+			
+			$("#deleteReserve").val("");
+			$("#deleteReserve").val(deleteReserve);
 			$(el).parent().remove();
+		}
+		
+		function dell(){
 		}
 	</script>
 

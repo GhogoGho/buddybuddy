@@ -263,4 +263,8 @@
 	<select id="selectReserveUpdate" parameterType="_int" resultMap="offMain_rm">
 		SELECT RESERVE_START,RESERVE_END,RESERVE_DT FROM RESERVE WHERE CLASS_NO = #{classNo}
 	</select>
+	<!--업데이트 첨부파일 삭제  -->
+	<delete id="deleteAtt" parameterType="_int">
+		DELETE FROM ATTACHMENT WHERE CLASS_NO = #{classNo}
+	</delete>
 </mapper>

@@ -147,4 +147,9 @@ public class OfflineDAO {
 		return  sqlSession.selectList("offlineMapper.selectReserveUpdate",classNo);
 	}
 
+	public int deleteAtt(int classNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("offlineMapper.deleteAtt",classNo);
+	}
+
 }
