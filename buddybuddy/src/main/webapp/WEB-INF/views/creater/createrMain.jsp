@@ -84,7 +84,8 @@
           <div class="tab-content" id="nav-tabContent">
             <!-- 클래스공지 목록 start-->
             <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-              <jsp:include page="noticeList.jsp"/>
+              <%-- <jsp:include page="noticeList.jsp"/> --%>
+              <jsp:include page="noticeListTest.jsp"/>
             </div>
             <!-- 클래스공지 목록 end-->
             
