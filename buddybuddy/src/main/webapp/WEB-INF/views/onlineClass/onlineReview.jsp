@@ -563,11 +563,11 @@ $(document).on("click", ".showUpdateReview", function(){ // 동적 요소가 적
 	
 /* $('.showUpdateReply').click(function(){ */ // 동적으로 요소가 생겼을 경우 동작하지 않는다.
   	if($(this).parent().parent().parent().parent().next(".updateArea").css("display") == "none" ){
-        $(this).parent().parent().parent().parent().siblings("li.updateArea").slideUp(200);
-        $(this).parent().parent().parent().parent().next(".updateArea").slideDown(200);
+        $(this).parent().parent().parent().parent().siblings("li.updateArea").hide();
+        $(this).parent().parent().parent().parent().next(".updateArea").show();
 		$(this).text("닫기");
  	 }else{
-	   $(this).parent().parent().parent().parent().next(".updateArea").slideUp(200); 
+	   $(this).parent().parent().parent().parent().next(".updateArea").hide(); 
 	   $(this).text("수정");
   	}
  /*  }); */

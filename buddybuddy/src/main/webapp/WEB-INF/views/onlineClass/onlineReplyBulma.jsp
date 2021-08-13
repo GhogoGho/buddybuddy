@@ -3,6 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<style>
+	.add-comment-area{
+		display : none;
+	}
+</style>
+
+
 <!-- 댓글1 -->
 <div id="replyListArea">
 	<c:forEach items="${rList}" var="reply">
@@ -30,7 +37,7 @@
 	        <br>
 	        <small>
 	        	<c:if test="${reply.nestedReply == null }">
-	        	<button class="button is-dark">답글 작성</button>
+	        	<button class="button is-dark showAddComment">답글 작성</button>
 	        	</c:if>
 	        	<c:if test="${reply.memberNo == sessionScope.loginMember.memberNo}">
           	<button class="button is-danger" id="deleteReply" onclick="deleteReply(${reply.replyNo})">삭제</button>
@@ -44,7 +51,7 @@
 	    </div>
 	    <!-- 대댓글 작성 -->
 	    <c:if test="${reply.nestedReply == null }">
-	    <div id="add-comment-area">
+	    <div id="add-comment-area" class="add-comment-area">
 	    	<textarea class="textarea is-dark"></textarea>
 	    	<button class="button is-dark is-fullwidth" onclick="addComment(${reply.replyNo}, this)">답글 작성</button>
 	    </div>
@@ -66,14 +73,14 @@
 	      <div class="media-content">
 	        <div class="content">
 	          <p>
-	            <strong>대댓글1</strong>
+	            <strong>${online.memberNickName}</strong>
 	            <br>
 	            <div id="notice-con">
 	            	${reply.nestedReply }
 	            </div>
 	            <br>
 	            <small>
-								<c:if test="${reply.memberNo == sessionScope.loginMember.memberNo}">
+								<c:if test="${online.memberNo == sessionScope.loginMember.memberNo}">
 		          	<button class="button is-danger" onclick="deleteComment(${reply.replyNo}, this)">삭제</button>
 		            <button class="button is-primary is-rounded showUpdateComment">수정</button>
 			        	</c:if>
@@ -121,12 +128,12 @@
     </div>
   </div>
 </article>
-
-
+${online.memberNo}
+${loginMember.memberNo}
 <script>
 
-
-
+const onlineMemberNickName = ${online.memberNickName};
+const onlineMemberNo = ${online.memberNo}; // 클래스 크리에이터 회원 번호
 /* const loginMemberNo = "${loginMember.memberNo}";
 const classNo = ${online.classNo}; */
 
@@ -231,6 +238,7 @@ function selectReplyList(){
 				editReplyArea.append(editReplyCon).append(editReplyBtn);
 				
 				/////////////////////////////////////////////////////////////////////////////////////////////
+				/////////////////////////////////////////////////////////////////////////////////////////////
 				// 대댓글 시작
 				var commentArti = $("<article>").addClass("media");
 				var cTopFigure = $("<figure>").addClass("media-left");
@@ -254,7 +262,7 @@ function selectReplyList(){
 				var cSecondBr = $("<br>");
 				
 				var cSmall = $("<small>");
-				if (item.memberNo == loginMemberNo) {
+				if (item.MemberNo == loginMemberNo) {
 					var cDeleteBtn = $("<button>").addClass("button is-danger").text("삭제").attr("onclick", "deleteComment(" + item.replyNo + ", this)");
 					var cEditBtn = $("<button>").addClass("button is-primary is-rounded showUpdateComment").text("수정");
 					cSmall.append(cDeleteBtn).append(cEditBtn);
@@ -295,6 +303,19 @@ function selectReplyList(){
 
 		});
 }
+// ---------------------------
+// 수강문의 답글창 여닫
+$(document).on("click", ".showAddComment", function(){ // 동적 요소가 적용된 후에도 동작함
+	if( $(".add-comment-area").css("display") == "none" ){
+		$(".add-comment-area").css("display", "");
+		$(this).text("닫기");
+	}else{
+		$(this).parent().parent().parent().next("#add-comment-area").hide();
+		$(this).text("답글 달기");
+	}
+
+
+}); 
 // ---------------------------
 // 수강문의 수정창 여닫
 $(document).on("click", ".showUpdateReply", function(){ // 동적 요소가 적용된 후에도 동작함

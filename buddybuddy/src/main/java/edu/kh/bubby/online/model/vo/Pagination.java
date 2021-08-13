@@ -18,6 +18,8 @@ public class Pagination {
 	private int classType;			// 클래스 타입 번호
 	private String className;		// 클래스 타입 이름 CLASS_TYPE_NAME
 	
+	private int memberNo;			// 내 목록 조회용
+	
 	public Pagination() {
 		// TODO Auto-generated constructor stub
 	}
@@ -168,18 +170,27 @@ public class Pagination {
 	public void setClassName(String className) {
 		this.className = className;
 	}
+	
+
+	public int getMemberNo() {
+		return memberNo;
+	}
 
 
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
 
+	
 	@Override
 	public String toString() {
 		return "Pagination [currentPage=" + currentPage + ", listCount=" + listCount + ", limit=" + limit
 				+ ", pageSize=" + pageSize + ", maxPage=" + maxPage + ", startPage=" + startPage + ", endPage="
 				+ endPage + ", prevPage=" + prevPage + ", nextPage=" + nextPage + ", classType=" + classType
-				+ ", className=" + className + "]";
+				+ ", className=" + className + ", memberNo=" + memberNo + "]";
 	}
-	
-	
+
+
 	// 페이징 처리에 필요한 값을 계산하는 메소드
 	private void makePagination() {
 		
