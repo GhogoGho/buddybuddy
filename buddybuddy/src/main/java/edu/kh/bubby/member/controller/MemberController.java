@@ -141,12 +141,19 @@ public class MemberController {
 
 		return "redirect:/";
 	}
-
+	
 //	마이페이지 화면 전환용 Controller
 	@RequestMapping(value = "myPage", method = RequestMethod.GET)
 	public String myPage() {
 
 		return "member/myPage";
+	}
+
+//	마이페이지 화면 전환용 Controller
+	@RequestMapping(value = "myPage/joinOnline", method = RequestMethod.GET)
+	public String joinOnline() {
+
+		return "member/myPage/joinOnline";
 	}
 	
 //	마이페이지 Controller
