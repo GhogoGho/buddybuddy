@@ -38,30 +38,29 @@
 			<!-- 클래스 목록 -->
 			<div class="row row-cols-1 row-cols-md-4 g-4">
 				<c:choose>
-					<c:when test="${empty onlineList}">
+					<c:when test="${empty classList}">
 						<p class="h3">클래스 목록X</p>
 					</c:when>
 					<c:otherwise>
-						<c:forEach items="${onlineList}" var="online">
+						<c:forEach items="${classList}" var="classList">
 							<div class="col">
 								<div class="card h-100">
 									<div class="ratio ratio-1x1">
 										<c:choose>
-											<c:when
-												test="${ empty online.atList || online.atList[0].fileLevel != 0}">
+											<c:when test="${ empty classList.atList || classList.atList[0].fileLevel != 0}">
 												<img src="${contextPath}/resources/images/noimage.png">
 											</c:when>
 											<c:otherwise>
-												<img
-													src="${contextPath}/${online.atList[0].filePath}${online.atList[0].fileName}"
+												<video
+													src="${contextPath}/${classList.atList[0].filePath}${classList.atList[0].fileName}"
 													class="card-img-top">
 											</c:otherwise>
 										</c:choose>
 									</div>
 									<div class="card-body">
-										<a href="${online.classNo}?cp=${pagination.currentPage}${searchStr}">
-											<h6 class="card-subtitle">${online.categoryName }</h6>
-											<h5 class="card-title">${online.classTitle }</h5>
+										<a href="${classList.classNo}?cp=${pagination.currentPage}${searchStr}">
+											<h6 class="card-subtitle">${classList.categoryName }</h6>
+											<h5 class="card-title">${classList.classTitle }</h5>
 										</a>
 									</div>
 									<div class="card-footer">

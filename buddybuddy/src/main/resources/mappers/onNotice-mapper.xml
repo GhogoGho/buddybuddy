@@ -23,12 +23,20 @@
 	<!-- =================================================== -->
 	
 	<!-- 공지사항 목록 조회 -->
-	<select id="selectNoticeList" parameterType="_int" resultMap="notice_rm">
+<!-- 	<select id="selectNoticeList" parameterType="_int" resultMap="notice_rm">
 		SELECT NOTI_NO, NOTI_TITLE, NOTI_CONTENT, NOTI_CREATE_DT, CLASS_NO, MEM.MEMBER_NO
 		FROM NOTI_BOARD
     JOIN CLASS_TYPE ON BOARD_TYPE_NO = CLASS_TYPE_NO
     JOIN CLASS_PAGE CP USING(CLASS_TYPE_NO)
 		JOIN MEMBER MEM ON MEM.MEMBER_NO = CP.MEMBER_NO
+		WHERE NOTI_STATUS = 'Y'
+		AND CLASS_NO = #{classNo}
+	</select> -->
+	
+	<!-- 공지사항 목록 조회 -->
+	<select id="selectNoticeList" parameterType="_int" resultMap="notice_rm">
+		SELECT NOTI_NO, NOTI_TITLE, NOTI_CONTENT, NOTI_CREATE_DT, MEMBER_NO, CLASS_NO
+		FROM CLASS_NOTICE
 		WHERE NOTI_STATUS = 'Y'
 		AND CLASS_NO = #{classNo}
 	</select>

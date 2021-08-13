@@ -90,7 +90,8 @@
 					class="img-fluid main-img">
 			</div>
 			<div class="row">
-				<a href="${contextPath}/creater/main">크리에이터 페이지 임시 링크</a>
+				<a href="${contextPath}/creater/1/main">크리에이터 페이지 클래스 타입 1로 연결</a>
+				<a href="${contextPath}/creater/2/main">크리에이터 페이지 클래스 타입 2로 연결</a>
 			</div>
 			<!-- 카테고리 -->
 			<div class="columns my-5">

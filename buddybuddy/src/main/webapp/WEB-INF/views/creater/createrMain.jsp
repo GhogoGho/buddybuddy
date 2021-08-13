@@ -72,12 +72,12 @@
               href="#list-profile" role="tab" aria-controls="list-profile">클래스 공지 작성</a>
             <a class="list-group-item list-group-item-action" id="list-messages-list" data-bs-toggle="list"
               href="#list-messages" role="tab" aria-controls="list-messages">내 클래스 목록</a>
-            <a class="list-group-item list-group-item-action" id="list-cwrite-list" data-bs-toggle="list"
+            <!-- <a class="list-group-item list-group-item-action" id="list-cwrite-list" data-bs-toggle="list"
               href="#list-cwrite" role="tab" aria-controls="list-cwrite">내 클래스 작성</a>
             <a class="list-group-item list-group-item-action" id="list-settings-list" data-bs-toggle="list"
               href="#list-settings" role="tab" aria-controls="list-settings">예약 회원 관리</a>
             <a class="list-group-item list-group-item-action" id="list-fmember-list" data-bs-toggle="list"
-              href="#list-fmember" role="tab" aria-controls="list-fmember">환불 회원 관리</a>
+              href="#list-fmember" role="tab" aria-controls="list-fmember">환불 회원 관리</a> -->
           </div>
         </div>
         <div class="col-10">
@@ -100,7 +100,7 @@
             </div>
             <!-- 내 클래스 목록 end -->
             
-            <!-- 내 클래스 작성 start -->
+            <%-- <!-- 내 클래스 작성 start -->
             <div class="tab-pane fade" id="list-cwrite" role="tabpanel" aria-labelledby="list-cwrite-list">
               <jsp:include page="createrClassWrite.jsp"/>
             </div>
@@ -116,7 +116,7 @@
             <div class="tab-pane fade" id="list-fmember" role="tabpanel" aria-labelledby="list-fmember-list">
               <jsp:include page="refundList.jsp"/>
             </div>
-            <!-- 환불 회원 관리 end -->
+            <!-- 환불 회원 관리 end --> --%>
           </div>
         </div>
       </div>
