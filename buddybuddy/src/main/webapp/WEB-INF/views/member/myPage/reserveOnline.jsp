@@ -323,9 +323,9 @@ a:hover {
 						<ul class="mymenu">
 							<p>클래스</p>
 							<li><a href="${contextPath}/member/myPage/joinOnline">온라인 클래스 수강내역</a></li>
-							<li><a href="#">오프라인 클래스 수강 내역</a></li>
+							<li><a href="${contextPath}/member/myPage/joinOffline">오프라인 클래스 수강 내역</a></li>
 
-							<li><a href="#">온라인 클래스 예약 내역</a></li>
+							<li><a href="${contextPath}/member/myPage/reserveOnline">온라인 클래스 예약 내역</a></li>
 							<li><a href="#">오프라인 클래스예약 내역</a></li>
 						</ul>
 						<hr>
@@ -355,7 +355,7 @@ a:hover {
 									<button class="class-btn nav-link active col-6"
 										id="nav-home-tab" data-bs-toggle="tab"
 										data-bs-target="#nav-home" type="button" role="tab"
-										aria-controls="nav-home" aria-selected="true">온라인 클래스 수강내역</button>
+										aria-controls="nav-home" aria-selected="true">온라인 클래스 예약내역</button>
 
 								</div>
 
