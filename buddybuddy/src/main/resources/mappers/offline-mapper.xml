@@ -261,10 +261,26 @@
 	
 	<!--업데이트 예약 날짜 조회  -->
 	<select id="selectReserveUpdate" parameterType="_int" resultMap="offMain_rm">
-		SELECT RESERVE_START,RESERVE_END,RESERVE_DT FROM RESERVE WHERE CLASS_NO = #{classNo}
+		SELECT RESERVE_START,RESERVE_END,RESERVE_DT FROM RESERVE WHERE CLASS_NO = #{classNo} AND RESERVE_STATUS= 'Y'
 	</select>
 	<!--업데이트 첨부파일 삭제  -->
 	<delete id="deleteAtt" parameterType="_int">
 		DELETE FROM ATTACHMENT WHERE CLASS_NO = #{classNo}
 	</delete>
+	<!-- 게시글 업데이트 -->
+	<update id="updateClass" parameterType="OfflineClass">
+		UPDATE CLASS_PAGE SET CLASS_TITLE= #{classTitle},CLASS_CONTENT = #{classContent} WHERE CLASS_NO = #{classNo}
+	</update>
+	<!-- 예약글 번호 조회 -->
+	<select id="selectReserveNo" parameterType="OfflineClass" resultMap="offMain_rm">
+		SELECT RESERVE_NO FROM RESERVE WHERE RESERVE_DT= #{reserveDate} AND RESERVE_START=#{reserveStart} AND RESERVE_END=#{reserveEnd} AND CLASS_NO=#{classNo}
+	</select>
+	<!-- 예약자 삭제 -->
+	<update id="deletReserveMember" parameterType="_int">
+		UPDATE CONFIRM_RESERVE SET RESERVE_STATUS ='N' WHERE RESERVE_NO=#{reserveNo}
+	</update>
+	<!-- 예약 날짜 삭제 -->
+	<update id="updeleteReserve" parameterType="_int">
+		UPDATE RESERVE SET RESERVE_STATUS='N' WHERE RESERVE_NO=#{reserveNo}
+	</update>
 </mapper>

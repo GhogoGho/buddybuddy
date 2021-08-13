@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.bubby.offline.exception.SaveFileException;
 import edu.kh.bubby.offline.exception.reserveException;
+import edu.kh.bubby.offline.exception.updateReserveDeleteException;
+import edu.kh.bubby.offline.exception.updateReserveUpdateException;
 import edu.kh.bubby.offline.model.dao.OfflineDAO;
 import edu.kh.bubby.offline.model.vo.OffAttachment;
 import edu.kh.bubby.offline.model.vo.OffCategory;
@@ -201,10 +203,117 @@ public class OfflineServiceImpl implements OfflineService{
 				return dao.selectReserveUpdate(classNo);
 			}
 			//업데이트시 첨부파일 삭제
+			@Transactional(rollbackFor = Exception.class)
 			@Override
 			public int deleteAtt(int classNo) {
 				// TODO Auto-generated method stub
 				return dao.deleteAtt(classNo);
 			}
+			//클래스 업데이트
+			@Transactional(rollbackFor = Exception.class)
+			@Override
+			public int updateClass(OfflineClass offlineClass, List<MultipartFile> images, String webPath,
+					String savePath, List deleteReserve, List updateReserve) {
+				// TODO Auto-generated method stub
+				offlineClass.setClassTitle(replaceParameter(offlineClass.getClassTitle()));
+				int delCount=0;
+				int upCount=0;
+				//게시글 먼저 수정
+				int result = dao.updateClass(offlineClass);
+				if(result>0) {
+					if(deleteReserve!=null) {
+						for(int i=0; i<deleteReserve.size();i++) {
+							String[] delete = deleteReserve.get(i).toString().split(" ");
+							
+							OfflineClass deleteOff = new OfflineClass();
+							deleteOff.setReserveDate(delete[0].toString());
+							deleteOff.setReserveStart(delete[1].toString());
+							deleteOff.setReserveEnd(delete[2].toString());
+							deleteOff.setClassNo(offlineClass.getClassNo());
+							System.out.println("deleteOff :  "+deleteOff);
+							int reserveNo = dao.selectReserveNo(deleteOff);
+							//예약자 삭제
+							dao.deletReserveMember(reserveNo);
+							result = dao.updeleteReserve(reserveNo);
+							delCount++;
+						}
+						if(delCount!= deleteReserve.size()) {
+							throw new updateReserveDeleteException();
+						}
+					}
+					if(updateReserve!=null) {
+						for(int i=0;i<updateReserve.size();i++){
+							String[] update = updateReserve.get(i).toString().split(" ");
+							OfflineClass reof = new OfflineClass();
+							reof.setReserveDate(update[0].toString());
+							reof.setReserveStart(update[1].toString());
+							reof.setReserveEnd(update[2].toString());
+							reof.setReserveLimit(offlineClass.getReserveLimit());
+							reof.setClassLevel(offlineClass.getClassLevel());
+							reof.setClassArea(offlineClass.getClassArea());
+							reof.setMemberNo(offlineClass.getMemberNo());
+							reof.setClassNo(offlineClass.getClassNo());
+							
+							result = dao.insertReserveAll(reof);
+							upCount++;
+						}
+						if(upCount != updateReserve.size()) {
+							throw new updateReserveUpdateException();
+						}
+					}
+					
+						List<OffAttachment> atList = new ArrayList<OffAttachment>();
+						for(int i =0;i<images.size();i++) {
+							if(!images.get(i).getOriginalFilename().equals("")) {//파일이 업로드 된 경우
+								//images의 i번째 요소의 파일명이 ""이 아닐경우
+								//->업로드된 파일이 없을 경우 파일명이 ""로 존재함
+								
+								//파일명 변경 작업 수행
+								String fileName = rename(images.get(i).getOriginalFilename());
+								
+								//Attachment 객체 생성
+								OffAttachment at = new OffAttachment();
+								at.setFileName(fileName);//변경한 파일명
+								at.setFilePath(webPath);// 웹 접근 경로
+								at.setClassNo(offlineClass.getClassNo()); //게시글 번호
+								at.setFileLevel(i);//for문 반복자 ==파일레벨
+								atList.add(at);
+							}
+						}
+						//업로드된 이미지가 있을 경우에만 DAO 호출
+						if(!atList.isEmpty()) {
+							result = dao.insertAttachmentList(atList);
+							//result == 성공한 행의 갯수
+							if(result==atList.size()) {// 모두 삽입 성공한 경우
+								//4) 파일을 서버에 저장(transfer() )
+								for(int i =0; i<atList.size();i++) {
+									//try-catch 또는 throws가 강제 되는 경우
+									//== Checked Exception(예외처리를 반드시해라)
+									try {
+										images.get(atList.get(i).getFileLevel())
+										.transferTo(new File(savePath+"/"+atList.get(i).getFileName()));
+										//images에서 업로드된 파일이 있는 요소를 얻어와
+										// 지정된 경로에 파일로 저장
+									}catch(Exception e) {
+										e.printStackTrace();
+										throw new SaveFileException();
+									}
+									
+								}
+							}else{ 
+								throw new SaveFileException();
+							}
+						}
+					
+					
+					
+				}else {
+					throw new reserveException();
+				}
+				
+				return result;
+			}
+			
+			
 			
 }

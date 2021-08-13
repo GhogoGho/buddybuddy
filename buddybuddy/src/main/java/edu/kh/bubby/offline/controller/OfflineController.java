@@ -154,9 +154,20 @@ public class OfflineController {
 		System.out.println(deleteReserve);
 		System.out.println(updateReserve);
 		//기존 첨부파일 전체 삭제
-		//service.deleteAtt(offlineClass.getClassNo());
-		//int result = service.updateClass(offlineClass,images,webPath,savePath,deleteReserve);
+		service.deleteAtt(offlineClass.getClassNo());
+		int result = service.updateClass(offlineClass,images,webPath,savePath,deleteReserve,updateReserve);
+		
 		String path=null;
+		if(result>0) {//삽입 성공
+			// 상세 조회 페이지로 리다이렉트 - > /fin/board/1/600
+			// 현재 페이지                   - > /fin/board/1/insert
+			path = "redirect:"+offlineClass.getClassNo();
+
+		}else {
+			//이전 게시글 작성 화면으로 리다이렉트
+			path="redirect:"+request.getHeader("referer");
+			
+		}
 		return path;
 	}
 	//클래스 ,예약 날짜 수정 폼 이동
