@@ -2,58 +2,75 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>기본페이지</title>
-</head>
 <body>
-	<main>
 		
-		<form action="insert" method="POST">
+		<form action="insertNotice" method="POST">
 		  <div class="row">
 		    <div class="col-md-9">
 		      <p class="h3 mb-3">클래스 공지</p>
 		    </div>
 		    <div class="col-md-3 mt-4">
 		      <!-- 클래스 선택 -->
+		      <c:choose>
+		      <c:when test="${empty classList }">
+		      	<p class="h3">작성된 클래스가 없습니다.</p>
+		      </c:when>
+		      <c:otherwise>
 		      <div class="control has-icons-left">
 		        <div class="select is-medium is-rounded">
-		          <select>
-		            <option selected>클래스 선택</option>
-		            <option value="1">클래스1</option>
-		            <option value="2">클래스2</option>
-		            <option value="3">클래스3</option>
-		            <option value="4">클래스4</option>
+		          <select name="classNo">
+					      <c:forEach items="${classList }" var="cl">
+		            <option value="${cl.classNo }">${cl.classTitle }</option>
+					      </c:forEach>
 		          </select>
 		        </div>
 		        <span class="icon is-large is-left">
 		          <i class="fas fa-th-list"></i>
 		        </span>
 		      </div>
-		
+		      </c:otherwise>
+					</c:choose>
 		    </div>
 		  </div>
 		  <hr>
 		  <div class="row mb-3">
 		    <label class="form-label" for="boardTitle">제목</label>
-		    <input class="input is-medium is-rounded" id="boardTitle" name="boardTitle" type="text"
+		    <input class="input is-medium is-rounded" id="noticeTitle" name="noticeTitle" type="text"
 		      placeholder="제목을 입력해 주세요.">
 		  </div>
 		  <div class="row">
-		    <textarea class="textarea" name="class-content" id="boardContent" placeholder="공지사항 내용을 입력해 주세요."
+		    <textarea class="textarea" name="noticeContent" id="noticeContent" placeholder="공지사항 내용을 입력해 주세요."
 		      rows="10"></textarea>
 		  </div>
 		  <div class="row my-2">
 		    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-		      <button class="button is-success is-large">작성</button>
-		      <button class="button is-light is-rounded is-large">취소</button>
+		      <button class="button is-success is-large is-fullwidth" id="subBtn" onclick="goWrite(this.form)">공지사항 작성</button>
 		    </div>
 		  </div>
 		</form>
 		
-	</main>
 </body>
+
+<script>
+function goWrite(frm) {
+	var classNo = frm.classNo.value;
+	var noticeTitle = frm.noticeTitle.value;
+	var noticeContent = frm.noticeContent.value;
+	
+	if (noticeTitle.trim() == ''){
+		alert("제목을 입력해 주세요");
+		return false;
+	}
+	if (classNo.trim() == ''){
+		alert("클래스를 선택해 주세요");
+		return false;
+	}
+	if (noticeContent.trim() == ''){
+		alert("내용을 입력해 주세요");
+		return false;
+	}
+	frm.submit();
+}
+</script>
+
 </html>

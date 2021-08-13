@@ -41,5 +41,27 @@
 		AND CLASS_NO = #{classNo}
 	</select>
 	
+	<!-- 공지사항 작성 -->
+	<insert id="insertNotice" parameterType="OnNotice">
+		INSERT INTO CLASS_NOTICE VALUES
+		(SEQ_CLANOTINO.NEXTVAL, #{noticeTitle}, #{noticeContent}, 
+		DEFAULT, DEFAULT, DEFAULT, #{memberNo}, #{classNo}, #{classType})
+	</insert>
 	
+	<!--  공지사항 수정 -->
+	<update id="updateNotice" parameterType="OnNotice">
+		UPDATE CLASS_NOTICE SET
+		NOTI_TITLE = #{noticeTitle},
+		NOTI_CONTENT = #{noticeContent}
+		WHERE NOTI_NO = #{noticeNo}
+		AND MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 공지사항 삭제 -->
+	<update id="deleteNotice" parameterType="OnNotice">
+		UPDATE CLASS_NOTICE SET
+		NOTI_STATUS = 'N'
+		WHERE NOTI_NO = #{noticeNo}
+		AND MEMBER_NO = #{memberNo}
+	</update>
 </mapper>

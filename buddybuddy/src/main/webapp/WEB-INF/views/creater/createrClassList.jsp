@@ -18,7 +18,7 @@
 				</div>
 				<div class="col-md-2 mt-4">
 
-					<div class="control has-icons-left">
+					<!-- <div class="control has-icons-left">
 						<div class="select is-large is-rounded">
 							<select>
 								<option selected>최신순</option>
@@ -30,7 +30,7 @@
 						<span class="icon is-large is-left"> 
 						<i class="fas fa-th-list"></i>
 						</span>
-					</div>
+					</div> -->
 
 				</div>
 				<hr>
@@ -147,8 +147,8 @@
 				</div>
 			</div>
 			
-			<!-- 검색부분 -->
-			<div class="row mt-1">
+			 <!-- 검색부분 -->
+			<!--<div class="row mt-1">
 				<form action="list" method="GET" id="searchForm">
 					<div class="col-md-3 offset-md-9">
 
@@ -175,7 +175,7 @@
 					</div>
 				</form>
 
-			</div>
+			</div> -->
 
 	</main>
 </body>

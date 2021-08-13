@@ -28,6 +28,16 @@
 					  </div>
 					  <p class="mb-1">${notice.noticeContent}</p>
 					</a>
+					<div class="row mt-3">
+						<div class="col offset-11">
+							<button class="button is-danger" onclick="deleteNotice(${notice.noticeNo}, this)">삭제</button>
+						</div>
+						<div class="col">
+							<textarea class="textarea is-success"></textarea>
+	    				<button class="button is-primary is-fullwidth" onclick="updateNotice(${notice.noticeNo}, this)">수정</button>
+						</div>
+					</div>
+					<hr>
 					</c:forEach>
 			    
 			  </div>
@@ -38,11 +48,14 @@
 	<!-- </main>
 </body> -->
 
+
+
 <script>
+	
 
 const loginMemberNo = "${loginMember.memberNo}";
-const classNo = ${online.classNo};
-let beforeNoticeRow;
+const noClassNo = ${notice.classNo};
+const noticeNo = ${notice.noticeNo};
 
 //===============================================
 // 공지사항 목록 조회
@@ -77,6 +90,34 @@ function selectNoticeList(){
 			console.log("공지사항 목록 조회 실패");
 		}
 	});
+}
+//===============================================
+//공지사항 목록 수정
+	const noticeTitle = $(el).prev().val();
+	const noticeContent = $(el).prev().val();
+	
+
+//===============================================
+//공지사항 목록 삭제
+function deleteNotice(noticeNo){
+	console.log("삭제누름");
+	if(confirm("공지사항을 삭제하시겠습니까?")){
+		$.ajax({
+			url : "${contextPath}/create/1/deleteNotice",
+			type : "POST",
+			data : {"noticeNo" : noticeNo,
+							"memberNo" : loginMemberNo},
+			success : function(result){
+				if(result > ){
+					swal({"icon" : "success" , "title" : "공지사항 삭제 성공"});
+				}
+			},
+			error : function(){
+				console.log("공지사항 삭제 실패");
+			}
+			
+		});
+	}
 }
 
 
