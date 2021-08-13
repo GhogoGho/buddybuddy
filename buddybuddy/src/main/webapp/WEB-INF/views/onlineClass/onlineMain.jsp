@@ -172,10 +172,10 @@
 			
 			
 			<!-- 클래스 목록 -->
-			<div class="row row-cols-1 row-cols-md-4 g-4">
+			<div class="row row-cols-1 row-cols-md-5 g-3">
 				<c:choose>
 					<c:when test="${empty onlineList}">
-						<p class="h3">클래스 목록X</p>
+						<p class="h3">클래스 목록이 없습니다.</p>
 					</c:when>
 					<c:otherwise>
 						<c:forEach items="${onlineList}" var="online">
@@ -238,8 +238,8 @@
 							</li>
 							</c:if>
 							
-							<%-- 현재 페이지가 2페이지 초과 --%>
-							<c:if test="${pagination.currentPage > 2 }">
+							<%-- 현재 페이지가 1페이지 초과 --%>
+							<c:if test="${pagination.currentPage > 1 }">
 							<li class="page-item" >
 								<a class="page-link" href="${pageURL}?cp=${pagination.currentPage - 1}${searchStr}" aria-label="Previous"> 
 									<span aria-hidden="true">&laquo;</span>
