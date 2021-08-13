@@ -20,4 +20,28 @@ public class NoticeDAO {
 	public List<Notice> selectNoticeList(int classNo) {
 		return sqlSession.selectList("onNoticeMapper.selectNoticeList", classNo);
 	}
+
+	/** 공지사항 작성
+	 * @param notice
+	 * @return result
+	 */
+	public int insertNotice(Notice notice) {
+		return sqlSession.insert("onNoticeMapper.insertNotice", notice);
+	}
+
+	/** 공지사항 수정
+	 * @param notice
+	 * @return result
+	 */
+	public int updateNotice(Notice notice) {
+		return sqlSession.update("onNoticeMapper.updateNotice", notice);
+	}
+
+	/** 공지사항 삭제
+	 * @param notice
+	 * @return result
+	 */
+	public int deleteNotice(Notice notice) {
+		return sqlSession.update("onNoticeMapper.deleteNotice", notice);
+	}
 }
