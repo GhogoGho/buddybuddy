@@ -306,10 +306,8 @@ a:hover {
 					<div class="mypage-menu">
 						<ul class="mymenu">
 							<p>클래스</p>
-							<li><a href="${contextPath}/member/myPage/joinOnline">온라인 클래스 수강내역</a></li>
-							<li><a href="${contextPath}/member/myPage/joinOffline">오프라인 클래스 수강 내역</a></li>
-
-							<li><a href="${contextPath}/member/myPage/reserveOnline">온라인 클래스 예약 내역</a></li>
+							<li><a href="${contextPath}/member/myPage/joinClass">클래스 수강내역</a></li>
+							
 							<li><a href="${contextPath}/member/myPage/reserveOffline">오프라인 클래스예약 내역</a></li>
 						</ul>
 						<hr>

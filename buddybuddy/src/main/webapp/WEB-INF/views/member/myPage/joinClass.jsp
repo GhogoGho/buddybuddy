@@ -328,6 +328,7 @@ a:hover {
 
 	<!-- 마이페이지 컨테이너 부분 -->
 	<section class="mypage-section">
+	<form action="${contextPath}/member/myPage/joinClass" method="POST">
 
 		<div class="row">
 			<!-- 마이페이지 회원 정보-->
@@ -343,9 +344,9 @@ a:hover {
 					<div class="mypage-menu">
 						<ul class="mymenu">
 							<p>클래스</p>
-							<li><a href="${contextPath}/member/myPage/joinOnline">온라인
+							<li><a href="${contextPath}/member/myPage/joinClass">
 									클래스 수강내역</a></li>
-							<li><a href="${contextPath}/member/myPage/joinOffline">오프라인 클래스 수강 내역</a></li>
+							
 
 							<li><a href="${contextPath}/member/myPage/reserveOffline">오프라인 클래스예약 내역</a></li>
 						</ul>
@@ -404,6 +405,7 @@ a:hover {
 								
 								<%-- 수강한 클래스가 있을 때 --%>
 							<c:otherwise>
+							<c:forEach items="${onlineList}" var="onlineList">
 						<div class="row">
 								<div class="class-list">
 									<div class="class-img col-sm-2">
@@ -483,6 +485,7 @@ a:hover {
 								<div class="class-dt col-sm-2">21/07/26</div>
 							</div>
 						</div>
+						</c:forEach>
 						</c:otherwise>
 
 						</c:choose>
@@ -560,6 +563,7 @@ a:hover {
 
 			</div>
 		</div>
+		</form>
 	</section>
 
 	<footer class="footer">
