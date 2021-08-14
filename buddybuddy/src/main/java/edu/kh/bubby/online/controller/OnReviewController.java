@@ -43,7 +43,7 @@ public class OnReviewController {
 							HttpServletRequest request) {
 		String webPath = "resources/images/review/";
 		String savePath = request.getSession().getServletContext().getRealPath(webPath);
-//		System.out.println("review: "+review);
+		System.out.println("review: "+review);
 		return service.insertReview(review, reviewImgs, webPath, savePath);
 		
 //		System.out.println("review: "+review);
