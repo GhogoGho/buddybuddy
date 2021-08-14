@@ -343,12 +343,10 @@ a:hover {
 					<div class="mypage-menu">
 						<ul class="mymenu">
 							<p>클래스</p>
-							<li><a href="${contextPath}/member/myPage/joinClass">
-									클래스 수강내역</a></li>
+							  <li><a href="${contextPath}/member/myPage/1/joinClass">클래스 수강내역</a></li>
 							
 
-							<li><a href="${contextPath}/member/myPage/reserveOffline">오프라인
-									클래스예약 내역</a></li>
+							<li><a href="${contextPath}/member/myPage/1/reserveOffline">오프라인 클래스예약 내역</a></li>
 						</ul>
 						<hr>
 						<ul class="mymenu">
@@ -393,7 +391,7 @@ a:hover {
 					<div class="row">
 						<c:choose>
 							<%-- 수강한 클래스가 없을 때 --%>
-							<c:when test="${empty onlineList}">
+							<c:when test="${empty reserve}">
 								<div class="img text-center">
 									<img src="https://via.placeholder.com/150" width="100"
 										height="100" class="rounded mx-auto d-block" alt="...">
@@ -407,99 +405,36 @@ a:hover {
 							<%-- 수강한 클래스가 있을 때 --%>
 							<c:otherwise>
 
-								<div class="row">
-									<div class="class-list">
-										<div class="class-img col-sm-2">
-											<img src="https://via.placeholder.com/150" width="70"
-												height="70" class="rounded-3 float-start me-2" alt="">
-										</div>
-										<div class="class-cate col-sm-2">
-											<a href="#">카테고리</a>
-										</div>
-										<div class="class-nm col-sm-5">
-											<a href="#">클래스 제목</a>
-										</div>
-										<div class="class-dt col-sm-2">21/07/26</div>
+								<c:forEach items="${reserve}" var="reserve">
+						<div class="row">
+								<div class="class-list">
+									<div class="class-img col-sm-2">
+										<img src="https://via.placeholder.com/150" width="70"
+											height="70" class="rounded-3 float-start me-2" alt="">
 									</div>
-								</div>
-
-								<div class="row">
-									<div class="class-list">
-										<div class="class-img col-sm-2">
-											<img src="https://via.placeholder.com/150" width="70"
-												height="70" class="rounded-3 float-start me-2" alt=""
-												href="#">
-										</div>
-										<div class="class-cate col-sm-2">
-											<a href="#">카테고리</a>
-										</div>
-										<div class="class-nm col-sm-5">
-											<a href="#">클래스 제목</a>
-										</div>
-										<div class="class-dt col-sm-2">21/07/26</div>
+									<div class="class-cate col-sm-2">
+										<a href="#">카테고리</a>
 									</div>
-								</div>
-
-								<div class="row">
-									<div class="class-list">
-										<div class="class-img col-sm-2">
-											<img src="https://via.placeholder.com/150" width="70"
-												height="70" class="rounded-3 float-start me-2" alt="">
-										</div>
-										<div class="class-cate col-sm-2">
-											<a href="#">카테고리</a>
-										</div>
-										<div class="class-nm col-sm-5">
-											<a href="#">클래스 제목</a>
-										</div>
-										<div class="class-dt col-sm-2">21/07/26</div>
+									<div class="class-nm col-sm-5">
+										<a href="#">클래스 제목</a>
 									</div>
+									<div class="class-dt col-sm-2">21/07/26</div>
 								</div>
-
-								<div class="row">
-									<div class="class-list">
-										<div class="class-img col-sm-2">
-											<img src="https://via.placeholder.com/150" width="70"
-												height="70" class="rounded-3 float-start me-2" alt="">
-										</div>
-										<div class="class-cate col-sm-2">
-											<a href="#">카테고리</a>
-										</div>
-										<div class="class-nm col-sm-5">
-											<a href="#">클래스 제목</a>
-										</div>
-										<div class="class-dt col-sm-2">21/07/26</div>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="class-list">
-										<div class="class-img col-sm-2">
-											<img src="https://via.placeholder.com/150" width="70"
-												height="70" class="rounded-3 float-start me-2" alt="">
-										</div>
-										<div class="class-cate col-sm-2">
-											<a href="#">카테고리</a>
-										</div>
-										<div class="class-nm col-sm-5">
-											<a href="#">클래스 제목</a>
-										</div>
-										<div class="class-dt col-sm-2">21/07/26</div>
-									</div>
-								</div>
-
-							</c:otherwise>
+						</div>
+						</c:forEach>
+						</c:otherwise>
 
 						</c:choose>
+
 					</div>
 
 					<!-- 페이지네이션 -->
 					<c:set var="pageURL" value="list" />
 
 					<c:set var="prev"
-						value="${pageURL}?cp=${pagination.prevPage}${searchStr}" />
+						value="${pageURL}?cp=${pagination.prevPage}" />
 					<c:set var="next"
-						value="${pageURL}?cp=${pagination.nextPage}${searchStr}" />
+						value="${pageURL}?cp=${pagination.nextPage}" />
 
 
 					<!-- 페이지네이션 -->
@@ -516,7 +451,7 @@ a:hover {
 							<%-- 현재 페이지가 2페이지 초과 --%>
 							<c:if test="${pagination.currentPage > 2 }">
 								<li class="page-item"><a class="page-link"
-									href="${pageURL}?cp=${pagination.currentPage - 1}${searchStr}"
+									href="${pageURL}?cp=${pagination.currentPage - 1}"
 									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 								</a></li>
 							</c:if>
@@ -531,7 +466,7 @@ a:hover {
 
 									<c:otherwise>
 										<li class="page-item"><a class="page-link"
-											href="${pageURL}?cp=${p}${searchStr}">${p}</a></li>
+											href="${pageURL}?cp=${p}">${p}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
@@ -539,7 +474,7 @@ a:hover {
 							<%-- 현재 페이지가 마지막 페이지 미만 --%>
 							<c:if test="${pagination.currentPage < pagination.maxPage }">
 								<li class="page-item"><a class="page-link"
-									href="${pageURL}?cp=${pagination.currentPage + 1}${searchStr}"
+									href="${pageURL}?cp=${pagination.currentPage + 1}"
 									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 								</a></li>
 							</c:if>

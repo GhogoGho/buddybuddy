@@ -339,7 +339,7 @@
                         <li><a href="${contextPath}/member/myPage/1/joinClass">클래스 수강내역</a></li>
 							
 
-							<li><a href="${contextPath}/member/myPage/reserveOffline">오프라인 클래스예약 내역</a></li>
+							<li><a href="${contextPath}/member/myPage/1/reserveOffline">오프라인 클래스예약 내역</a></li>
                     </ul>
                     <hr>
                     <ul class="mymenu">

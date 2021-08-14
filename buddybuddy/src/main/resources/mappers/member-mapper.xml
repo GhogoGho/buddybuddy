@@ -33,6 +33,20 @@
 		<result property="classNo" column="CLASS_NO" />
 	</resultMap>
 	
+	<!-- 예약 조회용 -->
+	<resultMap type="Reserve" id="res_rm">
+		<result property="reserveNo" column="RESERVE_NO" />
+		<result property="reserveDate" column="RESERVE_DT" />
+		<result property="reserveStart" column="RESERVE_START" />
+		<result property="reserveEnd" column="RESERVE_END" />
+		<result property="reserveLimit" column="RESERVE_LIMIT" />
+		<result property="classLevel" column="CLASS_LEVEL" />
+		<result property="ClassArea" column="CLASS_AREA" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="classNo" column="CLASS_NO" />
+		<result property="reserveStatus" column="RESERVE_STATUS" />
+	</resultMap>
+	
 	<!-- online 조회용 -->	
 	<resultMap type="Online" id="online_rm">
 		<id property="classNo" column="CLASS_NO"/>
@@ -199,7 +213,7 @@
 	</select>
 	
 	<!-- 오프라인 클래스 전체 조회 -->
-	<select id="selectOfflineList" parameterType="_int" resultMap="offline_rm">
+	<select id="selectReserveList" parameterType="_int" resultMap="res_rm">
 		SELECT * FROM RESERVE
 		WHERE RESERVE_STATUS = 'Y'
 		AND MEMBER_NO = #{memberNo}

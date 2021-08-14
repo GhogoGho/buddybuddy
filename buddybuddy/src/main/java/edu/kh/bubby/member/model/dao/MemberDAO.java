@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.bubby.member.model.vo.Member;
+import edu.kh.bubby.member.model.vo.Reserve;
 import edu.kh.bubby.offline.model.vo.OfflineClass;
 import edu.kh.bubby.online.model.vo.Online;
 import edu.kh.bubby.online.model.vo.Pagination;
@@ -175,17 +176,17 @@ public class MemberDAO {
 	}
 
 
-	/** 오프라인 클래스 전체 내역 조회
+	/** 예약 내역 조회 
 	 * @param pagination
 	 * @return
 	 */
-	public List<OfflineClass> selectOfflineList(Pagination pagination) {
+	public List<Reserve> selectReserveList(Pagination pagination) {
 		
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
 
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 		
-		return sqlSession.selectList("memberMapper.selectOfflineList", pagination, rowBounds);
+		return sqlSession.selectList("memberMapper.selectReserveList", pagination, rowBounds);
 	}
 
 
