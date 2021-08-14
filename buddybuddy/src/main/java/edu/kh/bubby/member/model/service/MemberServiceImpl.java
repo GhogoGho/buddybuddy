@@ -257,8 +257,9 @@ public class MemberServiceImpl implements MemberService {
 	public Pagination getPagination(Pagination pg) {
 
 		Pagination selectPg = dao.getListCount(pg.getClassType());
+		
+		return selectPg;
 
-		return new Pagination(pg.getCurrentPage(), selectPg.getListCount(), pg.getClassType(), selectPg.getClassName());
 	}
 	
 //	오프라인 예약 내역 조회

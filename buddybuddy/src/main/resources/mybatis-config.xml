@@ -13,6 +13,7 @@
 	<typeAliases>
 		<typeAlias type="edu.kh.bubby.member.model.vo.Member" alias="Member" /> 
 		<typeAlias type="edu.kh.bubby.creater.model.vo.Creater" alias="Creater" /> 
+		<typeAlias type="edu.kh.bubby.member.model.vo.Payment" alias="Payment"/>
 		
 		<!-- 온라인 클래스 -->
 		<typeAlias type="edu.kh.bubby.online.model.vo.Attachment" alias="OnAttachment" /> 

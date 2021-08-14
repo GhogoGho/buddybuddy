@@ -23,6 +23,16 @@
 		<result property="className" column="CLASS_TYPE_NAME"/>
 	</resultMap>
 	
+	<!-- 결제용 -->
+	<resultMap type="Payment" id="pay_rm">
+		<result property="paymentNo" column="PAYMENT_NO" />
+		<result property="paymentDate" column="PAYMENT_DT" />
+		<result property="paymentAmount" column="PAYMENT_AMOUNT" />
+		<result property="paymentStatus" column="PAYMENT_STATUS" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="classNo" column="CLASS_NO" />
+	</resultMap>
+	
 	<!-- online 조회용 -->	
 	<resultMap type="Online" id="online_rm">
 		<id property="classNo" column="CLASS_NO"/>
@@ -172,10 +182,9 @@
 	</select>
 
 	<!-- 온라인 클래스 조회 -->
-	<select id="selectOnlineList" parameterType="_int" resultMap="online_rm">
-		SELECT * FROM ONLINE_LIST
-		WHERE CLASS_STATUS = 'Y'
-		AND CLASS_TYPE_NO = #{classType}
+	<select id="selectOnlineList" parameterType="_int" resultMap="pay_rm">
+		 SELECT * FROM PAYMENT
+		WHERE PAYMENT_STATUS = 'Y'
 		AND MEMBER_NO = #{memberNo}
 		ORDER BY CLASS_NO DESC
 	</select>
@@ -183,20 +192,18 @@
 	<!-- 전체 이용내역 조회 -->
 	<select id="getListCount" parameterType="_int" resultMap="pg_rm">
 		SELECT
-		CNT, (SELECT CLASS_TYPE_NAME FROM CLASS_TYPE WHERE CLASS_TYPE_NO = #{classType}) CLASS_TYPE_NAME
+		CNT, (SELECT CLASS_TITLE FROM CLASS_PAGE WHERE CLASS_TYPE_NO = #{classType} AND CLASS_TYPE_NO = '2') CLASS_TITLE
 		FROM (SELECT COUNT(*) CNT
-		FROM ONLINE_LIST
-		WHERE CLASS_TYPE_NO = #{classType} AND CLASS_STATUS = 'Y')
+		FROM CLASS_LIST
+		WHERE CLASS_STATUS = 'Y')
 	</select>
 	
 	<!-- 오프라인 클래스 전체 조회 -->
 	<select id="selectOfflineList" parameterType="_int" resultMap="offline_rm">
-		SELECT CLASS_NO,CATEGORY_NAME, CLASS_TITLE FROM
-		CLASS_PAGE
-		LEFT JOIN CATEGORY USING(CATEGORY_NO)
-		WHERE CLASS_TYPE_NO =#{classType}
-		AND CLASS_STATUS = 'Y'
-		ORDER BY CLASS_NO DESC
+		SELECT * FROM RESERVE
+		WHERE RESERVE_STATUS = 'Y'
+		AND MEMBER_NO = #{memberNo}
+		ORDER BY RESERVE_DT DESC
 	</select>
 
 </mapper>

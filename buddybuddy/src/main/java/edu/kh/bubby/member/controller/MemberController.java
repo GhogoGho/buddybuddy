@@ -149,7 +149,7 @@ public class MemberController {
 	}
 
 //	마이페이지 (온라인 수강내역) Controller
-	@RequestMapping(value = "{classType}/list")
+	@RequestMapping(value = "myPage/{classType}/joinClass")
 	public String myPage(@ModelAttribute("loginMember") Member loginMember, @PathVariable("classType") int classType,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model, Pagination pg) {
 
@@ -157,7 +157,8 @@ public class MemberController {
 
 		pg.setClassType(classType);
 		pg.setCurrentPage(cp);
-		pg.setMemberNo(memberNo);
+		
+		System.out.println(pg);
 
 		List<Online> onlineList = null;
 		Pagination pagination = null;
@@ -167,54 +168,20 @@ public class MemberController {
 
 		onlineList = service.onlineList(pagination);
 
-		System.out.println(onlineList);
-
 		model.addAttribute("onlineList", onlineList);
 		model.addAttribute("pagination", pagination);
+		
+		System.out.println(onlineList);
 
-		return "member/myPage/joinOnline";
+
+		return "member/myPage/joinClass";
 	}
 
 //	마이페이지 화면 전환용 Controller
-	@RequestMapping(value = "myPage/joinOnline", method = RequestMethod.GET)
+	@RequestMapping(value = "myPage/joinClass", method = RequestMethod.GET)
 	public String joinOnline() {
 
-		return "member/myPage/joinOnline";
-	}
-
-//	마이페이지 화면 전환용 Controller
-	@RequestMapping(value = "myPage/joinOffline", method = RequestMethod.GET)
-	public String joinOffline() {
-
-		return "member/myPage/joinOffline";
-	}
-
-//	마이페이지 오프라인 클리스 수강내역 조회 Controller
-	@RequestMapping(value = "myPage/joinOffline", method = RequestMethod.POST)
-	public String joinOffline(@ModelAttribute("loginMember") Member loginMember,
-			@PathVariable("classType") int classType,
-			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model, Pagination pg) {
-
-		int memberNo = loginMember.getMemberNo();
-
-		pg.setClassType(classType);
-		pg.setCurrentPage(cp);
-		pg.setMemberNo(memberNo);
-
-		Pagination pagination = null;
-		List<OfflineClass> offlineList = null;
-
-		pagination = service.getPagination(pg);
-		pagination.setMemberNo(memberNo);
-
-		offlineList = service.offlineList(pagination);
-
-		System.out.println(offlineList);
-
-		model.addAttribute("offlineList", offlineList);
-		model.addAttribute("pagination", pagination);
-
-		return "member/myPage/joinOffline";
+		return "member/myPage/joinClass";
 	}
 
 
