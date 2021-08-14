@@ -210,7 +210,7 @@
 	</div>
 </div>
 <!-- 이미지 불러오기 (자바스크립트에서 변수 사용을 위해 필요) 변수 미사용으로 필요 없어짐-->
-<%-- <c:forEach items="${review.atList}" var="at">
+<c:forEach items="${review.atList}" var="at">
 	<c:choose>
 		<c:when test="${at.fileLevel == 0 && !empty at.fileName}">
 			<c:set var="img0" value="${contextPath}/${at.filePath}${at.fileName}"/>
@@ -225,7 +225,8 @@
 			<c:set var="img3" value="${contextPath}/${at.filePath}${at.fileName}"/>
 		</c:when>
 	</c:choose>
-</c:forEach> --%>
+</c:forEach>
+
 <script>
 
 /* 
@@ -563,8 +564,10 @@ $(document).on("click", ".showUpdateReview", function(){ // 동적 요소가 적
 	
 /* $('.showUpdateReply').click(function(){ */ // 동적으로 요소가 생겼을 경우 동작하지 않는다.
   	if($(this).parent().parent().parent().parent().next(".updateArea").css("display") == "none" ){
-        $(this).parent().parent().parent().parent().siblings("li.updateArea").hide();
+        /* $(this).parent().parent().parent().parent().siblings("li.updateArea").hide(); */
+        $("li.updateArea").hide();
         $(this).parent().parent().parent().parent().next(".updateArea").show();
+        $(".showUpdateReview").text("수정");
 		$(this).text("닫기");
  	 }else{
 	   $(this).parent().parent().parent().parent().next(".updateArea").hide(); 
