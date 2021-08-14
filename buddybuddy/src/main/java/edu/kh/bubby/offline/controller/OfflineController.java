@@ -73,6 +73,8 @@ public class OfflineController {
 			RedirectAttributes ra) {
 		OfflineClass offList = service.selectOfflinView(classNo);
 		OfflineClass offContent = service.selectContent(classNo);
+		String[] addr = offList.getClassArea().split(",");
+		offList.setClassArea(addr[1]);
 		// System.out.println(offList);
 		offList.setClassContent(offContent.getClassContent());
 		offList.setMemberNo(offContent.getMemberNo());
