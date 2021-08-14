@@ -332,7 +332,6 @@ a:hover {
 				<!-- 마이페이지 본문 버튼-->
 				<div class="col-sm-9">
 					<div class="row">
-						<nav>
 							<div class="nav nav-tabs" id="nav-tab" role="tablist">
 								<div class="row">
 

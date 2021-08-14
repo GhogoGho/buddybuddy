@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import edu.kh.bubby.member.exception.SaveFileException;
 import edu.kh.bubby.member.model.dao.MemberDAO;
 import edu.kh.bubby.member.model.vo.Member;
+import edu.kh.bubby.offline.model.vo.OfflineClass;
 import edu.kh.bubby.online.model.vo.Online;
 import edu.kh.bubby.online.model.vo.Pagination;
 
@@ -57,7 +58,6 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member login(Member inputMember) {
 
-
 		String encPw = bCryptPasswordEncoder.encode(inputMember.getMemberPw());
 
 		Member loginMember = dao.login(inputMember.getMemberEmail());
@@ -86,7 +86,6 @@ public class MemberServiceImpl implements MemberService {
 	public int updateInfo(String newPwd, Member inputMember, String savePath, MultipartFile formFile, String fileName) {
 		// DB저장용 회원의 비밀번호 조회
 		String savePwd = dao.selectPassword(inputMember.getMemberNo());
-
 
 		int result = 0;
 
@@ -177,9 +176,8 @@ public class MemberServiceImpl implements MemberService {
 		String key = findMember.getMemberPw();
 
 		String content = findMember.getMemberEmail() + "님에게 임시 비밀번호가 발급 되었습니다. <br>"
-						+ "발급된 임시번호로 로그인 후 반드시 변경하여 사용해 주세요. <br>"
-						+ "임시 비밀번호 : " + key;
-		
+				+ "발급된 임시번호로 로그인 후 반드시 변경하여 사용해 주세요. <br>" + "임시 비밀번호 : " + key;
+
 		try {
 
 			MimeMessage message = mailSender.createMimeMessage();
@@ -193,9 +191,6 @@ public class MemberServiceImpl implements MemberService {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-
-
-	
 
 	}
 
@@ -227,13 +222,13 @@ public class MemberServiceImpl implements MemberService {
 			String pw = "";
 			for (int i = 0; i < 12; i++) {
 				pw += (char) ((Math.random() * 26) + 97);
-				
+
 			}
-			
+
 			findMember.setMemberPw(bCryptPasswordEncoder.encode(pw));
 			// 비밀번호 변경
 			dao.updatePw(findMember);
-			
+
 			findMember.setMemberPw(pw);
 			// 비밀번호 변경 메일 발송
 			sendEmail(findMember, "findPw");
@@ -242,34 +237,40 @@ public class MemberServiceImpl implements MemberService {
 			out.close();
 		}
 	}
-	
+
 //	카카오 소셜 로그인 Service
 	@Override
 	public Member kakaoLogin(Member kakaoMember) {
-		
+
 		return dao.kakaoLogin(kakaoMember);
 	}
-
-//	온라인 클래스 조회 Service
-	@Override
-	public List<Online> onlineList(int memberNo) {
-		
-		return dao.selectOnlineList(memberNo);
-	}
 	
-//	이용내역 조회 
+//	클래스 전체 목록 조회 
+	@Override
+	public List<Online> onlineList(Pagination pagination) {
+		
+		return dao.selectOnlineList(pagination);
+	}
+
+	// 이용내역 조회
 	@Override
 	public Pagination getPagination(Pagination pg) {
-		
+
 		Pagination selectPg = dao.getListCount(pg.getClassType());
-		
-		return new Pagination(pg.getCurrentPage(), selectPg.getListCount(), 
-				pg.getClassType(), selectPg.getClassName());
+
+		return new Pagination(pg.getCurrentPage(), selectPg.getListCount(), pg.getClassType(), selectPg.getClassName());
 	}
-
+	
+//	오프라인 예약 내역 조회
+	@Override
+	public List<OfflineClass> offlineList(Pagination pagination) {
+		
+		return dao.selectOfflineList(pagination);
+	}
+	
+	
+	
+	
 	
 
-
-	
-	
 }

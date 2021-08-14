@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.bubby.member.model.vo.Member;
+import edu.kh.bubby.offline.model.vo.OfflineClass;
 import edu.kh.bubby.online.model.vo.Online;
 import edu.kh.bubby.online.model.vo.Pagination;
 
@@ -88,17 +89,25 @@ public interface MemberService {
 	 */
 	public abstract Member kakaoLogin(Member kakaoMember);
 
-	/** 온라인 클래스 조회 Service
-	 * @param memberNo
-	 * @return 
+
+	/** 클래스 목록 조회
+	 * @param pagination
+	 * @return pagination
 	 */
-	public abstract List<Online> onlineList(int memberNo);
+	public abstract List<Online> onlineList(Pagination pagination);
 
 	/** 전체 내역 조회
 	 * @param pg
 	 * @return pagination
 	 */
 	public abstract Pagination getPagination(Pagination pg);
+
+	/**
+	 * @param pagination
+	 * @return pagination
+	 */
+	public abstract List<OfflineClass> offlineList(Pagination pagination);
+
 	
 
 	

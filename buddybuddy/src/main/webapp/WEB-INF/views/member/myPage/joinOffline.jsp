@@ -209,6 +209,27 @@ a:hover {
 	height: 500px;
 }
 
+.img {
+	margin-top: 150px;
+}
+
+.img p {
+	font-weight: bolder;
+	font-size: 30px;
+	margin-top: 40px;
+}
+
+.img .img-btn {
+	width: 300px;
+	height: 45px;
+	border-color: #50b8b3;
+	background-color: #50b8b3;
+	border-radius: 2px;
+	border: none;
+	margin-left: 38%;
+	margin-top: 20px;
+}
+
 /* 마이페이지 본문 */
 .class-list {
 	margin-left: 15px;
@@ -307,7 +328,7 @@ a:hover {
 
 	<!-- 마이페이지 컨테이너 부분 -->
 	<section class="mypage-section">
-	
+
 		<div class="row">
 			<!-- 마이페이지 회원 정보-->
 			<div class="row">
@@ -322,16 +343,20 @@ a:hover {
 					<div class="mypage-menu">
 						<ul class="mymenu">
 							<p>클래스</p>
-							<li><a href="${contextPath}/member/myPage/joinOnline">온라인 클래스 수강내역</a></li>
-							<li><a href="${contextPath}/member/myPage/joinOffline">오프라인 클래스 수강 내역</a></li>
+							<li><a href="${contextPath}/member/myPage/joinOnline">온라인
+									클래스 수강내역</a></li>
+							<li><a href="${contextPath}/member/myPage/joinOffline">오프라인
+									클래스 수강 내역</a></li>
 
-							<li><a href="${contextPath}/member/myPage/reserveOnline">온라인 클래스 예약 내역</a></li>
-							<li><a href="${contextPath}/member/myPage/reserveOffline">오프라인 클래스예약 내역</a></li>
+
+							<li><a href="${contextPath}/member/myPage/reserveOffline">오프라인
+									클래스예약 내역</a></li>
 						</ul>
 						<hr>
 						<ul class="mymenu">
 							<p>구매 후기</p>
-							<li><a href="#">내가 쓴 리뷰</a></li>
+							<li><a href="${contextPath}/member/myPage/review">내가 쓴
+									리뷰</a></li>
 							<li><a href="#">내가 쓴 후기</a></li>
 						</ul>
 						<hr>
@@ -355,7 +380,8 @@ a:hover {
 									<button class="class-btn nav-link active col-6"
 										id="nav-home-tab" data-bs-toggle="tab"
 										data-bs-target="#nav-home" type="button" role="tab"
-										aria-controls="nav-home" aria-selected="true">오프라인 클래스 수강내역</button>
+										aria-controls="nav-home" aria-selected="true">오프라인
+										클래스 수강내역</button>
 
 								</div>
 
@@ -367,149 +393,169 @@ a:hover {
 
 					<!-- 마이페이지 본문 본문 -->
 					<div class="row">
-						<div class="row">
-							<div class="class-list">
-								<div class="class-img col-sm-2">
-									<img src="https://via.placeholder.com/150" width="70"
-										height="70" class="rounded-3 float-start me-2" alt="">
+						<c:choose>
+							<%-- 수강한 클래스가 없을 때 --%>
+							<c:when test="${empty offlineList}">
+								<div class="img text-center">
+									<img src="https://via.placeholder.com/150" width="100"
+										height="100" class="rounded mx-auto d-block" alt="...">
+									<p>수강 내역이 없습니다.</p>
+									<button type="submit" class="img-btn btn-block">
+										<a href="#">클래스 구경하러 가기</a>
+									</button>
 								</div>
-								<div class="class-cate col-sm-2">
-									<a href="#">카테고리</a>
-								</div>
-								<div class="class-nm col-sm-5">
-									<a href="#">클래스 제목</a>
-								</div>
-								<div class="class-dt col-sm-2">21/07/26</div>
-							</div>
-						</div>
+							</c:when>
 
-						<div class="row">
-							<div class="class-list">
-								<div class="class-img col-sm-2">
-									<img src="https://via.placeholder.com/150" width="70"
-										height="70" class="rounded-3 float-start me-2" alt="" href="#">
-								</div>
-								<div class="class-cate col-sm-2">
-									<a href="#">카테고리</a>
-								</div>
-								<div class="class-nm col-sm-5">
-									<a href="#">클래스 제목</a>
-								</div>
-								<div class="class-dt col-sm-2">21/07/26</div>
-							</div>
-						</div>
+							<%-- 수강한 클래스가 있을 때 --%>
+							<c:otherwise>
 
-						<div class="row">
-							<div class="class-list">
-								<div class="class-img col-sm-2">
-									<img src="https://via.placeholder.com/150" width="70"
-										height="70" class="rounded-3 float-start me-2" alt="">
+								<div class="row">
+									<div class="class-list">
+										<div class="class-img col-sm-2">
+											<img src="https://via.placeholder.com/150" width="70"
+												height="70" class="rounded-3 float-start me-2" alt="">
+										</div>
+										<div class="class-cate col-sm-2">
+											<a href="#">카테고리</a>
+										</div>
+										<div class="class-nm col-sm-5">
+											<a href="#">클래스 제목</a>
+										</div>
+										<div class="class-dt col-sm-2">21/07/26</div>
+									</div>
 								</div>
-								<div class="class-cate col-sm-2">
-									<a href="#">카테고리</a>
-								</div>
-								<div class="class-nm col-sm-5">
-									<a href="#">클래스 제목</a>
-								</div>
-								<div class="class-dt col-sm-2">21/07/26</div>
-							</div>
-						</div>
 
-						<div class="row">
-							<div class="class-list">
-								<div class="class-img col-sm-2">
-									<img src="https://via.placeholder.com/150" width="70"
-										height="70" class="rounded-3 float-start me-2" alt="">
+								<div class="row">
+									<div class="class-list">
+										<div class="class-img col-sm-2">
+											<img src="https://via.placeholder.com/150" width="70"
+												height="70" class="rounded-3 float-start me-2" alt=""
+												href="#">
+										</div>
+										<div class="class-cate col-sm-2">
+											<a href="#">카테고리</a>
+										</div>
+										<div class="class-nm col-sm-5">
+											<a href="#">클래스 제목</a>
+										</div>
+										<div class="class-dt col-sm-2">21/07/26</div>
+									</div>
 								</div>
-								<div class="class-cate col-sm-2">
-									<a href="#">카테고리</a>
-								</div>
-								<div class="class-nm col-sm-5">
-									<a href="#">클래스 제목</a>
-								</div>
-								<div class="class-dt col-sm-2">21/07/26</div>
-							</div>
-						</div>
 
-						<div class="row">
-							<div class="class-list">
-								<div class="class-img col-sm-2">
-									<img src="https://via.placeholder.com/150" width="70"
-										height="70" class="rounded-3 float-start me-2" alt="">
+								<div class="row">
+									<div class="class-list">
+										<div class="class-img col-sm-2">
+											<img src="https://via.placeholder.com/150" width="70"
+												height="70" class="rounded-3 float-start me-2" alt="">
+										</div>
+										<div class="class-cate col-sm-2">
+											<a href="#">카테고리</a>
+										</div>
+										<div class="class-nm col-sm-5">
+											<a href="#">클래스 제목</a>
+										</div>
+										<div class="class-dt col-sm-2">21/07/26</div>
+									</div>
 								</div>
-								<div class="class-cate col-sm-2">
-									<a href="#">카테고리</a>
+
+								<div class="row">
+									<div class="class-list">
+										<div class="class-img col-sm-2">
+											<img src="https://via.placeholder.com/150" width="70"
+												height="70" class="rounded-3 float-start me-2" alt="">
+										</div>
+										<div class="class-cate col-sm-2">
+											<a href="#">카테고리</a>
+										</div>
+										<div class="class-nm col-sm-5">
+											<a href="#">클래스 제목</a>
+										</div>
+										<div class="class-dt col-sm-2">21/07/26</div>
+									</div>
 								</div>
-								<div class="class-nm col-sm-5">
-									<a href="#">클래스 제목</a>
+
+								<div class="row">
+									<div class="class-list">
+										<div class="class-img col-sm-2">
+											<img src="https://via.placeholder.com/150" width="70"
+												height="70" class="rounded-3 float-start me-2" alt="">
+										</div>
+										<div class="class-cate col-sm-2">
+											<a href="#">카테고리</a>
+										</div>
+										<div class="class-nm col-sm-5">
+											<a href="#">클래스 제목</a>
+										</div>
+										<div class="class-dt col-sm-2">21/07/26</div>
+									</div>
 								</div>
-								<div class="class-dt col-sm-2">21/07/26</div>
-							</div>
-						</div>
+
+							</c:otherwise>
+
+						</c:choose>
 
 					</div>
-					
+
 					<!-- 페이지네이션 -->
-			<c:set var="pageURL" value="list"  />
-			
-			<c:set var="prev" value="${pageURL}?cp=${pagination.prevPage}${searchStr}" />
-			<c:set var="next" value="${pageURL}?cp=${pagination.nextPage}${searchStr}" />
-			
+					<c:set var="pageURL" value="list" />
+
+					<c:set var="prev"
+						value="${pageURL}?cp=${pagination.prevPage}${searchStr}" />
+					<c:set var="next"
+						value="${pageURL}?cp=${pagination.nextPage}${searchStr}" />
+
 
 					<!-- 페이지네이션 -->
 					<nav class="text-center" aria-label="Page navigation example">
 						<ul class="pagination justify-content-center">
-							
+
 							<%-- 현재 페이지가 10페이지 초과 --%>
 							<c:if test="${pagination.currentPage > pagination.pageSize }">
-							<li class="page-item">
-								<a class="page-link" href="${prev}" aria-label="Previous"> 
-									<span aria-hidden="true">&laquo;&laquo;</span>
-								</a>
-							</li>
+								<li class="page-item"><a class="page-link" href="${prev}"
+									aria-label="Previous"> <span aria-hidden="true">&laquo;&laquo;</span>
+								</a></li>
 							</c:if>
-							
+
 							<%-- 현재 페이지가 2페이지 초과 --%>
 							<c:if test="${pagination.currentPage > 2 }">
-							<li class="page-item" >
-								<a class="page-link" href="${pageURL}?cp=${pagination.currentPage - 1}${searchStr}" aria-label="Previous"> 
-									<span aria-hidden="true">&laquo;</span>
-								</a>
-							</li>
+								<li class="page-item"><a class="page-link"
+									href="${pageURL}?cp=${pagination.currentPage - 1}${searchStr}"
+									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+								</a></li>
 							</c:if>
-							
+
 							<%-- 페이지 목록 --%>
-							<c:forEach var="p" begin="${pagination.startPage}" end="${pagination.endPage}">
+							<c:forEach var="p" begin="${pagination.startPage}"
+								end="${pagination.endPage}">
 								<c:choose>
 									<c:when test="${p == pagination.currentPage }">
 										<li class="page-item active"><a class="page-link">${p}</a></li>
 									</c:when>
-									
+
 									<c:otherwise>
-									<li class="page-item"><a class="page-link" href="${pageURL}?cp=${p}${searchStr}">${p}</a></li>
+										<li class="page-item"><a class="page-link"
+											href="${pageURL}?cp=${p}${searchStr}">${p}</a></li>
 									</c:otherwise>
-								</c:choose>		
+								</c:choose>
 							</c:forEach>
-							
+
 							<%-- 현재 페이지가 마지막 페이지 미만 --%>
 							<c:if test="${pagination.currentPage < pagination.maxPage }">
-							<li class="page-item">
-								<a class="page-link" href="${pageURL}?cp=${pagination.currentPage + 1}${searchStr}" aria-label="Next"> 
-									<span aria-hidden="true">&raquo;</span>
-								</a>
-							</li>
+								<li class="page-item"><a class="page-link"
+									href="${pageURL}?cp=${pagination.currentPage + 1}${searchStr}"
+									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+								</a></li>
 							</c:if>
-						
-							
+
+
 							<%-- 현재 페이지가 마지막 페이지가 아닌 경우 --%>
-							<c:if test="${pagination.currentPage - pagination.maxPage + pagination.pageSize < 0}">
-							<li class="page-item">
-								<a class="page-link" href="${next}" aria-label="Next"> 
-									<span aria-hidden="true">&raquo;&raquo;</span>
-								</a>
-							</li>
+							<c:if
+								test="${pagination.currentPage - pagination.maxPage + pagination.pageSize < 0}">
+								<li class="page-item"><a class="page-link" href="${next}"
+									aria-label="Next"> <span aria-hidden="true">&raquo;&raquo;</span>
+								</a></li>
 							</c:if>
-							
+
 						</ul>
 					</nav>
 

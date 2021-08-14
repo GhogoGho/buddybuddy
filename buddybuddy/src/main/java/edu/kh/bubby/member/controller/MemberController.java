@@ -40,10 +40,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberService service;
-	
+
 	@Autowired
 	private KakaoAPI kakao;
-
 
 //	로그인 화면 전환용 Controller
 	@RequestMapping(value = "login", method = RequestMethod.GET)
@@ -141,12 +140,39 @@ public class MemberController {
 
 		return "redirect:/";
 	}
-	
+
 //	마이페이지 화면 전환용 Controller
 	@RequestMapping(value = "myPage", method = RequestMethod.GET)
 	public String myPage() {
 
 		return "member/myPage";
+	}
+
+//	마이페이지 (온라인 수강내역) Controller
+	@RequestMapping(value = "{classType}/list")
+	public String myPage(@ModelAttribute("loginMember") Member loginMember, @PathVariable("classType") int classType,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model, Pagination pg) {
+
+		int memberNo = loginMember.getMemberNo();
+
+		pg.setClassType(classType);
+		pg.setCurrentPage(cp);
+		pg.setMemberNo(memberNo);
+
+		List<Online> onlineList = null;
+		Pagination pagination = null;
+
+		pagination = service.getPagination(pg);
+		pagination.setMemberNo(memberNo);
+
+		onlineList = service.onlineList(pagination);
+
+		System.out.println(onlineList);
+
+		model.addAttribute("onlineList", onlineList);
+		model.addAttribute("pagination", pagination);
+
+		return "member/myPage/joinOnline";
 	}
 
 //	마이페이지 화면 전환용 Controller
@@ -155,86 +181,57 @@ public class MemberController {
 
 		return "member/myPage/joinOnline";
 	}
-	
-//	마이페이지 Controller
-	@RequestMapping(value = "{classType}/list")
-	public String myPage(@ModelAttribute("loginMember") Member loginMember,
-						 @PathVariable("classType") int classType,
-						 @RequestParam(value="cp", required = false, defaultValue="1") int cp,
-						 Model model, Pagination pg) {
-		
-		pg.setClassType(classType);
-		pg.setCurrentPage(cp);
-		
-		List<Online> onlineList = null;
-		Pagination pagination = null;
-		
-		if(loginMember != null) {
-			
-			pagination = service.getPagination(pg);
-			onlineList = service.onlineList(loginMember.getMemberNo());
-		
-		} else {
-			
-			pagination = service.getPagination(pg);
-			
-		}
-		
-		System.out.println(onlineList);
-		
-		model.addAttribute("onlineList", onlineList);
-		model.addAttribute("pagination", pagination);
-	
-		return "member/myPage";
-	}
-	
-	
+
 //	마이페이지 화면 전환용 Controller
 	@RequestMapping(value = "myPage/joinOffline", method = RequestMethod.GET)
 	public String joinOffline() {
 
 		return "member/myPage/joinOffline";
 	}
-	
-//	마이페이지 화면 전환용 Controller
-	@RequestMapping(value = "myPage/reserveOnline", method = RequestMethod.GET)
-	public String reserveOnline() {
 
-		return "member/myPage/reserveOnline";
+//	마이페이지 오프라인 클리스 수강내역 조회 Controller
+	@RequestMapping(value = "myPage/joinOffline", method = RequestMethod.POST)
+	public String joinOffline(@ModelAttribute("loginMember") Member loginMember,
+			@PathVariable("classType") int classType,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model, Pagination pg) {
+
+		int memberNo = loginMember.getMemberNo();
+
+		pg.setClassType(classType);
+		pg.setCurrentPage(cp);
+		pg.setMemberNo(memberNo);
+
+		Pagination pagination = null;
+		List<OfflineClass> offlineList = null;
+
+		pagination = service.getPagination(pg);
+		pagination.setMemberNo(memberNo);
+
+		offlineList = service.offlineList(pagination);
+
+		System.out.println(offlineList);
+
+		model.addAttribute("offlineList", offlineList);
+		model.addAttribute("pagination", pagination);
+
+		return "member/myPage/joinOffline";
 	}
-	
+
+
+
 //	마이페이지 화면 전환용 Controller
 	@RequestMapping(value = "myPage/reserveOffline", method = RequestMethod.GET)
 	public String reserveOffline() {
 
 		return "member/myPage/reserveOffline";
 	}
-	
+
 //	마이페이지 화면 전환용 Controller
 	@RequestMapping(value = "myPage/review", method = RequestMethod.GET)
 	public String review() {
 
 		return "member/myPage/review";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 //	info 화면 전환용 Controller
 	@RequestMapping(value = "info", method = RequestMethod.GET)
@@ -404,69 +401,65 @@ public class MemberController {
 		ra.addFlashAttribute("text", text);
 
 	}
-	
+
 //	카카오 로그인
-	@RequestMapping(value="kakaoLogin")
-	public String login(@RequestParam("code") String code, HttpSession session,
-						@ModelAttribute Member kakaoMember) throws IOException {
-		
-	    String access_Token = kakao.getAccessToken(code);
-	    
-	    HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
-	    
-	    System.out.println("login Controller : " + userInfo);
-	    
+	@RequestMapping(value = "kakaoLogin")
+	public String login(@RequestParam("code") String code, HttpSession session, @ModelAttribute Member kakaoMember)
+			throws IOException {
+
+		String access_Token = kakao.getAccessToken(code);
+
+		HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+
+		System.out.println("login Controller : " + userInfo);
+
 //	    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
-	    if (userInfo.get("email") != null) {
-	    	
+		if (userInfo.get("email") != null) {
+
 //	        session.setAttribute("userId", userInfo.get("email"));
 //	        session.setAttribute("access_Token", access_Token);
-	        
-	        kakaoMember.setMemberEmail(""+userInfo.get("email"));
-	        kakaoMember.setMemberProfile(""+userInfo.get("profile_image"));
-	        kakaoMember.setMemberNickname(""+userInfo.get("nickname"));
-	            
-//	        2) 카카오 email이 저장된 email이 아닐 경우 -> 확인된 회원이 없다 팝업 / 회원가입 후 이용 가능합니다 가입하시겠습니까 페이지 
-	        
-	        Member loginMember = service.kakaoLogin(kakaoMember);
-	        
-	        System.out.println(kakaoMember);
-	        System.out.println("loginMember : " + loginMember);
-	        
-//	        1) 카카오 email이 db에 저장된 email인 경우 = 회원 -> 세션에 로그인된 회원 정보 올리기
-	        if(loginMember != null) { // 로그인 O
-	        	
-		        session.setAttribute("loginMember", loginMember);
 
-		        return "redirect:/";
-		        
-		        
-	        } else { // 가입된 소셜 회원이 아닐 경우
-	        
-	        	session.setAttribute("kakaoMember", kakaoMember);
-	        	
+			kakaoMember.setMemberEmail("" + userInfo.get("email"));
+			kakaoMember.setMemberProfile("" + userInfo.get("profile_image"));
+			kakaoMember.setMemberNickname("" + userInfo.get("nickname"));
+
+//	        2) 카카오 email이 저장된 email이 아닐 경우 -> 확인된 회원이 없다 팝업 / 회원가입 후 이용 가능합니다 가입하시겠습니까 페이지 
+
+			Member loginMember = service.kakaoLogin(kakaoMember);
+
+			System.out.println(kakaoMember);
+			System.out.println("loginMember : " + loginMember);
+
+//	        1) 카카오 email이 db에 저장된 email인 경우 = 회원 -> 세션에 로그인된 회원 정보 올리기
+			if (loginMember != null) { // 로그인 O
+
+				session.setAttribute("loginMember", loginMember);
+
+				return "redirect:/";
+
+			} else { // 가입된 소셜 회원이 아닐 경우
+
+				session.setAttribute("kakaoMember", kakaoMember);
+
 //	        	return "member/kakaoSignUp";
-	        	
-	        	
-	        	// 가입x 소셜회원이 아닐 경우의 컨트롤러 요청 위임 작성
-	        	
-	        	
-	        }
-	        	
-	    } else {
-	    	
+
+				// 가입x 소셜회원이 아닐 경우의 컨트롤러 요청 위임 작성
+
+			}
+
+		} else {
+
 //	    	return "redirect:/";
-	    	
-	    }
+
+		}
 		return "redirect:/";
 	}
-	
+
 //	카카오 회원가입 문의 화면 연결용
-	@RequestMapping(value="kakaoSignUp")
+	@RequestMapping(value = "kakaoSignUp")
 	public String kakaoSignUp() {
-		
+
 		return "member/kakaoSignUp";
 	}
-
 
 }
