@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.bubby.member.model.vo.Member;
+import edu.kh.bubby.member.model.vo.Reply;
 import edu.kh.bubby.member.model.vo.Reserve;
+import edu.kh.bubby.member.model.vo.Review;
 import edu.kh.bubby.offline.model.vo.OfflineClass;
 import edu.kh.bubby.online.model.vo.Online;
 import edu.kh.bubby.online.model.vo.Pagination;
@@ -187,6 +189,34 @@ public class MemberDAO {
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 		
 		return sqlSession.selectList("memberMapper.selectReserveList", pagination, rowBounds);
+	}
+
+
+	/** 작성한 리뷰 조회
+	 * @param pagination
+	 * @return
+	 */
+	public List<Review> selectReviewList(Pagination pagination) {
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		return sqlSession.selectList("memberMapper.selectReviewList", pagination, rowBounds);
+	}
+
+
+	/** 작성한 후기 조회
+	 * @param pagination
+	 * @return
+	 */
+	public List<Reply> selectReplyList(Pagination pagination) {
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		return sqlSession.selectList("memberMapper.selectReplyList", pagination, rowBounds);
 	}
 
 
