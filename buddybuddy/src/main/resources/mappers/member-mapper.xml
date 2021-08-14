@@ -23,6 +23,55 @@
 		<result property="className" column="CLASS_TYPE_NAME"/>
 	</resultMap>
 	
+	<!-- online 조회용 -->	
+	<resultMap type="Online" id="online_rm">
+		<id property="classNo" column="CLASS_NO"/>
+	
+		<result property="classTitle" column="CLASS_TITLE"/>
+		<result property="memberNickName" column="MEMBER_NICKNAME"/>
+		<result property="categoryName" column="CATEGORY_NAME"/>
+		<result property="categoryNo" column="CATEGORY_NO"/>
+		<result property="classType" column="CLASS_TYPE_NO"/>
+		<result property="classReadCount" column="CLASS_READ_COUNT"/>
+		<result property="classCreateDate" column="CLASS_CREATE_DT"/>
+		
+		<result property="classContent" column="CLASS_CONTENT"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="onlineLike" column="ONLINE_LIKE"/>
+		 
+		<collection property="atList" column="CLASS_NO" 
+			javaType="java.util.ArrayList" ofType="Attachment" select="selectAttachment"/>
+	</resultMap>
+	
+	<!-- offline 조회용 -->
+	<resultMap type="OfflineClass" id="offline_rm">
+		<id property="classNo" column="CLASS_NO" />
+
+		<result property="classTitle" column="CLASS_TITLE" />
+		<result property="classContent" column="CLASS_CONTENT" />
+		<result property="classCreateDate" column="CLASS_CREATE_DT" />
+		<result property="classReadCount" column="CLASS_READ_COUNT" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="reviewRatings" column="REVIEW_RATINGS" />
+		<result property="memberNickName" column="MEMBER_NICKNAME" />
+		<result property="categoryName" column="CATEGORY_NAME" />
+		<result property="memberProfile" column="MEMBER_PROFILE" />
+		<result property="reserveDate" column="RESERVE_DATE" />
+		<result property="reserveStart" column="RESERVE_START" />
+		<result property="reserveEnd" column="RESERVE_END" />
+		<result property="reserveLimit" column="RESERVE_LIMIT" />
+		<result property="classLevel" column="CLASS_LEVEL" />
+		<result property="classArea" column="CLASS_AREA" />
+		<result property="paymentStatus" column="PAYMENT_STATUS" />
+		<result property="classPrice" column="CLASS_PRICE" />
+		<result property="reserveDate" column="RESERVE_DT" />
+		<result property="count" column="XXX" />
+		<result property="reserveNo" column="RESERVE_NO" />
+		<collection property="atList" column="CLASS_NO"
+			javaType="java.util.ArrayList" ofType="OffAttachment"
+			select="selectAttachment" />
+	</resultMap>
+	
 	
 
 	<!-- 회원가입 -->
@@ -123,10 +172,12 @@
 	</select>
 
 	<!-- 온라인 클래스 조회 -->
-	<select id="selectOnlineList" parameterType="_int">
-		SELECT CLASS_NO * CLASS_PAGE
-		WHERE MEMBER_NO = #{memberNo}
-		AND CLASS_TYPE_NO = 1;
+	<select id="selectOnlineList" parameterType="_int" resultMap="online_rm">
+		SELECT * FROM ONLINE_LIST
+		WHERE CLASS_STATUS = 'Y'
+		AND CLASS_TYPE_NO = #{classType}
+		AND MEMBER_NO = #{memberNo}
+		ORDER BY CLASS_NO DESC
 	</select>
 	
 	<!-- 전체 이용내역 조회 -->
@@ -136,6 +187,16 @@
 		FROM (SELECT COUNT(*) CNT
 		FROM ONLINE_LIST
 		WHERE CLASS_TYPE_NO = #{classType} AND CLASS_STATUS = 'Y')
+	</select>
+	
+	<!-- 오프라인 클래스 전체 조회 -->
+	<select id="selectOfflineList" parameterType="_int" resultMap="offline_rm">
+		SELECT CLASS_NO,CATEGORY_NAME, CLASS_TITLE FROM
+		CLASS_PAGE
+		LEFT JOIN CATEGORY USING(CATEGORY_NO)
+		WHERE CLASS_TYPE_NO =#{classType}
+		AND CLASS_STATUS = 'Y'
+		ORDER BY CLASS_NO DESC
 	</select>
 
 </mapper>

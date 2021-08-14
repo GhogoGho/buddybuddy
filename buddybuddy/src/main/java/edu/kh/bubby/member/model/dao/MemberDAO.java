@@ -2,11 +2,13 @@ package edu.kh.bubby.member.model.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.bubby.member.model.vo.Member;
+import edu.kh.bubby.offline.model.vo.OfflineClass;
 import edu.kh.bubby.online.model.vo.Online;
 import edu.kh.bubby.online.model.vo.Pagination;
 
@@ -147,14 +149,20 @@ public class MemberDAO {
 	}
 
 
-	/** 온라인 수강내역 조회
-	 * @param memberNo
+	/** 클래스 목록 조회
+	 * @param pagination
 	 * @return
 	 */
-	public List<Online> selectOnlineList(int memberNo) {
+	public List<Online> selectOnlineList(Pagination pagination) {
 		
-		return sqlSession.selectList("memberMapper.selectOnlineList", memberNo);
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		return sqlSession.selectList("memberMapper.selectOnlineList", pagination, rowBounds);
+		
 	}
+	
 
 
 	/** 전체 이용내역 조회
@@ -163,8 +171,24 @@ public class MemberDAO {
 	 */
 	public Pagination getListCount(int classType) {
 		
-		return sqlSession.selectOne("onlineMapper.getListCount", classType);
+		return sqlSession.selectOne("memberMapper.getListCount", classType);
 	}
+
+
+	/** 오프라인 클래스 전체 내역 조회
+	 * @param pagination
+	 * @return
+	 */
+	public List<OfflineClass> selectOfflineList(Pagination pagination) {
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		return sqlSession.selectList("memberMapper.selectOfflineList", pagination, rowBounds);
+	}
+
+
 
 
 
