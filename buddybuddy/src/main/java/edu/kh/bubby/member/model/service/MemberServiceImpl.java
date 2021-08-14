@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import edu.kh.bubby.member.exception.SaveFileException;
 import edu.kh.bubby.member.model.dao.MemberDAO;
 import edu.kh.bubby.member.model.vo.Member;
+import edu.kh.bubby.member.model.vo.Reserve;
 import edu.kh.bubby.offline.model.vo.OfflineClass;
 import edu.kh.bubby.online.model.vo.Online;
 import edu.kh.bubby.online.model.vo.Pagination;
@@ -261,13 +262,15 @@ public class MemberServiceImpl implements MemberService {
 		return selectPg;
 
 	}
-	
-//	오프라인 예약 내역 조회
+
+//	예약 내역 조회 Service
 	@Override
-	public List<OfflineClass> offlineList(Pagination pagination) {
+	public List<Reserve> reserveList(Pagination pagination) {
 		
-		return dao.selectOfflineList(pagination);
+		return dao.selectReserveList(pagination);
 	}
+	
+
 	
 	
 	

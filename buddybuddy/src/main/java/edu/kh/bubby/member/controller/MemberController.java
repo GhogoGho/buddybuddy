@@ -29,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import edu.kh.bubby.member.model.service.KakaoAPI;
 import edu.kh.bubby.member.model.service.MemberService;
 import edu.kh.bubby.member.model.vo.Member;
+import edu.kh.bubby.member.model.vo.Reserve;
 import edu.kh.bubby.offline.model.vo.OfflineClass;
 import edu.kh.bubby.online.model.vo.Online;
 import edu.kh.bubby.online.model.vo.Pagination;
@@ -171,7 +172,7 @@ public class MemberController {
 		model.addAttribute("onlineList", onlineList);
 		model.addAttribute("pagination", pagination);
 		
-		System.out.println(onlineList);
+		System.out.println("onlineList : " + onlineList);
 
 
 		return "member/myPage/joinClass";
@@ -189,6 +190,34 @@ public class MemberController {
 //	마이페이지 화면 전환용 Controller
 	@RequestMapping(value = "myPage/reserveOffline", method = RequestMethod.GET)
 	public String reserveOffline() {
+
+		return "member/myPage/reserveOffline";
+	}
+	
+//	마이페이지 (오프라인클래스 예약 내역) 조회용 Controller
+	@RequestMapping(value = "myPage/{classType}/reserveOffline", method = RequestMethod.GET)
+	public String reserveOffline(@ModelAttribute("loginMember") Member loginMember, @PathVariable("classType") int classType,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model, Pagination pg) {
+		
+		int memberNo = loginMember.getMemberNo();
+
+		pg.setClassType(classType);
+		pg.setCurrentPage(cp);
+		
+		System.out.println("pg : " + pg);
+
+		List<Reserve> reserve = null;
+		Pagination pagination = null;
+
+		pagination = service.getPagination(pg);
+		pagination.setMemberNo(memberNo);
+
+		reserve = service.reserveList(pagination);
+
+		model.addAttribute("reserve", reserve);
+		model.addAttribute("pagination", pagination);
+		
+		System.out.println("reserve : " + reserve);
 
 		return "member/myPage/reserveOffline";
 	}
