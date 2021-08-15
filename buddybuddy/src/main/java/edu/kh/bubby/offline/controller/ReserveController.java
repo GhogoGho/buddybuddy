@@ -38,7 +38,7 @@ public class ReserveController {
 		Gson gson = new Gson();
 		return gson.toJson(reList);
 	}
-	//예약 삽입
+	//예약 삽입+결제
 	@RequestMapping(value="reserveInsert",method = RequestMethod.POST)
 	public int reserveInsert(OfflineClass offClass,@RequestParam("insertNum") int insertNum) {
 		System.out.println(offClass);
