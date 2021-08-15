@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mainMapper">
+
+
+	<resultMap type="MainClass" id="main_rm">
+		<result property="classNo" column="CLASS_NO" />
+		<result property="classTitle" column="CLASS_TITLE" />
+		<result property="classContent" column="CLASS_CONTENT" />
+		<result property="classCreateDt" column="CLASS_CREATE_DT" />
+		<result property="classStatus" column="CLASS_STATUS" />
+		<result property="classReadCount" column="CLASS_READ_COUNT" />
+		<result property="classTypeNo" column="CLASS_TYPE_NO" />
+		<result property="classPrice" column="CLASS_PRICE" />
+
+	</resultMap>
+
+
+	<select id="classList" parameterType="_int" resultMap="main_rm">
+		SELECT A.* FROM
+		(SELECT CLASS_TITLE, CLASS_CONTENT, CLASS_PRICE, CLASS_CREATE_DT FROM
+		CLASS_PAGE
+		WHERE CLASS_STATUS = 'Y'
+		ORDER BY CLASS_CREATE_DT DESC) A
+		WHERE ROWNUM BETWEEN 1 AND 5;
+
+	</select>
+
+
+
+
+</mapper>
