@@ -93,6 +93,7 @@
 		<result property="reserveDate" column="RESERVE_DT" />
 		<result property="count" column="XXX" />
 		<result property="reserveNo" column="RESERVE_NO" />
+		<result property="reserveMemberNo" column="RESERVE_MEMBER_NO" />
 	</resultMap>
 	<!-- 파일 정보 조회용 resultMap -->
 	<resultMap type="OffAttachment" id="attachment_rm">
@@ -233,8 +234,13 @@
 		SELECT * FROM RESERVE WHERE CLASS_NO =#{classNo} AND RESERVE_START =#{reserveStart} AND RESERVE_END=#{reserveEnd} AND RESERVE_DT=#{reserveDate}
 	</select>
 	<!-- 예약자 삽입 -->
-	<insert id="reserveInsert" parameterType="OfflineClass">
-		INSERT INTO CONFIRM_RESERVE VALUES(SEQ_CONFIRM.NEXTVAL,DEFAULT,#{memberNo},#{classNo},#{reserveNo})
+	<insert id="reserveInsert" parameterType="OfflineClass"
+	useGeneratedKeys="true">
+		<selectKey keyProperty="reserveMemberNo" resultType="_int"
+			order="BEFORE">
+			SELECT SEQ_CONFIRM.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO CONFIRM_RESERVE VALUES(#{reserveMemberNo},DEFAULT,#{memberNo},#{classNo},#{reserveNo})
 	</insert>
 	<!-- 클래스 삭제 -->
 	<update id="deleteClass" parameterType="_int">
@@ -283,4 +289,8 @@
 	<update id="updeleteReserve" parameterType="_int">
 		UPDATE RESERVE SET RESERVE_STATUS='N' WHERE RESERVE_NO=#{reserveNo}
 	</update>
+	<!--결제 입력  -->
+	<insert id="insertPayment" parameterType="offlineClass">
+		INSERT INTO PAYMENT VALUES(SEQ_PAYMENTNO.NEXTVAL,DEFAULT,#{classPrice},DEFAULT,#{memberNo},#{classNo},#{reserveMemberNo})
+	</insert>
 </mapper>

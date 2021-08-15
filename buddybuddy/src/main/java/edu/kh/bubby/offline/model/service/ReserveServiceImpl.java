@@ -2,6 +2,7 @@ package edu.kh.bubby.offline.model.service;
 
 import java.util.List;
 
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,13 +37,22 @@ public class ReserveServiceImpl implements ReserveService{
 		//예약할 번호 찾기
 		int reserveNo = dao.selectReserveMemberNo(offClass);
 		int count=0;
+		int result=0;
 		if(reserveNo>0) {
 			offClass.setReserveNo(reserveNo);
 			if(insertNum>0) {
 				for(int i=0;i<insertNum;i++) {
-				int result =dao.reserveInsert(offClass);
+				result =dao.reserveInsert(offClass);
 				if(result>0) {
-					count++;
+					offClass.setReserveMemberNo(result);
+					System.out.println("결제시 결제자 번호:" + offClass.getReserveMemberNo());
+					System.out.println("결제자 삽입전:" + offClass);
+					
+					result = dao.insertPayment(offClass);
+					if(result>0) {
+						count++;
+					}
+					
 				}
 				}
 				if(count!=insertNum) {
@@ -55,7 +65,7 @@ public class ReserveServiceImpl implements ReserveService{
 			throw new ViewInsertReserveException();
 		}
 		
-		return 1;
+		return result;
 	}
 	//클래스 신고
 	@Transactional(rollbackFor = Exception.class)
