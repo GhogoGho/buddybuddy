@@ -130,15 +130,8 @@
              <button class="nav-link" id="pills-notice-tab" data-bs-toggle="pill" data-bs-target="#pills-notice"
                type="button" role="tab" aria-controls="pills-notice" aria-selected="false">공지사항</button>
            </li>
-           <!-- <li class="nav-item" role="presentation">
-             <button class="nav-link" id="pills-reply-tab" data-bs-toggle="pill" data-bs-target="#pills-reply"
-               type="button" role="tab" aria-controls="pills-reply" aria-selected="false">댓글</button>
-           </li>-->
-           <!-- <li class="nav-item" role="presentation">
-             <button class="nav-link" id="pills-tete-tab" data-bs-toggle="pill" data-bs-target="#pills-tete"
-               type="button" role="tab" aria-controls="pills-tete" aria-selected="false">수강문의</button>
-           </li> --> 
          </ul>
+         
          <hr>
          <div class="tab-content" id="pills-tabContent">
            <!-- 클래스 진행과정 시작 -->
@@ -149,7 +142,6 @@
                <ul class="class-list-content list-group col-md-12">
                <c:if test="${!empty video1}">
                  <li class="list-group-item">
-                   <!-- <div class="d-flex justify-content-between align-items-center"> -->
                    <div class="row">
                      <div class="col-md-3">
                        <video src="${video1}" type="video/mp4" width="200" height="200" class="user-image me-2" id="playVideo">
@@ -165,15 +157,7 @@
                          재생
                        </button>
                      </div>
-                     <!-- <div class="progress">
-                       <div class="progress-bar bg-success" role="progressbar" style="width: $('#class-video').progress+'%'" aria-valuenow="25"
-                         aria-valuemin="0" aria-valuemax="100"></div>
-                         <progress id="file" max="100" value="$('#playVideo').currentTime"> 70% </progress>
-                     </div>
-                     <progress class="progress is-success" value="$('#playVideo').progress" max="100">60%</progress>
-                     <progress class="progress is-success" value="77" max="100">77%</progress> -->
                    </div>
-                   <!-- </div> -->
                  </li>
                  </c:if>
                  <c:if test="${!empty video2}">
@@ -193,10 +177,6 @@
                          재생
                        </button>
                      </div>
-                     <!-- <div class="progress">
-                       <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="25"
-                         aria-valuemin="0" aria-valuemax="100"></div>
-                     </div> -->
                    </div>
                  </li>
                  </c:if>
@@ -217,10 +197,6 @@
                          재생
                        </button>
                      </div>
-                     <!-- <div class="progress">
-                       <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="25"
-                         aria-valuemin="0" aria-valuemax="100"></div>
-                     </div> -->
                    </div>
                  </li>
                  </c:if>
@@ -232,102 +208,9 @@
 
            <!-- 공지사항 -->
            <div class="tab-pane fade" id="pills-notice" role="tabpanel" aria-labelledby="pills-notice-tab">
-             
              <jsp:include page="../creater/noticeList.jsp"/>
-             
            </div>
 
-
-
-           <!-- 댓글 시작 -->
-           <div class="tab-pane fade" id="pills-reply" role="tabpanel" aria-labelledby="pills-reply-tab">
-             <div class="col-md-12">
-               <p class="h3 my-4" id="class-reply">댓글</p>
-               <hr>
-               <ul class="class-reply-content list-group col-md-12">
-                 <li class="list-group-item">
-                   <div class="d-flex justify-content-between align-items-center">
-                     <div class="ms-2 me-auto">
-                       <div class="fw-bold">
-                         <img
-                           src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDF8fHByb2ZpbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                           width="30" height="30" class="user-image rounded-circle me-2">${memberNickName}
-                       </div>
-                     </div>
-                     <span class="date me-2">0000년 00월 00일 00:00</span>
-                     <ul class="reply-action list-inline me-2">
-                       <li class="list-inline-item">
-                         <a href="#" class="btn btn-outline-success">수정</a>
-                         <a href="#" class="btn btn-outline-secondary">삭제</a>
-                       </li>
-                     </ul>
-                   </div>
-                   <div class="ms-2">가장 많이 품고 있는 이상! 이것이야말로 무한한 가치를
-                     가진 것이다 사람은 크고 작고 간에 이상이 있음으로써 용감하고 굳세게
-                     살 수 있는 것이다 석가는 무엇을 위하여 설산에서 고행을 하였으며
-                     예수는 무엇을 위하여 광야에서 방황하였으며 공자는 무엇을 위하여 천하를
-                     철환하였는가? 밥을 위하여서 옷을 위하여서 미인을 구하기 위하여서 그리하였는가?
-                     아니다 그들은 커다란 이상 곧 만천하의
-                   </div>
-                 </li>
-                 <li class="list-group-item">
-                   <div class="d-flex justify-content-between align-items-center">
-                     <div class="ms-2 me-auto">
-                       <div class="fw-bold">
-                         <img
-                           src="https://images.unsplash.com/flagged/photo-1578074611062-4387baa90b42?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTE3fHxwcm9maWxlfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                           width="30" height="30" class="user-image rounded-circle me-2">${memberNickName}
-                       </div>
-                     </div>
-                     <span class="date me-2">0000년 00월 00일 00:00</span>
-                     <ul class="reply-action list-inline me-2">
-                       <li class="list-inline-item">
-                         <a href="#" class="btn btn-outline-success">수정</a>
-                         <a href="#" class="btn btn-outline-secondary">삭제</a>
-                       </li>
-                     </ul>
-                   </div>
-                   <div class="ms-2">가장 많이 품고 있는 이상! 이것이야말로 무한한 가치를
-                     가진 것이다 사람은 크고 작고 간에 이상이 있음으로써 용감하고 굳세게
-                     살 수 있는 것이다 석가는 무엇을 위하여 설산에서 고행을 하였으며
-                     예수는 무엇을 위하여 광야에서 방황하였으며 공자는 무엇을 위하여 천하를
-                     철환하였는가? 밥을 위하여서 옷을 위하여서 미인을 구하기 위하여서 그리하였는가?
-                     아니다 그들은 커다란 이상 곧 만천하의
-                   </div>
-                 </li>
-                 <li class="list-group-item">
-                   <div class="d-flex justify-content-between align-items-center">
-                     <div class="ms-2 me-auto">
-                       <div class="fw-bold"><img
-                           src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDF8fHByb2ZpbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                           width="30" height="30" class="user-image rounded-circle me-2">${memberNickName}</div>
-                     </div>
-                   </div>
-                   <div class="input-group ms-2 my-2">
-                     <textarea class="form-control" id="edit-reply" rows="2">수정 내용</textarea>
-                     <button class="btn btn-outline-success">수정</button>
-                   </div>
-                 </li>
-               </ul>
-               <hr>
-               <div class="col-md-12">
-                 <p class="h5">댓글 작성</p>
-                 <div class="input-group my-2">
-                   <textarea class="form-control" id="edit-reply" rows="2"></textarea>
-                   <button class="btn btn-outline-success">작성</button>
-                 </div>
-               </div>
-             </div>
-           </div>
-
-
-
-           <!-- bulma 테스트 -->
-           <div class="tab-pane fade" id="pills-tete" role="tabpanel" aria-labelledby="pills-tete-tab">
-             <p class="h3 my-4" id="class-reply">수강문의</p>
-             <hr>
-             <jsp:include page="onlineReplyBulma.jsp"/>
-           </div>
          </div>
        </div>
      </div>

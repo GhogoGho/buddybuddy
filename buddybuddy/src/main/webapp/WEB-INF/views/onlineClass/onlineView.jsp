@@ -54,7 +54,6 @@
 					</c:forEach>
       <div class="row">
         <!-- 동영상,클래스목차 -->
-        <!-- <div class="row"> -->
         <div class="col-md-7">
           <div class="row">
           	<c:if test="${!empty video0 }">
@@ -116,20 +115,20 @@
                   <td>있음</td>
                 </tr>
               </table>
-              <p class="card-text">
-                <img style="width:142px;" src="https://images.unsplash.com/photo-1619911000556-cd9aa5856472?ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDY4fFJfRnluLUd3dGx3fHxlbnwwfHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
-                <img style="width:142px;" src="https://images.unsplash.com/photo-1619911004446-6d985c84ee64?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDF8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60">
-                <img style="width:142px;" src="https://images.unsplash.com/photo-1605281039732-e42f06744b9d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60">
+              <p class="card-text" style="display: inline;">
+                <video style="width:142px; height:80px;" src="${video1}">
+              </p>
+              <p class="card-text" style="display: inline;">
+                <video style="width:142px; height:80px;" src="${video2}">
+              </p>
+              <p class="card-text" style="display: inline;">
+                <video style="width:142px; height:80px;" src="${video3}">
               </p>
             </div>
             <div class="card-footer bg-transparent border-dark text-center">
             <c:choose>
             <c:when test="${a == 0}">
 							<button type="button" class="button is-medium is-fullwidth is-danger is-rounded">수강신청</button>
-              <%-- <div class="row">
-								<a href="${contextPath}/class/video">수강하기 임시</a>
-								<a href="${online.classNo}?cp=${pagination.currentPage}${searchStr}/video">수강하기 임시</a>
-							</div> --%>
 						</c:when>	
 						<c:otherwise>
 							<button type="button" id="videoBtn" class="button is-medium is-fullwidth is-dark is-rounded" onclick="fnRequest('video');">수강하기</button>
@@ -139,38 +138,29 @@
           </div>
         </div>
         <!-- 클래스 구매 끝 -->
-        <!-- </div> -->
-        <!-- </div> -->
         <!-- 클래스 소개 시작 -->
-        <!-- <div class="container"> -->
         <div class="row">
           <div class="col-md-7">
             <p class="h3" id="class-introduce">클래스 소개</p>
             <p>${online.classContent }</p>
           </div>
         </div>
-        <!-- </div> -->
 
 
         <!-- 수강후기 시작 -->
-        <!-- <div class="container"> -->
         <div class="col-md-7">
           <p class="h3 my-4" id="class-review">수강 후기</p>
           <hr>
           <jsp:include page="onlineReview.jsp"/>
         </div>
-        <!-- </div> -->
         <!-- 수강문의 시작 -->
-        <!-- <div class="container mt-5"> -->
         <div class="col-md-7">
           <p class="h3 my-4" id="class-reply">수강 문의</p>
           <hr>
          	<%-- <jsp:include page="onlineReply.jsp"/> --%>
          	<jsp:include page="onlineReplyBulma.jsp"/>
         </div>
-        <!-- </div> -->
 
-        <!-- <div class="container mt-5"> -->
         <div class="row">
           <div class="col-md-7">
             <p class="h2" id="class-refund">취소 및 환불 정책</p>
@@ -202,7 +192,7 @@
             </table>
             <p>단, 이런저런 경우 환불이 불가능합니다...</p>
             <c:if test="${online.memberNo == sessionScope.loginMember.memberNo}">
-            <button id="updateBtn" class="button is-large is-fullwidth is-link is-rounded" onclick="fnRequest('updateForm');">수정</button>
+            <!-- <button id="updateBtn" class="button is-large is-fullwidth is-link is-rounded" onclick="fnRequest('updateForm');">수정</button> -->
             <button id="updateBtn" class="button is-large is-fullwidth is-link is-rounded" onclick="fnRequest('updateSF');">썸머노트수정</button>
             <button id="deleteBtn" class="button is-large is-fullwidth is-dark is-rounded" onclick="fnRequest('delete');">삭제</button>
             </c:if>

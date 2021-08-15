@@ -20,16 +20,16 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <!-- 썸머노트 API -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
-<link
-	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-<script
-	src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
+<script src="${contextPath}/resources/summer/summernote-ko-KR.js"></script>
+<script src="${contextPath}/resources/summer/summernote-lite.js"></script>
+<link rel="stylesheet"
+	href="${contextPath}/resources/summer/summernote-lite.css">
+	
+	
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 <body>
@@ -60,7 +60,7 @@
 					<c:if test="${ !empty category}">
 					<div class="control has-icons-left">
 						<div class="select is-large is-rounded">
-							<select name="categoryNo" id="categoryNo">
+							<select name="categoryNo" id="categoryNo" required>
 								<c:forEach items="${category}" var="c">
 								<option value="${c.categoryNo}">${c.categoryName}</option>
 								</c:forEach>
@@ -77,7 +77,7 @@
 				<div class="col-md-10">
 					<label class="form-label" for="classTitle">제목</label> 
 					<input class="input is-medium is-rounded" id="classTitle"
-						name="classTitle" type="text" placeholder="제목을 입력해 주세요." value="${online.classTitle }">
+						name="classTitle" type="text" placeholder="제목을 입력해 주세요." value="${online.classTitle }" required>
 					<hr>
 				</div>
 			</div>
@@ -195,14 +195,92 @@
 			<!-- 썸머노트 start -->
 			<div class="row">
 				<div class="col-md-10">
-					<textarea class="summernote" name="classContent">${online.classContent}</textarea>
+					<textarea class="summernote" name="classContent" required>${online.classContent}</textarea>
 				</div>
 				<script>
-					$('.summernote').summernote({
-						height : 500,
-						lang : "ko-KR"
+					$(document).ready(function() {
+						$('.summernote').summernote(
+								{
+									height : 500,
+									lang : 'ko-KR',
+									toolbar : [
+										
+											[ 'fontname',
+													[ 'fontname' ] ],
+											[ 'fontsize',
+													[ 'fontsize' ] ],
+											[
+													'style',
+													[
+															'bold',
+															'italic',
+															'underline',
+															'strikethrough',
+															'clear' ] ],
+											[
+													'color',
+													[ 'forecolor',
+															'color' ] ],
+											[ 'table', [ 'table' ] ],
+											[
+													'para',
+													[ 'ul', 'ol',
+															'paragraph' ] ],
+											[ 'height', [ 'height' ] ],
+											[
+													'insert',
+													[ 'picture',
+															'link',
+															'video' ] ],
+											[
+													'view',
+													[ 'fullscreen',
+															'help' ] ] ],
+									fontNames : [ 'Arial',
+											'Arial Black',
+											'Comic Sans MS',
+											'Courier New', '맑은 고딕',
+											'궁서', '굴림체', '굴림', '돋움체',
+											'바탕체' ],
+									fontSizes : [ '8', '9', '10', '11',
+											'12', '14', '16', '18',
+											'20', '22', '24', '28',
+											'30', '36', '50', '72' ],
+											//콜백 함수
+								            callbacks : { 
+								            	onImageUpload : function(files, editor, welEditable) {
+								            // 파일 업로드(다중업로드를 위해 반복문 사용)
+								            for (var i = files.length - 1; i >= 0; i--) {
+								            uploadSummernoteImageFile(files[i],
+								            this);
+								            		}
+								            	}
+								            }
+								});
 					});
-				</script>
+						
+						
+						function uploadSummernoteImageFile(file, el) {
+							data = new FormData();
+							data.append("file", file);
+							$.ajax({
+								data : data,
+								dataType:"JSON",
+								type : "POST",
+								url : "${contextPath}/summer/summer",
+								contentType : false,
+								enctype : 'multipart/form-data',
+								processData : false,
+								success : function(data) {
+									console.log(data.url);
+									$(el).summernote('editor.insertImage', data.url);
+								},
+								error : function(){
+									console.log("썸머노트 실패");
+								}
+							});
+						}
+					</script>
 			</div>
 			<!-- 썸머노트 end -->
 			
@@ -227,7 +305,7 @@
 </body>
 
 <script>
-const classNo = ${online}
+/* const classNo = ${online} */
 
 	// 유효성 Check
 	function classValidate() {

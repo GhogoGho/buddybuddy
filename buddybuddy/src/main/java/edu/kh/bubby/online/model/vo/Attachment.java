@@ -6,6 +6,8 @@ public class Attachment {
 	private String fileName;
 	private int fileLevel;
 	private int classNo;
+	private String fileTitle; // 동영상 제목
+	private String fileContent; // 동영상 내용 설명
 	
 	
 	public Attachment() {	}
@@ -61,12 +63,34 @@ public class Attachment {
 	}
 
 
+	public String getFileTitle() {
+		return fileTitle;
+	}
+
+
+	public void setFileTitle(String fileTitle) {
+		this.fileTitle = fileTitle;
+	}
+
+
+	public String getFileContent() {
+		return fileContent;
+	}
+
+
+	public void setFileContent(String fileContent) {
+		this.fileContent = fileContent;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Attachment [fileNo=" + fileNo + ", filePath=" + filePath + ", fileName=" + fileName + ", fileLevel="
-				+ fileLevel + ", classNo=" + classNo + "]";
+				+ fileLevel + ", classNo=" + classNo + ", fileTitle=" + fileTitle + ", fileContent=" + fileContent
+				+ "]";
 	}
-	
+
+
 	
 	
 }

@@ -286,7 +286,7 @@ public class OnlineServiceImpl implements OnlineService{
 //		online.setClassContent(replaceParameter(online.getClassContent())); // 썸머노트 사용시 불필요
 		
 		online.setClassContent(online.getClassContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>"));
-		
+
 		int classNo = dao.insertOnline(online);
 		
 		if(classNo > 0) {
@@ -302,7 +302,6 @@ public class OnlineServiceImpl implements OnlineService{
 					at.setFilePath(webPath);
 					at.setClassNo(classNo);
 					at.setFileLevel(i);
-					
 					atList.add(at);
 				}
 			}

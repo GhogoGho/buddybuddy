@@ -46,9 +46,7 @@
 	      <p>
         	<strong>${reply.memberNickName}</strong>
 	        <br>
-	        <div id="notice-con">
-	        	${reply.replyContent }
-	        </div>
+	        <div id="notice-con">${reply.replyContent }</div>
 	        <br>
 	        <small>
 	        	<c:if test="${reply.memberNo == sessionScope.loginMember.memberNo}">
