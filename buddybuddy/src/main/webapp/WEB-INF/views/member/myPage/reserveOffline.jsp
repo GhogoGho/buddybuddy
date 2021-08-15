@@ -414,12 +414,12 @@ a:hover {
 											height="70" class="rounded-3 float-start me-2" alt="">
 									</div>
 									<div class="class-cate col-sm-2">
-										<a href="#">카테고리</a>
+										<a href="#">${reserve.categoryNm}</a>
 									</div>
 									<div class="class-nm col-sm-5">
-										<a href="#">클래스 제목</a>
+										<a href="#">${reserve.classTitle}</a>
 									</div>
-									<div class="class-dt col-sm-2">21/07/26</div>
+									<div class="class-dt col-sm-2">${reserve.classCreateDate}</div>
 								</div>
 						</div>
 						</c:forEach>
@@ -430,7 +430,7 @@ a:hover {
 					</div>
 
 					<!-- 페이지네이션 -->
-					<c:set var="pageURL" value="list" />
+					<c:set var="pageURL" value="reserveOffline" />
 
 					<c:set var="prev"
 						value="${pageURL}?cp=${pagination.prevPage}" />
@@ -499,6 +499,7 @@ a:hover {
 
 			</div>
 		</div>
+		</form>
 	</section>
 
 	<footer class="footer">

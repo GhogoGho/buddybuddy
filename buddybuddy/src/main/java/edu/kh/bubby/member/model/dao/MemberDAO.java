@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.bubby.member.model.vo.Member;
+import edu.kh.bubby.member.model.vo.Payment;
 import edu.kh.bubby.member.model.vo.Reply;
 import edu.kh.bubby.member.model.vo.Reserve;
 import edu.kh.bubby.member.model.vo.Review;
@@ -156,7 +157,7 @@ public class MemberDAO {
 	 * @param pagination
 	 * @return
 	 */
-	public List<Online> selectOnlineList(Pagination pagination) {
+	public List<Payment> selectOnlineList(Pagination pagination) {
 		
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
 
@@ -172,9 +173,27 @@ public class MemberDAO {
 	 * @param classType
 	 * @return pagination
 	 */
-	public Pagination getListCount(int classType) {
+	public Pagination getListCount(int memberNo) {
 		
-		return sqlSession.selectOne("memberMapper.getListCount", classType);
+		return sqlSession.selectOne("memberMapper.getListCount", memberNo);
+	}
+	
+	/** 전체 이용내역 조회
+	 * @param classType
+	 * @return pagination
+	 */
+	public Pagination getListCount1(int memberNo) {
+		
+		return sqlSession.selectOne("memberMapper.getListCount1", memberNo);
+	}
+	
+	/** 전체 이용내역 조회
+	 * @param classType
+	 * @return pagination
+	 */
+	public Pagination getListCount2(int memberNo) {
+		
+		return sqlSession.selectOne("memberMapper.getListCount2", memberNo);
 	}
 
 

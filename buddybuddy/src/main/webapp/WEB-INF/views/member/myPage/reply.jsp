@@ -424,7 +424,7 @@ a:hover {
 						</div>
 
 						<!-- 페이지네이션 -->
-						<c:set var="pageURL" value="list" />
+						<c:set var="pageURL" value="reply" />
 
 						<c:set var="prev" value="${pageURL}?cp=${pagination.prevPage}" />
 						<c:set var="next" value="${pageURL}?cp=${pagination.nextPage}" />

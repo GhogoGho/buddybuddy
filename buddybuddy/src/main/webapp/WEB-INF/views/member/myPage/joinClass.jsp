@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%-- 배포된 웹 애플리케이션의 최상위 주소를 간단히 얻어올 수 있도록 
      application 범위로 변수를 하나 생성 --%>
@@ -386,7 +387,6 @@ a:hover {
 
 					</div>
 
-
 					<!-- 마이페이지 본문 본문 -->
 					<div class="row">
 							<c:choose>
@@ -404,7 +404,8 @@ a:hover {
 								
 								<%-- 수강한 클래스가 있을 때 --%>
 							<c:otherwise>
-							<c:forEach items="${onlineList}" var="onlineList">
+							
+							<c:forEach items="${onlineList}" var="online">
 						<div class="row">
 								<div class="class-list">
 									<div class="class-img col-sm-2">
@@ -412,12 +413,12 @@ a:hover {
 											height="70" class="rounded-3 float-start me-2" alt="">
 									</div>
 									<div class="class-cate col-sm-2">
-										<a href="#">카테고리</a>
+										<a href="#">${online.categoryNm}</a>
 									</div>
 									<div class="class-nm col-sm-5">
-										<a href="#">클래스 제목</a>
+										<a href="#">${online.classTitle}</a>
 									</div>
-									<div class="class-dt col-sm-2">21/07/26</div>
+									<div class="class-dt col-sm-2">${online.classCreateDate}</div>
 								</div>
 						</div>
 						</c:forEach>
@@ -429,7 +430,7 @@ a:hover {
 					</div>
 
 					<!-- 페이지네이션 -->
-					<c:set var="pageURL" value="list" />
+					<c:set var="pageURL" value="joinClass" />
 
 					<c:set var="prev"
 						value="${pageURL}?cp=${pagination.prevPage}" />

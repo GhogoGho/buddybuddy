@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import edu.kh.bubby.member.exception.SaveFileException;
 import edu.kh.bubby.member.model.dao.MemberDAO;
 import edu.kh.bubby.member.model.vo.Member;
+import edu.kh.bubby.member.model.vo.Payment;
 import edu.kh.bubby.member.model.vo.Reply;
 import edu.kh.bubby.member.model.vo.Reserve;
 import edu.kh.bubby.member.model.vo.Review;
@@ -247,11 +248,11 @@ public class MemberServiceImpl implements MemberService {
 
 		return dao.kakaoLogin(kakaoMember);
 	}
-	
+
 //	클래스 전체 목록 조회 
 	@Override
-	public List<Online> onlineList(Pagination pagination) {
-		
+	public List<Payment> onlineList(Pagination pagination) {
+
 		return dao.selectOnlineList(pagination);
 	}
 
@@ -259,8 +260,28 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Pagination getPagination(Pagination pg) {
 
-		Pagination selectPg = dao.getListCount(pg.getClassType());
-		
+		Pagination selectPg = dao.getListCount(pg.getMemberNo());
+
+		return selectPg;
+
+	}
+
+	// 전체 에약 내역 조회
+	@Override
+	public Pagination getPagination1(Pagination pg) {
+
+		Pagination selectPg = dao.getListCount1(pg.getMemberNo());
+
+		return selectPg;
+
+	}
+
+	// 전체 리뷰 내역 조회
+	@Override
+	public Pagination getPagination2(Pagination pg) {
+
+		Pagination selectPg = dao.getListCount2(pg.getMemberNo());
+
 		return selectPg;
 
 	}
@@ -268,29 +289,22 @@ public class MemberServiceImpl implements MemberService {
 //	예약 내역 조회 Service
 	@Override
 	public List<Reserve> reserveList(Pagination pagination) {
-		
+
 		return dao.selectReserveList(pagination);
 	}
 
 //	작성한 리뷰 조회 Service
 	@Override
 	public List<Review> reviewList(Pagination pagination) {
-		
+
 		return dao.selectReviewList(pagination);
 	}
 
 //	작성한 후기 조회 Service
 	@Override
 	public List<Reply> replyList(Pagination pagination) {
-		
+
 		return dao.selectReplyList(pagination);
 	}
-	
-
-	
-	
-	
-	
-	
 
 }
