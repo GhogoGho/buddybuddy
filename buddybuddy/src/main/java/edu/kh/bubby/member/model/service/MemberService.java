@@ -142,6 +142,12 @@ public interface MemberService {
 	 */
 	public abstract List<Reply> replyList(Pagination pagination);
 
+	/** 예약 취소 Service
+	 * @param reserveNo
+	 * @return result
+	 */
+	public abstract int noReserve(int reserveNo);
+
 
 
 	
