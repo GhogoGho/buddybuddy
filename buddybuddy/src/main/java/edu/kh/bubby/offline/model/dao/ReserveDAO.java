@@ -52,7 +52,13 @@ public class ReserveDAO {
 	 */
 	public int reserveInsert(OfflineClass offClass) {
 		// TODO Auto-generated method stub
-		return sqlSession.insert("offlineMapper.reserveInsert",offClass);
+		int member = sqlSession.insert("offlineMapper.reserveInsert",offClass);
+		if(member>0) {
+			member=offClass.getReserveMemberNo();
+		}else {
+			member=0;
+		}
+		return member;
 	}
 
 	/**클래스 신고
@@ -62,6 +68,11 @@ public class ReserveDAO {
 	public int reportClass(OffClassReport classReport) {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("offClassReportMapper.reportClass",classReport);
+	}
+
+	public int insertPayment(OfflineClass offClass) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("offlineMapper.insertPayment",offClass);
 	}
 
 }

@@ -32,8 +32,25 @@ public class OfflineClass {
 	private String paymentStatus;
 	private int classPrice;
 	private int count;
+	private int reserveMemberNo;
 	
 	
+	
+	
+	public int getReserveMemberNo() {
+		return reserveMemberNo;
+	}
+
+
+
+
+	public void setReserveMemberNo(int reserveMemberNo) {
+		this.reserveMemberNo = reserveMemberNo;
+	}
+
+
+
+
 	public OfflineClass() {
 		// TODO Auto-generated constructor stub
 	}
@@ -277,9 +294,6 @@ public class OfflineClass {
 
 
 
-
-
-
 	@Override
 	public String toString() {
 		return "OfflineClass [classNo=" + classNo + ", classTitle=" + classTitle + ", classContent=" + classContent
@@ -289,8 +303,14 @@ public class OfflineClass {
 				+ reviewRatings + ", memberProfile=" + memberProfile + ", reserveNo=" + reserveNo + ", reserveDate="
 				+ reserveDate + ", reserveStart=" + reserveStart + ", reserveEnd=" + reserveEnd + ", reserveLimit="
 				+ reserveLimit + ", classLevel=" + classLevel + ", classArea=" + classArea + ", paymentStatus="
-				+ paymentStatus + ", classPrice=" + classPrice + "]";
+				+ paymentStatus + ", classPrice=" + classPrice + ", count=" + count + ", reserveMemberNo="
+				+ reserveMemberNo + "]";
 	}
+
+
+
+
+
 
 
 
