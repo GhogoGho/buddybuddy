@@ -12,6 +12,7 @@ public class Online {
 	
 	private int memberNo;
 	private String memberNickName;
+	private String memberProfile;
 	private List<Attachment> atList;
 	private int classType; // CLASS_TYPE_NO 클래스 분류 번호 (1:온라인, 2:오프라인)
 	private int categoryNo; // CATEGORY_NO 카테고리 번호 (1:요리, 2:공예, 3:미술, 4:플라워)
@@ -79,6 +80,14 @@ public class Online {
 		this.memberNickName = memberNickName;
 	}
 
+	public String getMemberProfile() {
+		return memberProfile;
+	}
+
+	public void setMemberProfile(String memberProfile) {
+		this.memberProfile = memberProfile;
+	}
+
 	public List<Attachment> getAtList() {
 		return atList;
 	}
@@ -139,10 +148,11 @@ public class Online {
 	public String toString() {
 		return "Online [classNo=" + classNo + ", classTitle=" + classTitle + ", classContent=" + classContent
 				+ ", classCreateDate=" + classCreateDate + ", classReadCount=" + classReadCount + ", memberNo="
-				+ memberNo + ", memberNickName=" + memberNickName + ", atList=" + atList + ", classType=" + classType
-				+ ", categoryNo=" + categoryNo + ", categoryName=" + categoryName + ", onlineLike=" + onlineLike
-				+ ", fileTitle=" + fileTitle + ", fileContent=" + fileContent + "]";
+				+ memberNo + ", memberNickName=" + memberNickName + ", memberProfile=" + memberProfile + ", atList="
+				+ atList + ", classType=" + classType + ", categoryNo=" + categoryNo + ", categoryName=" + categoryName
+				+ ", onlineLike=" + onlineLike + ", fileTitle=" + fileTitle + ", fileContent=" + fileContent + "]";
 	}
+
 
 
 	
