@@ -235,7 +235,12 @@ $(document).on("click", "#btn-play1", function(){
 	      videoDom.play();
 	      
 	      button.attr({'class':'btn btn-danger btn-lg'});
-	      button.text('일시정지');
+	      $("#btn-play2").text("재생");
+	      $("#btn-play2").attr({'class':'btn btn-success btn-lg'});
+	      $("#btn-play3").text("재생");
+	      $("#btn-play3").attr({'class':'btn btn-success btn-lg'});
+	      $(this).text('일시정지');
+	      /* button.text('일시정지'); */
 	      console.log(cTime);
      }else{
    	  videoDom.pause();
@@ -253,7 +258,12 @@ $(document).on("click", "#btn-play2", function(){
 	      videoDom.play();
 	      
 	      button.attr({'class':'btn btn-danger btn-lg'});
-	      button.text('일시정지');
+	      $("#btn-play1").text("재생");
+	      $("#btn-play1").attr({'class':'btn btn-success btn-lg'});
+	      $("#btn-play3").text("재생");
+	      $("#btn-play3").attr({'class':'btn btn-success btn-lg'});
+	      $(this).text('일시정지');
+	      /* button.text('일시정지'); */
 	      
      }else{
    	  videoDom.pause();
@@ -271,7 +281,12 @@ $(document).on("click", "#btn-play3", function(){
 	      videoDom.play();
 	      
 	      button.attr({'class':'btn btn-danger btn-lg'});
-	      button.text('일시정지');
+	      $("#btn-play1").text("재생");
+	      $("#btn-play1").attr({'class':'btn btn-success btn-lg'});
+	      $("#btn-play2").text("재생");
+	      $("#btn-play2").attr({'class':'btn btn-success btn-lg'});
+	      $(this).text('일시정지');
+	      /* button.text('일시정지'); */
 	      
      }else{
    	  videoDom.pause();
