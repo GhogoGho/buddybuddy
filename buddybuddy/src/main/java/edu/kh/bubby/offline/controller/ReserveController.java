@@ -90,5 +90,14 @@ public class ReserveController {
 	}
 	
 	
+	//클래스 신고
+	@RequestMapping(value="sinClass",method = RequestMethod.POST)
+	public int reportClass(){
+		//int result =service.reportClass();
+		
+		return 0;
+	}
+	
+	
 	
 }

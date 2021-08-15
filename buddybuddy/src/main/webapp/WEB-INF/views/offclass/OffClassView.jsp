@@ -671,7 +671,7 @@ th {
 							</div>
 							<div class="modal-body" style="height: 300px;">
 								<div class="form-floating">
-									<textarea class="form-control h-25"
+									<textarea id="sinClass" class="form-control h-25"
 										placeholder="Leave a comment here" id="floatingTextarea2x"
 										rows="10" style="height: 100px; resize: none;"></textarea>
 									<label for="floatingTextarea2x">클래스 신고 내용</label>
@@ -680,15 +680,41 @@ th {
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary main-btn-color"
 									data-bs-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-primary main-btn-color">Save
-									changes</button>
+								<button type="button" class="btn btn-primary main-btn-color" onclick="sinClass()">신고</button>
 							</div>
+							
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script>
+	function sinClass(){
+		reportContent=$('#sinClass').val();
+		memberNo = "${offList.memberNo}";
+		classNO = "${offList.classNo}";
+		$.ajax({
+			url:"${contextPath}/reserve/sinClass",
+			type:"POST",
+			data:{"classNo": classNO,
+				  "reportContent": reportContent,
+				  "memberNo" : memberNo
+			},
+			success:function(result){
+				if(result>0){
+					swal({
+						icon : "success",
+						title: "클래스 신고 완료"
+					});
+				}
+			},
+			error:function(){
+				console.log("ajax통신 실패");
+			}
+		});
+	}
+	</script>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<script>
 	
