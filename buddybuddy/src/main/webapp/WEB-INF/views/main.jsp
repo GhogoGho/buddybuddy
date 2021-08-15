@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%-- 배포된 웹 애플리케이션의 최상위 주소를 간단히 얻어올 수 있도록 
+     application 범위로 변수를 하나 생성 --%>
+<c:set var="contextPath" scope="application"
+	value="${pageContext.servletContext.contextPath}" />
+	
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -217,9 +222,9 @@
 					<img src="https://via.placeholder.com/150" width="150" height="150"
 						class="rounded-3 me-2" alt=""> <a class="class-menu"
 						href="#">
-						<h3 class="class-title">클래스 제목입니다</h3>
-					</a> <a class="class-menu" href="#"> 어쩌구 저쩌구 클래스 들어주라 </a><br> <a
-						class="class-menu" href="#"> 35,000원 </a>
+						<h3 class="class-title">${classList.classTitle}</h3>
+					</a> <a class="class-menu" href="#"> ${classList.classContent} </a><br> <a
+						class="class-menu" href="#"> ${classList.classPrice} </a>
 				</div>
 
 

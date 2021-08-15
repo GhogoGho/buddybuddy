@@ -403,8 +403,6 @@ ul.join_box {
 			<div class="avatar"></div>
 			<div class="text-center">
 
-				<input accept="image/*" class="form-profile" type="file"
-					id="profile" name="profile" onchange="loadFile(event)">
 			</div>
 			<h2 class="text-center">Sign Up</h2>
 			<div class="form-group">
