@@ -248,6 +248,16 @@ public class MemberDAO {
 	}
 
 
+	/** 예약 취소 DAO
+	 * @param reserveNo
+	 * @return result
+	 */
+	public int noReserve(int reserveNo) {
+		
+		return sqlSession.update("memberMapper.updateReserve", reserveNo);
+	}
+
+
 
 
 

@@ -273,13 +273,10 @@
 	<!-- 예약용 전체 조회 -->
 	<select id="getListCount1" parameterType="_int"
 		resultMap="pg_rm">
-		SELECT COUNT(*) CNT
-		FROM CLASS_LIST A
-		JOIN RESERVE B
-		ON(A.CLASS_NO = B.CLASS_NO)
+		SELECT COUNT(*) CNT FROM CLASS_LIST B
+		JOIN CONFIRM_RESERVE A ON(A.CLASS_NO = B.CLASS_NO)
 		WHERE A.MEMBER_NO = #{memberNo}
-		AND
-		B.RESERVE_STATUS = 'Y'
+		AND A.RESERVE_STATUS = 'Y'
 
 	</select>
 
@@ -288,33 +285,39 @@
 		resultMap="pg_rm">
 		SELECT COUNT(*) CNT
 		FROM CLASS_LIST A
-		JOIN REVIEW B ON(A.CLASS_NO = B.CLASS_NO)
+		JOIN REVIEW B
+		ON(A.CLASS_NO = B.CLASS_NO)
 		WHERE B.MEMBER_NO = #{memberNo}
-		AND B.REVIEW_STATUS = 'Y'
+		AND
+		B.REVIEW_STATUS = 'Y'
 
 	</select>
-	
+
 	<!-- 후기용 전체 조회 -->
 	<select id="getListCount3" parameterType="_int"
 		resultMap="pg_rm">
 		SELECT COUNT(*) CNT
 		FROM CLASS_LIST A
-		JOIN REPLY B ON(A.CLASS_NO = B.CLASS_NO)
+		JOIN REPLY B
+		ON(A.CLASS_NO = B.CLASS_NO)
 		WHERE B.MEMBER_NO = #{memberNo}
-		AND B.REPLY_STATUS = 'Y'
+		AND
+		B.REPLY_STATUS = 'Y'
 
 	</select>
 
 	<!-- 오프라인 예약 클래스 전체 조회 -->
 	<select id="selectReserveList" parameterType="_int"
 		resultMap="res_rm">
-		SELECT C.CATEGORY_NAME, A.REVIEW_STATUS, A.REVIEW_NO,
+		SELECT C.CATEGORY_NAME, A.RESERVE_STATUS, A.RESERVE_NO,
 		A.CLASS_NO, A.MEMBER_NO, B.CLASS_TITLE, B.CLASS_CREATE_DT
-		FROM REVIEW A
+		FROM
+		CONFIRM_RESERVE A
 		JOIN CLASS_PAGE B ON(A.CLASS_NO = B.CLASS_NO)
-		JOIN CATEGORY C ON
-		(B.CATEGORY_NO = C.CATEGORY_NO)
-		WHERE A.REVIEW_STATUS ='Y'
+		JOIN
+		CATEGORY C ON (B.CATEGORY_NO = C.CATEGORY_NO)
+		WHERE A.RESERVE_STATUS =
+		'Y'
 		AND A.MEMBER_NO = #{memberNo}
 		ORDER BY A.CLASS_NO DESC
 	</select>
@@ -322,24 +325,38 @@
 	<!-- 리뷰 조회 -->
 	<select id="selectReviewList" parameterType="_int"
 		resultMap="review_rm">
-		SELECT * FROM REVIEW
-		WHERE REVIEW_STATUS = 'Y'
-		AND MEMBER_NO =
-		#{memberNo}
-		ORDER BY REVIEW_DT DESC
+		SELECT C.CATEGORY_NAME, A.REVIEW_STATUS, A.REVIEW_NO,
+		A.CLASS_NO, A.MEMBER_NO, B.CLASS_TITLE, B.CLASS_CREATE_DT
+		FROM REVIEW A
+		JOIN CLASS_PAGE B ON(A.CLASS_NO = B.CLASS_NO)
+		JOIN CATEGORY C ON
+		(B.CATEGORY_NO = C.CATEGORY_NO)
+		WHERE A.REVIEW_STATUS ='Y'
+		AND
+		A.MEMBER_NO = #{memberNo}
+		ORDER BY A.CLASS_NO DESC
 	</select>
 
 	<!-- 후기 조회 -->
 	<select id="selectReplyList" parameterType="_int"
 		resultMap="reply_rm">
 		SELECT A.REPLY_STATUS, A.REPLY_NO,
-		A.CLASS_NO, A.MEMBER_NO, B.CLASS_TITLE, A.REPLY_DT
+		A.CLASS_NO, A.MEMBER_NO,
+		B.CLASS_TITLE, A.REPLY_DT
 		FROM REPLY A
-		JOIN CLASS_PAGE B ON(A.CLASS_NO = B.CLASS_NO)
+		JOIN CLASS_PAGE B ON(A.CLASS_NO =
+		B.CLASS_NO)
 		WHERE A.REPLY_STATUS ='Y'
 		AND A.MEMBER_NO = #{memberNo}
 		ORDER BY A.CLASS_NO DESC
 
 	</select>
-	
+
+	<!-- 예약 취소 -->
+	<update id="updateReserve" parameterType="_int">
+		UPDATE RESERVE SET
+		RESERVE_STATUS = 'N'
+		WHERE RESERVE_NO = #{reserveNo}
+	</update>
+
 </mapper>

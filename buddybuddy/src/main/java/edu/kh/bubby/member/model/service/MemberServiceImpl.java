@@ -316,5 +316,15 @@ public class MemberServiceImpl implements MemberService {
 
 		return dao.selectReplyList(pagination);
 	}
+	
+//	예약 취소 Service
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int noReserve(int reserveNo) {
+		
+		return dao.noReserve(reserveNo);
+	}
+	
+	
 
 }
