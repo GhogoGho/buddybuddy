@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.bubby.offline.exception.ViewInsertReserveException;
 import edu.kh.bubby.offline.model.dao.ReserveDAO;
+import edu.kh.bubby.offline.model.vo.OffClassReport;
 import edu.kh.bubby.offline.model.vo.OfflineClass;
 
 @Service
@@ -55,6 +56,13 @@ public class ReserveServiceImpl implements ReserveService{
 		}
 		
 		return 1;
+	}
+	//클래스 신고
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int reportClass(OffClassReport classReport) {
+		// TODO Auto-generated method stub
+		return dao.reportClass(classReport);
 	}
 
 

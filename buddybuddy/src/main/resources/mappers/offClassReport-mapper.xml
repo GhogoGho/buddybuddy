@@ -2,4 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="offClassReportMapper">
   
+  <insert id="reportClass" parameterType="OffClassReport">
+  	INSERT INTO CLASS_REPORT VALUES(SEQ_CLASSREPORT.NEXTVAL,#{reportContent},DEFAULT,#{memberNo},#{classNo})
+  </insert>
 </mapper>

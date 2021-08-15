@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.kh.bubby.offline.model.vo.OffClassReport;
 import edu.kh.bubby.offline.model.vo.OfflineClass;
 
 @Repository
@@ -52,6 +53,15 @@ public class ReserveDAO {
 	public int reserveInsert(OfflineClass offClass) {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("offlineMapper.reserveInsert",offClass);
+	}
+
+	/**클래스 신고
+	 * @param classReport
+	 * @return
+	 */
+	public int reportClass(OffClassReport classReport) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("offClassReportMapper.reportClass",classReport);
 	}
 
 }
