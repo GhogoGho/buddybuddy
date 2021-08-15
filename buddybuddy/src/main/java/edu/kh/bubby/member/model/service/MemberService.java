@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.bubby.member.model.vo.Member;
+import edu.kh.bubby.member.model.vo.Payment;
 import edu.kh.bubby.member.model.vo.Reply;
 import edu.kh.bubby.member.model.vo.Reserve;
 import edu.kh.bubby.member.model.vo.Review;
@@ -97,13 +98,25 @@ public interface MemberService {
 	 * @param pagination
 	 * @return pagination
 	 */
-	public abstract List<Online> onlineList(Pagination pagination);
+	public abstract List<Payment> onlineList(Pagination pagination);
 
 	/** 전체 내역 조회
 	 * @param pg
 	 * @return pagination
 	 */
 	public abstract Pagination getPagination(Pagination pg);
+	
+	/** 예약 전체 내역 조회
+	 * @param pg
+	 * @return pagination
+	 */
+	public abstract Pagination getPagination1(Pagination pg);
+	
+	/** 리뷰 전체 내역 조회
+	 * @param pg
+	 * @return pagination
+	 */
+	public abstract Pagination getPagination2(Pagination pg);
 
 	/** 예약 조회
 	 * @param pagination

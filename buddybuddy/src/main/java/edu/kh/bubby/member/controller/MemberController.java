@@ -29,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import edu.kh.bubby.member.model.service.KakaoAPI;
 import edu.kh.bubby.member.model.service.MemberService;
 import edu.kh.bubby.member.model.vo.Member;
+import edu.kh.bubby.member.model.vo.Payment;
 import edu.kh.bubby.member.model.vo.Reply;
 import edu.kh.bubby.member.model.vo.Reserve;
 import edu.kh.bubby.member.model.vo.Review;
@@ -160,10 +161,11 @@ public class MemberController {
 
 		pg.setClassType(classType);
 		pg.setCurrentPage(cp);
+		pg.setMemberNo(memberNo);
 		
 		System.out.println(pg);
 
-		List<Online> onlineList = null;
+		List<Payment> onlineList = null;
 		Pagination pagination = null;
 
 		pagination = service.getPagination(pg);
@@ -205,13 +207,14 @@ public class MemberController {
 
 		pg.setClassType(classType);
 		pg.setCurrentPage(cp);
+		pg.setMemberNo(memberNo);
 		
 		System.out.println("pg : " + pg);
 
 		List<Reserve> reserve = null;
 		Pagination pagination = null;
 
-		pagination = service.getPagination(pg);
+		pagination = service.getPagination1(pg);
 		pagination.setMemberNo(memberNo);
 
 		reserve = service.reserveList(pagination);
@@ -243,20 +246,20 @@ public class MemberController {
 		
 		System.out.println("pg : " + pg);
 
-		List<Reply> reply = null;
+		List<Review> review = null;
 		Pagination pagination = null;
 
-		pagination = service.getPagination(pg);
+		pagination = service.getPagination2(pg);
 		pagination.setMemberNo(memberNo);
 
-		reply = service.replyList(pagination);
+		review = service.reviewList(pagination);
 
-		model.addAttribute("reply", reply);
+		model.addAttribute("review", review);
 		model.addAttribute("pagination", pagination);
 		
-		System.out.println("reply : " + reply);
+		System.out.println("review : " + review);
 		
-		return "member/myPage/reply";
+		return "member/myPage/review";
 	}
 	
 //	마이페이지 화면 전환용 Controller
@@ -275,21 +278,22 @@ public class MemberController {
 
 		pg.setClassType(classType);
 		pg.setCurrentPage(cp);
+		pg.setMemberNo(memberNo);
 		
 		System.out.println("pg : " + pg);
 
-		List<Review> review = null;
+		List<Reply> reply = null;
 		Pagination pagination = null;
 
 		pagination = service.getPagination(pg);
 		pagination.setMemberNo(memberNo);
 
-		review = service.reviewList(pagination);
+		reply = service.replyList(pagination);
 
-		model.addAttribute("review", review);
+		model.addAttribute("reply", reply);
 		model.addAttribute("pagination", pagination);
 		
-		System.out.println("review : " + review);
+		System.out.println("reply : " + reply);
 		
 		return "member/myPage/reply";
 	}

@@ -398,17 +398,16 @@ a:hover {
 															<a href="#"
 																onclick="showSideView(this, 'H_U3MMf4xtc0', '\uAD7F\uBAA8\uB2CC'); return false;"
 																class="nicknm">${loginMember.memberNickname }</a> <span
-																id="comm" class="comment_date"> 21/08/12 </span>
+																id="comm" class="comment_date"> ${review.reviewDate} </span>
 
 														</div>
 
 													</span>
 													<div class="comment">
 														<span class="comment_contents"> <img src="">
-															<a href="#">댓글 내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용</a>
+															<a href="#">${review.reviewContent }</a>
 														</span> <br> <span class="p11"> <a href="#">댓글
-																제ㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔ목</a> <span class="txt_point">[30] -> 댓글
-																수 </span>
+																${review.reviewRatings}</a> 
 														</span>
 													</div>
 												</div>
@@ -424,7 +423,7 @@ a:hover {
 						</div>
 
 						<!-- 페이지네이션 -->
-						<c:set var="pageURL" value="list" />
+						<c:set var="pageURL" value="review" />
 
 						<c:set var="prev" value="${pageURL}?cp=${pagination.prevPage}" />
 						<c:set var="next" value="${pageURL}?cp=${pagination.nextPage}" />
