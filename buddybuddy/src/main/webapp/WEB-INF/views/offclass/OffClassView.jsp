@@ -11,8 +11,21 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
-
+	<!-- font-awesome -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+	integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <style>
+#online-like{
+ color: #dc3545; 
+ background: none;
+
+}
+</style>
+<style>
+
 .main-btn-color {
 	background-color: #50b8b3;
 }
@@ -481,11 +494,13 @@ th {
 						<div class="row">
 						<c:if test="${!empty loginMember}">
 							<div class="col-md-6 text-center">
-								<button type="button"
-									class="btn btn-primary btn-md btn-block main-btn-color">
-									찜하기</button>
+									 <button type="button" class="btn btn-light btn-sm" id="online-like-btn">
+                    <i class="fas fa-heart-broken" id="online-like"> 찜하기</i>
+                    <%-- <span id="online-like-count">${online.onlineLike }</span> --%>
+                  </button>
 							</div>
 							</c:if>
+							
 							<div class="col-md-6 text-center">
 
 
@@ -546,7 +561,7 @@ th {
 													</div>
 													</div> -->
 											
-													<script>
+													<!-- <script>
 														$(document).on("click",".reBtnInsert",function(){
 															console.log(${offList.classNo});
 															console.log(${loginMember.memberNo});
@@ -597,7 +612,8 @@ th {
 																				var rebtn =document.createElement("button");
 																				rebtn.innerHTML="예약";
 																				rebtn.setAttribute("type","button");
-																				rebtn.setAttribute("class","btn btn-primary reBtnInsert");
+																				rebtn.setAttribute("class","btn btn-primary reBtnInsert check_module");
+																			
 																		
 																				reDiv.appendChild(reinput);
 																				reDiv.appendChild(rebtn);
@@ -620,7 +636,7 @@ th {
 														
 														});
 														
-													</script>
+													</script> -->
 
 												</div>
 											</div>
@@ -755,7 +771,7 @@ th {
 									var rebtn =document.createElement("button");
 									rebtn.innerHTML="예약";
 									rebtn.setAttribute("type","button");
-									rebtn.setAttribute("class","btn btn-primary reBtnInsert");
+									rebtn.setAttribute("class","btn btn-primary reBtnInsert check_module");
 							
 									reDiv.appendChild(reinput);
 									reDiv.appendChild(rebtn);
@@ -783,7 +799,236 @@ th {
 			
 		});
 	</script>
+	<script>
+        $(document).on("click",".reBtnInsert",function () {
+       	var intNum=$(this).prev().val();
+       	var reserveStart = $(this).parent().children('#ajaxStart').text();
+       	var reserveEnd = $(this).parent().children('div').text();
+        var IMP = window.IMP; // 생략가능
+        IMP.init('imp57363476');
+        // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+        // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+        IMP.request_pay({
+        pg: 'html5_inicis', // version 1.1.0부터 지원.
+        /*
+        'kakao':카카오페이,
+        html5_inicis':이니시스(웹표준결제)
+        'nice':나이스페이
+        'jtnet':제이티넷
+        'uplus':LG유플러스
+        'danal':다날
+        'payco':페이코
+        'syrup':시럽페이
+        'paypal':페이팔
+        */
+        pay_method: 'card',
+        /*
+        'samsung':삼성페이,
+        'card':신용카드,
+        'trans':실시간계좌이체,
+        'vbank':가상계좌,
+        'phone':휴대폰소액결제
+        */
+        merchant_uid: 'merchant_' + new Date().getTime(),
+        /*
+        merchant_uid에 경우
+        https://docs.iamport.kr/implementation/payment
+        위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
+        참고하세요.
+        나중에 포스팅 해볼게요.
+        */
+        name: '${offList.classTitle}',
+        //결제창에서 보여질 이름
+        amount: ${offList.classPrice}*intNum,
+        //가격
+        buyer_email: '${loginMember.memberEmail}',
+        buyer_name: '${offList.memberNickName}',
+        buyer_tel: '010-1234-5678',
+        buyer_addr: '서울특별시 강남구 삼성동',
+        buyer_postcode: '123-456',
+        m_redirect_url: 'https://www.yourdomain.com/payments/complete'
+        /*
+        모바일 결제시,
+        결제가 끝나고 랜딩되는 URL을 지정
+        (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
+        */
+        }, function (rsp) {
+        console.log(rsp);
+        if (rsp.success) {
+        	$.ajax({
+				url : "${contextPath}/reserve/reserveInsert",
+				type : "POST",
+				data:{"classNo":${offList.classNo},
+					  "memberNo":${loginMember.memberNo},
+					  "reserveDate" : $("#ReserveViewDate").val(),
+					  "reserveStart": reserveStart,
+					  "reserveEnd":reserveEnd,
+					  "insertNum":intNum,
+					  "classPrice":${offList.classPrice}
+				      },
+				dataType:"JSON",
+				success : function(result){
+					console.log("삽입후반환값:"+result);
+					
+					if(result>0){
+						const thisDate =$("#ReserveViewDate").val();
 
+				$.ajax({
+					url : "${contextPath}/reserve/relist",
+					type : "POST",
+					data : {"classNo" : ${classNo},
+							"reserveDate":thisDate
+					},
+					dataType : "JSON",
+					success : function(reList){
+						console.log(reList);
+						document.getElementById("ReserveView").innerHTML="";
+						  $.each(reList, function(index, item){
+							  	max = ${offList.reserveLimit}-parseInt(item.count);
+								var reDiv =document.createElement("div");
+								reDiv.setAttribute("class","col-md-12");
+								reDiv.setAttribute("style","border:1px solid black");
+								reDiv.innerHTML="시작시간 <span id='ajaxStart'>"+item.reserveStart+"</span> ~ 종료시간 <div style='display:inline')>"+item.reserveEnd+"</div><br>현재 예약 인원수 : <span id='ajaxin'>"+item.count+"</span><br>";
+								var reDiv1 =document.createElement("div");
+								var reinput =document.createElement("input");
+								reinput.setAttribute("type","number");
+								reinput.setAttribute("style","width:50px");
+								reinput.setAttribute("max",max);
+								reinput.setAttribute("min","0");
+								var rebtn =document.createElement("button");
+								rebtn.innerHTML="예약";
+								rebtn.setAttribute("type","button");
+								rebtn.setAttribute("class","btn btn-primary reBtnInsert check_module");
+							
+						
+								reDiv.appendChild(reinput);
+								reDiv.appendChild(rebtn);
+								document.getElementById("ReserveView").appendChild(reDiv);
+						  });
+					
+					
+					},
+					error : function(){
+						console.log("예약 목록 조회 실패");
+					}
+				})
+					}
+				},
+				error : function(){
+					console.log("예약 실패");
+				}
+				
+			});
+        var msg = '결제가 완료되었습니다.';
+        msg += '결제 금액 : ' + rsp.paid_amount;
+        } else {
+        var msg = '결제에 실패하였습니다.';
+        msg += '에러내용 : ' + rsp.error_msg;
+        }
+        alert(msg);
+        });
+        });
+        </script>
+	
+	
+	
+	
+<script>
+						
+								
+							/* 찜하기 */
+						 	//var loginMemberNo = "${loginMember.memberNo}";
+							//var classNo = "${offList.classNo}";
+							/* let onlineLike = ${online.onlineLike}; */
+							
+							onlineLikeCheck(); // 찜하기 체크(페이지가 로드되면서 작동)
+							
+							/* 찜하기 체크 */
+							function onlineLikeCheck(){ 
+								
+								let flag = false;
+								$.ajax({
+									url : "${contextPath}/onLike/onlineLikeCheck",
+									data : {"classNo" : classNo},
+									type : "POST",
+									dataType : "JSON",
+									
+									success : function(mList){
+										$.each(mList, function(index, item){
+											
+											if(item.memberNo == loginMemberNo){
+												flag = true;
+											}
+										});
+										if(flag){
+											$("#online-like-btn").html("");
+											var i = $("<i>").addClass("fas fa-heartbeat").attr("id", "online-like").text(" 찜하기");
+											/* var span = $("<span>").attr("id", "online-like-count").text(onlineLike); */
+											
+											/* $("#online-like-btn").append(i).append(span); */
+											$("#online-like-btn").append(i);
+										}
+									},
+									error : function(e){
+										console.log(e);
+									}
+								});
+							}
+							
+							$("#online-like-btn").on("click", function(){
+								
+								//console.log("작동?");
+								
+								$.ajax({
+									url : "${contextPath}/onLike/onlineLike",
+									data : {"classNo" : classNo},
+									type : "POST",
+									success : function(onLike){
+									console.log(onLike); // 객체 값 확인용
+										if(onLike == ""){ // null 대신 빈문자열을 반환하므로
+											$("#online-like-btn").html("");
+											var i = $("<i>").addClass("fas fa-heartbeat").attr("id", "online-like").text(" 찜하기");
+											/* var span = $("<span>").attr("id", "online-like-count").text(onlineLike); */
+											
+											/* $("#online-like-btn").append(i).append(span); */
+											$("#online-like-btn").append(i);
+											
+										}else { 
+											$("#online-like-btn").html("");
+											var i = $("<i>").addClass("fas fa-heart-broken").attr("id", "online-like").text(" 찜하기");
+											/* var span = $("<span>").attr("id", "online-like-count").text(onlineLike); */
+											
+											/* $("#online-like-btn").append(i).append(span); */
+											$("#online-like-btn").append(i);
+										}
+										/* onlineLikeCount(); */ //찜하기 수 카운트용
+									},
+									error : function(e){
+										console.log(e);
+									}
+								});
+							});
+							
+							// 찜하기 수 카운트용
+							/*
+							function onlineLikeCount(){
+								
+								$.ajax({
+									url : "${contextPath}/onLike/onlineLikeCount",
+									data : {"classNo" : classNo},
+									type : "POST",
+									
+									success : function(result){
+										$("#online-like-count").text(result);
+									},
+									error : function(e){
+										console.log(e);
+									}
+								});
+							}
+							*/
+							
+							</script>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
