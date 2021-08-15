@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.bubby.member.model.service.KakaoAPI;
 import edu.kh.bubby.member.model.service.MemberService;
+import edu.kh.bubby.member.model.vo.Choice;
 import edu.kh.bubby.member.model.vo.Member;
 import edu.kh.bubby.member.model.vo.Payment;
 import edu.kh.bubby.member.model.vo.Reply;
@@ -181,14 +182,14 @@ public class MemberController {
 		return "member/myPage/joinClass";
 	}
 
-//	마이페이지 화면 전환용 Controller
+//	마이페이지 수강한 클래스 목록 화면 전환용 Controller
 	@RequestMapping(value = "myPage/joinClass", method = RequestMethod.GET)
 	public String joinOnline() {
 
 		return "member/myPage/joinClass";
 	}
 
-//	마이페이지 화면 전환용 Controller
+//	마이페이지 오프라인 예약 목록화면 전환용 Controller
 	@RequestMapping(value = "myPage/reserveOffline", method = RequestMethod.GET)
 	public String reserveOffline() {
 
@@ -225,7 +226,7 @@ public class MemberController {
 		return "member/myPage/reserveOffline";
 	}
 
-//	마이페이지 화면 전환용 Controller
+//	마이페이지 리뷰 목록 화면 전환용 Controller
 	@RequestMapping(value = "myPage/review", method = RequestMethod.GET)
 	public String review() {
 
@@ -260,7 +261,7 @@ public class MemberController {
 		return "member/myPage/review";
 	}
 
-//	마이페이지 화면 전환용 Controller
+//	마이페이지 후기 목록 화면 전환용 Controller
 	@RequestMapping(value = "myPage/reply", method = RequestMethod.GET)
 	public String reply() {
 
@@ -295,6 +296,44 @@ public class MemberController {
 
 		return "member/myPage/reply";
 	}
+	
+//	마이페이지 찜하기 목록 화면 전환용 Controller
+	@RequestMapping(value = "myPage/choice", method = RequestMethod.GET)
+	public String choice() {
+
+		return "member/myPage/choice";
+	}
+	
+//	마이페이지 (작성한 후기 내역) 조회용 Controller
+	@RequestMapping(value = "myPage/{classType}/choice", method = RequestMethod.GET)
+	public String choice(@ModelAttribute("loginMember") Member loginMember, @PathVariable("classType") int classType,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model, Pagination pg) {
+
+		int memberNo = loginMember.getMemberNo();
+
+		pg.setClassType(classType);
+		pg.setCurrentPage(cp);
+		pg.setMemberNo(memberNo);
+
+		System.out.println("pg : " + pg);
+
+		List<Choice> choice = null;
+		Pagination pagination = null;
+
+		pagination = service.getPagination4(pg);
+		pagination.setMemberNo(memberNo);
+
+		choice = service.choiceList(pagination);
+
+		model.addAttribute("choice", choice);
+		model.addAttribute("pagination", pagination);
+
+		System.out.println("choice : " + choice);
+
+		return "member/myPage/choice";
+	}
+	
+	
 
 
 //	info 화면 전환용 Controller

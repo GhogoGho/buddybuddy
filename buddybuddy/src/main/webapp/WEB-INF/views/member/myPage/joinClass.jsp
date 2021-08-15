@@ -359,7 +359,7 @@ a:hover {
 						<hr>
 						<ul class="mymenu">
 							<p>관심리스트</p>
-							<li><a href="#">찜 목록</a></li>
+							<li><a href="${contextPath}/member/myPage/1/choice">찜 목록</a></li>
 							<li><a href="#">QnA 목록</a></li>
 						</ul>
 
