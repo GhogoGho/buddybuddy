@@ -81,7 +81,6 @@
 
 </style>
 
-		<!-- <section class="slider-section"> -->
 		<div class="container">
 			<!-- 온라인 메인 이미지 -->
 			<div class="row justify-content-center">
@@ -94,41 +93,38 @@
 				<a href="${contextPath}/creater/2/main">크리에이터 페이지 클래스 타입 2로 연결</a>
 			</div>
 			<!-- 카테고리 -->
-			<div class="columns my-5">
+			<!-- <div class="columns my-5">
 				<div class="column">
-					<!-- <div class="online-category col-md-2 col-md-offset-1 rounded-circle"></div> -->
+					<div class="online-category col-md-2 col-md-offset-1 rounded-circle"></div>
 					<figure class="image is-square">
 						<img class="is-rounded" src="https://images.unsplash.com/photo-1622076360264-6bf78ea413df?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzB8fGhhbmRjcmFmdHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
 						<h6 class="title is-4">공예</h6>
 					</figure>
 				</div>
 				<div class="column">
-					<!-- <div class="online-category col-md-2 col-md-offset-1 rounded-1"></div> -->
+					<div class="online-category col-md-2 col-md-offset-1 rounded-1"></div>
 					<figure class="image is-square">
 						<img src="https://images.unsplash.com/photo-1606017120350-8e283700004e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nzd8fGFydHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
 						<h6 class="title is-4">미술</h6>
 					</figure>
 				</div>
 				<div class="column">
-					<!-- <div class="online-category col-md-2 col-md-offset-1 rounded-1"></div> -->
+					<div class="online-category col-md-2 col-md-offset-1 rounded-1"></div>
 					<figure class="image is-square">
 						<img src="https://images.unsplash.com/photo-1616169776580-c86189ee67b8?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGNvb2t8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
 						<h6 class="title is-4">요리</h6>
 					</figure>
 				</div>
 				<div class="column">
-					<!-- <div class="online-category col-md-2 col-md-offset-1 rounded-circle"></div> -->
+					<div class="online-category col-md-2 col-md-offset-1 rounded-circle"></div>
 					<figure class="image is-square">
 						<img class="is-rounded" src="https://images.unsplash.com/photo-1572495754162-78a92305ea6a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDJ8fGZsb3dlcnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
 						<h6 class="title is-4">플라워</h6>
 					</figure>
 				</div>
-			</div>
+			</div> -->
 
-		<!-- </div> -->
-		<!-- </section> -->
 		<!-- 클래스 부분 -->
-		<!-- <div class="container"> -->
 			<div class="row">
 				<div class="col-md-10">
 					<h1 class="h3 mb-3">${pagination.className} 클래스</h1>
@@ -199,8 +195,8 @@
 											<h5 class="card-title">${online.classTitle }</h5>
 										</a>
 									</div>
-									<div class="card-footer star-rating">
-										<!-- Product reviews-->
+									<!-- <div class="card-footer star-rating">
+										Product reviews
 										<div class="d-flex justify-content-center large text-danger my-1 stars">
 											<i class="far fa-star"></i>
 											<i class="far fa-star"></i>
@@ -208,7 +204,7 @@
 											<i class="far fa-star"></i>
 											<i class="far fa-star"></i>
 										</div>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</c:forEach>
@@ -312,14 +308,16 @@
 				</form>
 
 			</div>
-		
-		<div class="row">
+		<!-- <div class="row">
 			<button class="button is-large is-fullwidth is-primary is-light is-rounded"><a href="insert">클래스 작성</a></button>
-		</div>
-		
+		</div> -->
+		<c:if test="${loginMember.memberGrade == 'C' }">
 		<div class="row">
-			<button class="button is-large is-fullwidth is-success is-light is-rounded"><a href="write">썸머노트 작성</a></button>
+			<button class="button is-large is-fullwidth is-success is-light is-rounded">
+				<a href="write">클래스 작성</a>
+			</button>
 		</div>
+		</c:if>
 		
 		</div>
 

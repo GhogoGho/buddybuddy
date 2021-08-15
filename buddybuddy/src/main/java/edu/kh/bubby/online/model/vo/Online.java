@@ -18,6 +18,9 @@ public class Online {
 	private String categoryName;
 	private int onlineLike;
 	
+	private String fileTitle; // 동영상 제목
+	private String fileContent; // 동영상 내용 설명
+	
 	public Online() {}
 
 	public int getClassNo() {
@@ -116,13 +119,31 @@ public class Online {
 		this.onlineLike = onlineLike;
 	}
 
+	public String getFileTitle() {
+		return fileTitle;
+	}
+
+	public void setFileTitle(String fileTitle) {
+		this.fileTitle = fileTitle;
+	}
+
+	public String getFileContent() {
+		return fileContent;
+	}
+
+	public void setFileContent(String fileContent) {
+		this.fileContent = fileContent;
+	}
+
 	@Override
 	public String toString() {
 		return "Online [classNo=" + classNo + ", classTitle=" + classTitle + ", classContent=" + classContent
 				+ ", classCreateDate=" + classCreateDate + ", classReadCount=" + classReadCount + ", memberNo="
 				+ memberNo + ", memberNickName=" + memberNickName + ", atList=" + atList + ", classType=" + classType
-				+ ", categoryNo=" + categoryNo + ", categoryName=" + categoryName + ", onlineLike=" + onlineLike + "]";
+				+ ", categoryNo=" + categoryNo + ", categoryName=" + categoryName + ", onlineLike=" + onlineLike
+				+ ", fileTitle=" + fileTitle + ", fileContent=" + fileContent + "]";
 	}
+
 
 	
 }
