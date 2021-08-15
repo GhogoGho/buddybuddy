@@ -117,6 +117,12 @@ public interface MemberService {
 	 * @return pagination
 	 */
 	public abstract Pagination getPagination2(Pagination pg);
+	
+	/** 리뷰 전체 내역 조회
+	 * @param pg
+	 * @return pagination
+	 */
+	public abstract Pagination getPagination3(Pagination pg);
 
 	/** 예약 조회
 	 * @param pagination

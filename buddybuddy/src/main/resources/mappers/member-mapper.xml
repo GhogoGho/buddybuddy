@@ -83,6 +83,7 @@
 		<result property="nestedReply" column="NESTED_REPLY" />
 		<result property="classNo" column="CLASS_NO" />
 		<result property="memberNo" column="MEMBER_NO" />
+		<result property="classTitle" column="CLASS_TITLE" />
 
 	</resultMap>
 
@@ -292,7 +293,17 @@
 		AND B.REVIEW_STATUS = 'Y'
 
 	</select>
+	
+	<!-- 후기용 전체 조회 -->
+	<select id="getListCount3" parameterType="_int"
+		resultMap="pg_rm">
+		SELECT COUNT(*) CNT
+		FROM CLASS_LIST A
+		JOIN REPLY B ON(A.CLASS_NO = B.CLASS_NO)
+		WHERE B.MEMBER_NO = #{memberNo}
+		AND B.REPLY_STATUS = 'Y'
 
+	</select>
 
 	<!-- 오프라인 예약 클래스 전체 조회 -->
 	<select id="selectReserveList" parameterType="_int"
@@ -321,12 +332,14 @@
 	<!-- 후기 조회 -->
 	<select id="selectReplyList" parameterType="_int"
 		resultMap="reply_rm">
-		SELECT * FROM REPLY
-		WHERE REPLY_STATUS = 'Y'
-		AND MEMBER_NO =
-		#{memberNo}
-		ORDER BY REPLY_DT DESC
+		SELECT A.REPLY_STATUS, A.REPLY_NO,
+		A.CLASS_NO, A.MEMBER_NO, B.CLASS_TITLE, A.REPLY_DT
+		FROM REPLY A
+		JOIN CLASS_PAGE B ON(A.CLASS_NO = B.CLASS_NO)
+		WHERE A.REPLY_STATUS ='Y'
+		AND A.MEMBER_NO = #{memberNo}
+		ORDER BY A.CLASS_NO DESC
 
 	</select>
-
+	
 </mapper>

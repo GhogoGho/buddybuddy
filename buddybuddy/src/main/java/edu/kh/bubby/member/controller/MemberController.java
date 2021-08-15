@@ -285,7 +285,7 @@ public class MemberController {
 		List<Reply> reply = null;
 		Pagination pagination = null;
 
-		pagination = service.getPagination(pg);
+		pagination = service.getPagination3(pg);
 		pagination.setMemberNo(memberNo);
 
 		reply = service.replyList(pagination);

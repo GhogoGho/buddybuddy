@@ -11,6 +11,8 @@ public class Reply {
 	private int classNo;
 	private int memberNo;
 	
+	private String classTitle;
+	
 	
 	public int getReplyNo() {
 		return replyNo;
@@ -51,11 +53,21 @@ public class Reply {
 	
 	
 	
+	public String getClassTitle() {
+		return classTitle;
+	}
+	public void setClassTitle(String classTitle) {
+		this.classTitle = classTitle;
+	}
 	@Override
 	public String toString() {
 		return "Reply [replyNo=" + replyNo + ", replyContent=" + replyContent + ", replyDate=" + replyDate
-				+ ", nestedReply=" + nestedReply + ", classNo=" + classNo + ", memberNo=" + memberNo + "]";
+				+ ", nestedReply=" + nestedReply + ", classNo=" + classNo + ", memberNo=" + memberNo + ", classTitle="
+				+ classTitle + "]";
 	}
+	
+	
+	
 	
 	
 	

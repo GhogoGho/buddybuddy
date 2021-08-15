@@ -285,6 +285,16 @@ public class MemberServiceImpl implements MemberService {
 		return selectPg;
 
 	}
+	
+	// 전체 후기 내역 조회
+		@Override
+		public Pagination getPagination3(Pagination pg) {
+
+			Pagination selectPg = dao.getListCount3(pg.getMemberNo());
+
+			return selectPg;
+
+		}
 
 //	예약 내역 조회 Service
 	@Override

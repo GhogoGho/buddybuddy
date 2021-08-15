@@ -398,17 +398,16 @@ a:hover {
 															<a href="#"
 																onclick="showSideView(this, 'H_U3MMf4xtc0', '\uAD7F\uBAA8\uB2CC'); return false;"
 																class="nicknm">${loginMember.memberNickname }</a> <span
-																id="comm" class="comment_date"> 21/08/12 </span>
+																id="comm" class="comment_date"> ${reply.replyDate} </span>
 
 														</div>
 
 													</span>
 													<div class="comment">
 														<span class="comment_contents"> <img src="">
-															<a href="#">댓글 내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용</a>
-														</span> <br> <span class="p11"> <a href="#">댓글
-																제ㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔ목</a> <span class="txt_point">[30] -> 댓글
-																수 </span>
+															<a href="#">${reply.replyContent}</a>
+														</span> <br> <span class="p11"> <a href="#">
+														${reply.classTitle}</a> 
 														</span>
 													</div>
 												</div>
