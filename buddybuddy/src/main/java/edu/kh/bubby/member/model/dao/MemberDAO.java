@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.kh.bubby.member.model.vo.Choice;
 import edu.kh.bubby.member.model.vo.Member;
 import edu.kh.bubby.member.model.vo.Payment;
 import edu.kh.bubby.member.model.vo.Reply;
@@ -255,6 +256,30 @@ public class MemberDAO {
 	public int noReserve(int reserveNo) {
 		
 		return sqlSession.update("memberMapper.updateReserve", reserveNo);
+	}
+
+
+	/** 전체 목록 조회 
+	 * @param memberNo
+	 * @return
+	 */
+	public Pagination getListCount4(int memberNo) {
+		
+		return sqlSession.selectOne("memberMapper.getListCount4", memberNo);
+	}
+
+
+	/** 찜하기 목록만 조회
+	 * @param pagination
+	 * @return
+	 */
+	public List<Choice> choiceList(Pagination pagination) {
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		return sqlSession.selectList("memberMapper.selectChoiceList", pagination, rowBounds);
 	}
 
 

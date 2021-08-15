@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.kh.bubby.member.model.vo.Choice;
 import edu.kh.bubby.member.model.vo.Member;
 import edu.kh.bubby.member.model.vo.Payment;
 import edu.kh.bubby.member.model.vo.Reply;
@@ -147,6 +148,18 @@ public interface MemberService {
 	 * @return result
 	 */
 	public abstract int noReserve(int reserveNo);
+
+	/** 찜하기 목록 조회 Service
+	 * @param pg
+	 * @return
+	 */
+	public abstract Pagination getPagination4(Pagination pg);
+
+	/** 찜하기
+	 * @param pagination
+	 * @return
+	 */
+	public abstract List<Choice> choiceList(Pagination pagination);
 
 
 

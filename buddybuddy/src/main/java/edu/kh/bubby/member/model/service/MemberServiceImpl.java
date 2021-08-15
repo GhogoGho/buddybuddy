@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.bubby.member.exception.SaveFileException;
 import edu.kh.bubby.member.model.dao.MemberDAO;
+import edu.kh.bubby.member.model.vo.Choice;
 import edu.kh.bubby.member.model.vo.Member;
 import edu.kh.bubby.member.model.vo.Payment;
 import edu.kh.bubby.member.model.vo.Reply;
@@ -285,16 +286,16 @@ public class MemberServiceImpl implements MemberService {
 		return selectPg;
 
 	}
-	
+
 	// 전체 후기 내역 조회
-		@Override
-		public Pagination getPagination3(Pagination pg) {
+	@Override
+	public Pagination getPagination3(Pagination pg) {
 
-			Pagination selectPg = dao.getListCount3(pg.getMemberNo());
+		Pagination selectPg = dao.getListCount3(pg.getMemberNo());
 
-			return selectPg;
+		return selectPg;
 
-		}
+	}
 
 //	예약 내역 조회 Service
 	@Override
@@ -316,13 +317,29 @@ public class MemberServiceImpl implements MemberService {
 
 		return dao.selectReplyList(pagination);
 	}
-	
+
 //	예약 취소 Service
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int noReserve(int reserveNo) {
-		
+
 		return dao.noReserve(reserveNo);
+	}
+
+//	찜하기 내역 조회
+	@Override
+	public Pagination getPagination4(Pagination pg) {
+
+		Pagination selectPg = dao.getListCount4(pg.getMemberNo());
+
+		return selectPg;
+
+	}
+
+	@Override
+	public List<Choice> choiceList(Pagination pagination) {
+		
+		return dao.choiceList(pagination);
 	}
 	
 	
