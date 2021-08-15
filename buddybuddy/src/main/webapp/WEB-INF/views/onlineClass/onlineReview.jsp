@@ -19,6 +19,10 @@
 		.member-image {
 		width:30px;
 		}
+		
+		.editPrint{
+		display:none;
+		}
 </style>
 
 
@@ -180,7 +184,7 @@
 	<div class="input-group my-2" id="reviewContentArea">
 		<div class="col-md-12">
 		<!-- 후기 사진 첨부 -->
-			<input type="file" name="reviewImgs" id="reviewImg" accept="image/*" multiple>
+			<input type="file" name="reviewImgs" id="addReviewImg" accept="image/*" multiple>
 			<textarea class="form-control" id="reviewContent" rows="3"></textarea>
 		</div>
 		<!-- 별점 -->
@@ -198,8 +202,8 @@
 		<!-- 별점 숫자로 출력하는 부분(값을 가져가기 위해)
 				다른 방법으로는 input이 있음 val()로 가져감
 		 -->
-		<!-- <div class="print" style="display:none"></div> -->
-		<div class="print"></div>
+		<div class="print" style="display:none"></div>
+		<!-- <div class="print"></div> -->
 		
 		<button class="button is-success is-outlined is-large is-fullwidth" id="addReview" onclick="addReview();">
 		<span class="icon is-small">
@@ -210,7 +214,7 @@
 	</div>
 </div>
 <!-- 이미지 불러오기 (자바스크립트에서 변수 사용을 위해 필요) 변수 미사용으로 필요 없어짐-->
-<c:forEach items="${review.atList}" var="at">
+<%-- <c:forEach items="${review.atList}" var="at">
 	<c:choose>
 		<c:when test="${at.fileLevel == 0 && !empty at.fileName}">
 			<c:set var="img0" value="${contextPath}/${at.filePath}${at.fileName}"/>
@@ -225,8 +229,7 @@
 			<c:set var="img3" value="${contextPath}/${at.filePath}${at.fileName}"/>
 		</c:when>
 	</c:choose>
-</c:forEach>
-
+</c:forEach> --%>
 <script>
 
 /* 
@@ -312,11 +315,12 @@ const classNo = ${online.classNo}; */
 //수강후기 등록
 function addReview() {
 	const reviewContent = $("#reviewContent").val();
-	/* const reviewImg = $("#reviewImg").val(); */
-	const reviewImgs = $("input[name='reviewImgs']").get(0).files[0];
+	/* const reviewImg = $("#reviewImg").val();  */ 
+	/* const reviewImgs = $("input[name='reviewImgs']").get(0).files[0]; */ // 수강후기에 목록이 생길경우 수정창에 같은 input이 존재하므로 오작동 함
+	const reviewImgs = $("#addReviewImg").get(0).files[0];
 	const reviewRatings = $('.print').text();
 	console.log(reviewRatings);
-	
+	console.log(reviewImgs);
 	var formData = new FormData();
 	formData.append("memberNo", loginMemberNo);
 	formData.append("classNo", classNo);
@@ -344,7 +348,7 @@ function addReview() {
            if(result > 0){ 
 						swal({"icon" : "success" , "title" : "수강후기 등록 성공"});
 						$("#reviewContent").val(""); // 삽입 후 비우기
-						$("#reviewImg").text(""); // 업로드 후 파일 지우기
+						$("#reviewImg").val(""); // 업로드 후 파일 지우기
 						$(".print").text(""); // 별점 값 지우기
 						$("#addStars").html(""); // 지우고 다시 생성
 						var addFar1 = $("<i>").addClass("far fa-star");

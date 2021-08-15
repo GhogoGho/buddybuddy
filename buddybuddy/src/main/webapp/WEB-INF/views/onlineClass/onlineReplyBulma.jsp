@@ -23,7 +23,7 @@
 		list-style-type: none;
 	}
 </style>
-<button onclick="selectReplyList()">목록갱신</button>
+<!-- <button onclick="selectReplyList()">목록갱신</button> -->
 
 <!-- 댓글1 -->
 <div id="replyListArea">
@@ -67,7 +67,7 @@
 	    	<button class="button is-primary is-fullwidth" onclick="updateReply(${reply.replyNo}, this)">수정</button>
 	    </div>
 	    <!-- 대댓글 작성 -->
-	    <c:if test="${reply.nestedReply == null }">
+	    <c:if test="${reply.nestedReply == null && loginMember.memberNo == online.memberNo }">
 	    <button class="button is-dark showAddComment">답글 작성</button>
 	    </c:if>
 	    <div id="addCommentArea" class="addCommentArea">
@@ -85,7 +85,7 @@
 	      <div class="media-content">
 	        <div class="content">
 	          <p>
-	            <strong>클래스장</strong>
+	            <strong>크리에이터 답변</strong>
 	            <br>
 	            <div id="notice-con">
 	            	${reply.nestedReply }
@@ -126,7 +126,7 @@
 <article class="media">
   <figure class="media-left">
     <p class="image is-64x64">
-      <img src="https://bulma.io/images/placeholders/128x128.png">
+      <img src="https://cdn.pixabay.com/photo/2017/09/10/18/25/question-2736480__340.jpg">
     </p>
   </figure>
   <div class="media-content">
@@ -142,8 +142,6 @@
     </div>
   </div>
 </article>
-${online.memberNo}
-${loginMember.memberNo}
 <script>
 
 const onlineMemberNickName = "${online.memberNickName}"; // ""null 값 대비를 위해 꼭...
@@ -242,7 +240,7 @@ function selectReplyList(){
 				editReplyArea.append(editReplyCon).append(editReplyBtn);
 				
 				// 대댓글 작성창
-				if(item.nestedReply == null){
+				if(item.nestedReply == null && onlineMemberNo == loginMemberNo){
 					var addToggleBtn = $("<button>").addClass("button is-dark showAddComment").text("답글 작성");
 				}
 				var addCommentArea = $("<div>").attr("id", "addCommentArea").addClass("addCommentArea");

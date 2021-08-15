@@ -86,7 +86,14 @@
         <div class="col-md-5 sticky-md-top">
           <div class="card border-dark mb-3" id="payment-class" style="max-width: 30rem; height: 25rem;">
             <div class="card-header bg-transparent border-dark">
-              <img src="https://via.placeholder.com/150" width="30" height="30" class="rounded-1 float-start me-2">
+            <c:choose>
+            	<c:when test="${!empty online.memberProfile }">
+              <img src="${online.memberProfile }" width="30" height="30" class="rounded-1 float-start me-2">
+            	</c:when>
+            	<c:otherwise>
+              <img src="${contextPath}/resources/images/noimage.png" width="30" height="30" class="rounded-1 float-start me-2">
+            	</c:otherwise>
+            </c:choose>
               <%-- <a href="${contextPath}/class/1/${online.memberNo}/individualList" style="text-decoration: none;">${online.memberNickName}</a> --%>
               <a href="${contextPath}/class/1/${online.memberNo}/individualList" style="text-decoration: none; pointer-events: none;">${online.memberNickName}</a>
             </div>
@@ -106,12 +113,10 @@
               <table class="table table-striped text-center">
                 <tr>
                   <td>수강 시작일</td>
-                  <td>난이도</td>
                   <td>준비물</td>
                 </tr>
                 <tr>
                   <td>신청 즉시</td>
-                  <td>쉬움</td>
                   <td>있음</td>
                 </tr>
               </table>
@@ -169,31 +174,48 @@
         </div>
         <div class="row mt-6">
           <div class="col-md-7">
-            <table class="table table-success table-striped">
+            <table class="table table-light table-striped">
               <thead>
                 <tr>
-                  <th scope="col"></th>
-                  <th scope="col">클래스 영상 시청 전</th>
-                  <th scope="col">클래스 영상 시청 후</th>
+                  <th scope="col">환불 기간</th>
+                  <th scope="col">환불 금액</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td scope="row">클래스 신청 후, 7일 이내</td>
-                  <td>전액 환불</td>
-                  <td>사용일수에 따른.....어쩌구</td>
+                  <td scope="row">클래스 5일 전 취소 시</td>
+                  <td>100% 환불</td>
                 </tr>
                 <tr>
-                  <td scope="row">클래스 신청 후, 7일 이후</td>
-                  <td>이용권 판매금액에서 10% 수수료 차감 후,</td>
+                  <td scope="row">클래스 4일 전 취소 시</td>
+                  <td>클래스 금액의 5% 차감 후 환불</td>
+                </tr>
+                <tr>
+                  <td scope="row">클래스 3일 전 취소 시</td>
+                  <td>클래스 금액의 10% 차감 후 환불</td>
+                </tr>
+                <tr>
+                  <td scope="row">클래스 2일 전 취소 시</td>
+                  <td>클래스 금액의 20% 차감 후 환불</td>
+                </tr>
+                <tr>
+                  <td scope="row">클래스 1일 전 취소 시</td>
+                  <td>클래스 금액의 30% 차감 후 환불</td>
+                </tr>
+                <tr>
+                  <td scope="row">클래스 당일 취소나 불참 시</td>
                   <td>환불 불가</td>
+                </tr>
+                <tr>
+                  <td scope="row">예약 당일 밤 12시 이전 취소 시</td>
+                  <td>100% 환불</td>
                 </tr>
               </tbody>
             </table>
             <p>단, 이런저런 경우 환불이 불가능합니다...</p>
             <c:if test="${online.memberNo == sessionScope.loginMember.memberNo}">
             <!-- <button id="updateBtn" class="button is-large is-fullwidth is-link is-rounded" onclick="fnRequest('updateForm');">수정</button> -->
-            <button id="updateBtn" class="button is-large is-fullwidth is-link is-rounded" onclick="fnRequest('updateSF');">썸머노트수정</button>
+            <button id="updateBtn" class="button is-large is-fullwidth is-link is-rounded" onclick="fnRequest('updateSF');">클래스 수정</button>
             <button id="deleteBtn" class="button is-large is-fullwidth is-dark is-rounded" onclick="fnRequest('delete');">삭제</button>
             </c:if>
           </div>
