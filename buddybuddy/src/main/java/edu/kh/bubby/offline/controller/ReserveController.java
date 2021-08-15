@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import edu.kh.bubby.offline.model.service.ReserveService;
+import edu.kh.bubby.offline.model.vo.OffClassReport;
 import edu.kh.bubby.offline.model.vo.OfflineClass;
 
 @RestController
@@ -92,10 +93,11 @@ public class ReserveController {
 	
 	//클래스 신고
 	@RequestMapping(value="sinClass",method = RequestMethod.POST)
-	public int reportClass(){
-		//int result =service.reportClass();
+	public int reportClass(OffClassReport classReport){
+		System.out.println(classReport);
+		int result =service.reportClass(classReport);
 		
-		return 0;
+		return result;
 	}
 	
 	

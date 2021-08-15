@@ -2,6 +2,7 @@ package edu.kh.bubby.offline.model.service;
 
 import java.util.List;
 
+import edu.kh.bubby.offline.model.vo.OffClassReport;
 import edu.kh.bubby.offline.model.vo.OfflineClass;
 
 public interface ReserveService {
@@ -24,5 +25,11 @@ public interface ReserveService {
 	 * @return
 	 */
 	int reserveInsert(OfflineClass offClass, int insertNum);
+
+	/**클래스 신고
+	 * @param classReport
+	 * @return
+	 */
+	int reportClass(OffClassReport classReport);
 
 }
