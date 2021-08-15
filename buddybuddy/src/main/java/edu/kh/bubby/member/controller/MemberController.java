@@ -29,7 +29,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import edu.kh.bubby.member.model.service.KakaoAPI;
 import edu.kh.bubby.member.model.service.MemberService;
 import edu.kh.bubby.member.model.vo.Member;
+import edu.kh.bubby.member.model.vo.Reply;
 import edu.kh.bubby.member.model.vo.Reserve;
+import edu.kh.bubby.member.model.vo.Review;
 import edu.kh.bubby.offline.model.vo.OfflineClass;
 import edu.kh.bubby.online.model.vo.Online;
 import edu.kh.bubby.online.model.vo.Pagination;
@@ -228,6 +230,71 @@ public class MemberController {
 
 		return "member/myPage/review";
 	}
+	
+//	마이페이지 (작성한 리뷰 내역) 조회용 Controller
+	@RequestMapping(value="myPage/{classType}/review", method = RequestMethod.GET)
+	public String review(@ModelAttribute("loginMember") Member loginMember, @PathVariable("classType") int classType,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model, Pagination pg) {
+		
+		int memberNo = loginMember.getMemberNo();
+
+		pg.setClassType(classType);
+		pg.setCurrentPage(cp);
+		
+		System.out.println("pg : " + pg);
+
+		List<Reply> reply = null;
+		Pagination pagination = null;
+
+		pagination = service.getPagination(pg);
+		pagination.setMemberNo(memberNo);
+
+		reply = service.replyList(pagination);
+
+		model.addAttribute("reply", reply);
+		model.addAttribute("pagination", pagination);
+		
+		System.out.println("reply : " + reply);
+		
+		return "member/myPage/reply";
+	}
+	
+//	마이페이지 화면 전환용 Controller
+	@RequestMapping(value = "myPage/reply", method = RequestMethod.GET)
+	public String reply() {
+
+		return "member/myPage/reply";
+	}
+	
+//	마이페이지 (작성한 후기 내역) 조회용 Controller
+	@RequestMapping(value="myPage/{classType}/reply", method = RequestMethod.GET)
+	public String reply(@ModelAttribute("loginMember") Member loginMember, @PathVariable("classType") int classType,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, Model model, Pagination pg) {
+		
+		int memberNo = loginMember.getMemberNo();
+
+		pg.setClassType(classType);
+		pg.setCurrentPage(cp);
+		
+		System.out.println("pg : " + pg);
+
+		List<Review> review = null;
+		Pagination pagination = null;
+
+		pagination = service.getPagination(pg);
+		pagination.setMemberNo(memberNo);
+
+		review = service.reviewList(pagination);
+
+		model.addAttribute("review", review);
+		model.addAttribute("pagination", pagination);
+		
+		System.out.println("review : " + review);
+		
+		return "member/myPage/reply";
+	}
+	
+	
 
 //	info 화면 전환용 Controller
 	@RequestMapping(value = "info", method = RequestMethod.GET)

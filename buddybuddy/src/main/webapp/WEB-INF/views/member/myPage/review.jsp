@@ -43,8 +43,8 @@ ul.navbar-nav li a {
 	display: block;
 	width: 100%;
 	padding: 20px 0;
-	position: relative;a
-	background: #fff;
+	position: relative;
+	a background: #fff;
 }
 
 .header-section .navbar .navbar-brand {
@@ -208,26 +208,45 @@ a:hover {
 	border-right: 1px black;
 	height: 500px;
 }
+.img {
+	margin-top: 150px;
+}
+
+.img p {
+	font-weight: bolder;
+	font-size: 30px;
+	margin-top: 40px;
+}
+
+.img .img-btn {
+	width: 300px;
+	height: 45px;
+	border-color: #50b8b3;
+	background-color: #50b8b3;
+	border-radius: 2px;
+	border: none;
+	margin-left: 38%;
+	margin-top: 20px;
+}
 
 /* 마이페이지 본문 */
 .comment_container {
-            margin-top: 30px;
-            border-bottom : 1px solid #ddd;
-        }
+	margin-top: 30px;
+	border-bottom: 1px solid #ddd;
+}
 
-        .mem_nick {
-            font-size: 18px;
-            font-weight: bold;
+.mem_nick {
+	font-size: 18px;
+	font-weight: bold;
+}
 
-        }
+.mem_nick a {
+	color: #50b8b3;
+}
 
-        .mem_nick a {
-            color: #50b8b3;
-        }
-
-        .comment {
-            margin-left: 20px;
-        }
+.comment {
+	margin-left: 20px;
+}
 
 /* FOOTER */
 .footer {
@@ -291,45 +310,48 @@ a:hover {
 
 	<!-- 마이페이지 컨테이너 부분 -->
 	<section class="mypage-section">
-	
-		<div class="row">
-			<!-- 마이페이지 회원 정보-->
+		<form action="${contextPath}/member/myPage/review" method="POST">
 			<div class="row">
-				<div class="avatar"></div>
-				<p class="nick-nm text-center">${loginMember.memberNickname }</p>
-				<p class="mem-grade text-center">일반 회원</p>
-			</div>
-
-			<div class="row">
-				<!-- 마이페이지 사이드바 -->
-				<div class="side col-sm-2">
-					<div class="mypage-menu">
-						<ul class="mymenu">
-							<p>클래스</p>
-							<li><a href="${contextPath}/member/myPage/joinClass">클래스 수강내역</a></li>
-							
-							<li><a href="${contextPath}/member/myPage/reserveOffline">오프라인 클래스예약 내역</a></li>
-						</ul>
-						<hr>
-						<ul class="mymenu">
-							<p>구매 후기</p>
-							<li><a href="#">내가 쓴 리뷰</a></li>
-							<li><a href="#">내가 쓴 후기</a></li>
-						</ul>
-						<hr>
-						<ul class="mymenu">
-							<p>관심리스트</p>
-							<li><a href="#">찜 목록</a></li>
-							<li><a href="#">QnA 목록</a></li>
-						</ul>
-
-					</div>
+				<!-- 마이페이지 회원 정보-->
+				<div class="row">
+					<div class="avatar"></div>
+					<p class="nick-nm text-center">${loginMember.memberNickname }</p>
+					<p class="mem-grade text-center">일반 회원</p>
 				</div>
 
+				<div class="row">
+					<!-- 마이페이지 사이드바 -->
+					<div class="side col-sm-2">
+						<div class="mypage-menu">
+							<ul class="mymenu">
+								<p>클래스</p>
+								<li><a href="${contextPath}/member/myPage/1/joinClass">클래스
+										수강내역</a></li>
 
-				<!-- 마이페이지 본문 버튼-->
-				<div class="col-sm-9">
-					<div class="row">
+
+								<li><a href="${contextPath}/member/myPage/1/reserveOffline">오프라인
+										클래스예약 내역</a></li>
+							</ul>
+							<hr>
+							<ul class="mymenu">
+								<p>구매 후기</p>
+								<li><a href="${contextPath}/member/myPage/1/review">내가 쓴 리뷰</a></li>
+								<li><a href="${contextPath}/member/myPage/1/reply">내가 쓴 후기</a></li>
+							</ul>
+							<hr>
+							<ul class="mymenu">
+								<p>관심리스트</p>
+								<li><a href="#">찜 목록</a></li>
+								<li><a href="#">QnA 목록</a></li>
+							</ul>
+
+						</div>
+					</div>
+
+
+					<!-- 마이페이지 본문 버튼-->
+					<div class="col-sm-9">
+						<div class="row">
 							<div class="nav nav-tabs" id="nav-tab" role="tablist">
 								<div class="row">
 
@@ -341,240 +363,135 @@ a:hover {
 								</div>
 
 							</div>
+							</nav>
+
+						</div>
+
+
+						<!-- 마이페이지 본문 본문 -->
+						<div class="row">
+
+							<c:choose>
+								<%-- 작성한 리뷰가 없을 때 --%>
+								<c:when test="${empty review}">
+									<div class="img text-center">
+										<img src="https://via.placeholder.com/150" width="100"
+											height="100" class="rounded mx-auto d-block" alt="...">
+										<p>작성한 리뷰가 없습니다.</p>
+										<button type="submit" class="img-btn btn-block">
+											<a href="#">클래스 구경하러 가기</a>
+										</button>
+									</div>
+								</c:when>
+
+								<%-- 작성한 리뷰가 있을 때 --%>
+								<c:otherwise>
+									<c:forEach items="${review}" var="review">
+
+
+										<div class="comment">
+
+											<div class="row">
+												<div class="comment_container">
+													<span>
+														<div class="mem_nick">
+															<a href="#"
+																onclick="showSideView(this, 'H_U3MMf4xtc0', '\uAD7F\uBAA8\uB2CC'); return false;"
+																class="nicknm">${loginMember.memberNickname }</a> <span
+																id="comm" class="comment_date"> 21/08/12 </span>
+
+														</div>
+
+													</span>
+													<div class="comment">
+														<span class="comment_contents"> <img src="">
+															<a href="#">댓글 내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용</a>
+														</span> <br> <span class="p11"> <a href="#">댓글
+																제ㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔ목</a> <span class="txt_point">[30] -> 댓글
+																수 </span>
+														</span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+									</c:forEach>
+								</c:otherwise>
+
+							</c:choose>
+
+						</div>
+
+						<!-- 페이지네이션 -->
+						<c:set var="pageURL" value="list" />
+
+						<c:set var="prev" value="${pageURL}?cp=${pagination.prevPage}" />
+						<c:set var="next" value="${pageURL}?cp=${pagination.nextPage}" />
+
+
+						<!-- 페이지네이션 -->
+						<nav class="text-center" aria-label="Page navigation example">
+							<ul class="pagination justify-content-center">
+
+								<%-- 현재 페이지가 10페이지 초과 --%>
+								<c:if test="${pagination.currentPage > pagination.pageSize }">
+									<li class="page-item"><a class="page-link" href="${prev}"
+										aria-label="Previous"> <span aria-hidden="true">&laquo;&laquo;</span>
+									</a></li>
+								</c:if>
+
+								<%-- 현재 페이지가 2페이지 초과 --%>
+								<c:if test="${pagination.currentPage > 2 }">
+									<li class="page-item"><a class="page-link"
+										href="${pageURL}?cp=${pagination.currentPage - 1}"
+										aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+									</a></li>
+								</c:if>
+
+								<%-- 페이지 목록 --%>
+								<c:forEach var="p" begin="${pagination.startPage}"
+									end="${pagination.endPage}">
+									<c:choose>
+										<c:when test="${p == pagination.currentPage }">
+											<li class="page-item active"><a class="page-link">${p}</a></li>
+										</c:when>
+
+										<c:otherwise>
+											<li class="page-item"><a class="page-link"
+												href="${pageURL}?cp=${p}">${p}</a></li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+
+								<%-- 현재 페이지가 마지막 페이지 미만 --%>
+								<c:if test="${pagination.currentPage < pagination.maxPage }">
+									<li class="page-item"><a class="page-link"
+										href="${pageURL}?cp=${pagination.currentPage + 1}"
+										aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+									</a></li>
+								</c:if>
+
+
+								<%-- 현재 페이지가 마지막 페이지가 아닌 경우 --%>
+								<c:if
+									test="${pagination.currentPage - pagination.maxPage + pagination.pageSize < 0}">
+									<li class="page-item"><a class="page-link" href="${next}"
+										aria-label="Next"> <span aria-hidden="true">&raquo;&raquo;</span>
+									</a></li>
+								</c:if>
+
+							</ul>
 						</nav>
 
-					</div>
-
-
-					<!-- 마이페이지 본문 본문 -->
-					<div class="row">
-						<div class="comment">
-
-                            <div class="row">
-                                <div class="comment_container">
-                                    <span>
-                                        <div class="mem_nick">
-                                            <a href="#"
-                                                onclick="showSideView(this, 'H_U3MMf4xtc0', '\uAD7F\uBAA8\uB2CC'); return false;"
-                                                class="nicknm">${loginMember.memberNickname }</a>
-
-                                            <span id="comm" class="comment_date">
-                                                21/08/12
-                                            </span>
-
-                                        </div>
-
-                                    </span>
-                                    <div class="comment">
-                                        <span class="comment_contents">
-                                            <img src="">
-                                            <a href="#">댓글 내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용</a>
-                                        </span>
-                                        <br>
-                                        <span class="p11">
-                                            <a href="#">댓글 제ㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔ목</a>
-                                            <span class="txt_point">[30] -> 댓글 수 </span>
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="comment_container">
-                                    <span>
-                                        <div class="mem_nick">
-                                            <a href="#"
-                                                onclick="showSideView(this, 'H_U3MMf4xtc0', '\uAD7F\uBAA8\uB2CC'); return false;"
-                                                class="nicknm">${loginMember.memberNickname }</a>
-
-                                            <span id="comm" class="comment_date">
-                                                21/08/12
-                                            </span>
-
-                                        </div>
-
-                                    </span>
-                                    <div class="comment">
-                                        <span class="comment_contents">
-                                            <img src="">
-                                            <a href="#">댓글 내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용</a>
-                                        </span>
-                                        <br>
-                                        <span class="p11">
-                                            <a href="#">댓글 제ㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔ목</a>
-                                            <span class="txt_point">[30] -> 댓글 수 </span>
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="comment_container">
-                                    <span>
-                                        <div class="mem_nick">
-                                            <a href="#"
-                                                onclick="showSideView(this, 'H_U3MMf4xtc0', '\uAD7F\uBAA8\uB2CC'); return false;"
-                                                class="nicknm">${loginMember.memberNickname }</a>
-
-                                            <span id="comm" class="comment_date">
-                                                21/08/12
-                                            </span>
-
-                                        </div>
-
-                                    </span>
-                                    <div class="comment">
-                                        <span class="comment_contents">
-                                            <img src="">
-                                            <a href="#">댓글 내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용</a>
-                                        </span>
-                                        <br>
-                                        <span class="p11">
-                                            <a href="#">댓글 제ㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔ목</a>
-                                            <span class="txt_point">[30] -> 댓글 수 </span>
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="comment_container">
-                                    <span>
-                                        <div class="mem_nick">
-                                            <a href="#"
-                                                onclick="showSideView(this, 'H_U3MMf4xtc0', '\uAD7F\uBAA8\uB2CC'); return false;"
-                                                class="nicknm">${loginMember.memberNickname }</a>
-
-                                            <span id="comm" class="comment_date">
-                                                21/08/12
-                                            </span>
-
-                                        </div>
-
-                                    </span>
-                                    <div class="comment">
-                                        <span class="comment_contents">
-                                            <img src="">
-                                            <a href="#">댓글 내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용</a>
-                                        </span>
-                                        <br>
-                                        <span class="p11">
-                                            <a href="#">댓글 제ㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔ목</a>
-                                            <span class="txt_point">[30] -> 댓글 수 </span>
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="comment_container">
-                                    <span>
-                                        <div class="mem_nick">
-                                            <a href="#"
-                                                onclick="showSideView(this, 'H_U3MMf4xtc0', '\uAD7F\uBAA8\uB2CC'); return false;"
-                                                class="nicknm">${loginMember.memberNickname }</a>
-
-                                            <span id="comm" class="comment_date">
-                                                21/08/12
-                                            </span>
-
-                                        </div>
-
-                                    </span>
-                                    <div class="comment">
-                                        <span class="comment_contents">
-                                            <img src="">
-                                            <a href="#">댓글 내ㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ용</a>
-                                        </span>
-                                        <br>
-                                        <span class="p11">
-                                            <a href="#">댓글 제ㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔ목</a>
-                                            <span class="txt_point">[30] -> 댓글 수 </span>
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
 
 					</div>
-					
-					<!-- 페이지네이션 -->
-			<c:set var="pageURL" value="list"  />
-			
-			<c:set var="prev" value="${pageURL}?cp=${pagination.prevPage}${searchStr}" />
-			<c:set var="next" value="${pageURL}?cp=${pagination.nextPage}${searchStr}" />
-			
 
-					<!-- 페이지네이션 -->
-					<nav class="text-center" aria-label="Page navigation example">
-						<ul class="pagination justify-content-center">
-							
-							<%-- 현재 페이지가 10페이지 초과 --%>
-							<c:if test="${pagination.currentPage > pagination.pageSize }">
-							<li class="page-item">
-								<a class="page-link" href="${prev}" aria-label="Previous"> 
-									<span aria-hidden="true">&laquo;&laquo;</span>
-								</a>
-							</li>
-							</c:if>
-							
-							<%-- 현재 페이지가 2페이지 초과 --%>
-							<c:if test="${pagination.currentPage > 2 }">
-							<li class="page-item" >
-								<a class="page-link" href="${pageURL}?cp=${pagination.currentPage - 1}${searchStr}" aria-label="Previous"> 
-									<span aria-hidden="true">&laquo;</span>
-								</a>
-							</li>
-							</c:if>
-							
-							<%-- 페이지 목록 --%>
-							<c:forEach var="p" begin="${pagination.startPage}" end="${pagination.endPage}">
-								<c:choose>
-									<c:when test="${p == pagination.currentPage }">
-										<li class="page-item active"><a class="page-link">${p}</a></li>
-									</c:when>
-									
-									<c:otherwise>
-									<li class="page-item"><a class="page-link" href="${pageURL}?cp=${p}${searchStr}">${p}</a></li>
-									</c:otherwise>
-								</c:choose>		
-							</c:forEach>
-							
-							<%-- 현재 페이지가 마지막 페이지 미만 --%>
-							<c:if test="${pagination.currentPage < pagination.maxPage }">
-							<li class="page-item">
-								<a class="page-link" href="${pageURL}?cp=${pagination.currentPage + 1}${searchStr}" aria-label="Next"> 
-									<span aria-hidden="true">&raquo;</span>
-								</a>
-							</li>
-							</c:if>
-						
-							
-							<%-- 현재 페이지가 마지막 페이지가 아닌 경우 --%>
-							<c:if test="${pagination.currentPage - pagination.maxPage + pagination.pageSize < 0}">
-							<li class="page-item">
-								<a class="page-link" href="${next}" aria-label="Next"> 
-									<span aria-hidden="true">&raquo;&raquo;</span>
-								</a>
-							</li>
-							</c:if>
-							
-						</ul>
-					</nav>
 
 
 				</div>
-
-
-
 			</div>
-		</div>
+		</form>
 	</section>
 
 	<footer class="footer">

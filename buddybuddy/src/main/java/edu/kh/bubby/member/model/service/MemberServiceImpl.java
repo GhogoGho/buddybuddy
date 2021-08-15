@@ -19,7 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 import edu.kh.bubby.member.exception.SaveFileException;
 import edu.kh.bubby.member.model.dao.MemberDAO;
 import edu.kh.bubby.member.model.vo.Member;
+import edu.kh.bubby.member.model.vo.Reply;
 import edu.kh.bubby.member.model.vo.Reserve;
+import edu.kh.bubby.member.model.vo.Review;
 import edu.kh.bubby.offline.model.vo.OfflineClass;
 import edu.kh.bubby.online.model.vo.Online;
 import edu.kh.bubby.online.model.vo.Pagination;
@@ -268,6 +270,20 @@ public class MemberServiceImpl implements MemberService {
 	public List<Reserve> reserveList(Pagination pagination) {
 		
 		return dao.selectReserveList(pagination);
+	}
+
+//	작성한 리뷰 조회 Service
+	@Override
+	public List<Review> reviewList(Pagination pagination) {
+		
+		return dao.selectReviewList(pagination);
+	}
+
+//	작성한 후기 조회 Service
+	@Override
+	public List<Reply> replyList(Pagination pagination) {
+		
+		return dao.selectReplyList(pagination);
 	}
 	
 
