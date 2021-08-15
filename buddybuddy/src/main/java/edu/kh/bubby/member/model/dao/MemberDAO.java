@@ -187,13 +187,22 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.getListCount1", memberNo);
 	}
 	
-	/** 전체 이용내역 조회
+	/** 전체 리뷰 내역 조회
 	 * @param classType
 	 * @return pagination
 	 */
 	public Pagination getListCount2(int memberNo) {
 		
 		return sqlSession.selectOne("memberMapper.getListCount2", memberNo);
+	}
+	
+	/** 전체 후기 내역 조회
+	 * @param classType
+	 * @return pagination
+	 */
+	public Pagination getListCount3(int memberNo) {
+		
+		return sqlSession.selectOne("memberMapper.getListCount3", memberNo);
 	}
 
 
