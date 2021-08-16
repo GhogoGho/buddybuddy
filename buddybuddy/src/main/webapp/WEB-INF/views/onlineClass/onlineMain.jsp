@@ -88,10 +88,10 @@
 					src="https://images.unsplash.com/photo-1572048572872-2394404cf1f3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1951&q=80"
 					class="img-fluid main-img">
 			</div>
-			<div class="row">
+			<%-- <div class="row">
 				<a href="${contextPath}/creater/1/main">크리에이터 페이지 클래스 타입 1로 연결</a>
 				<a href="${contextPath}/creater/2/main">크리에이터 페이지 클래스 타입 2로 연결</a>
-			</div>
+			</div> --%>
 			<!-- 카테고리 -->
 			<!-- <div class="columns my-5">
 				<div class="column">

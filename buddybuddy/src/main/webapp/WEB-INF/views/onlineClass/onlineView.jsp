@@ -385,9 +385,17 @@ if (rsp.success) {
 			console.log("결제 왔다리갔다리"+result);
 			
 			if(result>0){
-				$("#paymentArea").html(""); // 비우기
+				$("#paymentArea").html(""); // 수강하기 버튼 비우기
 				var videoPageBtn = $("<button>").attr("type", "button").attr("id", "videoBtn").addClass("button is-medium is-fullwidth is-dark is-rounded").attr("onclick", "fnRequest('video')").text("수강하기");
 				$("#paymentArea").append(videoPageBtn);
+				
+				$("#addReplyBtnArea").html(""); // 대댓글 작성 버튼 비우기
+				var addPP = $("<p>").addClass("control");
+				var addReplyBtnArea = $("<button>").addClass("button is-link is-meduim is-fullwidth").attr("id", "addReply").attr("onclick", "addReply();").text("작성");
+				
+				addPP.append(addReplyBtnArea);
+				$("#addReplyBtnArea").append(addPP);
+				
 				/* $.each(online, function(index, item){ */
 				/* }); */
 			}
@@ -555,6 +563,9 @@ function onlineLikeCount(){
 
 
 
-	
+<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+		integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+		crossorigin="anonymous"></script>	
 </body>
 </html>
