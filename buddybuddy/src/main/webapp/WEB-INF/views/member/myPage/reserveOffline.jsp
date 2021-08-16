@@ -433,10 +433,10 @@ a:hover {
 														height="70" class="rounded-3 float-start me-2" alt="">
 												</div>
 												<div class="class-cate col-sm-1">
-													<a href="#">${reserve.categoryNm}</a>
+													<a href="${contextPath}/offclass/2/${reserve.classNo}?cp=${pagination.currentPage}">${reserve.categoryNm}</a>
 												</div>
 												<div class="class-nm col-sm-2">
-													<a href="#">${reserve.classTitle}</a>
+													<a href="${contextPath}/offclass/2/${reserve.classNo}?cp=${pagination.currentPage}">${reserve.classTitle}</a>
 												</div>
 												<div class="class-dt col-sm-2">${reserve.classCreateDate}</div>
 												<div class="class-nm col-sm-2">
@@ -568,7 +568,10 @@ a:hover {
 	}
 	
 	</script>
-	
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+		crossorigin="anonymous"></script>
 
 </body>
 

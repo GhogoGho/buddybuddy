@@ -121,7 +121,7 @@
 	</resultMap>
 
 	<!-- offline 조회용 -->
-	<resultMap type="OfflineClass" id="offline_rm">
+	<resultMap type="OfflineClass" id="offMain_rm">
 		<id property="classNo" column="CLASS_NO" />
 
 		<result property="classTitle" column="CLASS_TITLE" />
@@ -325,14 +325,19 @@
 		resultMap="res_rm">
 		SELECT C.CATEGORY_NAME, A.RESERVE_STATUS, A.RESERVE_NO,
 		A.CLASS_NO, A.MEMBER_NO, B.CLASS_TITLE,
-		B.CLASS_CREATE_DT, D.RESERVE_START, D.RESERVE_END
+		B.CLASS_CREATE_DT,
+		D.RESERVE_START, D.RESERVE_END
 		FROM CONFIRM_RESERVE A
-		JOIN CLASS_PAGE B ON(A.CLASS_NO = B.CLASS_NO)
-		JOIN CATEGORY C ON (B.CATEGORY_NO = C.CATEGORY_NO)
+		JOIN CLASS_PAGE B
+		ON(A.CLASS_NO = B.CLASS_NO)
+		JOIN CATEGORY C ON (B.CATEGORY_NO =
+		C.CATEGORY_NO)
 		JOIN RESERVE D ON(A.RESERVE_NO =D.RESERVE_NO )
-		WHERE A.RESERVE_STATUS = 'Y'
+		WHERE
+		A.RESERVE_STATUS = 'Y'
 		AND A.MEMBER_NO = #{memberNo}
-		ORDER BY A.CLASS_NO DESC 
+		ORDER BY A.CLASS_NO
+		DESC
 	</select>
 
 	<!-- 리뷰 조회 -->
@@ -397,4 +402,47 @@
 		ORDER BY A.CLASS_NO DESC
 	</select>
 
+	<!-- 오프라인 예약 상세 조회 -->
+	<select id="selectOfflinView" parameterType="OfflineClass"
+		resultMap="offMain_rm">
+
+		SELECT DISTINCT CLASS_NO,CLASS_AREA,CATEGORY_NAME,CLASS_TITLE,
+		MEMBER_PROFILE,MEMBER_NICKNAME,CLASS_PRICE,CLASS_LEVEL,
+		RESERVE_LIMIT
+		FROM CLASS_PAGE
+		LEFT JOIN MEMBER USING(MEMBER_NO)
+		LEFT JOIN CATEGORY
+		USING(CATEGORY_NO)
+		LEFT JOIN RESERVE USING(CLASS_NO)
+		LEFT JOIN PAYMENT
+		USING(CLASS_NO)
+		WHERE CLASS_NO = #{classNo}
+	</select>
+
+	<!-- 컨텐츠 조회 -->
+	<select id="selectContent" parameterType="_int"
+		resultMap="offMain_rm">
+		SELECT CLASS_CONTENT ,MEMBER_NO FROM CLASS_PAGE WHERE
+		CLASS_NO =
+		#{classNo}
+	</select>
+
+	<!-- 결제 여부 조회 -->
+	<select id="selectPayment" parameterType="OfflineClass"
+		resultMap="offMain_rm">
+		SELECT COUNT(*) XXX FROM DUAL
+		WHERE (SELECT COUNT(*) FROM PAYMENT
+		WHERE MEMBER_NO = #{memberNo}
+		AND CLASS_NO = #{classNo}
+		AND PAYMENT_STATUS = 'Y'
+		AND PAYMENT_DT &lt; SYSDATE) &gt; 0
+
+		AND (SELECT COUNT(*) FROM REVIEW
+		WHERE MEMBER_NO = #{memberNo}
+		AND CLASS_NO = #{classNo}
+		AND REVIEW_STATUS = 'Y') = 0
+
+	</select>
+	
+	
 </mapper>

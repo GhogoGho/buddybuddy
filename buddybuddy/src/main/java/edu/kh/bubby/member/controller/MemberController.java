@@ -34,6 +34,7 @@ import edu.kh.bubby.member.model.vo.Payment;
 import edu.kh.bubby.member.model.vo.Reply;
 import edu.kh.bubby.member.model.vo.Reserve;
 import edu.kh.bubby.member.model.vo.Review;
+import edu.kh.bubby.offline.model.vo.OffReview;
 import edu.kh.bubby.offline.model.vo.OfflineClass;
 import edu.kh.bubby.online.model.vo.Online;
 import edu.kh.bubby.online.model.vo.Pagination;
@@ -230,6 +231,40 @@ public class MemberController {
 
 		return "member/myPage/reserveOffline";
 	}
+	
+	@RequestMapping(value = "/offclass/{classType}/{classNo}", method = RequestMethod.GET)
+	public String reserveOfflineView(@PathVariable("classType") int classType, @PathVariable("classNo") int classNo,
+			Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp, HttpSession session,
+			RedirectAttributes ra) {
+		
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		System.out.println("상세조회 전:" + loginMember);
+		OfflineClass offList = service.selectOfflineView(classNo);
+		OfflineClass offContent = service.selectContent(classNo);
+		String[] addr = offList.getClassArea().split(",");
+		offList.setClassArea(addr[1]);
+		// System.out.println(offList);
+		offList.setClassContent(offContent.getClassContent());
+		offList.setMemberNo(offContent.getMemberNo());
+		System.out.println(offList);
+		
+		  if(loginMember!=null) { 
+		  System.out.println("로그인 멤버 확인");
+		  OfflineClass value = new OfflineClass();
+		  value.setClassNo(classNo); value.setMemberNo(loginMember.getMemberNo());
+		  OfflineClass paymentStatus = service.selectPayment(value);
+		  System.out.println(paymentStatus);
+		  
+		  if(paymentStatus.getCount()>0) {
+			  offList.setCount(1); 
+			  }
+		  else {
+		  offList.setCount(2); } }
+		 
+		System.out.println("마지막"+offList);
+
+		return "${contextPath}/offclass/OffClassView";
+	}
 
 //	마이페이지 리뷰 목록 화면 전환용 Controller
 	@RequestMapping(value = "myPage/review", method = RequestMethod.GET)
@@ -367,10 +402,11 @@ public class MemberController {
 		String fileName = null;
 
 		if (formFile.getOriginalFilename() != null) { // 업로드된 이미지가 있을때
+	
+			fileName = service.rename(formFile.getOriginalFilename());
 
 			inputMember.setMemberProfile("resources/images/member/" + fileName);
 
-			fileName = service.rename(formFile.getOriginalFilename());
 
 		}
 
