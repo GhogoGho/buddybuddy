@@ -154,102 +154,12 @@
 	<section class="like-section">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
-					<div class="titie-section">
-						<h1>인기 Top 10 클래스</h1>
-					</div>
-				</div>
+				<img src="${contextPath}/resources/images/buddybuddyMain.png" width="100%"
+			height="20%" class="rounded" alt="...">
 			</div>
-			<div class="row mt-5">
-				<div class="col-md-3 col-sm-4">
-					<div class="class-list"></div>
-					<img src="https://via.placeholder.com/150" width="150" height="150"
-						class="rounded-3 me-2" alt=""> <a class="class-menu"
-						href="#">
-						<h3 class="class-title">클래스 제목입니다</h3>
-					</a> <a class="class-menu" href="#"> 어쩌구 저쩌구 클래스 들어주라 </a><br> <a
-						class="class-menu" href="#"> 35,000원 </a>
-				</div>
-
-
-				<div class="col-md-3 col-sm-4">
-					<div class="class-list"></div>
-					<img src="https://via.placeholder.com/150" width="150" height="150"
-						class="rounded-3 me-2" alt=""> <a class="class-menu"
-						href="#">
-						<h3 class="class-title">클래스 제목입니다</h3>
-					</a> <a class="class-menu" href="#"> 어쩌구 저쩌구 클래스 들어주라 </a><br> <a
-						class="class-menu" href="#"> 35,000원 </a>
-				</div>
-
-				<div class="col-md-3 col-sm-4">
-					<div class="class-list"></div>
-					<img src="https://via.placeholder.com/150" width="150" height="150"
-						class="rounded-3 me-2" alt=""> <a class="class-menu"
-						href="#">
-						<h3 class="class-title">클래스 제목입니다</h3>
-					</a> <a class="class-menu" href="#"> 어쩌구 저쩌구 클래스 들어주라 </a><br> <a
-						class="class-menu" href="#"> 35,000원 </a>
-				</div>
-
-				<div class="col-md-3 col-sm-4">
-					<div class="class-list"></div>
-					<img src="https://via.placeholder.com/150" width="150" height="150"
-						class="rounded-3 me-2" alt=""> <a class="class-menu"
-						href="#">
-						<h3 class="class-title">클래스 제목입니다</h3>
-					</a> <a class="class-menu" href="#"> 어쩌구 저쩌구 클래스 들어주라 </a><br> <a
-						class="class-menu" href="#"> 35,000원 </a>
-				</div>
-			</div>
-		</div>
-
 
 	</section>
 
-	<section class="recent-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="titie-section">
-						<h1>최근 Top 10 클래스</h1>
-					</div>
-				</div>
-			</div>
-			
-			
-			<div class="row mt-5">
-			<c:choose>
-			<c:when test="${empty classList}">
-			<div class="col-md-3 col-sm-4">
-					<div class="class-list"></div>
-					<img src="https://via.placeholder.com/150" width="150" height="150"
-						class="rounded-3 me-2" alt=""> <a class="class-menu"
-						href="#">
-						<h3 class="class-title">클래스 제목입니다</h3>
-					</a> <a class="class-menu" href="#"> 어쩌구 저쩌구 클래스 들어주라 </a><br> <a
-						class="class-menu" href="#"> 35,000원 </a>
-				</div>
-			</c:when>
-			<c:otherwise>
-			<c:forEach items="${classList}" var="classList">
-				<div class="col-md-3 col-sm-4">
-					<div class="class-list"></div>
-					<img src="https://via.placeholder.com/150" width="150" height="150"
-						class="rounded-3 me-2" alt=""> <a class="class-menu"
-						href="#">
-						<h3 class="class-title">${classList.classTitle}</h3>
-					</a> <a class="class-menu" href="#"> ${classList.classContent} </a><br> <a
-						class="class-menu" href="#"> ${classList.classPrice} </a>
-				</div>
-
-
-				</c:forEach>
-				</c:otherwise>
-				</c:choose>
-			</div>
-		</div>
-	</section>
 
 	<!-- 슬로건 -->
 	<section class="offer-section">
