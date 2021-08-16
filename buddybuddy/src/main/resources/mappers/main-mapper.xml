@@ -4,7 +4,7 @@
 
 
 	<resultMap type="MainClass" id="main_rm">
-		<result property="classNo" column="CLASS_NO" />
+		<id property="classNo" column="CLASS_NO" />
 		<result property="classTitle" column="CLASS_TITLE" />
 		<result property="classContent" column="CLASS_CONTENT" />
 		<result property="classCreateDt" column="CLASS_CREATE_DT" />
@@ -16,13 +16,13 @@
 	</resultMap>
 
 
-	<select id="classList" parameterType="_int" resultMap="main_rm">
+	<select id="classList" resultMap="main_rm">
 		SELECT A.* FROM
-		(SELECT CLASS_TITLE, CLASS_CONTENT, CLASS_PRICE, CLASS_CREATE_DT FROM
+		(SELECT CLASS_TITLE, CLASS_CONTENT, CLASS_PRICE, CLASS_NO FROM
 		CLASS_PAGE
 		WHERE CLASS_STATUS = 'Y'
 		ORDER BY CLASS_CREATE_DT DESC) A
-		WHERE ROWNUM BETWEEN 1 AND 5;
+		WHERE ROWNUM BETWEEN 1 AND 5
 
 	</select>
 
