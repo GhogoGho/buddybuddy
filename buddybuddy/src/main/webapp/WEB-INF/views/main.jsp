@@ -216,7 +216,23 @@
 					</div>
 				</div>
 			</div>
+			
+			
 			<div class="row mt-5">
+			<c:choose>
+			<c:when test="${empty classList}">
+			<div class="col-md-3 col-sm-4">
+					<div class="class-list"></div>
+					<img src="https://via.placeholder.com/150" width="150" height="150"
+						class="rounded-3 me-2" alt=""> <a class="class-menu"
+						href="#">
+						<h3 class="class-title">클래스 제목입니다</h3>
+					</a> <a class="class-menu" href="#"> 어쩌구 저쩌구 클래스 들어주라 </a><br> <a
+						class="class-menu" href="#"> 35,000원 </a>
+				</div>
+			</c:when>
+			<c:otherwise>
+			<c:forEach items="${classList}" var="classList">
 				<div class="col-md-3 col-sm-4">
 					<div class="class-list"></div>
 					<img src="https://via.placeholder.com/150" width="150" height="150"
@@ -228,35 +244,9 @@
 				</div>
 
 
-				<div class="col-md-3 col-sm-4">
-					<div class="class-list"></div>
-					<img src="https://via.placeholder.com/150" width="150" height="150"
-						class="rounded-3 me-2" alt=""> <a class="class-menu"
-						href="#">
-						<h3 class="class-title">클래스 제목입니다</h3>
-					</a> <a class="class-menu" href="#"> 어쩌구 저쩌구 클래스 들어주라 </a><br> <a
-						class="class-menu" href="#"> 35,000원 </a>
-				</div>
-
-				<div class="col-md-3 col-sm-4">
-					<div class="class-list"></div>
-					<img src="https://via.placeholder.com/150" width="150" height="150"
-						class="rounded-3 me-2" alt=""> <a class="class-menu"
-						href="#">
-						<h3 class="class-title">클래스 제목입니다</h3>
-					</a> <a class="class-menu" href="#"> 어쩌구 저쩌구 클래스 들어주라 </a><br> <a
-						class="class-menu" href="#"> 35,000원 </a>
-				</div>
-
-				<div class="col-md-3 col-sm-4">
-					<div class="class-list"></div>
-					<img src="https://via.placeholder.com/150" width="150" height="150"
-						class="rounded-3 me-2" alt=""> <a class="class-menu"
-						href="#">
-						<h3 class="class-title">클래스 제목입니다</h3>
-					</a> <a class="class-menu" href="#"> 어쩌구 저쩌구 클래스 들어주라 </a><br> <a
-						class="class-menu" href="#"> 35,000원 </a>
-				</div>
+				</c:forEach>
+				</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 	</section>
