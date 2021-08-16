@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="adminMapper">
+
+	<resultMap type="Member" id="member_rm">
+		<id property="memberNo" column="MEMBER_NO" />
+		
+		<result property="memberEmail" column="MEMBER_EMAIL"/>
+		<result property="memberNickname" column="MEMBER_NICKNAME"/>
+		<result property="memberGrade" column="MEMBER_GRADE"/>
+		<result property="memberRegdate" column="MEMBER_REGDT"/>
+		<result property="memberStatus" column="MEMBER_STATUS"/>
+	
+	</resultMap>
+	
+	<resultMap type="NOTIBoard" id="noti_rm">
+		<id property="notiNo" column="NOTI_NO" />
+		
+		<result property="notiTitle" column="NOTI_TITLE"/>
+		<result property="memberNickname" column="MEMBER_NICKNAME"/>
+		<result property="notiCreateDate" column="NOTI_CREATE_DT"/>
+		<result property="notiContent" column="NOTI_CONTENT"/>
+		<result property="notiStatus" column="NOTI_STATUS"/>
+	
+	</resultMap>
+	
+	<resultMap type="Question" id="que_rm">
+		<id property="queNo" column="QUE_NO" />
+		
+		<result property="queTitle" column="QUE_TITLE"/>
+		<result property="queContent" column="QUE_CONTENT"/>
+		<result property="queCreateDate" column="QUE_CREATE_DT"/>
+		<result property="queStatus" column="QUE_STATUS"/>
+		<result property="answerDate" column="ANSWER_DT"/>
+		<result property="answerContent" column="ANSWER_CONTENT"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="memberNickname" column="MEMBER_NICKNAME"/>
+	
+	</resultMap>
+	
+	<select id="selectMemberList" resultMap="member_rm" parameterType="Member">
+		SELECT MEMBER_NO,MEMBER_EMAIL,MEMBER_NICKNAME,MEMBER_GRADE,MEMBER_REGDT,MEMBER_STATUS FROM MEMBER
+	</select>
+	
+	<select id="memberSecession" resultMap="member_rm" parameterType="Member">
+		SELECT MEMBER_NO,MEMBER_EMAIL,MEMBER_NICKNAME,MEMBER_GRADE,MEMBER_REGDT,MEMBER_STATUS FROM MEMBER
+	</select>
+	
+	<select id="memberCreator" resultMap="member_rm" parameterType="Member">
+		SELECT MEMBER_NO,MEMBER_EMAIL,MEMBER_NICKNAME,MEMBER_GRADE,MEMBER_REGDT FROM MEMBER
+		WHERE MEMBER_STATUS = 'Y'
+		AND MEMBER_GRADE = 'T'
+	</select>
+	
+	<update id="memberStatusUpdate" parameterType="_int">
+	
+		UPDATE MEMBER SET
+		MEMBER_STATUS = 'N'
+		WHERE MEMBER_NO = #{memberNo}
+	
+	</update>
+	
+	<update id="memberStatusUpdate2" parameterType="_int">
+	
+		UPDATE MEMBER SET
+		MEMBER_STATUS = 'Y'
+		WHERE MEMBER_NO = #{memberNo}
+	
+	</update>
+	
+	<update id="memberGradeUpdate" parameterType="_int">
+	
+		UPDATE MEMBER SET
+		MEMBER_GRADE = 'C'
+		WHERE MEMBER_NO = #{memberNo}
+		AND MEMBER_GRADE = 'T'
+	
+	</update>
+
+
+
+
+
+	<select id="notiBoard" resultMap="noti_rm" parameterType="NOTIBoard">
+		SELECT NOTI_NO, NOTI_TITLE, MEMBER_NICKNAME, NOTI_STATUS, NOTI_CREATE_DT, NOTI_CONTENT FROM NOTI_BOARD_LIST
+		WHERE BOARD_TYPE_NO = 1
+	</select>
+	
+	<update id="notiStatusUpdate" parameterType="_int">
+	
+		UPDATE NOTI_BOARD SET
+		NOTI_STATUS = 'N'
+		WHERE NOTI_NO = #{notiNo}
+	
+	</update>
+	
+		<update id="notiStatusUpdate2" parameterType="_int">
+	
+		UPDATE NOTI_BOARD SET
+		NOTI_STATUS = 'Y'
+		WHERE NOTI_NO = #{notiNo}
+	
+	</update>
+	
+	<select id="faqBoard" resultMap="noti_rm" parameterType="NOTIBoard">
+		SELECT NOTI_NO, NOTI_TITLE, MEMBER_NICKNAME, NOTI_STATUS, NOTI_CREATE_DT, NOTI_CONTENT FROM NOTI_BOARD_LIST
+		WHERE BOARD_TYPE_NO = 2
+	</select>
+	
+	<update id="faqStatusUpdate" parameterType="_int">
+	
+		UPDATE NOTI_BOARD SET
+		NOTI_STATUS = 'N'
+		WHERE NOTI_NO = #{notiNo}
+	
+	</update>
+	
+		<update id="faqStatusUpdate2" parameterType="_int">
+	
+		UPDATE NOTI_BOARD SET
+		NOTI_STATUS = 'Y'
+		WHERE NOTI_NO = #{notiNo}
+	
+	</update>
+	
+	
+	
+	<insert id="qnaSubmit" parameterType="Question">
+		
+		INSERT INTO QUESTION(QUE_NO, QUE_TITLE, QUE_CONTENT, QUE_CREATE_DT, QUE_STATUS, MEMBER_NO)
+		VALUES(SEQ_QNO.NEXTVAL, #{queTitle}, #{queContent}, DEFAULT, DEFAULT, #{memberNo})
+	
+	</insert>
+	
+	<select id="qnaList" resultMap="que_rm" parameterType="Question">
+		SELECT QUE_NO, QUE_TITLE, QUE_CONTENT, QUE_CREATE_DT, MEMBER_NO, MEMBER_NICKNAME, QUE_STATUS, ANSWER_DT FROM QUESTION_LOOKUP
+	</select>
+	
+	<select id="queAnswer" resultMap="que_rm" parameterType="_int">
+		SELECT QUE_NO, QUE_TITLE, QUE_CONTENT, MEMBER_NICKNAME FROM QUESTION_LOOKUP
+		WHERE QUE_NO = #{queNo}
+	</select>
+	
+	<update id="qnaAnswerUpdate" parameterType="Question">
+	
+		UPDATE QUESTION SET
+		ANSWER_DT = SYSDATE,
+		ANSWER_CONTENT = #{answerContent}
+		WHERE QUE_NO = #{queNo}
+	
+	</update>
+
+  
+</mapper>
