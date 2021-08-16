@@ -170,7 +170,8 @@
 					</c:if>
 					</div>
 				</div>
-				<div class="editPrint"></div>
+				<%-- <input id="editStarRatingVal" type="hidden" value="${review.reviewRatings}" required > --%>
+				<div class="editPrint" style="display:none;"></div>
 				<!--수정 별점 -->
       </div>
 				
@@ -495,6 +496,7 @@ function selectReviewList(){
               
               /* 별 파티 */
               var editStarRating = $("<div>").addClass("star-rating mb-1");
+             /*  var editPriInput = $("<input>").attr("id", "editStarRatingVal").attr("type", "hidden").attr("value", item.reviewRatings).attr("required"); */
               var editPri = $("<div>").addClass("editPrint");
 							var editStars = $("<div>").addClass("d-flex justify-content-center large text-warning stars").attr("id", "editStars");
 							if(item.reviewRatings == "1"){
@@ -586,6 +588,7 @@ function updateReview(reviewNo, el){
 	
 	const reviewContent = $(el).prev().val();
 	const editReviewRatings = $(el).next().next(".editPrint").text();
+	/* const editReviewRatings = $(el).next().next("#editStarRatingVal").val(); */
 	const editReviewImgs = $(el).parent().prev("#editReviewImg").get(0).files[0];
 	
 	console.log(editReviewImgs);

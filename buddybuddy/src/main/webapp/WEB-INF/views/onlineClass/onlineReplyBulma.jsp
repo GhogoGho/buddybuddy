@@ -123,7 +123,6 @@
 
 <!-- 댓글 작성 -->
 <hr>
-<c:if test="${!empty payList }">
 <article class="media" id="">
   <figure class="media-left">
     <p class="image is-64x64">
@@ -136,14 +135,15 @@
         <textarea class="textarea" id="replyContent" placeholder="수강문의를 작성해 주세요."></textarea>
       </p>
     </div>
-    <div class="field">
+    <div class="field" id="addReplyBtnArea">
+		<c:if test="${!empty payList }">
       <p class="control">
         <button class="button is-link is-medium is-fullwidth" id="addReply" onclick="addReply();">작성</button>
       </p>
+		</c:if>
     </div>
   </div>
 </article>
-</c:if>
 <script>
 
 const onlineMemberNickName = "${online.memberNickName}"; // ""null 값 대비를 위해 꼭...
