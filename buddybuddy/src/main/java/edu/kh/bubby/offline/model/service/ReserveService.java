@@ -32,4 +32,10 @@ public interface ReserveService {
 	 */
 	int reportClass(OffClassReport classReport);
 
+	/**달력 예약 조회
+	 * @param classNo
+	 * @return
+	 */
+	List<OfflineClass> dateSelect(int classNo);
+
 }

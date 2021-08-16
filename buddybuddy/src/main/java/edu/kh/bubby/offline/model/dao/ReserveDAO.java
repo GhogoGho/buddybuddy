@@ -75,4 +75,9 @@ public class ReserveDAO {
 		return sqlSession.insert("offlineMapper.insertPayment",offClass);
 	}
 
+	public List<OfflineClass> dateSelect(int classNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("offlineMapper.dateSelect",classNo);
+	}
+
 }
