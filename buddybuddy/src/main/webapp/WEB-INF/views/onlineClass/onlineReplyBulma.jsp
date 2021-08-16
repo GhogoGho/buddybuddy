@@ -23,7 +23,7 @@
 		list-style-type: none;
 	}
 </style>
-<!-- <button onclick="selectReplyList()">목록갱신</button> -->
+<button onclick="selectReplyList()">목록갱신</button>
 
 <!-- 댓글1 -->
 <div id="replyListArea">
@@ -92,9 +92,9 @@
 	            </div>
 	            <br>
 	            <small>
-								<%-- <c:if test="${online.memberNo == sessionScope.loginMember.memberNo}"> --%>
+								<c:if test="${online.memberNo == sessionScope.loginMember.memberNo}">
 		          	<button class="button is-danger" onclick="deleteComment(${reply.replyNo}, this)">답글 삭제</button>
-			        	<%-- </c:if> --%>
+			        	</c:if>
 	            </small>
               <small>
               	<fmt:formatDate value="${reply.replyDate}" pattern="yyyy년 MM월 dd일 HH:mm" />
@@ -102,7 +102,9 @@
 	          </p>
 	        </div>
 					<!-- 대댓글 수정 -->
+					<c:if test="${online.memberNo == sessionScope.loginMember.memberNo}">
 					<button class="button is-warning is-rounded showEditComment" id="showEditComment">답글 수정</button>
+					</c:if>
 					<div class="editCommentArea">
 						<div class="editComment">
 							<textarea class="textarea is-warning"></textarea>
@@ -278,17 +280,17 @@ function selectReplyList(){
 				var cSecondBr = $("<br>");
 				
 				var cSmall = $("<small>");
-				/* if (item.MemberNo == loginMemberNo) { */
+				if (onlineMemberNo == item.loginMemberNo) { 
 					var cDeleteBtn = $("<button>").addClass("button is-danger").text("답글 삭제").attr("onclick", "deleteComment(" + item.replyNo + ", this)");
 					cSmall.append(cDeleteBtn).append(cEditBtn);
-				/* } */
+				}
 				var cSmallDate = $("<small>").text(item.replyDate);
 				
 				cContentP.append(cStrong).append(cFirstBr).append(cContentDiv).append(cSecondBr).append(cSmall).append(cSmallDate);
 				cSecondDiv.append(cContentP);
 				
 				// 대댓글 수정창
-				if(item.nestedReply != null){
+				if(item.nestedReply != null && onlineMemberNo == item.loginMemberNo){
 					var cEditBtn = $("<button>").addClass("button is-warning is-rounded showEditComment").attr("id", "showEditComment").text("답글 수정");
 					var editCommentArea = $("<div>").addClass("editCommentArea");
 					var editComment = $("<div>").addClass("editComment");
