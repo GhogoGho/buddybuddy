@@ -59,17 +59,16 @@ public class OfflineController {
 			offList = service.selectOfflinList(search, pagination);
 
 		}
-
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("offList", offList);
-
+	
 		return "offclass/OffClassMain";
 	}
 
 	// 상세조회 페이지 이동
 	@RequestMapping("{classType}/{classNo}")
 	public String offlineClassView(@PathVariable("classType") int classType, @PathVariable("classNo") int classNo,
-			Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp,//@ModelAttribute(value="loginMember") Member loginMember,
 			RedirectAttributes ra) {
 		OfflineClass offList = service.selectOfflinView(classNo);
 		OfflineClass offContent = service.selectContent(classNo);
@@ -79,6 +78,16 @@ public class OfflineController {
 		offList.setClassContent(offContent.getClassContent());
 		offList.setMemberNo(offContent.getMemberNo());
 		System.out.println(offList);
+		/*
+		 * if(loginMember!=null) { OfflineClass value = new OfflineClass();
+		 * 
+		 * value.setClassNo(classNo); value.setMemberNo(loginMember.getMemberNo());
+		 * OfflineClass paymentStatus = service.selectPatment(value);
+		 * if(paymentStatus.getCount()>0) { offList.setCount(1); }else {
+		 * offList.setCount(2); } }
+		 */
+		
+		
 		model.addAttribute("offList", offList);
 		List<OffReview> reviewList = offReviewService.selectReviewList(classNo);
 		model.addAttribute("reviewList",reviewList);

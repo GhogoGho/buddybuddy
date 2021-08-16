@@ -189,4 +189,9 @@ public class OfflineDAO {
 		return sqlSession.update("offlineMapper.updeleteReserve",reserveNo);
 	}
 
+	public OfflineClass selectPatment(OfflineClass value) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("offlineMapper.selectPatment",value);
+	}
+
 }

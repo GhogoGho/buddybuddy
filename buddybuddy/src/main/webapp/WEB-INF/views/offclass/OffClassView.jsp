@@ -433,12 +433,12 @@ th {
 							<div class="col-md-12">
 							 <table class="table table-striped text-center">
                 <tr style="border-bottom : 1px solid black">
-                  <td><b>난이도</b></td>
-                  <td><b>최대 인원</b></td>
+                  <th><b>난이도</b></th>
+                  <th><b>최대 인원</b></th>
                 </tr>
                 <tr>
-                  <td>${offList.classLevel}</td>
-                  <td>${offList.reserveLimit}</td>
+                  <th>${offList.classLevel}</th>
+                  <th>${offList.reserveLimit}</th>
                 </tr>
               </table>
 								
