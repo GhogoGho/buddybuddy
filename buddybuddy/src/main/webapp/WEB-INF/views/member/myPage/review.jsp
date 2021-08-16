@@ -335,7 +335,7 @@ a:hover {
 							<hr>
 							<ul class="mymenu">
 								<p>구매 후기</p>
-								<li><a href="${contextPath}/member/myPage/1/review">내가 쓴 리뷰</a></li>
+								<li><a href="${contextPath}/member/myPage/1/review">내가 쓴 문의</a></li>
 								<li><a href="${contextPath}/member/myPage/1/reply">내가 쓴 후기</a></li>
 							</ul>
 							<hr>
@@ -358,7 +358,7 @@ a:hover {
 									<button class="class-btn nav-link active col-6"
 										id="nav-home-tab" data-bs-toggle="tab"
 										data-bs-target="#nav-home" type="button" role="tab"
-										aria-controls="nav-home" aria-selected="true">내가 쓴 리뷰</button>
+										aria-controls="nav-home" aria-selected="true">내가 쓴 문의</button>
 
 								</div>
 
@@ -372,19 +372,19 @@ a:hover {
 						<div class="row">
 
 							<c:choose>
-								<%-- 작성한 리뷰가 없을 때 --%>
+								<%-- 작성한 문의가 없을 때 --%>
 								<c:when test="${empty review}">
 									<div class="img text-center">
 										<img src="https://via.placeholder.com/150" width="100"
 											height="100" class="rounded mx-auto d-block" alt="...">
-										<p>작성한 리뷰가 없습니다.</p>
+										<p>작성한 문의가 없습니다.</p>
 										<button type="submit" class="img-btn btn-block">
 											<a href="#">클래스 구경하러 가기</a>
 										</button>
 									</div>
 								</c:when>
 
-								<%-- 작성한 리뷰가 있을 때 --%>
+								<%-- 작성한 문의가 있을 때 --%>
 								<c:otherwise>
 									<c:forEach items="${review}" var="review">
 
@@ -406,9 +406,8 @@ a:hover {
 													<div class="comment">
 														<span class="comment_contents"> <img src="">
 															<a href="#">${review.reviewContent }</a>
-														</span> <br> <span class="p11"> <a href="#">댓글
-																${review.reviewRatings}</a> 
-														</span>
+														</span> 
+														
 													</div>
 												</div>
 											</div>
