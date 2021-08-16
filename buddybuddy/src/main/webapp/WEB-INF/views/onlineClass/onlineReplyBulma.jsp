@@ -123,7 +123,8 @@
 
 <!-- 댓글 작성 -->
 <hr>
-<article class="media">
+<c:if test="${!empty payList }">
+<article class="media" id="">
   <figure class="media-left">
     <p class="image is-64x64">
       <img src="https://cdn.pixabay.com/photo/2017/09/10/18/25/question-2736480__340.jpg">
@@ -142,10 +143,12 @@
     </div>
   </div>
 </article>
+</c:if>
 <script>
 
 const onlineMemberNickName = "${online.memberNickName}"; // ""null 값 대비를 위해 꼭...
 const onlineMemberNo = "${online.memberNo}"; // 클래스 크리에이터 회원 번호
+const payListCheck = "${payList}";
 /* const loginMemberNo = "${loginMember.memberNo}";
 const classNo = ${online.classNo}; */
 
@@ -269,7 +272,7 @@ function selectReplyList(){
 				var cFirstDiv = $("<div>").addClass("media-content");
 				var cSecondDiv = $("<div>").addClass("content");
 				var cContentP = $("<p>");
-				var cStrong = $("<strong>").append(item.memberNickName).text("클래스장");
+				var cStrong = $("<strong>").text("크리에이터 답변");
 				var cFirstBr = $("<br>");
 				var cContentDiv = $("<div>").attr("id", "notice-con").html(item.nestedReply);
 				var cSecondBr = $("<br>");
