@@ -89,6 +89,7 @@ public interface OfflineService {
 	 */
 	int updateClass(OfflineClass offlineClass, List<MultipartFile> images, String webPath, String savePath,
 			List deleteReserve, List updateReserve);
+	OfflineClass selectPatment(OfflineClass value);
 
 
 

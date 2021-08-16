@@ -76,7 +76,7 @@
 								</div>
 								<div class="row" style="border: 1px solid black;">${review.reviewContent}</div>
 								<c:if test="${loginMember.memberNo == review.memberNo }">
-								<button class="btn main-btn-color" style="float: right;" onclick="showUpdateReply(${review.reviewNo}, this)">수정</button>
+								<%-- <button class="btn main-btn-color" style="float: right;" onclick="showUpdateReply(${review.reviewNo}, this)">수정</button> --%>
 								<button class="btn main-btn-color" style="float: right;" onclick="deleteReply(${review.reviewNo})">삭제</button>								
 								</c:if>
 							</div>
@@ -84,7 +84,7 @@
 						</c:forEach>
 					</div>
 				</div>
-				<c:if test="${!empty loginMember }">
+				<c:if test="${offList.count == 1}">
 				<div class ="row">
 				별점 : 
 				<style>

@@ -313,6 +313,11 @@ public class OfflineServiceImpl implements OfflineService{
 				
 				return result;
 			}
+			@Override
+			public OfflineClass selectPatment(OfflineClass value) {
+				// TODO Auto-generated method stub
+				return dao.selectPatment(value);
+			}
 			
 			
 			
