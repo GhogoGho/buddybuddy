@@ -63,17 +63,6 @@
 						<hr>
 					</div>
 				</div>
-				<div class="row" style="margin-bottom: 50px;">
-					<div class="col-md-12" style="text-align: right;">
-						<select name="sk" aria-label="Default select example">
-
-							<option value="number" selected>최신순</option>
-							<option value="title">인기순</option>
-							<option value="id">김상순</option>
-							<option value="date">죽순</option>
-						</select>
-					</div>
-				</div>
 				<div class="row">
 					<c:choose>
 						<c:when test="${empty offList}">
@@ -102,8 +91,7 @@
 											<div class="card-body">
 												<h5 class="card-title">${list.categoryName}</h5>
 												<p class="card-text">${list.classTitle }</p>
-												<hr>
-												별점 :
+												
 											</div>
 										</div>
 									</a>

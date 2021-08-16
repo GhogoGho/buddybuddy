@@ -100,6 +100,14 @@ public class ReserveController {
 		return result;
 	}
 	
+	//예약 달력 조회 
+	@RequestMapping(value="dateSelect",method= RequestMethod.POST)
+	public String dateSelect(@RequestParam("classNo") int classNo) {
+		List<OfflineClass> dateList = service.dateSelect(classNo);
+		
+		Gson gson = new Gson();
+		return gson.toJson(dateList);
+	}
 	
 	
 }

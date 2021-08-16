@@ -74,6 +74,12 @@ public class ReserveServiceImpl implements ReserveService{
 		// TODO Auto-generated method stub
 		return dao.reportClass(classReport);
 	}
+	//달력 예약 조회
+	@Override
+	public List<OfflineClass> dateSelect(int classNo) {
+		// TODO Auto-generated method stub
+		return dao.dateSelect(classNo);
+	}
 
 
 }

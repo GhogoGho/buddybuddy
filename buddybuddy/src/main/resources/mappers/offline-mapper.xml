@@ -293,4 +293,8 @@
 	<insert id="insertPayment" parameterType="offlineClass">
 		INSERT INTO PAYMENT VALUES(SEQ_PAYMENTNO.NEXTVAL,DEFAULT,#{classPrice},DEFAULT,#{memberNo},#{classNo},#{reserveMemberNo})
 	</insert>
+	<!--예약 달력 조회  -->
+	<select id="dateSelect" parameterType="_int" resultMap="offMain_rm">
+		SELECT RESERVE_DT FROM RESERVE WHERE CLASS_NO = #{classNO} AND RESERVE_STATUS= 'Y'
+	</select>
 </mapper>
