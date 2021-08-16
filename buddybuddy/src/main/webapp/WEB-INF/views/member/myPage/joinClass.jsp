@@ -353,7 +353,7 @@ a:hover {
 						<hr>
 						<ul class="mymenu">
 							<p>구매 후기</p>
-							<li><a href="${contextPath}/member/myPage/1/review">내가 쓴 리뷰</a></li>
+							<li><a href="${contextPath}/member/myPage/1/review">내가 쓴 문의</a></li>
 							<li><a href="${contextPath}/member/myPage/1/reply">내가 쓴 후기</a></li>
 						</ul>
 						<hr>
