@@ -4,6 +4,7 @@ package edu.kh.bubby.online.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -127,16 +128,18 @@ public class OnlineController {
 	// 클래스 상세 조회
 	@RequestMapping("{classType}/{classNo}")
 	public String onlineView(@PathVariable("classType") int classType,
-							@ModelAttribute("loginMember") Member loginMember,
+							HttpSession session,
 							Payment onPayment,
 							@PathVariable("classNo") int classNo,
 							@RequestParam(value="cp", required=false, defaultValue = "1") int cp,
 							Model model, RedirectAttributes ra) {
-		
+		Member loginMember = (Member) session.getAttribute("loginMember");
 		Online online = service.selectOnline(classNo);
 		
-		onPayment.setClassNo(online.getClassNo());
-		onPayment.setMemberNo(loginMember.getMemberNo());
+		if(loginMember != null) {
+			onPayment.setClassNo(online.getClassNo());
+			onPayment.setMemberNo(loginMember.getMemberNo());
+		}
 		if(online != null) { // 인기순 정렬용 조회수 증가
 			// 수강문의 목록 조회
 			List<OnReply> rList = onReplyService.selectList(classNo);
