@@ -283,6 +283,32 @@ public class MemberDAO {
 	}
 
 
+	/** 오프라인 예약 상세조회
+	 * @param classNo
+	 * @return
+	 */
+	public OfflineClass selectOfflineView(int classNo) {
+		
+		return sqlSession.selectOne("memberMapper.selectOfflineView", classNo);
+	}
+
+
+	/** 컨텐츠 조회
+	 * @param classNo
+	 * @return
+	 */
+	public OfflineClass selectContent(int classNo) {
+		
+		return sqlSession.selectOne("memberMapper.selectContent",classNo);
+	}
+
+
+	public OfflineClass selectPayment(OfflineClass value) {
+		
+		return sqlSession.selectOne("memberMapper.selectPayment",value);
+	}
+
+
 
 
 

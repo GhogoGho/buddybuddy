@@ -19,7 +19,7 @@ public class Reserve {
 	private int categoryNo;
 	
 	private String classTitle;
-	private int classTypeNo;
+	private int classType;
 	
 	private Date classCreateDate;
 
@@ -127,12 +127,12 @@ public class Reserve {
 		this.classTitle = classTitle;
 	}
 
-	public int getClassTypeNo() {
-		return classTypeNo;
+	public int getclassType() {
+		return classType;
 	}
 
-	public void setClassTypeNo(int classTypeNo) {
-		this.classTypeNo = classTypeNo;
+	public void setclassType(int classType) {
+		this.classType = classType;
 	}
 
 	public Date getClassCreateDate() {
@@ -149,7 +149,7 @@ public class Reserve {
 				+ ", reserveEnd=" + reserveEnd + ", reserveLimit=" + reserveLimit + ", classLevel=" + classLevel
 				+ ", ClassArea=" + ClassArea + ", memberNo=" + memberNo + ", classNo=" + classNo + ", reserveStatus="
 				+ reserveStatus + ", categoryNm=" + categoryNm + ", categoryNo=" + categoryNo + ", classTitle="
-				+ classTitle + ", classTypeNo=" + classTypeNo + ", classCreateDate=" + classCreateDate + "]";
+				+ classTitle + ", classType=" + classType + ", classCreateDate=" + classCreateDate + "]";
 	}
 	
 	

@@ -326,7 +326,7 @@ public class MemberServiceImpl implements MemberService {
 		return dao.noReserve(reserveNo);
 	}
 
-//	찜하기 내역 조회
+//	찜하기 내역 조회(페이지네이션 처리)
 	@Override
 	public Pagination getPagination4(Pagination pg) {
 
@@ -335,12 +335,35 @@ public class MemberServiceImpl implements MemberService {
 		return selectPg;
 
 	}
-
+	
+//	찜하기 조회
 	@Override
 	public List<Choice> choiceList(Pagination pagination) {
 		
 		return dao.choiceList(pagination);
 	}
+	
+//	오프라인 예약 클래스 상세 조회
+	@Override
+	public OfflineClass selectOfflineView(int classNo) {
+		
+		return dao.selectOfflineView(classNo);
+	}
+	
+//	오프라인 예약 상세페이지 컨텐츠 조회
+	@Override
+	public OfflineClass selectContent(int classNo) {
+		
+		return dao.selectContent(classNo);
+	}
+
+	@Override
+	public OfflineClass selectPayment(OfflineClass value) {
+		
+		return  dao.selectPayment(value);
+	}
+	
+	
 	
 	
 

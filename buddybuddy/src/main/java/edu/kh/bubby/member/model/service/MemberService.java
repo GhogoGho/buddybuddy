@@ -161,6 +161,20 @@ public interface MemberService {
 	 */
 	public abstract List<Choice> choiceList(Pagination pagination);
 
+	/**오프라인 예약 상세 조회
+	 * @param classNo
+	 * @return
+	 */
+	public abstract OfflineClass selectOfflineView(int classNo);
+
+	/** 상세페이지 컨텐츠 내용 조회
+	 * @param classNo
+	 * @return
+	 */
+	public abstract OfflineClass selectContent(int classNo);
+
+	public abstract OfflineClass selectPayment(OfflineClass value);
+
 
 
 	
