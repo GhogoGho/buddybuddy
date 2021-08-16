@@ -169,7 +169,7 @@ a:hover {
 							href="${contextPath}/main">Home</a></li>
 						<li><a href="${contextPath}/class/1/list">온라인 클래스</a></li>
 
-						<li><a href="${contextPath}/member/myPage">마이페이지 </a></li>
+						
 
 						<li><a href="${contextPath}/offclass/2/list">오프라인 클래스 </a></li>
 
@@ -178,6 +178,7 @@ a:hover {
 						<c:choose>
 
 							<c:when test="${ empty loginMember}">
+								
 								<li><a href="${contextPath}/member/login" tabindex="-1">Login</a>
 								</li>
 
@@ -185,6 +186,7 @@ a:hover {
 
 							<c:otherwise>
 								<%-- 로그인이 되었을 때 --%>
+								<li><a href="${contextPath}/member/myPage">마이페이지 </a></li>
 								<li><a class="mem" href="${contextPath}/member/info">${loginMember.memberNickname }</a></li>
 								<li><a href="${contextPath}/member/logout">로그아웃</a></li>
 							</c:otherwise>

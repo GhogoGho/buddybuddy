@@ -317,7 +317,7 @@ a:hover {
 							href="${contextPath}/main">Home</a></li>
 						<li><a href="${contextPath}/class/1/list">온라인 클래스</a></li>
 						<li><a href="${contextPath}/offclass/2/list">오프라인 클래스 </a></li>
-						<li><a href="${contextPath}/member/myPage">마이페이지 </a></li>
+						
 
 						<%-- 로그인을 했는지, 안 했는지 구분하는 방법 == session에 loginMember 유무 --%>
 						<c:choose>
@@ -428,20 +428,22 @@ a:hover {
 									<c:forEach items="${reserve}" var="reserve">
 										<div class="row">
 											<div class="class-list">
-												<div class="class-img col-sm-2">
+												<div class="class-img col-sm-1">
 													<img src="https://via.placeholder.com/150" width="70"
 														height="70" class="rounded-3 float-start me-2" alt="">
 												</div>
-												<div class="class-cate col-sm-2">
+												<div class="class-cate col-sm-1">
 													<a href="#">${reserve.categoryNm}</a>
 												</div>
-												<div class="class-nm col-sm-3">
+												<div class="class-nm col-sm-2">
 													<a href="#">${reserve.classTitle}</a>
 												</div>
-												<div class="class-dt col-sm-2">${reserve.classCreateDate}
-																				${reserve.reserveStart}
-																				${reserve.reserveEnd}</div>
-												<div class="col-sm-2">
+												<div class="class-dt col-sm-2">${reserve.classCreateDate}</div>
+												<div class="class-nm col-sm-2">
+													<a href="#">[${reserve.reserveStart} / 
+																				${reserve.reserveEnd}] </a>
+												</div>								
+												<div class="class-dt col-sm-2">
 													<button class="noReserve btn-danger" name="reserveNo" onclick="noReserve(${reserve.reserveNo})" >예약
 														취소</button>
 												</div>
