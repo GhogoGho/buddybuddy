@@ -102,15 +102,19 @@ public class MemberController {
 //		System.out.println("save : " + save);
 
 		Member loginMember = service.login(inputMember);
-
+		
 		System.out.println(save);
 		System.out.println(loginMember);
-
+		
+		
 		HttpSession session = request.getSession();
 
 		if (loginMember != null) {
+			if(loginMember.getMemberGrade().equals("A")) {
+				return "admin/main";
+			}
 			model.addAttribute("loginMember", loginMember);
-
+			
 			Cookie cookie = new Cookie("saveId", loginMember.getMemberEmail());
 
 			if (save != null) {
@@ -135,6 +139,7 @@ public class MemberController {
 		}
 
 		return "redirect:/";
+		
 	}
 
 //	로그아웃
