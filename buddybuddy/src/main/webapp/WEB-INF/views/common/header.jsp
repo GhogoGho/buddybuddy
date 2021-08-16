@@ -29,6 +29,10 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
 	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+	crossorigin="anonymous"></script>
 
 <!-- sweetalert API 추가 -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -119,6 +123,11 @@ a:hover {
 	font-weight: bolder;
 	font-size: 20px;
 }
+
+.dropdown{
+	display: inline-block;
+	float: right;
+}
 </style>
 
 </head>
@@ -131,6 +140,29 @@ a:hover {
 
 				<div>
 					<a class="navbar-brand" href="${contextPath}/main"><b>B</b>uddy</a>
+					
+						<div class="dropdown" id="dropdownbox">
+							<a class="btn btn-white dropdown-toggle" href="#"
+								role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+								aria-expanded="false">고객지원</a>
+
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item"
+									href="${contextPath}/board/1/list">공지사항</a></li>
+								<li><a class="dropdown-item"
+									href="${contextPath}/board/2/list">FAQ</a></li>
+									
+									<c:if test="${ !empty loginMember}">
+										<li><a class="dropdown-item"
+											href="${contextPath}/admin/qnaSubmit"
+											onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;">1:1문의</a></li>
+									</c:if>
+								
+								<li><a class="dropdown-item"
+									href="${contextPath}/admin/main">관리자페이지</a></li>
+							</ul>
+						</div>
+						
 
 					<ul class="nav justify-content-center">
 						<li class="active"><a class="nav-menu"
