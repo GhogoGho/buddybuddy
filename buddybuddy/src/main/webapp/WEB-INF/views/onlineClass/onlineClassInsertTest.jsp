@@ -9,7 +9,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>온라인 클래스 작성 페이지</title>
 
-
 <!-- bulma -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
@@ -52,6 +51,15 @@
 					</c:if>
 				</div>
 			</div>
+			<!-- 클래스 금액 -->
+			<div class="columns">
+				<div class="column">
+					<label class="form-label" for="classPrice">클래스 가격</label> 
+					<input class="input is-rounded" id="classPrice"
+						name="classPrice" type="text" placeholder="금액을 입력해 주세요." required>
+				</div>
+			</div>
+			<!-- 클래스 제목 -->
 			<div class="row">
 				<div class="col-md-10">
 					<label class="form-label" for="classTitle"></label> 
@@ -92,7 +100,7 @@
 					<!-- 클래스 동영상 -->
 					<div class="columns mb-2">
 						<div class="column">
-							<div class="file is-danger">
+							<div class="file is-dark">
 							  <label class="file-label">
 							    <input class="file-input" type="file" id="classVideo1" name="videos" onchange="LoadVideo(this,1)" accept="video/mp4">
 							    <span class="file-cta">
@@ -114,7 +122,7 @@
 					<!-- 클래스 동영상 -->
 					<div class="columns mb-2">
 						<div class="column">
-							<div class="file is-danger">
+							<div class="file is-dark">
 							  <label class="file-label">
 							    <input class="file-input" type="file" id="classVideo2" name="videos" onchange="LoadVideo(this,2)" accept="video/mp4">
 							    <span class="file-cta">
@@ -136,7 +144,7 @@
 					<!-- 클래스 동영상 -->
 					<div class="columns mb-2">
 						<div class="column">
-							<div class="file is-danger">
+							<div class="file is-dark">
 							  <label class="file-label">
 							    <input class="file-input" type="file" id="classVideo3" name="videos" onchange="LoadVideo(this,3)" accept="video/mp4">
 							    <span class="file-cta">
@@ -251,8 +259,9 @@
 			<div class="row">
 				<div class="col-md-10">
 					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-						<button class="button is-success is-large" id=subBtn value="글 작성" onclick="goWrite(this.form)">작성</button>
-						<button class="button is-light is-rounded is-large">취소</button>
+						<button class="button is-danger is-large" id=subBtn value="글 작성" onclick="goWrite(this.form)">작성</button>
+						<button class="button is-light is-rounded is-large" onclick="goBack()">이전으로</button>
+						
 					</div>
 				</div>
 			</div>
@@ -262,6 +271,9 @@
 	</div>
 		
 </body>
+<!-- 하단부 -->
+<jsp:include page="../common/footer.jsp"/>
+
 
 <script>
 function goWrite(frm) {
@@ -283,7 +295,10 @@ function goWrite(frm) {
 	}
 	frm.submit();
 }
-
+/* 뒤로가기 */
+function goBack(){
+	history.back();
+}
 
 
 

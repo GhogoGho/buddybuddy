@@ -26,6 +26,7 @@
 		<typeAlias type="edu.kh.bubby.online.model.vo.Online" alias="Online" /> 
 		<typeAlias type="edu.kh.bubby.online.model.vo.Pagination" alias="OnPagination" /> 
 		<typeAlias type="edu.kh.bubby.online.model.vo.Search" alias="OnSearch" /> 
+		<typeAlias type="edu.kh.bubby.online.model.vo.Payment" alias="OnPayment" /> 
 		
 		<!-- 오프라인 클래스 -->
 		<typeAlias type="edu.kh.bubby.offline.model.vo.OffPagination" alias="OffPage"/>

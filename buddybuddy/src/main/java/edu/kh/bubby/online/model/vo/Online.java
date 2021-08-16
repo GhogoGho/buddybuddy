@@ -9,6 +9,7 @@ public class Online {
 	private String classContent;
 	private Date classCreateDate;
 	private int classReadCount;
+	private int classPrice;
 	
 	private int memberNo;
 	private String memberNickName;
@@ -62,6 +63,14 @@ public class Online {
 
 	public void setClassReadCount(int classReadCount) {
 		this.classReadCount = classReadCount;
+	}
+
+	public int getClassPrice() {
+		return classPrice;
+	}
+
+	public void setClassPrice(int classPrice) {
+		this.classPrice = classPrice;
 	}
 
 	public int getMemberNo() {
@@ -147,11 +156,13 @@ public class Online {
 	@Override
 	public String toString() {
 		return "Online [classNo=" + classNo + ", classTitle=" + classTitle + ", classContent=" + classContent
-				+ ", classCreateDate=" + classCreateDate + ", classReadCount=" + classReadCount + ", memberNo="
-				+ memberNo + ", memberNickName=" + memberNickName + ", memberProfile=" + memberProfile + ", atList="
-				+ atList + ", classType=" + classType + ", categoryNo=" + categoryNo + ", categoryName=" + categoryName
-				+ ", onlineLike=" + onlineLike + ", fileTitle=" + fileTitle + ", fileContent=" + fileContent + "]";
+				+ ", classCreateDate=" + classCreateDate + ", classReadCount=" + classReadCount + ", classPrice="
+				+ classPrice + ", memberNo=" + memberNo + ", memberNickName=" + memberNickName + ", memberProfile="
+				+ memberProfile + ", atList=" + atList + ", classType=" + classType + ", categoryNo=" + categoryNo
+				+ ", categoryName=" + categoryName + ", onlineLike=" + onlineLike + ", fileTitle=" + fileTitle
+				+ ", fileContent=" + fileContent + "]";
 	}
+
 
 
 

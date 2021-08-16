@@ -24,12 +24,14 @@ import edu.kh.bubby.online.model.service.NoticeService;
 import edu.kh.bubby.online.model.service.OnReplyService;
 import edu.kh.bubby.online.model.service.OnReviewService;
 import edu.kh.bubby.online.model.service.OnlineService;
+import edu.kh.bubby.online.model.service.PaymentService;
 import edu.kh.bubby.online.model.vo.Category;
 import edu.kh.bubby.online.model.vo.Notice;
 import edu.kh.bubby.online.model.vo.OnReply;
 import edu.kh.bubby.online.model.vo.OnReview;
 import edu.kh.bubby.online.model.vo.Online;
 import edu.kh.bubby.online.model.vo.Pagination;
+import edu.kh.bubby.online.model.vo.Payment;
 import edu.kh.bubby.online.model.vo.Search;
 
 @Controller
@@ -49,6 +51,9 @@ public class OnlineController {
 	 
 	 @Autowired
 	 private OnReviewService onReviewService;
+	 
+	 @Autowired
+	 private PaymentService onPaymentService;
 	
 	// 클래스 목록 조회
 	@RequestMapping("{classType}/list")
@@ -122,12 +127,16 @@ public class OnlineController {
 	// 클래스 상세 조회
 	@RequestMapping("{classType}/{classNo}")
 	public String onlineView(@PathVariable("classType") int classType,
+							@ModelAttribute("loginMember") Member loginMember,
+							Payment onPayment,
 							@PathVariable("classNo") int classNo,
 							@RequestParam(value="cp", required=false, defaultValue = "1") int cp,
 							Model model, RedirectAttributes ra) {
 		
 		Online online = service.selectOnline(classNo);
 		
+		onPayment.setClassNo(online.getClassNo());
+		onPayment.setMemberNo(loginMember.getMemberNo());
 		if(online != null) { // 인기순 정렬용 조회수 증가
 			// 수강문의 목록 조회
 			List<OnReply> rList = onReplyService.selectList(classNo);
@@ -136,6 +145,11 @@ public class OnlineController {
 			// 수강후기 목록 조회
 			List<OnReview> reviewList = onReviewService.selectList(classNo);
 			model.addAttribute("reviewList", reviewList);
+			
+			// 온라인 클래스 구매 회원 목록
+			
+			List<Payment> payList = onPaymentService.selectPaymentList(onPayment);
+			model.addAttribute("payList", payList);
 			
 			model.addAttribute("online", online);
 			return "onlineClass/onlineView";

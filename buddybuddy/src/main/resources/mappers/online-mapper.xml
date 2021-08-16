@@ -29,6 +29,7 @@
 		<result property="classType" column="CLASS_TYPE_NO"/>
 		<result property="classReadCount" column="CLASS_READ_COUNT"/>
 		<result property="classCreateDate" column="CLASS_CREATE_DT"/>
+		<result property="classPrice" column="CLASS_PRICE" />
 		
 		<result property="classContent" column="CLASS_CONTENT"/>
 		<result property="memberNo" column="MEMBER_NO"/>
@@ -42,6 +43,17 @@
 	<resultMap type="OnCategory" id="category_rm">
 		<id property="categoryNo" column="CATEGORY_NO" />
 		<result property="categoryName" column="CATEGORY_NAME" />
+	</resultMap>
+	
+	<!-- 온라인 클래스 구매내역 조회용 resultMap -->
+	<resultMap type="OnPayment" id="payment_rm">
+		<id property="paymentNo" column="PAYMENT_NO"/>
+		
+		<result property="paymentDate" column="PAYMENT_DT"/>
+		<result property="paymentAmount" column="PAYMENT_AMOUNT"/>
+		<result property="paymentStatus" column="PAYMENT_STATUS"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="classNo" column="CLASS_NO"/>
 	</resultMap>
 	
 	
@@ -301,7 +313,7 @@
 	
 	<!-- 클래스 상세 조회 + 해당 클래스에 첨부된 이미지 및 동영상 목록 조회 -->
 	<select id="selectOnline" parameterType="_int" resultMap="online_rm">
-		SELECT CLASS_NO, CATEGORY_NAME, CATEGORY_NO, CLASS_TITLE, CLASS_CONTENT,
+		SELECT CLASS_NO, CATEGORY_NAME, CATEGORY_NO, CLASS_TITLE, CLASS_CONTENT, CLASS_PRICE,
 		MEMBER_NO, MEMBER_NICKNAME, CLASS_READ_COUNT, CLASS_CREATE_DT, CLASS_TYPE_NO
 		FROM CLASS_PAGE
 		JOIN CATEGORY USING(CATEGORY_NO)
@@ -321,7 +333,7 @@
 
 		INSERT INTO CLASS_PAGE VALUES
 		( #{classNo}, #{classTitle}, #{classContent}, 
-		DEFAULT, DEFAULT, DEFAULT, #{memberNo}, #{classType}, #{categoryNo}, null )
+		DEFAULT, DEFAULT, DEFAULT, #{memberNo}, #{classType}, #{categoryNo}, #{classPrice} )
 		
 	</insert>
 	
@@ -384,7 +396,7 @@
 		
 		INSERT INTO CLASS_PAGE VALUES
 		( #{classNo}, #{classTitle}, #{classContent}, 
-		DEFAULT, DEFAULT, DEFAULT, #{memberNo}, #{classType}, #{categoryNo}, null )
+		DEFAULT, DEFAULT, DEFAULT, #{memberNo}, #{classType}, #{categoryNo}, #{classPrice} )
 		
 	</insert>
 	
@@ -404,5 +416,23 @@
 		WHERE CLASS_NO = #{classNo}
 	</update>
 	
+	
+	<!-- ====================================== -->
+	<!-- ====================================== -->
+	<!-- ====================================== -->
+	
+	<!-- 클래스 결제 -->
+	<insert id="payment" parameterType="Online">
+		INSERT INTO ONLINE_PAYMENT VALUES
+		( SEQ_ONPAYNO.NEXTVAL, DEFAULT, #{classPrice}, DEFAULT, #{memberNo}, #{classNo} )
+	</insert>
+	
+	<!-- 클래스 결제 내역 조회 -->
+	<select id="selectPaymentList" parameterType="Online" resultMap="payment_rm">
+		SELECT * FROM ONLINE_PAYMENT
+		WHERE MEMBER_NO = #{memberNo}
+		AND CLASS_NO = #{classNo}
+		AND PAYMENT_STATUS = 'Y'
+	</select>
 	
 </mapper>
