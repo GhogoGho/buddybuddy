@@ -230,8 +230,21 @@ a:hover {
 	background-color: #50b8b3;
 	border-radius: 2px;
 	border: none;
-	margin-left: 35%;
+	margin-left: 38%;
 	margin-top: 20px;
+}
+
+.img .img-btn a:hover {
+	width: 300px;
+	height: 45px;
+	border-color: #50b8b3;
+	background-color: #50b8b3;
+	border-radius: 2px;
+	border: none;
+	margin-left: 38%;
+	margin-top: 20px;
+	text-decoration : none;
+	position : center;
 }
 
 .btn-danger {
@@ -429,7 +442,7 @@ a:hover {
 										<div class="row">
 											<div class="class-list">
 												<div class="class-img col-sm-1">
-													<img src="https://via.placeholder.com/150" width="70"
+													<img src="${contextPath}/resources/images/category/flowerClass.jfif" width="70"
 														height="70" class="rounded-3 float-start me-2" alt="">
 												</div>
 												<div class="class-cate col-sm-1">
