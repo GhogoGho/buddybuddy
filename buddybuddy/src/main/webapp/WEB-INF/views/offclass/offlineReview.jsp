@@ -84,13 +84,27 @@
 						</c:forEach>
 					</div>
 				</div>
-				<c:if test="${offList.count == 1}">
-				<div class ="row">
-				별점 : 
 				<style>
 				#star a{ text-decoration: none; color: gray; padding:3px} #star a.on{ color: yellow; }
 				</style>
-
+				<c:set var="payMent" value="${offList.count}"/>
+				<c:if test="${payMent == 1}">
+				<style>
+					#reviewAreaStyle{
+						display: block;
+					}
+				</style>
+				</c:if>
+				<c:if test="${payMent == 2}">
+				<style>
+					#reviewAreaStyle{
+						display: none;
+					}
+				</style>
+				</c:if>
+				<div class = "row" id="reviewAreaStyle">
+				<div class ="row">
+				별점 : 
 				<span id="star" style="margin:0; display:inline;float:right"> <!-- 부모 -->
 	 				<a  value="1">★</a> <!-- 자식들-->
 					<a  value="2">★</a> 
@@ -99,15 +113,7 @@
 					<a  value="5">★</a> 
 				</span>
 				<input type="hidden" id="reviewRatings" name="reviewRatings"/>
-				<script>
-					$('#star a').click(function(){ 
-					$(this).parent().children("a").removeClass("on"); 
-					$(this).addClass("on").prevAll("a").addClass("on");
-					$("#reviewRatings").val($(this).attr("value"));
-					console.log("별"+$("#reviewRatings").val());
-					console.log($(this).attr("value")); });
 				
-				</script>
 				</div>
 				<div class= "row">
 					<div class="col-md-11" style="padding-right: 0px;">
@@ -124,9 +130,17 @@
 						</button>
 					</div>
 				</div>
+				</div>
 				
-				</c:if>
-
+<script>
+					$('#star a').click(function(){ 
+					$(this).parent().children("a").removeClass("on"); 
+					$(this).addClass("on").prevAll("a").addClass("on");
+					$("#reviewRatings").val($(this).attr("value"));
+					console.log("별"+$("#reviewRatings").val());
+					console.log($(this).attr("value")); });
+				
+				</script>
 
 
 
@@ -163,6 +177,8 @@ if(loginMemberNo==""){
 	
 	if(replyContent.trim()==""){ //작성된 댓글이 없을 경우
 		swal("댓글 작성 후 클릭해 주세요.")		
+	}else if($("#reviewRatings").val()==""){
+		swal("별점을 클릭해 주세요.");	
 	}
 	else{
 		//로그인O, 댓글 작성O
@@ -178,7 +194,9 @@ if(loginMemberNo==""){
 				if(result>0){
 					swal({"icon" : "success" , "title" : "댓글 등록 성공"});
 					$('#reviewContent').val("");//댓글 작성 내용 삭제
+					$('#reviewAreaStyle').css("display","none");
 					selectReplyList();
+					
 				}
 			},
 			
@@ -338,7 +356,7 @@ function selectReplyList(){
 					var deleteReview =$("<button>").addClass("btn main-btn-color").text("삭제").attr("onclick","deleteReply("+item.reviewNo+")").css({
 						float: "right"
 					});
-					div2.append(updateReview).append(deleteReview);
+					div2.append(deleteReview);
 				}
 				div1.append(div2);
 				$("#reviewListArea").append(div1);
@@ -454,6 +472,9 @@ function deleteReply(replyNo){
 				if(result > 0){
 					selectReplyList(classNo);
 					swal({"icon" : "success" , "title" : "댓글 삭제 성공"});
+					$('#reviewAreaStyle').css("display","block");
+					$("#star").children("a").removeClass("on");
+					$("#reviewRatings").val("");
 				}
 				
 			}, error : function(){
