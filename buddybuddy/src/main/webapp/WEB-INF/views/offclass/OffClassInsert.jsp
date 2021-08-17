@@ -629,12 +629,21 @@ td {
 				"tbody td",
 				function() {
 					const thisDate = currentYear + "-" + currentMonth + "-"
-							+ $(this).text()
+					+ $(this).text();
+					if(thisDate<=date.getFullYear()+"-"+(date.getMonth() + 1)+"-"+date.getDate()){
+						swal({
+							icon : "error",
+							title:"오늘보다 다음 날을 선택해 주세요"
+						});
+					}else{
+				
 
-					console.log(thisDate);
-					$("#hiddenDate").val(thisDate);
-					$("td").css("backgroundColor", "white");
-					$(this).css("backgroundColor", "red");
+				console.log(thisDate);
+				$("#hiddenDate").val(thisDate);
+				$("td").css("backgroundColor", "white");
+				$(this).css("backgroundColor", "red");
+					}
+					
 
 				});
 		/*        <div class="col-md-12"
@@ -660,7 +669,8 @@ td {
 					icon : "error",
 					title:"날짜선택 , 시작시간, 종료시간 중 빠진것이 없는지 확인해주세요."
 				});
-			}else{
+			}
+			else{
 				var hiddenDate = $("#hiddenDate").val();
 				var startTime = $("#startTime").val();
 				var endTime = $(".endTime").val();

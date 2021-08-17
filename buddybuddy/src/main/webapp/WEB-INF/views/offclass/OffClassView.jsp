@@ -524,7 +524,6 @@ th {
 												dataType:"JSON",
 												success:function(dateList){
 													console.log(dateList);
-													
 									
 													
 														var doMonth = new Date(today.getFullYear(), today.getMonth(), 1);
@@ -600,11 +599,18 @@ th {
 																currentYear = today.getFullYear();
 																currentMonth = today.getMonth() + 1;
 																if(item.reserveDate==(currentYear+"-"+currentMonth+"-"+cell.innerText)){
-																	cell.style.border="1px solid black";
+																	if(item.reserveDate>date.getFullYear()+"-"+(date.getMonth() + 1)+"-"+date.getDate()){
+																		cell.style.border="1px solid black";
+																	}
+																	
 																}
 																	
 															});
 														}
+												
+												
+												
+												
 												},
 												error:function(){
 													console.log("달력 불러오기 실패");
@@ -629,8 +635,6 @@ th {
 													</div>
 													</div> -->
 											
-											
-
 												</div>
 											</div>
 											<div class="modal-footer">
@@ -700,6 +704,13 @@ th {
 	</div>
 	<script>
 	function sinClass(){
+		if($('#sinClass').val().trim()==""){
+			swal({
+				icon : "error",
+				title: "신고 내용을 입력해주세요"
+			});
+		}else{
+			
 		reportContent=$('#sinClass').val();
 		memberNo = "${offList.memberNo}";
 		classNO = "${offList.classNo}";
@@ -716,12 +727,15 @@ th {
 						icon : "success",
 						title: "클래스 신고 완료"
 					});
+					$('#sinClass').val("");
 				}
 			},
 			error:function(){
 				console.log("ajax통신 실패");
 			}
 		});
+		
+		}
 	}
 	</script>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
@@ -787,6 +801,7 @@ th {
 			}
 			
 			if(0>$(this).val()){
+				$(this).val("");
 				$(this).val(0);
 			}
 			
@@ -1028,7 +1043,7 @@ th {
 		integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
 		crossorigin="anonymous"></script>
 	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
 		integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
 		crossorigin="anonymous"></script>
 </body>
