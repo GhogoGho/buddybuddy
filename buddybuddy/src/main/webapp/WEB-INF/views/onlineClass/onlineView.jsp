@@ -32,6 +32,7 @@
  background: none;
 
 }
+
 </style>
 </head>
 <body>
@@ -95,7 +96,7 @@
           <hr>
         </div>
         <!-- 클래스 구매 -->
-        <div class="col-md-5 sticky-md-top">
+        <div class="col-md-5 sticky-md-top" style="z-index: 0;">
           <div class="card border-dark mb-3" id="payment-class" style="max-width: 30rem; height: 25rem;">
             <div class="card-header bg-transparent border-dark">
             <c:choose>
