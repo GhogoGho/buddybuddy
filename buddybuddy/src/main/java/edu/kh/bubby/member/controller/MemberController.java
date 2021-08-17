@@ -25,6 +25,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 import edu.kh.bubby.member.model.service.KakaoAPI;
 import edu.kh.bubby.member.model.service.MemberService;
@@ -111,9 +112,11 @@ public class MemberController {
 		HttpSession session = request.getSession();
 
 		if (loginMember != null) {
+			
 			if(loginMember.getMemberGrade().equals("A")) {
 				return "admin/main";
 			}
+			
 			model.addAttribute("loginMember", loginMember);
 			
 			Cookie cookie = new Cookie("saveId", loginMember.getMemberEmail());
@@ -525,7 +528,7 @@ public class MemberController {
 //	비번 찾기 Controller
 	@RequestMapping(value = "findPw", method = RequestMethod.POST)
 	public void findPw(@ModelAttribute Member findMember, Model model, @RequestParam("findEmail") String findEmail,
-			@RequestParam("findNickname") String findNickname, HttpServletResponse response) throws Exception {
+			@RequestParam("findNickname") String findNickname, HttpServletResponse response, RedirectAttributes ra) throws Exception {
 
 		findMember.setMemberEmail(findEmail);
 		findMember.setMemberNickname(findNickname);
@@ -534,6 +537,9 @@ public class MemberController {
 		System.out.println(findNickname);
 
 		service.findPw(response, findMember);
+		
+		
+		//return "redirect:/";
 	}
 
 //	SweetAlert를 이용한 메세지 전달용 메소드

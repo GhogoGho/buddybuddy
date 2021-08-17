@@ -279,7 +279,7 @@ a:hover {
 	<!-- 컨테이너 입력 부분 -->
 	<!-- ID 찾기 -->
     <div class="findId-form">
-        <form action="findPw" method="post" class="form-horizontal">
+        <form action="findPw" method="post" class="form-horizontal" onsubmit="return validate();">
             <div class="col-xs-8 col-xs-offset-4">
                 <h2>PW 찾기</h2>
             </div>
@@ -334,42 +334,36 @@ a:hover {
 			});
 		</script>
 
+		<c:remove var="icon" />
+		<c:remove var="title" />
+		<c:remove var="text" />
 	</c:if>
 
-	<script>
-		// 비밀번호가 작성되었는지 확인하는 유효성 검사 
-		function loginValidate() {
-			
-
-			if ($("#memberPw").val().trim().length == 0) {
-				
-				swal({
-					"icon" : "warning",
-					"title" : "비밀번호를 입력해주세요"
-				}).then(function() {
-					// 비밀번호 입력창으로 포커스 이동
-					$("#memberPw").focus();
-				});
-
-				return false;
-			}
-		}
-		
-		$(function(){
-			$("#findBtn").click(function(){
-				$.ajax({
-					url : "${contextPath}/member/findPw",
-					type : "POST",
-					data : {
-						findEmail : $("#findEmail").val(),
-						findNickname : $("#findNickname").val()
-					},
-					success : function(result) {
-						alert(result);
-					},
-				})
-			});
-		})
-	</script>
+	 <script>
+      
+      
+      $(function(){
+         $("#findBtn").click(function(){
+            $.ajax({
+               url : "${contextPath}/member/findPw",
+               type : "POST",
+               data : {
+                  findEmail : $("#findEmail").val(),
+                  findNickname : $("#findNickname").val()
+               },
+               success : function(result) {
+                  alert(result);
+                  
+                  if("이메일로 임시 비밀번호를 발송하였습니다." == result){
+                	  location.href="${contextPath}/member/login";
+                  }
+               },
+            })
+         });
+      })
+   </script>
+	
+	
+	
 </body>
 </html>

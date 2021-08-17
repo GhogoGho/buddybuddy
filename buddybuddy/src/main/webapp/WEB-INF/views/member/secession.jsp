@@ -413,7 +413,7 @@ ol, ul {
 		</form>
 
 		<!-- 회원탈퇴 약관-->
-		<div action="" id="joinForm">
+		<div id="joinForm">
 			<ul class="join_box">
 
 				<li class="checkBox check">

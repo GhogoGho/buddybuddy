@@ -35,7 +35,7 @@ $("#id").on("input", function() {
 		//$.ajax({url : "주소", 선택속성});
 		$.ajax({
 			url: "idDupCheck", // 요청 주소(필수로 작성!)
-			data: { "id": inputId }, // 전달하려는 값 (파라미터)
+			data: {"id": inputId }, // 전달하려는 값 (파라미터)
 			type: "post", // 데이터 전달 방식 
 
 			success: function(result) {
