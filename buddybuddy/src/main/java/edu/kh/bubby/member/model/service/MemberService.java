@@ -79,7 +79,7 @@ public interface MemberService {
 	 * @param findMember
 	 * @throws Exception 
 	 */
-	public abstract int findPw(HttpServletResponse response, Member findMember) throws Exception;
+	public abstract void findPw(HttpServletResponse response, Member findMember) throws Exception;
 	
 	
 	/** 이메일 발송 Service

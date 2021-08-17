@@ -201,7 +201,7 @@ public class MemberServiceImpl implements MemberService {
 
 //	비번 찾기 Service
 	@Override
-	public int findPw(HttpServletResponse response, Member findMember) throws Exception {
+	public void findPw(HttpServletResponse response, Member findMember) throws Exception {
 		response.setContentType("text/html;charset=utf-8");
 
 		Member ck = dao.findMember(findMember.getMemberEmail());
@@ -210,14 +210,14 @@ public class MemberServiceImpl implements MemberService {
 
 		PrintWriter out = response.getWriter();
 		
-		int result = 0;
+		
 
 //		가입된 이메일
 		if (dao.idDupCheck(findMember.getMemberEmail()) == 0) {
 			out.print("등록되지 않은 이메일입니다.");
 			out.close();
 			
-			result = 2;
+			
 
 //		가입된 닉네임이 아닐 경우	
 		} else if (!findMember.getMemberNickname().equals(ck.getMemberNickname())) {
@@ -226,7 +226,7 @@ public class MemberServiceImpl implements MemberService {
 
 			System.out.println(findMember.getMemberEmail());
 			
-			result = 3;
+			
 			
 //		임시 비번 발송		
 		} else {
@@ -236,11 +236,13 @@ public class MemberServiceImpl implements MemberService {
 				pw += (char) ((Math.random() * 26) + 97);
 
 			}
-
+			findMember.setMemberPw(bCryptPasswordEncoder.encode(pw));
+			
 			// 비밀번호 변경
-			result = dao.updatePw(findMember);
+			dao.updatePw(findMember);
 			
 			findMember.setMemberPw(pw);
+			
 			// 비밀번호 변경 메일 발송
 			sendEmail(findMember, "findPw");
 			
@@ -249,7 +251,6 @@ public class MemberServiceImpl implements MemberService {
 			findMember.setMemberPw(bCryptPasswordEncoder.encode(pw));
 		}
 		
-		return result;
 	}
 
 //	카카오 소셜 로그인 Service

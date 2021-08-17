@@ -112,9 +112,11 @@ public class MemberController {
 		HttpSession session = request.getSession();
 
 		if (loginMember != null) {
+			
 			if(loginMember.getMemberGrade().equals("A")) {
 				return "admin/main";
 			}
+			
 			model.addAttribute("loginMember", loginMember);
 			
 			Cookie cookie = new Cookie("saveId", loginMember.getMemberEmail());
