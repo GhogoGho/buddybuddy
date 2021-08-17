@@ -376,7 +376,6 @@ public class MemberController {
 		return "member/myPage/choice";
 	}
 	
-	
 
 
 //	info 화면 전환용 Controller
