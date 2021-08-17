@@ -23,7 +23,7 @@
 		list-style-type: none;
 	}
 </style>
-<button onclick="selectReplyList()">목록갱신</button>
+<!-- <button onclick="selectReplyList()">목록갱신</button> -->
 
 <!-- 댓글1 -->
 <div id="replyListArea">

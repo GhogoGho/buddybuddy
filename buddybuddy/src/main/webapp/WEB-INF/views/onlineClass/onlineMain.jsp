@@ -85,6 +85,9 @@
 	cursor:pointer;
 }
 
+#createrNick{
+	 color: #dc3545
+}
 </style>
 
 		<div class="container">
@@ -201,16 +204,21 @@
 											<h5 class="card-title">${online.classTitle }</h5>
 										</a>
 									</div>
-									<!-- <div class="card-footer star-rating">
-										Product reviews
+									<div class="card-footer star-rating">
+										<!-- <i class="fas fa-hat-cowboy-side"></i>
+										<i class="fas fa-palette"></i> -->
+										<i class="fas fa-user-graduate"></i>
+										<h6 class="fw-bold ml-3" id="createrNick">${online.memberNickName }</h6>
+										
+										<!-- Product reviews
 										<div class="d-flex justify-content-center large text-danger my-1 stars">
 											<i class="far fa-star"></i>
 											<i class="far fa-star"></i>
 											<i class="far fa-star"></i>
 											<i class="far fa-star"></i>
 											<i class="far fa-star"></i>
-										</div>
-									</div> -->
+										</div> -->
+									</div>
 								</div>
 							</div>
 						</c:forEach>

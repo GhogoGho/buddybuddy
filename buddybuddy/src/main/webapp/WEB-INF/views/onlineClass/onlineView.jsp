@@ -42,7 +42,11 @@
 	    <p>아임 서포트 결제 모듈 테스트 해보기</p>
 	    <button id="check_module" type="button">아임 서포트 결제 모듈 테스트 해보기</button>
 		</p> -->
-
+		<%-- ${loginMember }
+		<br>
+		${online }
+		<br>
+		${payList } --%>
 		<div class="container">
 		<c:forEach items="${online.atList}" var="at">
 						<c:choose>
@@ -151,10 +155,13 @@
             </div>
             <div class="card-footer bg-transparent border-dark text-center paymentArea" id="paymentArea">
             <c:choose>
-            <c:when test="${empty payList}">
+            <c:when test="${empty payList && loginMember.memberGrade == 'N'}" >
 							<!-- <button type="button" class="button is-medium is-fullwidth is-danger is-rounded">수강신청</button> -->
 							<button class="button is-medium is-fullwidth is-danger is-rounded" id="check_module" type="button">수강 신청</button>
 						</c:when>	
+						<c:when test="${empty payList && loginMember.memberNo != online.memberNo}" >
+							<button class="button is-medium is-fullwidth is-danger is-rounded" id="check_module" type="button">수강 신청</button>
+						</c:when>
 						<c:otherwise>
 							<button type="button" id="videoBtn" class="button is-medium is-fullwidth is-dark is-rounded" onclick="fnRequest('video');">수강하기</button>
 						</c:otherwise>
@@ -452,10 +459,10 @@ $("#check_module").click(function () {
 			
 			
 		var msg = '결제가 완료되었습니다.';
-		msg += '고유ID : ' + rsp.imp_uid;
-		msg += '상점 거래ID : ' + rsp.merchant_uid;
+		/* msg += '고유ID : ' + rsp.imp_uid;
+		msg += '상점 거래ID : ' + rsp.merchant_uid; */
 		msg += '결제 금액 : ' + rsp.paid_amount;
-		msg += '카드 승인번호 : ' + rsp.apply_num;
+		/* msg += '카드 승인번호 : ' + rsp.apply_num; */
 		} else {
 		var msg = '결제에 실패하였습니다.';
 		msg += '에러내용 : ' + rsp.error_msg;
