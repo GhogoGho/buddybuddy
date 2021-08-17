@@ -69,9 +69,22 @@
 												
 											</div>
 											<div class="card-footer">
-												<img alt="Bootstrap Image Preview"
+											<c:choose>
+												<c:when
+													test="${list.memberProfile eq '(null)'}">
+													<img alt="Bootstrap"
+									src="${contextPath}/resources/images/noimage.png"
+									width="25px" height="25px" class="rounded-circle"/>
+												</c:when>
+												<c:otherwise>
+													<img alt="Bootstrap Image Preview"
 									src="${contextPath}/${list.memberProfile}"
 									width="25px" height="25px" class="rounded-circle"/>
+												</c:otherwise>
+											</c:choose>
+												<script type="text/javascript">
+													console.log("${list.memberProfile}");
+												</script>
 												<h5 class="card-title" style="display:inline">${list.memberNickName}</h5>
 											</div>
 										</div>
