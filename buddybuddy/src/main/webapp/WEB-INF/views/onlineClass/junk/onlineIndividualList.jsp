@@ -25,7 +25,7 @@
 </head>
 <body>
 		<!-- 상단부 -->
-		<jsp:include page="../common/header.jsp"/>
+		<%-- <jsp:include page="../common/header.jsp"/> --%>
 
 <style>
 .online-category {
@@ -239,7 +239,7 @@
 
 
 		<!-- 하단부 -->
-		<jsp:include page="../common/footer.jsp"/>
+		<%-- <jsp:include page="../common/footer.jsp"/> --%>
 
 </body>
 </html>

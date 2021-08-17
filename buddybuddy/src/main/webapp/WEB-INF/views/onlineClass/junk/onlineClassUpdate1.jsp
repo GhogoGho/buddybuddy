@@ -64,7 +64,7 @@
 </style>
 </head>
 <body>
-		<jsp:include page="../common/header.jsp"></jsp:include>
+		<%-- <jsp:include page="../common/header.jsp"></jsp:include> --%>
 
 		<div class="container my-5">
 
@@ -199,7 +199,7 @@
 			</form>
 		</div>
 
-		<jsp:include page="../common/footer.jsp"></jsp:include>
+		<%-- <jsp:include page="../common/footer.jsp"></jsp:include> --%>
 		
 		
 	<script>
