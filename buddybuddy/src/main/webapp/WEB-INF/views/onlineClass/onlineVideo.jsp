@@ -126,10 +126,10 @@
              <button class="nav-link active" id="pills-list-tab" data-bs-toggle="pill" data-bs-target="#pills-list"
                type="button" role="tab" aria-controls="pills-list" aria-selected="true">클래스 진행과정</button>
            </li>
-           <li class="nav-item" role="presentation">
+           <!-- <li class="nav-item" role="presentation">
              <button class="nav-link" id="pills-notice-tab" data-bs-toggle="pill" data-bs-target="#pills-notice"
                type="button" role="tab" aria-controls="pills-notice" aria-selected="false">공지사항</button>
-           </li>
+           </li> -->
          </ul>
          
          <hr>
@@ -147,8 +147,8 @@
                        <video src="${video1}" type="video/mp4" width="200" height="200" class="user-image me-2" id="playVideo">
                      </div>
                      <div class="col-md-9">
-                       <p class="h3 fw-bold">01. 서론</p>
-                       <p class="h6">안녕하세요. 일상의 소소한 모습들을 그리고 적어봅시다.</p>
+                       <p class="h3 fw-bold">01. 강의</p>
+                       <p class="h6"></p>
                      </div>
                    </div>
                    <div class="row ">
@@ -167,8 +167,8 @@
                      	<video src="${video2}" type="video/mp4" width="200" height="200" class="user-image me-2">
                      </div>
                      <div class="col-md-9">
-                       <p class="h3 fw-bold">02. 본론</p>
-                       <p class="h6">아이패드와 프로크리에이트 앱 소개하며 기본기를 다져볼까요?</p>
+                       <p class="h3 fw-bold">02. 강의</p>
+                       <p class="h6"></p>
                      </div>
                    </div>
                    <div class="row">
@@ -187,8 +187,8 @@
                      	<video src="${video3}" type="video/mp4" width="200" height="200" class="user-image me-2">
                      </div>
                      <div class="col-md-9">
-                       <p class="h3 fw-bold">03. 결론</p>
-                       <p class="h6">완성 단계까지 오신 것을 환영합니다.</p>
+                       <p class="h3 fw-bold">03. 강의</p>
+                       <p class="h6"></p>
                      </div>
                    </div>
                    <div class="row">

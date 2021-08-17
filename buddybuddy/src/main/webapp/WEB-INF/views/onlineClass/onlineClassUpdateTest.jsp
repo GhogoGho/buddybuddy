@@ -304,9 +304,9 @@
 				<div class="col-md-10">
 					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 						<button class="button is-link is-large" id=subBtn value="글 수정" type="submit">수정</button>
-						<button class="button is-light is-rounded is-large" href="${param.classNo }?cp=${param.cp }">이전</button>
-						<button class="button is-light is-rounded is-large" href="list?cp=${param.cp }">목록으로</button>
-						<button class="button is-light is-rounded is-large" onclick="goBack()">이전으로</button>
+						<%-- <button type="button" class="button is-light is-rounded is-large" href="${param.classNo }?cp=${param.cp }">이전</button>
+						<button type="button" class="button is-light is-rounded is-large" href="list?cp=${param.cp }">목록으로</button> --%>
+						<button type="button" class="button is-light is-rounded is-large" onclick="goBack()">이전으로</button>
 					</div>
 				</div>
 			</div>

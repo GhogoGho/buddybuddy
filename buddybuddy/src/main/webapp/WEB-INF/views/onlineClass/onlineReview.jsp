@@ -171,7 +171,7 @@
 					</div>
 				</div>
 				<%-- <input id="editStarRatingVal" type="hidden" value="${review.reviewRatings}" required > --%>
-				<div class="editPrint" style="display:none;"></div>
+				<div class="editPrint" style="display:none;">${review.reviewRatings}</div>
 				<!--수정 별점 -->
       </div>
 				
@@ -600,25 +600,31 @@ function updateReview(reviewNo, el){
 	formData.append("reviewImgs", editReviewImgs);
 	formData.append("reviewNo", reviewNo);
 	
-	$.ajax({
-		url : "${contextPath}/onReview/updateReview",
-		type : "POST",
-		enctype : "multipart/form-data",
-		data : formData ,
-		contentType : false,
-		processData : false,
-		/* data : {"reviewNo" : reviewNo,
-						"reviewContent" : reviewContent}, */
-		success : function(result){
-			if(result > 0 ){
-				swal({"icon" : "success" , "title" : "수강후기 수정 성공"});
-				selectReviewList();
+	if(reviewContent.trim() == ""){
+		swal("수강후기 내용을 수정 후 클릭해 주세요.");
+	}else{
+		
+		$.ajax({
+			url : "${contextPath}/onReview/updateReview",
+			type : "POST",
+			enctype : "multipart/form-data",
+			data : formData ,
+			contentType : false,
+			processData : false,
+			/* data : {"reviewNo" : reviewNo,
+							"reviewContent" : reviewContent}, */
+			success : function(result){
+				if(result > 0 ){
+					swal({"icon" : "success" , "title" : "수강후기 수정 성공"});
+					/* $("#editReviewImg").val(""); */
+					selectReviewList();
+				}
+			},
+			error : function(){
+				console.log("수강후기 수정 실패");
 			}
-		},
-		error : function(){
-			console.log("수강후기 수정 실패");
-		}
-	});
+		});
+	}// else 끝
 }
 // ---------------------------
 // 수강후기 삭제 기능
