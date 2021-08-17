@@ -460,6 +460,13 @@ ol, ul {
 	<script>
 		// 약관 동의가 체크 되었을 때에만 탈퇴 진행
 		function secessionValidate(){
+			
+			
+		    if ($("#currentPwd").val().trim().length == 0) {
+		    	swal({"icon" : "info", "title" : "비밀번호를 입력해주세요."})
+		        $("#currentPwd").focus();
+		        return false;
+		     }
 			// script, filter, wrapper, servlet, service, dao, sql
 			// 응답화면 제어
 			
