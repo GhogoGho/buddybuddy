@@ -273,13 +273,10 @@
 
 	<!-- 전체 이용내역 조회 -->
 	<select id="getListCount" parameterType="_int" resultMap="pg_rm">
-		SELECT
-		COUNT(*) CNT
-		FROM CLASS_LIST
-		JOIN PAYMENT USING(MEMBER_NO)
-		WHERE
-		CLASS_STATUS = 'Y'
-		AND MEMBER_NO = #{memberNo}
+		SELECT COUNT(*) CNT FROM CLASS_LIST A
+		JOIN PAYMENT B ON(A.CLASS_NO = B.CLASS_NO)
+		WHERE A.MEMBER_NO = #{memberNo}
+        AND B.PAYMENT_STATUS = 'Y'
 	</select>
 
 	<!-- 예약용 전체 조회 -->
