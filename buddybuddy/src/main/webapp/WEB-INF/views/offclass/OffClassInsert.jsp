@@ -189,8 +189,8 @@ td {
 				<div class="col-md-12 mb-3">
 					<label style="font-size: 25px;">카테고리 : </label> <select
 						style="font-size: 20px;" name="categoryCode">
-						<option value="1" selected>공예</option>
-						<option value="2">요리</option>
+						<option value="1" selected>요리</option>
+						<option value="2">공예</option>
 						<option value="3">미술</option>
 						<option value="4">플라워</option>
 					</select>
