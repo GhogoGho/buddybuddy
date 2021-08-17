@@ -132,7 +132,7 @@ public class MemberServiceImpl implements MemberService {
 
 		String str = "_" + String.format("%05d", ranNum);
 
-		String ext = originFileName.substring(originFileName.lastIndexOf("."));
+		String ext = originFileName.substring(originFileName.lastIndexOf(""));
 
 		return date + str + ext;
 	}
@@ -180,7 +180,7 @@ public class MemberServiceImpl implements MemberService {
 		String title = "버디버디"; // 메일 제목
 		String key = findMember.getMemberPw();
 
-		String content = findMember.getMemberEmail() + "님에게 임시 비밀번호가 발급 되었습니다. <br>"
+		String content = findMember.getMemberNickname() + "님에게 임시 비밀번호가 발급 되었습니다. <br>"
 				+ "발급된 임시번호로 로그인 후 반드시 변경하여 사용해 주세요. <br>" + "임시 비밀번호 : " + key;
 
 		try {
@@ -201,46 +201,55 @@ public class MemberServiceImpl implements MemberService {
 
 //	비번 찾기 Service
 	@Override
-	public void findPw(HttpServletResponse response, Member findMember) throws Exception {
+	public int findPw(HttpServletResponse response, Member findMember) throws Exception {
 		response.setContentType("text/html;charset=utf-8");
 
-		List<Object> ck = dao.findMember(findMember.getMemberEmail());
+		Member ck = dao.findMember(findMember.getMemberEmail());
 
-		System.out.println(ck);
+		System.out.println("ck : " + ck);
 
 		PrintWriter out = response.getWriter();
+		
+		int result = 0;
 
-//		가입된 아이디가 없는 경우
+//		가입된 이메일
 		if (dao.idDupCheck(findMember.getMemberEmail()) == 0) {
-			out.print("등록되지 않은 아이디입니다.");
-			out.close();
-
-//		가입된 아이디가 아닐 경우
-		} else if (!findMember.getMemberEmail().equals(findMember.getMemberEmail())) {
 			out.print("등록되지 않은 이메일입니다.");
+			out.close();
+			
+			result = 2;
+
+//		가입된 닉네임이 아닐 경우	
+		} else if (!findMember.getMemberNickname().equals(ck.getMemberNickname())) {
+			out.print("등록되지 않은 닉네임입니다.");
 			out.close();
 
 			System.out.println(findMember.getMemberEmail());
-
-//		임시 비번 발송	
+			
+			result = 3;
+			
+//		임시 비번 발송		
 		} else {
+			
 			String pw = "";
 			for (int i = 0; i < 12; i++) {
 				pw += (char) ((Math.random() * 26) + 97);
 
 			}
 
-			findMember.setMemberPw(bCryptPasswordEncoder.encode(pw));
 			// 비밀번호 변경
-			dao.updatePw(findMember);
-
+			result = dao.updatePw(findMember);
+			
 			findMember.setMemberPw(pw);
 			// 비밀번호 변경 메일 발송
 			sendEmail(findMember, "findPw");
-
+			
 			out.print("이메일로 임시 비밀번호를 발송하였습니다.");
 			out.close();
+			findMember.setMemberPw(bCryptPasswordEncoder.encode(pw));
 		}
+		
+		return result;
 	}
 
 //	카카오 소셜 로그인 Service

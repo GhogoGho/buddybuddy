@@ -9,10 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Creator_signUp</title>
-<!-- Bootstrap core JS -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous"></script>
+
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
@@ -403,8 +400,6 @@ ul.join_box {
 			<div class="avatar"></div>
 			<div class="text-center">
 
-				<input accept="image/*" class="form-profile" type="file"
-					id="profile" name="profile" onchange="loadFile(event)">
 			</div>
 			<h2 class="text-center"> Creator Sign Up</h2>
 			<div class="form-group">
@@ -444,7 +439,7 @@ ul.join_box {
 				<ul class="join_box">
 					<li class="checkBox check01">
 						<ul class="clearfix">
-							<li>이용약관, 개인정보 수집 및 이용, 위치정보 이용약관(선택), 프로모션 안내 메일 수신(선택)에 모두
+							<li>이용약관, 개인정보 수집 및 이용, 위치정보 이용약관(선택), 프로모션 안내 메일 수신(필수)에 모두
 								동의합니다.</li>
 							<li class="checkAllBtn"><input type="checkbox" name="check_all"
 								id="check_all" class="check_all"></li>
@@ -453,7 +448,8 @@ ul.join_box {
 					<li class="checkBox check02">
 						<ul class="clearfix">
 							<li>이용약관 동의(필수)</li>
-							<li class="checkBtn"><input type="checkbox" name="agree">
+							<li class="checkBtn"><input type="checkbox" name="agree"
+								id="agree">
 							</li>
 						</ul> <textarea name="clear1" id="clear1"">여러분을 환영합니다.
     버디버디 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 버디버디 서비스의 이용과 관련하여 버디버디 서비스를 제공하는 버디버디 주식회사(이하 ‘버디버디’)와 이를 이용하는 버디버디 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 버디버디 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
@@ -462,7 +458,8 @@ ul.join_box {
 					<li class="checkBox check03">
 						<ul class="clearfix">
 							<li>개인정보 수집 및 이용에 대한 안내(필수)</li>
-							<li class="checkBtn"><input type="checkbox" name="agree">
+							<li class="checkBtn"><input type="checkbox" name="agree"
+								id="agree">
 							</li>
 						</ul> <textarea name="clear2" id="clear2">여러분을 환영합니다.
     버디버디 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 버디버디 서비스의 이용과 관련하여 버디버디 서비스를 제공하는 버디버디 주식회사(이하 '버디버디')와 이를 이용하는 버디버디 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 버디버디 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
@@ -470,8 +467,9 @@ ul.join_box {
 					</li>
 					<li class="checkBox check03">
 						<ul class="clearfix">
-							<li>위치정보 이용약관 동의(선택)</li>
-							<li class="checkBtn"><input type="checkbox" name="agree">
+							<li>위치정보 이용약관 동의(필수)</li>
+							<li class="checkBtn"><input type="checkbox" name="agree"
+								id="agree">
 							</li>
 						</ul> <textarea name="clear3" id="clear3">여러분을 환영합니다.
     버디버디 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 버디버디 서비스의 이용과 관련하여 버디버디 서비스를 제공하는 버디버디 주식회사(이하 '버디버디')와 이를 이용하는 버디버디 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 버디버디 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
@@ -481,7 +479,7 @@ ul.join_box {
 
 			</div>
 			<div class="form-group">
-				<button type="submit" class="btn btn-primary btn-lg btn-block">회원가입</button>
+				<button type="submit" id="btn" class="btn btn-primary btn-lg btn-block">회원가입</button>
 			</div>
 		</form>
 	</div>
@@ -524,11 +522,28 @@ ul.join_box {
 		});
 
 		function validate() {
-			if ($("#check_all:checked").length == 0) {
-				swal({"icon" : "info", "title" : "약관 동의에 체크해주세요."})
+
+			if ($("#agree:checked").length == 0) {
+				swal({
+					"icon" : "info",
+					"title" : "약관 동의를 체크해주세요."
+				})
+
+				return false;
+
+			} else if ($("#agree:checked").length == 3){
+				
+				return true;
+				
+			} else if ($("#check_all:checked").length == 0) {
+				swal({
+					"icon" : "info",
+					"title" : "약관 동의에 체크해주세요."
+				})
+				
 				return false;
 			}
-			
+
 			return true;
 		}
 	</script>

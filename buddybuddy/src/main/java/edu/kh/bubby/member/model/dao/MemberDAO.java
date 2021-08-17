@@ -132,14 +132,6 @@ public class MemberDAO {
 	}
 
 
-	/** 비번 찾기 DAO (가입회원 조회용)
-	 * @param memberEmail
-	 * @return result
-	 */
-	public List<Object> findMember(String memberEmail) {
-		
-		return sqlSession.selectList("memberMapper.findMember", memberEmail);
-	}
 
 
 	/** 카카오 로그인
@@ -306,6 +298,12 @@ public class MemberDAO {
 	public OfflineClass selectPayment(OfflineClass value) {
 		
 		return sqlSession.selectOne("memberMapper.selectPayment",value);
+	}
+
+
+	public Member findMember(String memberEmail) {
+		
+	return sqlSession.selectOne("memberMapper.findMember", memberEmail);
 	}
 
 

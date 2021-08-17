@@ -469,7 +469,7 @@ a:hover {
          
          
          <!-- 삭제된 이미지를 저장할 태그 추가 -->
-            <input type="hidden" name="deleteImages" value="">
+            <input type="hidden" name="deleteImages" id="deleteImages" value="">
       </form>
 
    </div>
@@ -497,16 +497,21 @@ a:hover {
    
    $('.deleteImg').on("click", function(){
       
-   $('.avatar').css('background-image', 'url("")');
-   
+   	$('.avatar').css('background-image', 'url("")');
+   	
       
    });
    
+   	
+      let initImg = $("#titleImg").attr("src");
+   	  let deleteImages = 0;
    
+   	  
+   	  console.log(initImg)
       // $("input[name='deleteImages']").val(deleteImages);
          
       // 미리보기 스크립트
-      function LoadImg(el) {
+      function LoadImg(value,num) {
          
          
          if (value.files && value.files[0]) {
@@ -519,21 +524,26 @@ a:hover {
                $(".avatar").eq(num).children("img").attr("src",
                      e.target.result); // <- 미리보기Img
 
-               const index = deleteImages.indexOf(num);
 
-               if (index != -1) {
-
-                  deleteImages.splice(index, 1);
-
+               if(initImg == undefined){
+               	deleteImages = 1; // 기존 x 새로운것  o
+               }else{ // 기존 이미지가 있었는데 x눌러 삭제한 경우 -> 이상태로 제출하면 DB에서도 삭제해야함
+               	deleteImages = 2; // 기존 o 새로운것 o
                }
-
+                     
+                   $("#deleteImages").val(deleteImages);
+                     
+                     
             }
          }
 
       }
 
+      
+     
+      
       // 이미지 X 버튼을 눌렀을 때의 동작
-      $(".deleteImages").on("click", function(event) {
+      $(".deleteImg").on("click", function(event) {
 
          event.stopPropagation(); // 이벤트 버블링(이벤트가 연달아 시작되는 것) 삭제
 
@@ -541,16 +551,19 @@ a:hover {
 
          if ($(this).prev().attr("src") != undefined) { // 이미지가 있을 경우에만 X버튼 동작을 취하라 
 
-            const index = $(this).index(".deleteImages");
+            $(this).prev().remove();
+         	$(this).before($('<img id="titleImg">'));
+         
 
-            console.log(index);
+            $("input[name='formFile']").eq(0).val("");
 
-            deleteImages.push(index);
-
-            $(this).prev().removeAttr("src");
-
-            $("input[name='formFile']").eq(index).val("");
-
+            
+            if(initImg == undefined){
+            	deleteImages = 0; // 기존 x 새로 올렸던 이미지를 삭제한 경
+            }else{ // 기존 이미지가 있었는데 x눌러 삭제한 경우 -> 이상태로 제출하면 DB에서도 삭제해야함
+            	deleteImages = 3; // 기존 O 기존 이미지를 삭제한 경
+            }
+            $("#deleteImages").val(deleteImages);
          }
 
       });

@@ -241,8 +241,8 @@
 	</update>
 
 	<!-- 비번 찾기 가입회원 조회 -->
-	<select id="findMember" parameterType="Member"
-		resultType="string">
+	<select id="findMember" parameterType="string"
+		resultMap="member_rm">
 		SELECT * FROM MEMBER
 		WHERE MEMBER_EMAIL = #{memberEmail}
 	</select>
