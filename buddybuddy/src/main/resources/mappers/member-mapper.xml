@@ -355,7 +355,7 @@
 	<!-- 후기 조회 -->
 	<select id="selectReplyList" parameterType="_int"
 		resultMap="reply_rm">
-		SELECT A.REPLY_STATUS, A.REPLY_NO,
+		SELECT A.REPLY_STATUS, A.REPLY_NO, A.REPLY_CONTENT,
 		A.CLASS_NO, A.MEMBER_NO,
 		B.CLASS_TITLE, A.REPLY_DT
 		FROM REPLY A

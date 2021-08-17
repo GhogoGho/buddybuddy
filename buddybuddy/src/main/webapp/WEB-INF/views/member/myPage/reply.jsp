@@ -412,7 +412,7 @@ a:hover {
 														<span class="comment_contents"> <img src="">
 															
 														</span> <br> <span class="p11"> <a href="#">
-																${reply.replyContentle}</a>
+																${reply.replyContent}</a>
 														</span>
 													</div>
 												</div>
