@@ -745,8 +745,9 @@ th {
 				"click",
 				"td",
 				function() {
-					const thisDate = currentYear + "-" + currentMonth + "-"
-							+ $(this).text();
+					let xgx = parseInt($(this).text());
+					let thisDate = currentYear + "-" + currentMonth + "-"
+							+ xgx;
 
 					console.log(thisDate);
 					$("#ReserveViewDate").val(thisDate);
@@ -764,6 +765,16 @@ th {
 							console.log(reList);
 							document.getElementById("ReserveView").innerHTML="";
 							  $.each(reList, function(index, item){
+								  if(xgx==1 || xgx==2 || xgx==3 || xgx==4 || xgx==5 ||xgx==6 || xgx==7 || xgx==8 ||xgx==9){
+										thisDate = currentYear+""+currentMonth+""+"0"+xgx;
+										console.log("if:"+thisDate);
+									}else{
+										thisDate = currentYear+""+currentMonth+""+xgx;
+										console.log("ese:"+thisDate);
+									}
+								  if(parseInt(thisDate)>parseInt(date.getFullYear()+""+(date.getMonth()+1)+""+date.getDate())){
+									  
+								  
 								  	max = ${offList.reserveLimit}-parseInt(item.count);
 									var reDiv =document.createElement("div");
 									reDiv.setAttribute("class","col-md-12");
@@ -783,6 +794,7 @@ th {
 									reDiv.appendChild(reinput);
 									reDiv.appendChild(rebtn);
 									document.getElementById("ReserveView").appendChild(reDiv);
+								  }
 							  });
 						
 						

@@ -675,7 +675,7 @@ td {
 	
 	
 	
-		$(document).on(
+	/* 	$(document).on(
 				"click",
 				"tbody td",
 				function() {
@@ -687,7 +687,7 @@ td {
 					$("td").css("backgroundColor", "white");
 					$(this).css("backgroundColor", "red");
 
-				});
+				}); */
 		/*        <div class="col-md-12"
             style="border: 1px solid black;margin-top: 10px; text-align: left;">
 		           <div>
@@ -705,68 +705,134 @@ td {
 		           </div>
 
 		       </div> */
+		       $(document).on(
+						"click",
+						"tbody td",
+						function() {
+							let thisDate 
+							if($(this).text()==""){
+								swal({
+									icon : "error",
+									title:"날짜를 선택해주세요"
+								});
+								$(this).css("backgroundColor", "white");
+							}else{
+								if($(this).text()==1 || $(this).text()==2 || $(this).text()==3 || $(this).text()==4 || $(this).text()==5 ||$(this).text()==6 || $(this).text()==7 || $(this).text()==8 ||$(this).text()==9){
+									thisDate = currentYear+""+currentMonth+""+"0"+parseInt($(this).text());
+									
+								}else{
+									thisDate = currentYear+""+currentMonth+""+parseInt($(this).text());
+								}
+								console.log(thisDate);
+								console.log(date.getFullYear()+""+(date.getMonth()+1)+""+date.getDate());
+								console.log(parseInt(thisDate)<=parseInt(date.getFullYear()+""+(date.getMonth()+1)+""+date.getDate()));
+								if(parseInt(thisDate)<=parseInt(date.getFullYear()+""+(date.getMonth()+1)+""+date.getDate())){
+									swal({
+										icon : "error",
+										title:"오늘보다 다음 날을 선택해 주세요"
+									});
+								}else{
+							
+							$("#hiddenDate").val(thisDate);
+							$("td").css("backgroundColor", "white");
+							$(this).css("backgroundColor", "red");
+								}
+								
+							}
+							/* else{
+								if($(this).text()==1 || $(this).text()==2 || $(this).text()==3 || $(this).text()==4 || $(this).text()==5 ||$(this).text()==6 || $(this).text()==7 || $(this).text()==8 ||$(this).text()==9){
+									thisDate = currentYear+""+currentMonth+""+"0"+parseInt($(this).text());
+									
+								}else{
+									thisDate = currentYear+""+currentMonth+""+parseInt($(this).text());
+								}
+								console.log(thisDate);
+								console.log(date.getFullYear()+""+(date.getMonth()+1)+""+date.getDate());
+								console.log(parseInt(thisDate)<=parseInt(date.getFullYear()+""+(date.getMonth()+1)+""+date.getDate()));
+								if(parseInt(thisDate)<=parseInt(date.getFullYear()+""+(date.getMonth()+1)+""+date.getDate())){
+									swal({
+										icon : "error",
+										title:"오늘보다 다음 날을 선택해 주세요"
+									});
+								}else{
+							
+							$("#hiddenDate").val(thisDate);
+							$("td").css("backgroundColor", "white");
+							$(this).css("backgroundColor", "red");
+								}
+								
+							} */
+							
+
+						});
+		       
+		       
+		       
 		function dateSave() {
-		    	   if($("#hiddenDate").val() =="" || $("#startTime").val() ==""|| $(".endTime").val()==""){
+		    	   if($("#hiddenDate").val() =="" || $("#startTime").val() ==""|| $(".endTime").val()=="" ||($("#hiddenDate").val() =="" && $("#startTime").val() ==""&& $(".endTime").val()=="" )){
 						swal({
 							icon : "error",
 							title:"날짜선택 , 시작시간, 종료시간 중 빠진것이 없는지 확인해주세요."
 						});
-					}
-		    	   let ch =0;
-		    	   for(var i =0; i<allReserve.length;i++){
-		    		   var hiddenDate = $("#hiddenDate").val();
-						var startTime = $("#startTime").val();
-						var endTime = $(".endTime").val();
-						var save = hiddenDate + " " + startTime + " " + endTime;
-		    		   if(allReserve[i] == save){
-		    				swal({
-								icon : "error",
-								title:"중복된 날짜 시간은 불가능 합니다."
-							});
-		    				ch=1;
-		    				break;
-		    		   }
-		    		  
-		    	   }
-		    	   if(ch==0){
-	    			   console.log(hiddenDate + " " + startTime + " " + endTime);
-	    				
-						var dtdiv = document.createElement("div");
-						dtdiv.setAttribute("class","col-md-3");
-						dtdiv.setAttribute("style","display:inline-block");
-						var dtinput = document.createElement("input");
-						dtinput.setAttribute("type", "text");
-						dtinput.setAttribute("name", "reserveAll");
-						dtinput.setAttribute("value", hiddenDate + " " + startTime + " "
-								+ endTime);
-						dtinput.setAttribute("readonly", true);
-						var dtbtn = document.createElement("button");
-						dtbtn
-								.setAttribute(
-										"style",
-										" float: right; font-size: 25px; margin-left: 10px; width: 34px; height : 30px;line-height: 0px;");
-						dtbtn.setAttribute("onclick", "deleteDate(this)");
-						dtbtn.innerHTML="-";
-						dtdiv.appendChild(dtinput);
-						dtdiv.appendChild(dtbtn);
-						
-						
-						document.getElementById("reserveArea").appendChild(dtdiv);
-						allReserve.push(save);
-						updateReserve.push(save);
-						for(var i;i<deleteReserve.length;i++){
-							if(deleteReserve[i] == save){
-								  deleteReserve.splice(i, 1);
-								  i--;
-							}
-						}
-						console.log(allReserve);
-						$("#updateReserve").val("");
-						$("#updateReserve").val(updateReserve);
-						
-						
-						
-	    		   }
+					}else{
+						console.log("여기왜됨?");
+						let ch =0;
+				    	   for(var i =0; i<allReserve.length;i++){
+				    		   var hiddenDate = $("#hiddenDate").val();
+								var startTime = $("#startTime").val();
+								var endTime = $(".endTime").val();
+								var save = hiddenDate + " " + startTime + " " + endTime;
+				    		   if(allReserve[i] == save){
+				    				swal({
+										icon : "error",
+										title:"중복된 날짜 시간은 불가능 합니다."
+									});
+				    				ch=1;
+				    				break;
+				    		   }
+				    		  
+				    	   }
+				    	   if(ch==0){
+			    			   console.log(hiddenDate + " " + startTime + " " + endTime);
+			    				
+								var dtdiv = document.createElement("div");
+								dtdiv.setAttribute("class","col-md-3");
+								dtdiv.setAttribute("style","display:inline-block");
+								var dtinput = document.createElement("input");
+								dtinput.setAttribute("type", "text");
+								dtinput.setAttribute("name", "reserveAll");
+								dtinput.setAttribute("value", hiddenDate + " " + startTime + " "
+										+ endTime);
+								dtinput.setAttribute("readonly", true);
+								var dtbtn = document.createElement("button");
+								dtbtn
+										.setAttribute(
+												"style",
+												" float: right; font-size: 25px; margin-left: 10px; width: 34px; height : 30px;line-height: 0px;");
+								dtbtn.setAttribute("onclick", "deleteDate(this)");
+								dtbtn.innerHTML="-";
+								dtdiv.appendChild(dtinput);
+								dtdiv.appendChild(dtbtn);
+								
+								
+								document.getElementById("reserveArea").appendChild(dtdiv);
+								allReserve.push(save);
+								updateReserve.push(save);
+								for(var i;i<deleteReserve.length;i++){
+									if(deleteReserve[i] == save){
+										  deleteReserve.splice(i, 1);
+										  i--;
+									}
+								}
+								console.log(allReserve);
+								$("#updateReserve").val("");
+								$("#updateReserve").val(updateReserve);
+								
+								
+								
+			    		   }
+					
+		}
 		    	   
 		    	   /* else{
 		    		   var hiddenDate = $("#hiddenDate").val();
