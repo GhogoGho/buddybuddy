@@ -30,34 +30,6 @@
 						</div>
 					</div>
 				</div>
-				<div class="row" style="text-align: center; margin-bottom: 50px;">
-					<div class="col-md-3">
-						<a href="#"><img alt="Bootstrap Image Preview"
-							src="${contextPath}/resources/images/cooking-5510047_640.png"
-							width="140px" height="140" class="rounded-circle"
-							style="border: 1px solid black;" /><br>요리</a>
-					</div>
-					<div class="col-md-3">
-						<a href="#"><img alt="Bootstrap Image Preview"
-							src="${contextPath}/resources/images/scissors-1332795_640.png"
-							width="140px" height="140" class="rounded-circle"
-							style="border: 1px solid black;" /><br>공예</a>
-					</div>
-					<div class="col-md-3">
-						<a href="#"><img alt="Bootstrap Image Preview"
-							src="${contextPath}/resources/images/paintbrush-5692621_640.png"
-							width="140px" height="140" class="rounded-circle"
-							style="border: 1px solid black;" /><br>미술</a>
-
-					</div>
-					<div class="col-md-3">
-						<a href="#"><img alt="Bootstrap Image Preview"
-							src="${contextPath}/resources/images/flower-5053686_640.png"
-							width="140px" height="140" class="rounded-circle"
-							style="border: 1px solid black;" /><br>플라워</a>
-
-					</div>
-				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<h3 class="text-left">
