@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import edu.kh.bubby.board.model.vo.NOTIAttachment;
 import edu.kh.bubby.board.model.vo.NOTIBoard;
-import edu.kh.bubby.board.model.vo.Category;
 import edu.kh.bubby.board.model.vo.Pagination;
 import edu.kh.bubby.board.model.vo.Search;
 

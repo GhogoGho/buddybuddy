@@ -15,6 +15,13 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>버디버디:재능을 선물하세요!</title>
 
+<!-- Fontfaces CSS-->
+<link href="${contextPath}/resources/admin/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+<link href="${contextPath}/resources/admin/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+
+<!-- Bootstrap CSS-->
+<link href="${contextPath}/resources/admin/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -116,6 +123,7 @@ a {
 
 a:hover {
 	color: #70c5c0;
+	text-decoration: none;
 }
 
 .mem {
@@ -127,6 +135,14 @@ a:hover {
 .dropdown{
 	display: inline-block;
 	float: right;
+}
+
+.navbar-brand{
+	display: inline-block;
+}
+
+textarea{
+	resize: none;
 }
 </style>
 
@@ -154,12 +170,15 @@ a:hover {
 									
 									<c:if test="${ !empty loginMember}">
 										<li><a class="dropdown-item"
-											href="${contextPath}/admin/qnaSubmit"
-											onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;">1:1문의</a></li>
+											href="#modal-container-1" data-toggle="modal">1:1문의</a></li>
+										<li><a class="dropdown-item"
+											href="${contextPath}/admin/qnaListCheck" data-toggle="modal">문의내역확인</a></li>
 									</c:if>
 								
+								<c:if test="${ loginMember.memberGrade == 'A' }">
 								<li><a class="dropdown-item"
 									href="${contextPath}/admin/main">관리자페이지</a></li>
+								</c:if>
 							</ul>
 						</div>
 						
@@ -197,6 +216,61 @@ a:hover {
 			</div>
 		</nav>
 	</header>
+	
+	<%-- Q&A 문의 Modal --%>	
+	<div class="modal fade" id="modal-container-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="card">
+					<div class="card-header">
+						<strong>Q&A</strong> 1:1문의
+					</div>
+					<div class="card-body card-block">
+						<form action="${contextPath}/admin/qnaSubmit" method="post"
+							class="form-horizontal">
+							<div class="row form-group">
+								<div class="col col-md-3">
+									<label class=" form-control-label">작성자</label>
+								</div>
+								<div class="col-12 col-md-9">
+									<p class="form-control-static">${loginMember.memberNickname}</p>
+								</div>
+							</div>
+							<div class="row form-group">
+								<div class="col col-md-3">
+									<label for="text-input" class=" form-control-label">제목</label>
+								</div>
+								<div class="col-12 col-md-9">
+									<input type="text" id="text-input" name="queTitle"
+										placeholder="제목을 입력해주세요." class="form-control" required>
+								</div>
+							</div>
+							<div class="row form-group">
+								<div class="col col-md-3">
+									<label for="textarea-input" class=" form-control-label">내용</label>
+								</div>
+								<div class="col-12 col-md-9">
+									<textarea name="queContent" id="textarea-input" rows="9"
+										placeholder="문의내용을 입력해주세요." class="form-control" required></textarea>
+									<small class="form-text text-muted">* 해당 문의 내용은 관리자에게만
+										전달됩니다</small>
+								</div>
+							</div>
+							<div class="card-footer">
+								<button type="submit" class="btn btn-primary btn-sm">
+									<i class="fa fa-dot-circle-o"></i> 문의 접수
+								</button>
+								<button type="reset" class="btn btn-danger btn-sm">
+									<i class="fa fa-ban"></i> 내용 지우기
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<%-- 로그인 실패와 같은 메세지가 서버로부터 전달되어 온 경우 출력 --%>
 	<c:if test="${!empty title}">

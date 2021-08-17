@@ -16,6 +16,41 @@
     
 	<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" type="text/css" rel="stylesheet">
     <link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" type="text/css" rel="stylesheet">
+    
+    <!-- Fontfaces CSS-->
+	<link href="${contextPath}/resources/admin/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+	<link href="${contextPath}/resources/admin/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+	
+	<!-- Bootstrap CSS-->
+	<link href="${contextPath}/resources/admin/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+	
+	
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+		crossorigin="anonymous">
+	
+	<!-- Bootstrap core JS -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+		crossorigin="anonymous"></script>
+	
+	<!-- sweetalert API 추가 -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
 	<style type="text/css">
 	
@@ -30,6 +65,16 @@
 		color: black;
 	}
 	
+	.mb-3{
+		border: 1px solid #ced4da;
+		padding: 10px;
+		background-color: #e9ecef;
+		border-radius: .25rem;
+	}
+	
+  	textarea{
+        resize: none;
+    }
 	</style>
     
 </head>
@@ -156,7 +201,6 @@
 									<tr>
 										<th>문의번호</th>
 										<th>제목</th>
-										<!-- <th>내용</th> -->
 										<th>문의날짜</th>
 										<th>회원번호</th>
 										<th>닉네임</th>
@@ -168,19 +212,15 @@
 								<%-- 게시글 목록 출력 --%>
 								<tbody>
 
-									<c:forEach items="${qnaList}" var="qna">
+									<c:forEach items="${qnaList}" var="qna" varStatus="status">
 									
 										<tr>
-											<!-- <td><input class="form-check-input" type="checkbox"></td> -->
 											
-											<%-- 회원 번호 --%>
+											<%-- 문의 번호 --%>
 											<td>${qna.queNo}</td>
 
 											<%-- 제목 --%>
 											<td>${qna.queTitle}</td>
-
-											<%-- 내용 --%>
-											<%-- <td>${qna.queContent}</td> --%>
 
 											<%-- 문의날짜 --%>
 											<td><fmt:formatDate var="queCreateDate"
@@ -196,19 +236,105 @@
 											<%-- 상태 --%>
 											<td>${qna.queStatus}</td>
 											
-											<%-- 상태 --%>
+											<%-- 답변날짜 --%>
 											<td><fmt:formatDate var="answerDate"
 													value="${qna.answerDate}" pattern="yyyy-MM-dd" />
 												${answerDate}</td>
 											
 											<td>
-												<%-- <button type="button" class="btn btn-danger" value="${member.memberNo}" onclick="secession(this);">탈퇴</button> --%>
-												<button type="button" class="btn btn-info" value="${qna.queNo}" onclick="qna(this);">답변</button>
+												<button type="button" class="btn btn-info" value="${qna.queNo}" data-toggle="modal" 
+													href="#modal-container-${status.index}">답변
+												</button> 
 											</td>
 											
 										</tr>
 										
-											<%-- <input type="hidden" value="${qna.queNo}" class="hid_pk"> --%>
+																				
+										<div class="modal fade" id="modal-container-${status.index}" role="dialog"
+											aria-labelledby="myModalLabel" aria-hidden="true">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+									
+													<div class="card">
+														<div class="card-header">
+															<strong>Q&A</strong> 1:1문의
+														</div>
+														<div class="card-body card-block">
+															<form action="${contextPath}/admin/qnaAnswerUpdate" method="post"
+																class="form-horizontal">
+																<div class="row form-group">
+																	<div class="col col-md-3">
+																		<label class=" form-control-label">작성자</label>
+																	</div>
+																	<div class="col-12 col-md-9">
+																		<p class="form-control-static">${qna.memberNickname}</p>
+																	</div>
+																</div>
+																<div class="row form-group">
+																	<div class="col col-md-3">
+																		<label for="text-input" class=" form-control-label">제목</label>
+																	</div>
+																	<div class="col-12 col-md-9">
+																		<input type="text" id="text-input"
+																			class="form-control" readonly="readonly" value="${qna.queTitle}" />
+																	</div>
+																</div>
+																<div class="row form-group">
+																	<div class="col col-md-3">
+																		<label for="textarea-input" class=" form-control-label">내용</label>
+																	</div>
+																	<div class="col-12 col-md-9">
+																		<div class="mb-3"><pre>${qna.queContent}</pre></div>
+																		<small class="form-text text-muted">* 해당 문의 내용은 관리자에게만
+																			전달됩니다</small>
+																	</div>
+																</div>
+																<c:choose>
+																	<c:when test="${ empty qna.answerContent }">
+																		<div class="row form-group">
+																			<div class="col col-md-3">
+																				<label for="textarea-input"
+																					class=" form-control-label">답변</label>
+																			</div>
+																			<div class="col-12 col-md-9">
+																				<textarea name="answerContent" id="textarea-input"
+																					rows="9" placeholder="답변을 입력해주세요."
+																					class="form-control" required="required"></textarea>
+																			</div>
+																		</div>
+																		<div class="card-footer">
+																			<input type="hidden" name="queNo" value="${qna.queNo}">
+
+																			<button type="submit" class="btn btn-primary btn-sm">
+																				답변하기
+																			</button>
+																			<button type="reset" class="btn btn-danger btn-sm">
+																				내용 지우기
+																			</button>
+																		</div>
+																	</c:when>
+																	<c:otherwise>
+																		<div class="row form-group">
+																			<div class="col col-md-3">
+																				<label for="textarea-input"
+																					class=" form-control-label">답변</label>
+																			</div>
+																			<div class="col-12 col-md-9">
+																				<div class="mb-3">
+																					<pre>${qna.answerContent}</pre>
+																				</div>
+																			</div>
+																		</div>
+																	</c:otherwise>
+																</c:choose>
+
+															</form>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										
 									</c:forEach>
 
 								</tbody>
@@ -230,40 +356,9 @@
 			</footer>
 		</div>
 	</div>
-    
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    
+	
     <script>
     
-	    function qna(e){
-	    	
-	    console.log($(e).val());
-	    	
-	    window.open('${contextPath}/admin/qnaAnswer', '_blank', 'width=800, height=800');
-	    	
-	  	const queNo = $(e).val();
-	    	
-	    	 $.ajax({
-	    	      url : "${contextPath}/admin/qnaAnswer",
-	    	      type : "POST",
-	    	      data : {"queNo" : queNo},
-	    	      success : function(que){
-	    	         
-	    	           if(que != null){
-	    	            /* location.href = "${contextPath}/admin/qnaAnswer"; */
-	    	            alert("성공");
-	    	         }  
-	    	      },
-	    	      error : function(){
-	    	      }
-	    	   });
-	    	
-	    }
-    
-
         var table = $('#datatablesSimple').DataTable({
             "language": {
                 "emptyTable": "데이터가 없습니다.",
