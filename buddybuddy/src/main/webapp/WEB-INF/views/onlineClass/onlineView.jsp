@@ -396,12 +396,28 @@ $("#check_module").click(function () {
 						var videoPageBtn = $("<button>").attr("type", "button").attr("id", "videoBtn").addClass("button is-medium is-fullwidth is-dark is-rounded").attr("onclick", "fnRequest('video')").text("수강하기");
 						$("#paymentArea").append(videoPageBtn);
 						
-						$("#addReplyBtnArea").html(""); // 대댓글 작성 버튼 비우기
+						/* 수강후기 작성 버튼 추가 */
+						var addReviewBBtn = $("<button>").addClass("button is-success is-outlined is-large is-fullwidth").attr("id", "addReview").attr("onclick", "addReview();");
+						var addReviewSSpan1 = $("<span>").addClass("icon is-small");
+						var addReviewII = $("<i>").addClass("fas fa-check");
+						var addReviewSSpan2 = $("<span>").text("작성");
+						
+						addReviewSSpan1.append(addReviewII);
+						addReviewBBtn.append(addReviewSSpan1).append(addReviewSSpan2);
+						$("#starPri").after(addReviewBBtn);
+						/* 수강후기 작성 버튼 추가 끝 */
+						
+						//////////////
+						/* $("#addReplyBtnArea").html(""); // 대댓글 작성 버튼 비우기
 						var addPP = $("<p>").addClass("control");
 						var addReplyBtnArea = $("<button>").addClass("button is-link is-meduim is-fullwidth").attr("id", "addReply").attr("onclick", "addReply();").text("작성");
 						
 						addPP.append(addReplyBtnArea);
-						$("#addReplyBtnArea").append(addPP);
+						$("#addReplyBtnArea").append(addPP); */
+						//////////////
+						
+						
+						
 						
 						/* $.each(online, function(index, item){ */
 						/* }); */
