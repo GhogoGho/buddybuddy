@@ -341,7 +341,8 @@ public class OnlineController {
 									int classNo) {
 		int result = service.summerDeleteOnline(classNo);
 		
-		return "redirect:/";
+		/* return "redirect:/"; */
+		return "redirect:list";
 	}
 	
 	//=====================================================================================
