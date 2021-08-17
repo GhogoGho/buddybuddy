@@ -8,6 +8,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>main</title>
+<!-- font-awesome -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+	integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -90,6 +95,12 @@
 												<h5 class="card-title">${list.categoryName}</h5>
 												<p class="card-text">${list.classTitle }</p>
 												
+											</div>
+											<div class="card-footer">
+												<img alt="Bootstrap Image Preview"
+									src="${contextPath}/${list.memberProfile}"
+									width="25px" height="25px" class="rounded-circle"/>
+												<h5 class="card-title" style="display:inline">${list.memberNickName}</h5>
 											</div>
 										</div>
 									</a>

@@ -43,7 +43,7 @@
 
 </div> --%>
 
-				<div  class="row"  style="overflow:scroll;height:370px">
+				<div  class="row"  style="overflow:auto;height:370px">
 					<div id="reviewListArea" class="col-md-12 mb-3">
 						<c:forEach items="${reviewList}" var="review">
 						<div class="row">

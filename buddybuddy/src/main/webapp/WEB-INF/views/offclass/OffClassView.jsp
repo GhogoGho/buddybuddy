@@ -76,6 +76,10 @@ th {
 #re tr, th {
 	border: 1px solid black;
 }
+
+#level th{
+	border :0px
+}
 </style>
 <!-- <script type="text/javascript">
 	var today = new Date();//오늘 날짜//내 컴퓨터 로컬을 기준으로 today에 Date 객체를 넣어줌
@@ -235,21 +239,21 @@ th {
 					<div class="col-md-4" style="padding: 0;">
 						<a href="#class-1" style="padding: 0;">
 							<button type="button" class="btn btn-success main-btn-color"
-								style="width: 100%;">클래스 소개</button>
+								style="width: 100%;  border-radius:15px">클래스 소개</button>
 						</a>
 					</div>
 					<div class="col-md-4" style="padding: 0;">
 						<a href="#class-2" style="padding: 0;">
 							<button type="button"
 								class="btn btn-success  btn-block main-btn-color"
-								style="width: 100%;">장소</button>
+								style="width: 100%;  border-radius:15px">장소</button>
 						</a>
 					</div>
 					<div class="col-md-4" style="padding: 0;">
 						<a href="#class-3" style="padding: 0;">
 							<button type="button"
 								class="btn btn-success  btn-block main-btn-color"
-								style="width: 100%;">상품 후기</button>
+								style="width: 100%;  border-radius:15px">상품 후기</button>
 						</a>
 					</div>
 					
@@ -345,7 +349,7 @@ th {
 					<div class="col-md-12">
 						<table id="re" class="table-style column active"
 							data-ui="tab-panel" data-panel-id="info-refund"
-							style="border: 1px solid black; width: 100%;">
+							style="border: 1px solid black;border-radius:30px;width: 100%;">
 							<colgroup>
 								<col width="30%">
 								<col width="*">
@@ -404,7 +408,7 @@ th {
 							</div>
 						</div>
 
-						<div class="row">
+						<div class="row mb-3">
 							<div class="col-md-12" style="padding: 0;">
 								<img alt="Bootstrap Image Preview"
 									src="${contextPath}/${offList.memberProfile}"
@@ -414,11 +418,6 @@ th {
 							</div>
 						</div>
 
-						<div class="row">
-							<div class="col-md-12">
-								<h3>가격 : ${offList.classPrice } 원</h3>
-							</div>
-						</div>
 							<div class="row">
 						<c:if test="${!empty loginMember}">
 							<div class="col-md-12" style="text-align: right">
@@ -431,14 +430,16 @@ th {
 							</div>
 						<div class="row" style="margin-bottom: 50px;">
 							<div class="col-md-12">
-							 <table class="table table-striped text-center">
+							 <table id="level" class="table table-striped text-center" style="width:95%;margin:auto;">
                 <tr style="border-bottom : 1px solid black">
                   <th><b>난이도</b></th>
                   <th><b>최대 인원</b></th>
+                  <th><b>클래스 가격</b></th>
                 </tr>
                 <tr>
                   <th>${offList.classLevel}</th>
                   <th>${offList.reserveLimit}</th>
+                  <th>${offList.classPrice } 원</th>
                 </tr>
               </table>
 								

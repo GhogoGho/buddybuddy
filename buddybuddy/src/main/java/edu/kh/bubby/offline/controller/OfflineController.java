@@ -63,7 +63,7 @@ public class OfflineController {
 		}
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("offList", offList);
-
+		System.out.println("메인:"+offList);
 		return "offclass/OffClassMain";
 	}
 
