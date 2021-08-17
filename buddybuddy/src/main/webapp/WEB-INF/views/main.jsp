@@ -146,8 +146,8 @@
 	<!-- 캐러셀 이미지-->
 
 	<div class="text-center">
-		<img src="${contextPath}/resources/images/main.png" width="60%"
-			height="20%" class="rounded" alt="...">
+		<img src="${contextPath}/resources/images/main.png" width="50%"
+			height="15%" class="rounded" alt="...">
 	</div>
 
 	<!-- 컨테이너 -->
@@ -155,7 +155,7 @@
 		<div class="container">
 			<div class="row">
 				<img src="${contextPath}/resources/images/buddybuddyMain.png" width="100%"
-			height="20%" class="rounded" alt="...">
+			height="30%" class="rounded" alt="...">
 			</div>
 
 	</section>
