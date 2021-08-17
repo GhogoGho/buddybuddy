@@ -134,7 +134,7 @@
               </table>
               <c:choose>
               <c:when test="${empty online.atList}">
-              <img class="ml-5" style="width:400px; height:100px;" src="https://initiate.alphacoders.com/images/772/cropped-2048-768-772726.jpg?1351">
+              <img class="ml-5" style="width:400px; height:100px;" src="https://images.unsplash.com/photo-1629049223901-d3416d318091?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMTh8fHxlbnwwfHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
               </c:when>
               <c:otherwise>
               <p class="card-text" style="display: inline;">
@@ -587,9 +587,10 @@ function onlineLikeCount(){
 
 
 
+<!-- 부트스트랩 JS -->
 <script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-		integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-		crossorigin="anonymous"></script>	
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+		crossorigin="anonymous"></script>
 </body>
 </html>
