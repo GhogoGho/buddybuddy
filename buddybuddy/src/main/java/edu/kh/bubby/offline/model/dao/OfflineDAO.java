@@ -194,4 +194,9 @@ public class OfflineDAO {
 		return sqlSession.selectOne("offlineMapper.selectPatment",value);
 	}
 
+	public OfflineClass selectpay(OfflineClass pay) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("offlineMapper.selectpay",pay);
+	}
+
 }

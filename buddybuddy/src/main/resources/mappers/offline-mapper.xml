@@ -297,7 +297,7 @@
 	<select id="dateSelect" parameterType="_int" resultMap="offMain_rm">
 		SELECT RESERVE_DT FROM RESERVE WHERE CLASS_NO = #{classNO} AND RESERVE_STATUS= 'Y'
 	</select>
-	<!-- 결제 여부 조회 -->
+	<!-- 결제 여부 조회+댓글 썻는지 -->
 	<select id="selectPatment" parameterType="OfflineClass" resultMap="offMain_rm">
 		SELECT COUNT(*) XXX FROM DUAL 
 WHERE (SELECT COUNT(*) FROM PAYMENT 
@@ -311,5 +311,10 @@ AND   (SELECT COUNT(*) FROM REVIEW
             AND CLASS_NO = #{classNo}
             AND REVIEW_STATUS = 'Y') = 0
 		
+	</select>
+	
+	<!--결제 한지 조회  -->
+	<select id="selectpay" parameterType="OfflineClass" resultMap="offMain_rm">
+		SELECT COUNT(*) XXX FROM PAYMENT WHERE CLASS_NO=#{classNo} AND MEMBER_NO = #{memberNo} AND PAYMENT_STATUS='Y'
 	</select>
 </mapper>
