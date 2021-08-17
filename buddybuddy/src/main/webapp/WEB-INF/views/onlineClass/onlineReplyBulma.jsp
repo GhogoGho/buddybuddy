@@ -46,6 +46,7 @@
 	      <p>
         	<strong>${reply.memberNickName}</strong>
 	        <br>
+	      </p>  
 	        <div id="notice-con">${reply.replyContent }</div>
 	        <br>
 	        <small>
@@ -56,7 +57,7 @@
           <small>
          		<fmt:formatDate value="${reply.replyDate}" pattern="yyyy년 MM월 dd일 HH:mm"/>
           </small>
-	      </p>
+	      <!-- </p> -->
 	    </div>
 	    <!-- 댓글 수정 -->
 	    <c:if test="${reply.memberNo == sessionScope.loginMember.memberNo}">
@@ -231,8 +232,8 @@ function selectReplyList(){
 				var smallDate = $("<small>").text(item.replyDate);
 				
 				
-				contentP.append(strong).append(firstBr).append(contentDiv).append(secondBr).append(small).append(smallDate);
-				secondDiv.append(contentP);
+				contentP.append(strong).append(firstBr);
+				secondDiv.append(contentP).append(contentDiv).append(secondBr).append(small).append(smallDate);
 				
 				// 댓글 수정창
 				if (item.memberNo == loginMemberNo) {
