@@ -85,6 +85,15 @@ public class OfflineController {
 		
 		  if(loginMember!=null) { 
 		  System.out.println("로그인 멤버 확인");
+		  
+		  OfflineClass pay = new OfflineClass();
+		  pay.setClassNo(classNo);
+		  pay.setMemberNo(loginMember.getMemberNo());
+		  OfflineClass payCheck =service.selectpay(pay);
+		  if(payCheck.getCount()>0) {
+			  offList.setClassArea(addr[1]+addr[2]);
+		  }
+		  
 		  OfflineClass value = new OfflineClass();
 		  value.setClassNo(classNo); value.setMemberNo(loginMember.getMemberNo());
 		  OfflineClass paymentStatus = service.selectPatment(value);
@@ -92,9 +101,12 @@ public class OfflineController {
 		  
 		  if(paymentStatus.getCount()>0) {
 			  offList.setCount(1); 
+			  
 			  }
 		  else {
-		  offList.setCount(2); } }
+		  offList.setCount(2); 
+		 
+		  } }
 		 
 		System.out.println("마지막"+offList);
 

@@ -318,6 +318,11 @@ public class OfflineServiceImpl implements OfflineService{
 				// TODO Auto-generated method stub
 				return dao.selectPatment(value);
 			}
+			@Override
+			public OfflineClass selectpay(OfflineClass pay) {
+				// TODO Auto-generated method stub
+				return dao.selectpay(pay);
+			}
 			
 			
 			
