@@ -302,7 +302,7 @@ a:hover {
 							href="${contextPath}/main">Home</a></li>
 						<li><a href="${contextPath}/class/1/list">온라인 클래스</a></li>
 						<li><a href="${contextPath}/offclass/2/list">오프라인 클래스 </a></li>
-						<li><a href="${contextPath}/member/myPage">마이페이지 </a></li>
+					
 
 						<%-- 로그인을 했는지, 안 했는지 구분하는 방법 == session에 loginMember 유무 --%>
 						<c:choose>
@@ -360,7 +360,6 @@ a:hover {
 						<ul class="mymenu">
 							<p>관심리스트</p>
 							<li><a href="${contextPath}/member/myPage/1/choice">찜 목록</a></li>
-							<li><a href="#">QnA 목록</a></li>
 						</ul>
 
 					</div>
@@ -396,9 +395,7 @@ a:hover {
 										<img src="https://via.placeholder.com/150" width="100"
 											height="100" class="rounded mx-auto d-block" alt="...">
 										<p>수강 내역이 없습니다.</p>
-										<button type="submit" class="img-btn btn-block">
-											<a href="#">클래스 구경하러 가기</a>
-										</button>
+										
 									</div>
 								</c:when>
 								
