@@ -628,20 +628,35 @@ td {
 				"click",
 				"tbody td",
 				function() {
-					const thisDate = currentYear + "-" + currentMonth + "-"
-					+ $(this).text();
-					if(thisDate<=date.getFullYear()+"-"+(date.getMonth() + 1)+"-"+date.getDate()){
+					let thisDate 
+					if($(this).text()==""){
 						swal({
 							icon : "error",
-							title:"오늘보다 다음 날을 선택해 주세요"
+							title:"날짜를 선택해주세요"
 						});
+						$(this).css("backgroundColor", "white");
 					}else{
-				
-
-				console.log(thisDate);
-				$("#hiddenDate").val(thisDate);
-				$("td").css("backgroundColor", "white");
-				$(this).css("backgroundColor", "red");
+						if($(this).text()==1 || $(this).text()==2 || $(this).text()==3 || $(this).text()==4 || $(this).text()==5 ||$(this).text()==6 || $(this).text()==7 || $(this).text()==8 ||$(this).text()==9){
+							thisDate = currentYear+""+currentMonth+""+"0"+parseInt($(this).text());
+							
+						}else{
+							thisDate = currentYear+""+currentMonth+""+parseInt($(this).text());
+						}
+						console.log(thisDate);
+						console.log(date.getFullYear()+""+(date.getMonth()+1)+""+date.getDate());
+						console.log(parseInt(thisDate)<=parseInt(date.getFullYear()+""+(date.getMonth()+1)+""+date.getDate()));
+						if(parseInt(thisDate)<=parseInt(date.getFullYear()+""+(date.getMonth()+1)+""+date.getDate())){
+							swal({
+								icon : "error",
+								title:"오늘보다 다음 날을 선택해 주세요"
+							});
+						}else{
+					
+					$("#hiddenDate").val(thisDate);
+					$("td").css("backgroundColor", "white");
+					$(this).css("backgroundColor", "red");
+						}
+						
 					}
 					
 
@@ -663,14 +678,32 @@ td {
 		           </div>
 
 		       </div> */
+		       let allReserve=[];
 		function dateSave() {
 			if($("#hiddenDate").val() =="" || $("#startTime").val() ==""|| $(".endTime").val()==""){
 				swal({
 					icon : "error",
 					title:"날짜선택 , 시작시간, 종료시간 중 빠진것이 없는지 확인해주세요."
 				});
-			}
-			else{
+			}else{
+				
+			
+			let ch =0;
+	    	   for(var i =0; i<allReserve.length;i++){
+	    		   var hiddenDate = $("#hiddenDate").val();
+					var startTime = $("#startTime").val();
+					var endTime = $(".endTime").val();
+					var save = hiddenDate + " " + startTime + " " + endTime;
+	    		   if(allReserve[i] == save){
+	    				swal({
+							icon : "error",
+							title:"중복된 날짜 시간은 불가능 합니다."
+						});
+	    				ch=1;
+	    				break;
+	    		   }
+	    	   }
+	    	   if(ch==0){
 				var hiddenDate = $("#hiddenDate").val();
 				var startTime = $("#startTime").val();
 				var endTime = $(".endTime").val();
@@ -695,9 +728,13 @@ td {
 				dtdiv.appendChild(dtbtn);
 
 				document.getElementById("reserveArea").appendChild(dtdiv);
+				
+				allReserve.push(hiddenDate + " " + startTime + " "
+						+ endTime);
+				
 			}
 			
-
+			}
 		}
 		function deleteDate(el) {
 			$(el).parent().remove();

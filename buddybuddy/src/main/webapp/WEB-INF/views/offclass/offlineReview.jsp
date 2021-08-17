@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-
-
-
 <%-- <div id="reply-area ">
 	<!-- 댓글 작성 부분 -->
 	<div class="replyWrite">
@@ -21,8 +17,6 @@
 			</tr>
 		</table>
 	</div>
-
-
 	<!-- 댓글 출력 부분 -->
 	<div class="replyList mt-5 pt-2">
 		<ul id="replyListArea">
@@ -95,7 +89,7 @@
 					}
 				</style>
 				</c:if>
-				<c:if test="${payMent == 2}">
+				<c:if test="${payMent != 1}">
 				<style>
 					#reviewAreaStyle{
 						display: none;
@@ -132,14 +126,13 @@
 				</div>
 				</div>
 				
-<script>
+				<script>
 					$('#star a').click(function(){ 
 					$(this).parent().children("a").removeClass("on"); 
 					$(this).addClass("on").prevAll("a").addClass("on");
 					$("#reviewRatings").val($(this).attr("value"));
 					console.log("별"+$("#reviewRatings").val());
 					console.log($(this).attr("value")); });
-				
 				</script>
 
 
