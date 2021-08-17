@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,7 +34,7 @@ public String main() {
 	return "admin/main";
 }
 
-// Q&A화면 전환용 Controller
+// Q&A 문의화면 전환용 Controller
 @RequestMapping(value = "qnaSubmit", method = RequestMethod.GET)
 public String qnaSubmit() {
 	
@@ -43,45 +43,33 @@ public String qnaSubmit() {
 
 // Q&A 내용입력 Controller
 @RequestMapping(value = "qnaSubmit", method = RequestMethod.POST)
-public String qnaSubmit(Question inputQuestion, @ModelAttribute("loginMember") Member loginMember) {
-	
+public String qnaSubmit(Model model, RedirectAttributes ra, Question inputQuestion, @ModelAttribute("loginMember") Member loginMember) {
+	 
 	inputQuestion.setMemberNo(loginMember.getMemberNo());
 	
-	service.qnaSubmit(inputQuestion);
+	int result = service.qnaSubmit(inputQuestion);
 	
-	return "admin/qnaSubmit";
-}
-
-// Q&A 답변 전환용 Controller
-@RequestMapping(value = "qnaAnswer", method = RequestMethod.GET)
-public String qnaAnswer() {
+	if(result > 0) {
+		
+		swalSetMessage(ra, "success", "문의가 접수되었습니다.", null);
+		
+	}else {
+		
+		swalSetMessage(ra, "error", "접수 실패하였습니다.", null);
+	}
 	
-	return "admin/qnaAnswer";
-}
-
-// Q&A 문의내용조회 Controller
-@RequestMapping(value = "qnaAnswer", method = RequestMethod.POST)
-public String qnaAnswer(Model model, int queNo) {
 	
-	Question que = service.qnaAnswer(queNo);
-	
-	model.addAttribute("que", que);
-	
-	System.out.println(que);
-	
-	return "admin/qnaAnswer";
+	return "redirect:/";
 }
 
 // Q&A 답변상태 업데이트 Controller
 @RequestMapping(value = "qnaAnswerUpdate", method = RequestMethod.POST)
-public int qnaAnswerUpdate(Model model, int queNo, String answerContent, Question inputQuestion) {
+public String qnaAnswerUpdate(Model model, RedirectAttributes ra, @RequestHeader("referer") String referer, int queNo, String answerContent, Question inputQuestion) {
 	
-	inputQuestion.setAnswerContent(answerContent);
-	inputQuestion.setQueNo(queNo);
+	service.qnaAnswerUpdate(inputQuestion);
 	
-	return service.qnaAnswerUpdate(inputQuestion);
+	return "redirect:" + referer;
 }
-
 
 // Q&A 목록 조회 Controller
 @RequestMapping("qnaList")

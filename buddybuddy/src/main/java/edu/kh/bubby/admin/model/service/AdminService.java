@@ -36,8 +36,6 @@ public interface AdminService {
 
 	List<Question> qnaList(Question inputQuestion);
 
-	Question qnaAnswer(int queNo);
-
 	int qnaAnswerUpdate(Question inputQuestion);
 
 }

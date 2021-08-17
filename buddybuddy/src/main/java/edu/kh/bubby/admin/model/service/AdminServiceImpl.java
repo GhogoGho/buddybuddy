@@ -97,28 +97,18 @@ public class AdminServiceImpl implements AdminService{
 		return dao.qnaSubmit(inputQuestion);
 	}
 	
-	
 	@Override
 	public List<Question> qnaList(Question inputQuestion) {
+		
 		return dao.qnaList(inputQuestion);
 	}
 	
-	@Override
-	public Question qnaAnswer(int queNo) {
-		
-		Question que = dao.queAnswer(queNo);
-		
-		que.setQueContent( que.getQueContent().replaceAll("<br>", "\r\n") );
-		
-		return que;
-	}
-	
-
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int qnaAnswerUpdate(Question inputQuestion) {
 		
-		inputQuestion.setQueContent(  inputQuestion.getQueContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>")  );
+		inputQuestion.setAnswerContent( replaceParameter( inputQuestion.getAnswerContent() ) );
+		inputQuestion.setAnswerContent(  inputQuestion.getAnswerContent().replaceAll("(\r\n|\r|\n|\n\r)", "<br>")  );
 		
 		return dao.qnaAnswerUpdate(inputQuestion);
 	}

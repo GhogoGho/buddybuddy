@@ -72,12 +72,9 @@ public class AdminDAO {
 		return sqlSession.selectList("adminMapper.qnaList", inputQuestion);
 	}
 
-	public Question queAnswer(int queNo) {
-		return sqlSession.selectOne("adminMapper.queAnswer", queNo);
-	}
-
 	public int qnaAnswerUpdate(Question inputQuestion) {
 		return sqlSession.update("adminMapper.qnaAnswerUpdate", inputQuestion);
 	}
+
 
 }

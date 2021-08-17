@@ -133,18 +133,14 @@
 	</insert>
 	
 	<select id="qnaList" resultMap="que_rm" parameterType="Question">
-		SELECT QUE_NO, QUE_TITLE, QUE_CONTENT, QUE_CREATE_DT, MEMBER_NO, MEMBER_NICKNAME, QUE_STATUS, ANSWER_DT FROM QUESTION_LOOKUP
-	</select>
-	
-	<select id="queAnswer" resultMap="que_rm" parameterType="_int">
-		SELECT QUE_NO, QUE_TITLE, QUE_CONTENT, MEMBER_NICKNAME FROM QUESTION_LOOKUP
-		WHERE QUE_NO = #{queNo}
+		SELECT QUE_NO, QUE_TITLE, QUE_CONTENT, QUE_CREATE_DT, MEMBER_NO, MEMBER_NICKNAME, QUE_STATUS, ANSWER_DT, ANSWER_CONTENT FROM QUESTION_LOOKUP
 	</select>
 	
 	<update id="qnaAnswerUpdate" parameterType="Question">
 	
 		UPDATE QUESTION SET
 		ANSWER_DT = SYSDATE,
+		QUE_STATUS = 'Y',
 		ANSWER_CONTENT = #{answerContent}
 		WHERE QUE_NO = #{queNo}
 	

@@ -17,7 +17,6 @@ import edu.kh.bubby.board.exception.SaveFileException;
 import edu.kh.bubby.board.model.dao.BoardDAO;
 import edu.kh.bubby.board.model.vo.NOTIAttachment;
 import edu.kh.bubby.board.model.vo.NOTIBoard;
-import edu.kh.bubby.board.model.vo.Category;
 import edu.kh.bubby.board.model.vo.Pagination;
 import edu.kh.bubby.board.model.vo.Search;
 

@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.bubby.board.model.vo.NOTIBoard;
-import edu.kh.bubby.board.model.vo.Category;
 import edu.kh.bubby.board.model.vo.Pagination;
 import edu.kh.bubby.board.model.vo.Search;
 
