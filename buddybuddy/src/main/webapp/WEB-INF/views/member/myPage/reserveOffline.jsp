@@ -343,6 +343,7 @@ a:hover {
 
 							<c:otherwise>
 								<%-- 로그인이 되었을 때 --%>
+
 								<li><a class="mem" href="${contextPath}/member/info">${loginMember.memberNickname }</a></li>
 								<li><a href="${contextPath}/member/logout">로그아웃</a></li>
 							</c:otherwise>
@@ -392,7 +393,6 @@ a:hover {
 							<ul class="mymenu">
 								<p>관심리스트</p>
 								<li><a href="${contextPath}/member/myPage/1/choice">찜 목록</a></li>
-								<li><a href="#">QnA 목록</a></li>
 							</ul>
 
 						</div>
@@ -429,9 +429,7 @@ a:hover {
 										<img src="https://via.placeholder.com/150" width="100"
 											height="100" class="rounded mx-auto d-block" alt="...">
 										<p>예약 내역이 없습니다.</p>
-										<button type="submit" class="img-btn btn-block">
-											<a href="#">클래스 구경하러 가기</a>
-										</button>
+										
 									</div>
 								</c:when>
 

@@ -284,7 +284,7 @@ a:hover {
 							href="${contextPath}/main">Home</a></li>
 						<li><a href="${contextPath}/class/1/list">온라인 클래스</a></li>
 						<li><a href="${contextPath}/offclass/2/list">오프라인 클래스 </a></li>
-						<li><a href="${contextPath}/member/myPage">마이페이지 </a></li>
+						
 
 						<%-- 로그인을 했는지, 안 했는지 구분하는 방법 == session에 loginMember 유무 --%>
 						<c:choose>
@@ -297,6 +297,7 @@ a:hover {
 
 							<c:otherwise>
 								<%-- 로그인이 되었을 때 --%>
+				
 								<li><a class="mem" href="${contextPath}/member/info">${loginMember.memberNickname }</a></li>
 								<li><a href="${contextPath}/member/logout">로그아웃</a></li>
 							</c:otherwise>
@@ -337,16 +338,16 @@ a:hover {
 							<ul class="mymenu">
 								<p>구매 후기</p>
 								<li><a href="${contextPath}/member/myPage/1/review">내가
-										쓴 문의</a></li>
+										쓴 후기</a></li>
 								<li><a href="${contextPath}/member/myPage/1/reply">내가 쓴
-										후기</a></li>
+										문의</a></li>
 							</ul>
 							<hr>
 							<ul class="mymenu">
 								<p>관심리스트</p>
 								<li><a href="${contextPath}/member/myPage/1/choice">찜
 										목록</a></li>
-								<li><a href="#">QnA 목록</a></li>
+								
 							</ul>
 
 						</div>
@@ -362,7 +363,7 @@ a:hover {
 									<button class="class-btn nav-link active col-6"
 										id="nav-home-tab" data-bs-toggle="tab"
 										data-bs-target="#nav-home" type="button" role="tab"
-										aria-controls="nav-home" aria-selected="true">내가 쓴 리뷰</button>
+										aria-controls="nav-home" aria-selected="true">내가 쓴 문의</button>
 
 								</div>
 
@@ -381,10 +382,8 @@ a:hover {
 									<div class="img text-center">
 										<img src="https://via.placeholder.com/150" width="100"
 											height="100" class="rounded mx-auto d-block" alt="...">
-										<p>작성한 후기가 없습니다.</p>
-										<button type="submit" class="img-btn btn-block">
-											<a href="#">클래스 구경하러 가기</a>
-										</button>
+										<p>작성한 문의가 없습니다.</p>
+										
 									</div>
 								</c:when>
 
@@ -411,9 +410,9 @@ a:hover {
 													</span>
 													<div class="comment">
 														<span class="comment_contents"> <img src="">
-															<a href="#">${reply.replyContent}</a>
+															
 														</span> <br> <span class="p11"> <a href="#">
-																${reply.classTitle}</a>
+																${reply.replyContentle}</a>
 														</span>
 													</div>
 												</div>

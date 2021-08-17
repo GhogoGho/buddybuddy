@@ -342,14 +342,14 @@
                     <hr>
                     <ul class="mymenu">
                         <p>구매 후기</p>
-                        <li><a href="${contextPath}/member/myPage/1/review">내가 쓴 문의</a></li>
-                        <li><a href="${contextPath}/member/myPage/1/reply">내가 쓴 후기</a></li>
+                        <li><a href="${contextPath}/member/myPage/1/review">내가 쓴 후기</a></li>
+                        <li><a href="${contextPath}/member/myPage/1/reply">내가 쓴 문의</a></li>
                     </ul>
                     <hr>
                     <ul class="mymenu">
                         <p>관심리스트</p>
                         <li><a href="${contextPath}/member/myPage/1/choice">찜 목록</a></li>
-                        <li><a href="#">QnA 목록</a></li>
+                        <li><a href="${contextPath}/member/myPage/1/qna">QnA 목록</a></li>
                     </ul>
 
                 </div>
