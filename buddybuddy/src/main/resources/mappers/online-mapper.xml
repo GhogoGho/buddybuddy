@@ -365,7 +365,7 @@
 	<delete id="deleteAttachment" parameterType="map">
 		DELETE FROM ATTACHMENT
 		WHERE CLASS_NO = #{classNo}
-		AND FILE_LEVEL IN ( ${deleteImages} )
+		AND FILE_LEVEL IN ( ${deleteVideos} )
 	</delete>
 	
 	<!-- 첨부 파일 정보 수정 -->

@@ -138,11 +138,11 @@
       </p>
     </div>
     <div class="field" id="addReplyBtnArea">
-		<c:if test="${!empty payList }">
+		<%-- <c:if test="${!empty payList }"> --%>
       <p class="control">
         <button class="button is-link is-medium is-fullwidth" id="addReply" onclick="addReply();">작성</button>
       </p>
-		</c:if>
+		<%-- </c:if> --%>
     </div>
   </div>
 </article>

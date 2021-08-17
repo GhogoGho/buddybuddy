@@ -260,7 +260,7 @@
 				<div class="col-md-10">
 					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 						<button class="button is-danger is-large" id=subBtn value="글 작성" onclick="goWrite(this.form)">작성</button>
-						<button class="button is-light is-rounded is-large" onclick="goBack()">이전으로</button>
+						<button type="button" class="button is-light is-rounded is-large" onclick="goBack()">이전으로</button>
 						
 					</div>
 				</div>

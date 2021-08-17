@@ -203,15 +203,16 @@
 		<!-- 별점 숫자로 출력하는 부분(값을 가져가기 위해)
 				다른 방법으로는 input이 있음 val()로 가져감
 		 -->
-		<div class="print" style="display:none"></div>
+		<div class="print" style="display:none" id="starPri"></div>
 		<!-- <div class="print"></div> -->
-		
+		<c:if test="${!empty payList }">
 		<button class="button is-success is-outlined is-large is-fullwidth" id="addReview" onclick="addReview();">
-		<span class="icon is-small">
-      <i class="fas fa-check"></i>
-    </span>
-    <span>작성</span>
+			<span class="icon is-small">
+	      <i class="fas fa-check"></i>
+	    </span>
+	    <span>작성</span>
 		</button>
+		</c:if>
 	</div>
 </div>
 <!-- 이미지 불러오기 (자바스크립트에서 변수 사용을 위해 필요) 변수 미사용으로 필요 없어짐-->

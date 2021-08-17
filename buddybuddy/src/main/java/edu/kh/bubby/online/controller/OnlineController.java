@@ -322,7 +322,7 @@ public class OnlineController {
 		int result = service.summerUpdateOnline(online, videos, webPath, savePath, deleteVideos);
 //		System.out.println("수정클릭"+online);
 //		System.out.println("수정클륵 후 클번: "+online.getClassNo());
-		
+		System.out.println("deleteVideos : "+deleteVideos);
 		String path = null;
 		if(result>0) {
 			path ="redirect:"+online.getClassNo();
