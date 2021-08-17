@@ -427,7 +427,7 @@ td {
 			<div class="row">
 				<div class="col-md-12">
 					<button class="btn btn-primary" type="reset"
-						style="float: right; margin-left: 25px; font-size: 25px;">취소</button>
+						style="float: right; margin-left: 25px; font-size: 25px;"><a href="list" style="padding:0;color:white;" >취소</a></button>
 					<button class="btn btn-primary"
 						style="float: right; font-size: 25px;">작성</button>
 				</div>
