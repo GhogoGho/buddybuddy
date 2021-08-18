@@ -71,6 +71,10 @@ public class AdminDAO {
 	public List<Question> qnaList(Question inputQuestion) {
 		return sqlSession.selectList("adminMapper.qnaList", inputQuestion);
 	}
+	
+	public List<Question> qnaListCheck(Question inputQuestion) {
+		return sqlSession.selectList("adminMapper.qnaListCheck", inputQuestion);
+	}
 
 	public int qnaAnswerUpdate(Question inputQuestion) {
 		return sqlSession.update("adminMapper.qnaAnswerUpdate", inputQuestion);

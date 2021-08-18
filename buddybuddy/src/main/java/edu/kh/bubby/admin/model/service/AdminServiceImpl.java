@@ -103,6 +103,12 @@ public class AdminServiceImpl implements AdminService{
 		return dao.qnaList(inputQuestion);
 	}
 	
+	@Override
+	public List<Question> qnaListCheck(Question inputQuestion) {
+		
+		return dao.qnaListCheck(inputQuestion);
+	}
+	
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int qnaAnswerUpdate(Question inputQuestion) {

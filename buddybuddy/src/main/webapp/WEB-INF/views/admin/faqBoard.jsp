@@ -135,7 +135,7 @@
 							</nav>
 						</div>
 
-						<div class="sb-sidenav-menu-heading">신고</div>
+<%-- 						<div class="sb-sidenav-menu-heading">신고</div>
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
 							data-bs-target="#report" aria-expanded="false"
 							aria-controls="report"> 신고 접수
@@ -146,10 +146,9 @@
 						<div class="collapse" id="report" aria-labelledby="headingOne"
 							data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="tables.html">댓글</a> <a
-									class="nav-link" href="tables.html">게시글</a>
+								<a class="nav-link" href="${contextPath}/admin/boardRepot">게시글</a>
 							</nav>
-						</div>
+						</div> --%>
 
 						<div class="sb-sidenav-menu-heading">문의사항</div>
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
@@ -162,7 +161,7 @@
 						<div class="collapse" id="question" aria-labelledby="headingOne"
 							data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="tables.html">문의사항 내역 조회</a>
+								<a class="nav-link" href="${contextPath}/admin/qnaList">문의사항 내역 조회</a>
 							</nav>
 						</div>
 					</div>
