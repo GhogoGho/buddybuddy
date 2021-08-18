@@ -447,7 +447,7 @@ td {
 					<button class="btn btn-primary" type="reset"
 						style="float: right; margin-left: 25px; font-size: 25px;"><a href="${offList.classNo}" style="padding:0;color:white;" >취소</a></button>
 					<button type="submit" class="btn btn-primary"
-						style="float: right; font-size: 25px;">작성
+						style="float: right; font-size: 25px;">수정
 						</button>
 				</div>
 			</div>

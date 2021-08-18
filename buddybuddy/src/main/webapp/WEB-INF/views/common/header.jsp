@@ -206,7 +206,9 @@ textarea{
 
 							<c:otherwise>
 								<%-- 로그인이 되었을 때 --%>
-								<li><a href="${contextPath}/member/myPage">마이페이지 </a></li>
+								<c:if test="${loginMember.memberGrade =='N' }">
+								
+								<li><a href="${contextPath}/member/myPage">마이페이지 </a></li></c:if>
 								<li><a class="mem" href="${contextPath}/member/info">${loginMember.memberNickname }</a></li>
 								<li><a href="${contextPath}/member/logout">로그아웃</a></li>
 							</c:otherwise>
