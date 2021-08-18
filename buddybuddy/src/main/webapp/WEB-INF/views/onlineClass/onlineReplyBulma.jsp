@@ -23,7 +23,7 @@
 		list-style-type: none;
 	}
 </style>
-<!-- <button onclick="selectReplyList()">목록갱신</button> -->
+<button onclick="selectReplyList()" style="display:none;">목록갱신</button>
 
 <!-- 댓글1 -->
 <div id="replyListArea">
@@ -31,8 +31,9 @@
 	<article class="media">
 	  <figure class="media-left">
 	    <p class="image is-64x64">
+	    
 	    	<c:choose>
-	    	<c:when test="${!empty review.memberProfile }">
+	    	<c:when test="${!empty reply.memberProfile }">
 	      <img src="${contextPath}/${reply.memberProfile}">
 	      </c:when>
        	<c:otherwise>
@@ -248,6 +249,7 @@ function selectReplyList(){
 				// 대댓글 작성창
 				if(item.nestedReply == null && onlineMemberNo == loginMemberNo){
 					var addToggleBtn = $("<button>").addClass("button is-dark showAddComment").text("답글 작성");
+					console.log("대댓글");
 				}
 				var addCommentArea = $("<div>").attr("id", "addCommentArea").addClass("addCommentArea");
 				var addCommentCon = $("<textarea>").addClass("textarea is-dark");
