@@ -199,4 +199,10 @@ public class OfflineDAO {
 		return sqlSession.selectOne("offlineMapper.selectpay",pay);
 	}
 
+	public int upup(OfflineClass offlineClass) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("offlineMapper.upup",offlineClass);
+	}
+
+
 }
