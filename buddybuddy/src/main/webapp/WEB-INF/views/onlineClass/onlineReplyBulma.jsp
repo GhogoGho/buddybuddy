@@ -155,7 +155,7 @@ const onlineMemberNo = "${online.memberNo}"; // 클래스 크리에이터 회원
 const payListCheck = "${payList}";
 /* const loginMemberNo = "${loginMember.memberNo}";
 const classNo = ${online.classNo}; */
-
+/* console.log("출출"+onlineMemberNo); */
 //-----------------------------------------------------------------------------------------
 //수강문의 등록
 function addReply() {
@@ -283,7 +283,7 @@ function selectReplyList(){
 				var cSecondBr = $("<br>");
 				
 				var cSmall = $("<small>");
-				if (onlineMemberNo == item.loginMemberNo) { 
+				if (onlineMemberNo == loginMemberNo) { 
 					var cDeleteBtn = $("<button>").addClass("button is-danger").text("답글 삭제").attr("onclick", "deleteComment(" + item.replyNo + ", this)");
 					cSmall.append(cDeleteBtn).append(cEditBtn);
 				}
@@ -293,7 +293,8 @@ function selectReplyList(){
 				cSecondDiv.append(cContentP);
 				
 				// 대댓글 수정창
-				if(item.nestedReply != null && onlineMemberNo == item.loginMemberNo){
+				/* if(item.nestedReply != null && onlineMemberNo == item.loginMemberNo){ */
+				if(onlineMemberNo == loginMemberNo){
 					var cEditBtn = $("<button>").addClass("button is-warning is-rounded showEditComment").attr("id", "showEditComment").text("답글 수정");
 					var editCommentArea = $("<div>").addClass("editCommentArea");
 					var editComment = $("<div>").addClass("editComment");
