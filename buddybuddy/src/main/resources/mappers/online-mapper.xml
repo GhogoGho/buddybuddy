@@ -405,6 +405,7 @@
 		UPDATE CLASS_PAGE SET
 		CLASS_TITLE = #{classTitle},
 		CLASS_CONTENT = #{classContent},
+		CLASS_PRICE = #{classPrice},
 		CATEGORY_NO = #{categoryNo}
 		WHERE CLASS_NO = #{classNo}
 	</update>
