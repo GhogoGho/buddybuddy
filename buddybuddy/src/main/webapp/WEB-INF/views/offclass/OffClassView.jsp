@@ -794,7 +794,7 @@ th {
 									reDiv.appendChild(rebtn);
 									document.getElementById("ReserveView").appendChild(reDiv);
 									
-									$("#reviewAreaStyle").css("display","block");
+								
 								  }
 							  });
 						
@@ -925,7 +925,7 @@ th {
 								reDiv.appendChild(reinput);
 								reDiv.appendChild(rebtn);
 								document.getElementById("ReserveView").appendChild(reDiv);
-								
+								$("#reviewAreaStyle").css("display","block");
 						  });
 					
 					
