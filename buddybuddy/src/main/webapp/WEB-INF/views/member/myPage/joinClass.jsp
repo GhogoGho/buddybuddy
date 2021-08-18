@@ -405,10 +405,7 @@ a:hover {
 							<c:forEach items="${onlineList}" var="online">
 						<div class="row">
 								<div class="class-list">
-									<div class="class-img col-sm-2">
-										<img src="https://via.placeholder.com/150" width="70"
-											height="70" class="rounded-3 float-start me-2" alt="">
-									</div>
+									
 									<div class="class-cate col-sm-2">
 										<a href="#">${online.categoryNm}</a>
 									</div>
