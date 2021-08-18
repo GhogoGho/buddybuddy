@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.bubby.admin.model.dao.AdminDAO;
 import edu.kh.bubby.admin.model.vo.Question;
+import edu.kh.bubby.admin.model.vo.Report;
 import edu.kh.bubby.board.model.vo.NOTIBoard;
 import edu.kh.bubby.member.model.vo.Member;
 
@@ -48,6 +49,21 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public int memberGradeUpdate(int memberNo) {
 		return dao.memberGradeUpdate(memberNo);
+	}
+	
+	@Override
+	public List<Report> boardReport(Report report) {
+		return dao.boardReport(report);
+	}
+	
+	@Override
+	public int classStatusUpdate(int classNo) {
+		return dao.classStatusUpdate(classNo);
+	}
+
+	@Override
+	public int classStatusUpdate2(int classNo) {
+		return dao.classStatusUpdate2(classNo);
 	}
 
 	@Override

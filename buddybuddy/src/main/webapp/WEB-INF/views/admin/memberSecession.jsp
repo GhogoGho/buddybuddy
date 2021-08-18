@@ -63,7 +63,7 @@
 					class="fas fa-user fa-fw"></i></a>
 				<ul class="dropdown-menu dropdown-menu-end"
 					aria-labelledby="navbarDropdown">
-					<li><a class="dropdown-item" href="#!">Logout</a></li>
+					<li><a class="dropdown-item" href="${contextPath}/admin/adminlogout">Logout</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -114,7 +114,7 @@
 							</nav>
 						</div>
 
-<%-- 						<div class="sb-sidenav-menu-heading">신고</div>
+						<div class="sb-sidenav-menu-heading">신고</div>
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
 							data-bs-target="#report" aria-expanded="false"
 							aria-controls="report"> 신고 접수
@@ -125,9 +125,9 @@
 						<div class="collapse" id="report" aria-labelledby="headingOne"
 							data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="${contextPath}/admin/boardRepot">게시글</a>
+								<a class="nav-link" href="${contextPath}/admin/boardReport">클래스</a>
 							</nav>
-						</div> --%>
+						</div>
 
 						<div class="sb-sidenav-menu-heading">문의사항</div>
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
@@ -162,14 +162,12 @@
 							<table id="datatablesSimple"  class="table table-dark table-hover" >
 								<thead>
 									<tr>
-										<!-- <th>선택</th> -->
 										<th>회원번호</th>
 										<th>이메일</th>
 										<th>닉네임</th>
-										<th>등급</th>
 										<th>가입일</th>
-										<th>회원상태(정상:Y/탈퇴:N)</th>
-										<th>기능</th>
+										<th>상태</th>
+										<th></th>
 									</tr>
 								</thead>
 								<%-- 게시글 목록 출력 --%>
@@ -189,16 +187,24 @@
 											<%-- 닉네임 --%>
 											<td>${member.memberNickname}</td>
 
-											<%-- 등급 --%>
-											<td>${member.memberGrade}</td>
-
 											<%-- 가입일 --%>
 											<td><fmt:formatDate var="memberRegdate"
 													value="${member.memberRegdate}" pattern="yyyy-MM-dd" />
 												${memberRegdate}</td>
 
 											<%-- 회원상태 --%>
-											<td>${member.memberStatus}</td>
+											<c:choose>
+												<c:when test="${ member.memberStatus == 'Y' }">
+													<td>
+														<button type="button" class="btn btn-secondary btn-sm">정상</button>
+													</td>
+												</c:when>
+												<c:otherwise>
+													<td>
+														<button type="button" class="btn btn-secondary btn-sm">탈퇴</button>
+													</td>
+												</c:otherwise>
+											</c:choose>
 											
 											<td>
 												<button type="button" class="btn btn-danger" value="${member.memberNo}" onclick="secession(this);">탈퇴</button>

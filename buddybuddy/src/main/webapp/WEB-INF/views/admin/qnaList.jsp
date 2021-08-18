@@ -83,6 +83,10 @@
    	body{
 		font-family: 'Gowun Dodum', sans-serif;
 	}
+	
+	pre{
+		font-family: 'Gowun Dodum', sans-serif;
+	}
 	</style>
     
 </head>
@@ -107,7 +111,7 @@
 					class="fas fa-user fa-fw"></i></a>
 				<ul class="dropdown-menu dropdown-menu-end"
 					aria-labelledby="navbarDropdown">
-					<li><a class="dropdown-item" href="#!">Logout</a></li>
+					<li><a class="dropdown-item" href="${contextPath}/admin/adminlogout">Logout</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -158,7 +162,7 @@
 							</nav>
 						</div>
 
-<%-- 						<div class="sb-sidenav-menu-heading">신고</div>
+						<div class="sb-sidenav-menu-heading">신고</div>
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
 							data-bs-target="#report" aria-expanded="false"
 							aria-controls="report"> 신고 접수
@@ -169,9 +173,9 @@
 						<div class="collapse" id="report" aria-labelledby="headingOne"
 							data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="${contextPath}/admin/boardRepot">게시글</a>
+								<a class="nav-link" href="${contextPath}/admin/boardReport">클래스</a>
 							</nav>
-						</div> --%>
+						</div>
 
 						<div class="sb-sidenav-menu-heading">문의사항</div>
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
@@ -184,7 +188,7 @@
 						<div class="collapse" id="question" aria-labelledby="headingOne"
 							data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="${contextPath}/admin/qnaList">문의사항 내역 조회</a>
+								<a class="nav-link" href="${contextPath}/admin/qnaList">문의사항 관리</a>
 							</nav>
 						</div>
 					</div>
@@ -195,12 +199,12 @@
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">문의사항 내역 조회</h1>
+					<h1 class="mt-4">문의사항 관리</h1>
 					<ol class="breadcrumb mb-4"></ol>
 				
 					<div class="card mb-4">
 						<div class="card-header">
-							<i class="fas fa-table me-1"></i> 문의사항 관리
+							<i class="fas fa-table me-1"></i> 1:1 문의
 						</div>
 						<div class="card-body">
 							<table id="datatablesSimple"  class="table table-dark table-hover" >
@@ -208,11 +212,11 @@
 									<tr>
 										<th>문의번호</th>
 										<th>제목</th>
-										<th>문의날짜</th>
 										<th>회원번호</th>
 										<th>닉네임</th>
-										<th>상태(답변 전:N/후:Y)</th>
+										<th>문의날짜</th>
 										<th>답변날짜</th>
+										<th>상태</th>
 										<th></th>
 									</tr>
 								</thead>
@@ -228,11 +232,6 @@
 
 											<%-- 제목 --%>
 											<td>${qna.queTitle}</td>
-
-											<%-- 문의날짜 --%>
-											<td><fmt:formatDate var="queCreateDate"
-													value="${qna.queCreateDate}" pattern="yyyy-MM-dd" />
-												${queCreateDate}</td>
 												
 											<%-- 회원번호 --%>
 											<td>${qna.memberNo}</td>
@@ -240,17 +239,33 @@
 											<%-- 닉네임 --%>
 											<td>${qna.memberNickname}</td>
 
-											<%-- 상태 --%>
-											<td>${qna.queStatus}</td>
+											<%-- 문의날짜 --%>
+											<td><fmt:formatDate var="queCreateDate"
+													value="${qna.queCreateDate}" pattern="yyyy-MM-dd" />
+												${queCreateDate}</td>
 											
 											<%-- 답변날짜 --%>
 											<td><fmt:formatDate var="answerDate"
 													value="${qna.answerDate}" pattern="yyyy-MM-dd" />
 												${answerDate}</td>
+
+											<%-- 상태 --%>
+											<c:choose>
+												<c:when test="${ qna.queStatus == 'N' }">
+													<td>
+														<button type="button" class="btn btn-danger btn-sm">답변 전</button>
+													</td>
+												</c:when>
+												<c:otherwise>
+													<td>
+														<button type="button" class="btn btn-secondary btn-sm">답변 완료</button>
+													</td>
+												</c:otherwise>
+											</c:choose>
 											
 											<td>
-												<button type="button" class="btn btn-info" value="${qna.queNo}" data-toggle="modal" 
-													href="#modal-container-${status.index}">답변
+												<button type="button" class="btn btn-success" value="${qna.queNo}" data-toggle="modal" 
+													href="#modal-container-${status.index}">보기
 												</button> 
 											</td>
 											

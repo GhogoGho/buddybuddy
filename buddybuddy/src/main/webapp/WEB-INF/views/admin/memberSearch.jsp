@@ -61,7 +61,7 @@
 					class="fas fa-user fa-fw"></i></a>
 				<ul class="dropdown-menu dropdown-menu-end"
 					aria-labelledby="navbarDropdown">
-					<li><a class="dropdown-item" href="#!">Logout</a></li>
+					<li><a class="dropdown-item" href="${contextPath}/admin/adminlogout">Logout</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -112,7 +112,7 @@
 							</nav>
 						</div>
 
-			<%-- 			<div class="sb-sidenav-menu-heading">신고</div>
+						<div class="sb-sidenav-menu-heading">신고</div>
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
 							data-bs-target="#report" aria-expanded="false"
 							aria-controls="report"> 신고 접수
@@ -123,9 +123,9 @@
 						<div class="collapse" id="report" aria-labelledby="headingOne"
 							data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="${contextPath}/admin/boardRepot">게시글</a>
+								<a class="nav-link" href="${contextPath}/admin/boardReport">클래스</a>
 							</nav>
-						</div> --%>
+						</div>
 
 						<div class="sb-sidenav-menu-heading">문의사항</div>
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
@@ -165,7 +165,7 @@
 										<th>닉네임</th>
 										<th>등급</th>
 										<th>가입일</th>
-										<th>회원상태</th>
+										<th>상태</th>
 									</tr>
 								</thead>
 								<%-- 게시글 목록 출력 --%>
@@ -183,15 +183,52 @@
 											<td>${member.memberNickname}</td>
 
 											<%-- 등급 --%>
-											<td>${member.memberGrade}</td>
-
+											<c:choose>
+												<c:when test="${ member.memberGrade == 'N' }">
+													<td>
+														<button type="button" class="btn btn-primary btn-sm">일반회원</button>
+													</td>
+												</c:when>
+												
+												<c:when test="${ member.memberGrade == 'T' }">
+													<td>
+														<button type="button" class="btn btn-warning btn-sm">크리에이터(승인 전)</button>
+													</td>
+												</c:when>
+												
+												<c:when test="${ member.memberGrade == 'C' }">
+													<td>
+														<button type="button" class="btn btn-success btn-sm">크리에이터</button>
+													</td>
+												</c:when>
+												
+												<c:otherwise>
+													<td>
+														<button type="button" class="btn btn-danger btn-sm">관리자</button>
+													</td>
+												</c:otherwise>
+											</c:choose>
+											
 											<%-- 가입일 --%>
 											<td><fmt:formatDate var="memberRegdate"
 													value="${member.memberRegdate}" pattern="yyyy-MM-dd" />
 												${memberRegdate}</td>
 
 											<%-- 회원상태 --%>
-											<td>${member.memberStatus}</td>
+											<c:choose>
+												<c:when test="${ member.memberStatus == 'Y' }">
+													<td>
+														<button type="button" class="btn btn-secondary btn-sm">정상</button>
+													</td>
+												</c:when>
+												<c:otherwise>
+													<td>
+														<button type="button" class="btn btn-secondary btn-sm">탈퇴</button>
+													</td>
+												</c:otherwise>
+											</c:choose>
+											
+										
 										</tr>
 									</c:forEach>
 

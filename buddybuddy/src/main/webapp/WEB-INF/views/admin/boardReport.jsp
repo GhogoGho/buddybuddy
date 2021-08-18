@@ -172,48 +172,65 @@
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">FAQ</h1>
+					<h1 class="mt-4">클래스</h1>
 					<ol class="breadcrumb mb-4"></ol>
 				
 					<div class="card mb-4">
 						<div class="card-header">
-							<i class="fas fa-table me-1"></i> FAQ 관리
+							<i class="fas fa-table me-1"></i> 클래스 신고내역 관리
 						</div>
 						<div class="card-body">
 							<table id="datatablesSimple"  class="table table-dark table-hover">
 								<thead>
 									<tr>
-										<th>게시글번호</th>
-										<th>제목</th>
-										<th>작성자</th>
-										<th>작성일</th>
-										<th>게시상태</th>
-										<th>기능</th>
-										<!-- <th>내용<br></th> -->
+										<th>신고번호</th>
+										<th>신고자</th>
+										<th>신고내용</th>
+										<th>신고일</th>
+										<th>클래스번호</th>
+										<th>클래스명</th>
+										<th>상태</th>
+										<th></th>
 									</tr>
 								</thead>
-								<%-- 게시글 목록 출력 --%>
+								
+								<%-- 목록 출력 --%>
 								<tbody>
 
-									<c:forEach items="${faqList}" var="board">
+									<c:forEach items="${classReportList}" var="report">
 										<tr>
-											<%-- 게시글 번호 --%>
-											<td>${board.notiNo}</td>
+											<%-- 신고자 --%>
+											<%-- <td><a href="${contextPath}/board/1/${board.notiNo}"> ${board.notiTitle}</a></td> --%>
+											
+											<%-- 신고 번호 --%>
+											<td>${report.reportNo}</td>
 
-											<%-- 제목 --%>
-											<td><a href="${contextPath}/board/2/${board.notiNo}"> ${board.notiTitle} </a></td>
-
-											<%-- 작성자 --%>
-											<td>${board.memberNickname}</td>
-
-											<%-- 작성일 --%>
-											<td><fmt:formatDate var="notiCreateDate"
-													value="${board.notiCreateDate}" pattern="yyyy-MM-dd" />
-												${notiCreateDate}</td>
-
+											<%-- 신고자 --%>
+											<td>${report.memberNickname}</td>
+											
+											<%-- 신고내용 --%>
+											<td>${report.reportContent}</td>
+											
+											<%-- 신고일 --%>
+											<td><fmt:formatDate var="reportDate"
+													value="${report.reportDate}" pattern="yyyy-MM-dd" />
+												${reportDate}</td>
+												
+											<%-- 클래스 번호 --%>
+											<td>${report.classNo}</td>
+											
+											<%-- 클래스명 --%>
+											<c:choose>
+												<c:when test="${ report.classTypeNo == 1 }">
+													<td><a href="${contextPath}/class/${report.classTypeNo}/${report.classNo}">[온라인]${report.classTitle}</a></td>
+												</c:when>
+												<c:otherwise>
+													<td><a href="${contextPath}/offclass/${report.classTypeNo}/${report.classNo}">[오프라인]${report.classTitle}</a></td>
+												</c:otherwise>
+											</c:choose>
 											<%-- 게시상태 --%>
 											<c:choose>
-												<c:when test="${ board.notiStatus == 'Y' }">
+												<c:when test="${ report.classStatus == 'Y' }">
 													<td>
 														<button type="button" class="btn btn-info btn-sm">게시 중</button>
 													</td>
@@ -227,12 +244,10 @@
 
 											<%-- 내용 --%>
 											<td>
-											<button type="button" class="btn btn-danger" value="${board.notiNo}" onclick="postDown(this);">내리기</button>
-											<button type="button" class="btn btn-success" value="${board.notiNo}" onclick="postRB(this);">복구</button>
-											
+												<button type="button" class="btn btn-danger" value="${report.classNo}" onclick="classDown(this);">내리기</button>
+												<button type="button" class="btn btn-success" value="${report.classNo}" onclick="classRB(this);">복구</button>
 											</td>
 											
-											<%-- <td>${board.notiContent}</td> --%>
 										</tr>
 									</c:forEach>
 
@@ -260,20 +275,20 @@
     
     <script>
     
-	 function postDown(e){
+	 function classDown(e){
 	    	
 	    	console.log($(e).val());
 	    	
-	    	const notiNo = $(e).val();
+	    	const classNo = $(e).val();
 	    	
 	    	 $.ajax({
-	    	      url : "${contextPath}/admin/faqStatusUpdate",
+	    	      url : "${contextPath}/admin/classStatusUpdate",
 	    	      type : "POST",
-	    	      data : {"notiNo" : notiNo},
+	    	      data : {"classNo" : classNo},
 	    	      success : function(result){
 	    	         
 	    	         if(result > 0){
-	    	            location.href = "${contextPath}/admin/faqBoard";
+	    	            location.href = "${contextPath}/admin/boardReport";
 	    	         }
 	    	      },
 	    	      
@@ -283,20 +298,20 @@
 	    	
 	    }
 	 
-	 function postRB(e){
+	 function classRB(e){
 	    	
 	    	console.log($(e).val());
 	    	
-	    	const notiNo = $(e).val();
+	    	const classNo = $(e).val();
 	    	
 	    	 $.ajax({
-	    	      url : "${contextPath}/admin/faqStatusUpdate2",
+	    	      url : "${contextPath}/admin/classStatusUpdate2",
 	    	      type : "POST",
-	    	      data : {"notiNo" : notiNo},
+	    	      data : {"classNo" : classNo},
 	    	      success : function(result){
 	    	         
 	    	         if(result > 0){
-	    	            location.href = "${contextPath}/admin/faqBoard";
+	    	            location.href = "${contextPath}/admin/boardReport";
 	    	         }
 	    	      },
 	    	      
