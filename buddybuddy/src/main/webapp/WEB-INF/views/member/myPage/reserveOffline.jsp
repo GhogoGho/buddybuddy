@@ -439,14 +439,11 @@ a:hover {
 									<c:forEach items="${reserve}" var="reserve">
 										<div class="row">
 											<div class="class-list">
-												<div class="class-img col-sm-1">
-													<img src="${contextPath}/resources/images/category/flowerClass.jfif" width="70"
-														height="70" class="rounded-3 float-start me-2" alt="">
-												</div>
-												<div class="class-cate col-sm-1">
+												
+												<div class="class-cate col-sm-2">
 													<a href="${contextPath}/offclass/2/${reserve.classNo}?cp=${pagination.currentPage}">${reserve.categoryNm}</a>
 												</div>
-												<div class="class-nm col-sm-2">
+												<div class="class-nm col-sm-3">
 													<a href="${contextPath}/offclass/2/${reserve.classNo}?cp=${pagination.currentPage}">${reserve.classTitle}</a>
 												</div>
 												<div class="class-dt col-sm-2">${reserve.classCreateDate}</div>

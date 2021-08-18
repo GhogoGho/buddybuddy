@@ -47,6 +47,7 @@
     .nav-link {
       display: block;
       padding: .5rem 1rem;
+      
       color: #000;
       font-weight: bold;
       text-decoration: none;
