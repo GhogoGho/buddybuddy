@@ -82,6 +82,19 @@ public String qnaList(Model model, Question inputQuestion) {
 	return "admin/qnaList";
 }
 
+//Q&A 목록 조회(회원용) Controller
+@RequestMapping("qnaListCheck")
+public String qnaListCheck(Model model, Question inputQuestion, @ModelAttribute("loginMember") Member loginMember) {
+	
+	inputQuestion.setMemberNo(loginMember.getMemberNo());
+	
+	List<Question> qnaList = service.qnaListCheck(inputQuestion);
+	
+	model.addAttribute("qnaList", qnaList);
+	
+	return "admin/qnaListCheck";
+}
+
 // 회원목록조회 Controller
 @RequestMapping("memberSearch")
 public String selectMemberList(Model model, Member inputMember) {

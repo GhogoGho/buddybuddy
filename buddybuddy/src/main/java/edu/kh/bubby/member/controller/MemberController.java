@@ -114,6 +114,9 @@ public class MemberController {
 		if (loginMember != null) {
 			
 			if(loginMember.getMemberGrade().equals("A")) {
+				
+				model.addAttribute("loginMember", loginMember);
+				
 				return "admin/main";
 			}
 			

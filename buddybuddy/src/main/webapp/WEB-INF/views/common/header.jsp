@@ -172,7 +172,8 @@ textarea{
 										<li><a class="dropdown-item"
 											href="#modal-container-1" data-toggle="modal">1:1문의</a></li>
 										<li><a class="dropdown-item"
-											href="${contextPath}/admin/qnaListCheck" data-toggle="modal">문의내역확인</a></li>
+												href="${contextPath}/admin/qnaListCheck" 
+												onclick="window.open(this.href,'QnA','width=1100, height=700'); return false;">문의내역</a></li>
 									</c:if>
 								
 								<c:if test="${ loginMember.memberGrade == 'A' }">

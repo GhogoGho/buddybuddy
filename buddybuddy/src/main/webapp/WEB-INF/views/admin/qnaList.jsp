@@ -24,6 +24,10 @@
 	<!-- Bootstrap CSS-->
 	<link href="${contextPath}/resources/admin/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
 	
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+	
 	
 	<link
 		href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -51,7 +55,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-
+    
 	<style type="text/css">
 	
 	table{
@@ -75,6 +79,10 @@
   	textarea{
         resize: none;
     }
+    
+   	body{
+		font-family: 'Gowun Dodum', sans-serif;
+	}
 	</style>
     
 </head>
@@ -150,7 +158,7 @@
 							</nav>
 						</div>
 
-						<div class="sb-sidenav-menu-heading">신고</div>
+<%-- 						<div class="sb-sidenav-menu-heading">신고</div>
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
 							data-bs-target="#report" aria-expanded="false"
 							aria-controls="report"> 신고 접수
@@ -161,10 +169,9 @@
 						<div class="collapse" id="report" aria-labelledby="headingOne"
 							data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="tables.html">댓글</a> <a
-									class="nav-link" href="tables.html">게시글</a>
+								<a class="nav-link" href="${contextPath}/admin/boardRepot">게시글</a>
 							</nav>
-						</div>
+						</div> --%>
 
 						<div class="sb-sidenav-menu-heading">문의사항</div>
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
