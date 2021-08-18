@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.bubby.admin.model.vo.Question;
+import edu.kh.bubby.admin.model.vo.Report;
 import edu.kh.bubby.board.model.vo.NOTIBoard;
 import edu.kh.bubby.member.model.vo.Member;
 
@@ -78,6 +79,18 @@ public class AdminDAO {
 
 	public int qnaAnswerUpdate(Question inputQuestion) {
 		return sqlSession.update("adminMapper.qnaAnswerUpdate", inputQuestion);
+	}
+
+	public List<Report> boardReport(Report report) {
+		return sqlSession.selectList("adminMapper.boardReport", report);
+	}
+
+	public int classStatusUpdate(int classNo) {
+		return sqlSession.update("adminMapper.classStatusUpdate", classNo);
+	}
+
+	public int classStatusUpdate2(int classNo) {
+		return sqlSession.update("adminMapper.classStatusUpdate2", classNo);
 	}
 
 

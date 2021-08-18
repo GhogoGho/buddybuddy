@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.bubby.admin.model.service.AdminService;
 import edu.kh.bubby.admin.model.vo.Question;
+import edu.kh.bubby.admin.model.vo.Report;
 import edu.kh.bubby.board.model.vo.NOTIBoard;
 import edu.kh.bubby.member.model.vo.Member;
 
@@ -26,6 +28,14 @@ public class AdminController {
 	@Autowired
 	private AdminService service;
 
+//	로그아웃
+@RequestMapping(value = "adminlogout", method = RequestMethod.GET)
+public String logout(SessionStatus status) {
+
+	status.setComplete();
+
+	return "redirect:/";
+}
 	
 //	메인화면 전환용 Controller
 @RequestMapping(value="main", method=RequestMethod.GET)
@@ -150,6 +160,33 @@ public int memberStatusUpdate2(Model model, int memberNo) {
 public int memberGradeUpdate(Model model, int memberNo) {
 	
 	return service.memberGradeUpdate(memberNo);
+}
+
+// 클래스 신고내역 목록조회 Controller
+@RequestMapping("boardReport")
+public String boardReport(Model model, Report report) {
+	
+	List<Report> classReportList = service.boardReport(report);
+	
+	model.addAttribute("classReportList", classReportList);
+	
+	return "admin/boardReport";
+}
+
+// 클래스 상태 업데이트(내리기) Controller
+@ResponseBody
+@RequestMapping(value = "classStatusUpdate", method = RequestMethod.POST)
+public int classStatusUpdate(Model model, int classNo) {
+	
+	return service.classStatusUpdate(classNo);
+}
+
+// 클래스 상태 업데이트(복구) Controller
+@ResponseBody
+@RequestMapping(value = "classStatusUpdate2", method = RequestMethod.POST)
+public int classStatusUpdate2(Model model, int classNo) {
+	
+	return service.classStatusUpdate2(classNo);
 }
 
 // 공지사항목록조회 Controller

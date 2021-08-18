@@ -3,6 +3,7 @@ package edu.kh.bubby.admin.model.service;
 import java.util.List;
 
 import edu.kh.bubby.admin.model.vo.Question;
+import edu.kh.bubby.admin.model.vo.Report;
 import edu.kh.bubby.board.model.vo.NOTIBoard;
 import edu.kh.bubby.member.model.vo.Member;
 
@@ -39,5 +40,11 @@ public interface AdminService {
 	int qnaAnswerUpdate(Question inputQuestion);
 	
 	List<Question> qnaListCheck(Question inputQuestion);
+
+	List<Report> boardReport(Report report);
+
+	int classStatusUpdate(int classNo);
+
+	int classStatusUpdate2(int classNo);
 
 }
