@@ -322,7 +322,7 @@ th {
 													// 인포윈도우로 장소에 대한 설명을 표시합니다
 													var infowindow = new kakao.maps.InfoWindow(
 															{
-																content : '<div style="width:150px;text-align:center;padding:6px 0;">${offList.classArea}</div>'
+																content : '<div style="width:150px;text-align:center;padding:6px 0; id="mapPoint"">${offList.classArea}</div>'
 															});
 													infowindow
 															.open(map, marker);
@@ -525,12 +525,10 @@ th {
 												dataType:"JSON",
 												success:function(dateList){
 													console.log(dateList);
-									
-													
 														var doMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 														//이번 달의 첫째 날,
 														//new를 쓰는 이유 : new를 쓰면 이번달의 로컬 월을 정확하게 받아온다.     
-														//new를 쓰지 않았을때 이번달을 받아오려면 +1을 해줘야한다. 
+														//new를 쓰지 않았을때 이번달을 받아오려면 +1을 해줘야한다.
 														//왜냐면 getMonth()는 0~11을 반환하기 때문
 														var lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 														//이번 달의 마지막 날
@@ -599,8 +597,8 @@ th {
 															$.each(dateList, function(index, item){
 																currentYear = today.getFullYear();
 																currentMonth = today.getMonth() + 1;
-																if(item.reserveDate==(currentYear+"-"+currentMonth+"-"+cell.innerText)){
-																	if(item.reserveDate>date.getFullYear()+"-"+(date.getMonth() + 1)+"-"+date.getDate()){
+																if(item.reserveDate==(currentYear+""+currentMonth+""+cell.innerText)){
+																	if(item.reserveDate>date.getFullYear()+""+(date.getMonth() + 1)+""+date.getDate()){
 																		cell.style.border="1px solid black";
 																	}
 																	
@@ -747,7 +745,7 @@ th {
 				"td",
 				function() {
 					let xgx = parseInt($(this).text());
-					let thisDate = currentYear + "-" + currentMonth + "-"
+					let thisDate = currentYear + "" + currentMonth + ""
 							+ xgx;
 
 					console.log(thisDate);
@@ -774,7 +772,7 @@ th {
 										console.log("ese:"+thisDate);
 									}
 								  if(parseInt(thisDate)>parseInt(date.getFullYear()+""+(date.getMonth()+1)+""+date.getDate())){
-									  
+									
 								  
 								  	max = ${offList.reserveLimit}-parseInt(item.count);
 									var reDiv =document.createElement("div");
@@ -795,6 +793,8 @@ th {
 									reDiv.appendChild(reinput);
 									reDiv.appendChild(rebtn);
 									document.getElementById("ReserveView").appendChild(reDiv);
+									
+									$("#reviewAreaStyle").css("display","block");
 								  }
 							  });
 						
@@ -925,6 +925,7 @@ th {
 								reDiv.appendChild(reinput);
 								reDiv.appendChild(rebtn);
 								document.getElementById("ReserveView").appendChild(reDiv);
+								
 						  });
 					
 					
