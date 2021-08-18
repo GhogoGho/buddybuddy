@@ -9,12 +9,13 @@
 	<select id="getPagination" parameterType="_int"
 		resultMap="pg_rm">
 		SELECT COUNT(*) CNT FROM CLASS_PAGE WHERE CLASS_TYPE_NO =
-		#{classType}
+		#{classType} AND CLASS_STATUS = 'Y'
 	</select>
 	<!-- 오프라인 검색 게시글 조회 -->
 	<select id="getSearchPagination" parameterType="OffSearch"
 		resultMap="pg_rm">
 		SELECT COUNT(*) CNT FROM CLASS_PAGE WHERE CLASS_TYPE_NO = #{classType}
+		AND CLASS_STATUS = 'Y'
 
 		<if test="sv != null">
 			AND
@@ -277,7 +278,7 @@
 	</delete>
 	<!-- 게시글 업데이트 -->
 	<update id="updateClass" parameterType="OfflineClass">
-		UPDATE CLASS_PAGE SET CLASS_TITLE= #{classTitle},CLASS_CONTENT = #{classContent} WHERE CLASS_NO = #{classNo}
+		UPDATE CLASS_PAGE SET CLASS_TITLE= #{classTitle},CLASS_CONTENT = #{classContent},CLASS_PRICE =#{classPrice} WHERE CLASS_NO = #{classNo} AND CLASS_STATUS= 'Y'
 	</update>
 	<!-- 예약글 번호 조회 -->
 	<select id="selectReserveNo" parameterType="OfflineClass" resultMap="offMain_rm">
@@ -319,4 +320,8 @@ AND   (SELECT COUNT(*) FROM REVIEW
 	<select id="selectpay" parameterType="OfflineClass" resultMap="offMain_rm">
 		SELECT COUNT(*) XXX FROM PAYMENT WHERE CLASS_NO=#{classNo} AND MEMBER_NO = #{memberNo} AND PAYMENT_STATUS='Y'
 	</select>
+	
+	<update id="upup" parameterType="offlineClass">
+		UPDATE RESERVE SET RESERVE_LIMIT = #{reserveLimit},CLASS_AREA = #{classArea}, CLASS_LEVEL=#{classLevel} where CLASS_NO= #{classNo}
+	</update>
 </mapper>

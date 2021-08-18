@@ -222,6 +222,7 @@ public class OfflineServiceImpl implements OfflineService{
 				int result = dao.updateClass(offlineClass);
 				if(result>0) {
 					if(deleteReserve!=null) {
+						int xxx = dao.upup(offlineClass);
 						for(int i=0; i<deleteReserve.size();i++) {
 							String[] delete = deleteReserve.get(i).toString().split(" ");
 							
