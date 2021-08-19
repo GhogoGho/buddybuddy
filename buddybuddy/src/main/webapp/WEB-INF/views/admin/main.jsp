@@ -195,19 +195,19 @@
 								<i class="fas fa-chart-area me-1"></i> 일일 방문자 수 통계
 							</div>
 							<div class="card-body">
-								<canvas id="myAreaChart" width="100%" height="20"></canvas>
+								<canvas id="myAreaChart" width="100%" height="35"></canvas>
 							</div>
 						</div>
 					</div>
 
-					<div class="row">
+					<!-- <div class="row">
 						<div class="card mb-4">
 							<div class="card-header">
 								<i class="fas fa-calendar me-1"></i> Calendar
 							</div>
 							<div id="calendar"></div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</main>
 		</div>
@@ -215,13 +215,15 @@
 	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="${contextPath}/resources/admin/js/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <%--   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="${contextPath}/resources/admin/assets/demo/chart-area-demo.js"></script>
     <script src="${contextPath}/resources/admin/assets/demo/chart-bar-demo.js"></script>
-    <script src="${contextPath}/resources/admin/js/datatables-simple-demo.js"></script>
+    <script src="${contextPath}/resources/admin/js/datatables-simple-demo.js"></script> --%>
+
 
     <!-- fullcalender -->
-    <link href="${contextPath}/resources/admin/full/lib/main.css" rel='stylesheet' />
+<%--     <link href="${contextPath}/resources/admin/full/lib/main.css" rel='stylesheet' />
     <script src="${contextPath}/resources/admin/full/lib/main.js"></script>
     <script>
 
@@ -233,7 +235,65 @@
             calendar.render();
         });
 
-    </script>
+    </script> --%>
+
+	<script>
+		var ctx = document.getElementById('myAreaChart').getContext('2d');
+		var chart = new Chart(ctx, { // The type of chart we want to create 
+			type : 'bar',
+			// The data for our dataset 
+			data : {
+				labels : [ '14일', '15일', '16일', '17일', '18일', '19일' ],
+				datasets : [ {
+					label : '2021년 8월',
+					backgroundColor : [ 
+							'rgba(255, 99, 132, 0.5)',
+							'rgba(54, 162, 235, 0.5)',
+							'rgba(255, 206, 86, 0.5)',
+							'rgba(75, 192, 192, 0.5)',
+							'rgba(153, 102, 255, 0.5)',
+							'rgba(255, 159, 64, 0.5)' ],
+					borderColor : [ 
+							'rgb(255, 99, 132,1.5)',
+							'rgba(54, 162, 235, 1.5)',
+							'rgba(255, 206, 86, 1.5)',
+							'rgba(75, 192, 192, 1.5)',
+							'rgba(153, 102, 255, 1.5)',
+							'rgba(255, 159, 64, 1.5)' ],
+					data : [ 3, 21, 47, 32, 87, 23 ]
+				} ]
+			}, // Configuration options go here 
+			options : {
+				title : {
+					display : true,
+					text : 'Buddy Buddy',
+					fontSize : 30,
+					fontColor : 'rgba(46, 49, 49, 1)'
+				},
+				legend : {
+					labels : {
+						fontColor : 'rgba(83, 51, 237, 1)',
+						fontSize : 15
+					}
+				},
+				scales : {
+					xAxes : [ {
+						ticks : {
+							fontColor : 'rgba(27, 163, 156, 1)',
+							fontSize : '15'
+						}
+					} ],
+					yAxes : [ {
+						ticks : {
+							beginAtZero : true,
+							fontColor : 'rgba(246, 36, 89, 1)',
+							fontSize : '15'
+						}
+					} ]
+				}
+			}
+		});
+	</script>
 
 
 

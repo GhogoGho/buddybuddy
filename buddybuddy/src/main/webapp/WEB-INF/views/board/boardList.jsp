@@ -47,8 +47,6 @@
 	padding: 10px
 }
 
-
-
 .pagination {
 	justify-content: center;
 }
@@ -60,9 +58,6 @@
 #searchForm>* {
 	top: 0;
 }
-
-
-
 
 </style>
 
@@ -77,7 +72,6 @@
 					<thead>
 						<tr>
 							<th>글번호</th>
-							<!-- <th>카테고리</th> -->
 							<th>제목</th>
 							<th>작성자</th>
 							<th>조회수</th>
@@ -205,7 +199,7 @@
 			<c:if test="${!empty loginMember && loginMember.memberGrade == 'A'}">
 				<%-- <button type="button" class="btn btn-primary float-right" id="insertBtn"
 				 onclick="location.href='../board2/insertForm?type=${pagination.boardType}';">글쓰기</button> --%>
-				<a  class="btn btn-primary float-right" id="insertBtn" href='insert'>글쓰기</a>
+				<a class="btn btn-primary float-right" id="insertBtn" href='insert'>글쓰기</a>
 			</c:if>
 			
 			
